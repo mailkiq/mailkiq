@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 class="title">
+      Existing fields
+      <%= link_to 'New Custom Field', new_list_custom_field_path(@list), class: 'btn btn-default pull-right' %>
+    </h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Field Name</th>
+          <th>Personalization Tag</th>
+          <th>Data Type</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @custom_fields.each do |custom_field| %>
+          <tr>
+            <td><%= custom_field.field_name %></td>
+            <td>[<%= custom_field.key %>]</td>
+            <td><%= custom_field.data_type %></td>
+            <td>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

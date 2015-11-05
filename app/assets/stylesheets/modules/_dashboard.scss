@@ -1,0 +1,26 @@
+.title {
+  margin-bottom: 30px;
+}
+
+.subtitle {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.sending-limits {
+  font-weight: bold;
+  color: #424242;
+
+  .progress {
+    margin-bottom: 10px;
+  }
+
+  .progress + p {
+    margin-bottom: 0;
+  }
+
+  .stat {
+    font-size: 18px;
+    color: $brand-info;
+  }
+}

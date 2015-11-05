@@ -1,0 +1,17 @@
+<nav class="navbar navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to image_tag('logo.png'), root_path, class: 'navbar-brand' %>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if signed_in? -%>
+        <li><span class="navbar-text">Hi, <%= current_user.name %></span></li>
+        <li><%= link_to t('.sign_out'), sign_out_path, method: :delete %></li>
+      <% else -%>
+        <li><%= link_to t('.sign_up'), sign_up_path %></li>
+        <li><%= link_to t('.login'), sign_in_path %></li>
+      <% end -%>
+    </nav>
+  </div>
+</nav>

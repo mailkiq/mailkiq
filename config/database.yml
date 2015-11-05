@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: root
+  pool: 5
+
+development:
+  <<: *default
+  database: mailkiq_development
+
+test:
+  <<: *default
+  database: mailkiq_test
+  min_messages: notice
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>

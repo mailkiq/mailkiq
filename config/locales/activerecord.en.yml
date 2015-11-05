@@ -1,0 +1,9 @@
+---
+en:
+  activerecord:
+    errors:
+      models:
+        account:
+          invalid_token: 'AWS access key ID provided does not exist.'
+        custom_field:
+          reserved: 'reserved name'

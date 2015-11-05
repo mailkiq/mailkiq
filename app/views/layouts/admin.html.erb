@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= render 'shared/head' %>
+  </head>
+  <body>
+    <% if notice %>
+      <div class="alert alert-info">
+        <div class="container">
+          <%= notice %>
+        </div>
+      </div>
+    <% end %>
+
+    <header class="l-header navbar navbar-default navbar-static-top">
+      <div class="container">
+        <span class="navbar-brand hidden-xs">
+          <%= image_tag 'logo.png', size: '142x29', alt: 'Mailkiq' %>
+        </span>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to t('nav.links.dashboard'), dashboard_path %></li>
+          <li><%= link_to t('nav.links.campaigns'), campaigns_path %></li>
+          <li><%= link_to t('nav.links.templates'), campaigns_path %></li>
+          <li><%= link_to t('nav.links.lists'), lists_path %></li>
+          <li><%= link_to t('nav.links.reports'), campaigns_path %></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-cog hidden-xs"></span>
+              <span class="visible-xs">Account</span>
+            </a>
+
+            <ul class="dropdown-menu">
+              <li><%= link_to t('nav.links.settings'), profile_settings_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to t('nav.links.sign_out'), sign_out_path, method: :delete %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

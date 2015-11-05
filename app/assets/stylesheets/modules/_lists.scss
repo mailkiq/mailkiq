@@ -1,0 +1,40 @@
+.lists {
+  a {
+    color: #000;
+  }
+
+  .glyphicon-trash {
+    margin-left: 15px;
+  }
+}
+
+.list-options {
+  padding-left: 30px;
+  margin-top: 133px;
+}
+
+.list-messages {
+  border: 1px solid $nav-tabs-border-color;
+  border-top: none;
+  border-bottom-left-radius: $border-radius-base;
+  border-bottom-right-radius: $border-radius-base;
+  margin-bottom: 20px;
+
+  .tab-pane {
+    padding: 20px;
+  }
+}
+
+@media (max-width: $screen-md) {
+  .list-options {
+    padding-left: 0;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .list-messages {
+    border-top: 1px solid $nav-tabs-border-color;
+    border-radius: $border-radius-base;
+  }
+}

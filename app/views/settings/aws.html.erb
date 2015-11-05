@@ -1,0 +1,19 @@
+<% title t('.title') %>
+
+<div class="row">
+  <%= render 'settings/navigation' %>
+
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">Amazon Web Services Credentials</div>
+      <div class="panel-body row">
+        <%= simple_form_for current_user, url: aws_settings_path, html: { method: :put, class: 'col-md-8' } do |f| %>
+          <%= f.input :aws_access_key_id %>
+          <%= f.input :aws_secret_access_key %>
+          <%= f.input :aws_region, collection: Account::REGIONS.map(&:to_sym) %>
+          <%= f.button :submit, t('helpers.submit.credentials.update'), class: 'btn-success' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

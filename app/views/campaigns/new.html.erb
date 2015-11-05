@@ -1,0 +1,26 @@
+<% title t('.title') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="title"><%= t('.title') %></h3>
+  </div>
+
+  <%= simple_form_for @campaign do |f| %>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= f.input :name %>
+          <%= f.input :subject %>
+          <%= f.input :from_name %>
+          <%= f.input :from_email %>
+          <%= f.input :reply_to %>
+          <%= f.button :submit, class: 'btn btn-success btn-block' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <%= f.input :html_text, label: false %>
+    </div>
+  <% end %>
+</div>

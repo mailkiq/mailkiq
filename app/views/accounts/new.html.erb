@@ -1,0 +1,16 @@
+<% title t('.page_title') %>
+
+<div class="l-container-minimal">
+  <h1><%= t('.title') %></h1>
+  <h4><%= t('.description') %></h4>
+
+  <%= simple_form_for @account, url: sign_up_path do |f| %>
+    <%= f.input :name %>
+    <%= f.input :email, as: :email %>
+    <%= f.input :password %>
+    <%= f.input :aws_access_key_id %>
+    <%= f.input :aws_secret_access_key %>
+    <%= f.hint t('.access_keys') %>
+    <%= f.button :submit, class: 'btn-success' %>
+  <% end %>
+</div>

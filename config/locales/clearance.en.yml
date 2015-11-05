@@ -1,0 +1,63 @@
+---
+en:
+  clearance_mailer:
+    change_password:
+      closing: If you didn't request this, ignore this email. Your password has
+        not been changed.
+      link_text: Change my password
+      opening: "Someone, hopefully you, requested we send you a link to change
+        your password:"
+  flashes:
+    failure_after_create: Bad email or password.
+    failure_after_update: Password can't be blank.
+    failure_when_forbidden: Please double check the URL or try submitting
+      the form again.
+  helpers:
+    label:
+      password:
+        email: Email address
+      password_reset:
+        password: Choose password
+    submit:
+      password:
+        submit: Send reset email
+      password_reset:
+        submit: Save this password
+      session:
+        submit: Sign in
+      account:
+        create: Create your account
+        update: Update
+      credentials:
+        update: Update
+  layouts:
+    application:
+      login: Sign in
+      logout: Sign out
+  passwords:
+    create:
+      description: You will receive an email within the next few minutes. It
+        contains instructions for changing your password.
+    edit:
+      description: Your password has been reset. Choose a new password below.
+      title: Change your password
+    new:
+      description: To be emailed a link to reset your password, please enter
+        your email address.
+      title: Reset your password
+  sessions:
+    form:
+      forgot_password: Forgot password?
+      signup: Sign Up
+    new:
+      title: Login to Mailkiq
+  accounts:
+    new:
+      page_title: Create Your Account
+      description: Send newsletters, 100x cheaper.
+      title: Join Mailkiq
+      access_keys: |
+        Access keys consist of an access key ID and secret access key, which are
+        used to sign programmatic requests that you make to AWS. If you don't
+        have access keys, you can create them by using the AWS Management
+        Console.

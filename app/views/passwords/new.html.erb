@@ -1,0 +1,11 @@
+<% title t('.title') %>
+
+<div class="l-container-minimal">
+  <h2><%= t('.title') %></h2>
+  <p><%= t('.description') %></p>
+
+  <%= simple_form_for :password, url: passwords_path do |f| %>
+    <%= f.input :email, label: false %>
+    <%= f.button :submit, class: 'btn-success' %>
+  <% end %>
+</div>

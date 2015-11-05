@@ -1,0 +1,29 @@
+<% title t('.title') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="title"><%= t('.title') %> <%= link_to 'Create new campaign', new_campaign_path, class: 'btn btn-default pull-right' %></h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Campaign</th>
+          <th>Recipients</th>
+          <th>Sent</th>
+          <th>Unique Opens</th>
+          <th>Unique Clicks</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @campaigns.any? %>
+
+        <% else %>
+          <tr>
+            <td colspan="6">There are no campaigns yet. Send one!</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

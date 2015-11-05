@@ -1,0 +1,58 @@
+---
+en:
+  actions:
+    confirm: Are you sure?
+  nav:
+    links:
+      dashboard: Dashboard
+      campaigns: Campaigns
+      lists: Lists
+      templates: Templates
+      reports: Reports
+      settings: Settings
+      sign_out: Sign Out
+  home:
+    index:
+      login: Login
+      sign_up: Sign Up
+      sign_out: Sign Out
+  settings:
+    profile:
+      title: Your Profile
+    aws:
+      title: Access Keys
+  dashboard:
+    index:
+      page_title: Dashboard
+      title: Account Overview
+      sending_limits: "%{count} of %{remaining}"
+      send_rate: "%{rate} per second"
+      sandbox: Sandbox Mode
+  campaigns:
+    new:
+      title: Create new campaign
+    index:
+      title: Campaigns
+  lists:
+    index:
+      title: Lists
+      new_list: New List
+      empty: No list yet. Add one!
+    new:
+      title: New List
+    edit:
+      title: Edit List
+      subscription_settings: Subscription Settings
+      subscribe_description: |
+        When users subscribe through the subscribe form, they'll be sent to
+        a generic subscription confirmation page. To redirect users to a page of
+        your preference, enter the link below. If you chose double opt-in, this
+        page will tell them a confirmation email has been sent to them.
+      confirm_description: |
+        If your List Type is double opt-in, users who clicked the confirmation
+        URL will be sent to a generic confirmation page. To redirect users to
+        a page of your preference, enter the link below.
+      unsubscribe_description: |
+        When users unsubscribe from a newsletter, they'll be sent to a generic
+        unsubscription confirmation page. To redirect users to a page of your
+        preference, enter the link below.

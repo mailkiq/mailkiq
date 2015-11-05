@@ -1,0 +1,25 @@
+<% title t('.page_title') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="title">
+      <%= t('.title') %> <%= @quota.sandbox_badge_tag %>
+    </h3>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default sending-limits">
+      <div class="panel-body">
+        <p class="stat">
+          <%= t('.sending_limits', count: @quota.sent_last_hours, remaining: @quota.max_hour_send) %>
+        </p>
+        <div class="progress">
+          <%= @quota.progress_bar_tag %>
+        </div>
+        <p>
+          <%= t('.send_rate', rate: pluralize(@quota.max_send_rate, 'email')) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

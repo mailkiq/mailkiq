@@ -16,14 +16,6 @@ describe CustomField, type: :model do
       .with_options null: false, default: false
   end
 
-  describe 'unique validation', vcr: { cassette_name: :valid_credentials } do
-    subject do
-      Fabricate.build :custom_field, list: Fabricate(:list_with_account)
-    end
-
-    it { is_expected.to validate_uniqueness_of(:field_name).scoped_to(:list_id) }
-  end
-
   describe '#set_key' do
     it 'parameterize field name before validation' do
       field = described_class.new field_name: 'Postal Code'

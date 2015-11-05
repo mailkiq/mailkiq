@@ -1,4 +1,5 @@
 Fabricator(:list) do
+  id 1
   name 'Ruby Developers'
 end
 

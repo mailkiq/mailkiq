@@ -11,7 +11,6 @@ gem 'pg'
 
 # Assets
 gem 'bootstrap-sass', '~> 3.3.5'
-gem 'jquery-rails'
 gem 'sass-rails'
 gem 'sprockets-es6'
 gem 'uglifier'

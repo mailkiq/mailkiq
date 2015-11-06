@@ -1,3 +1,7 @@
+body > .alert {
+  margin-bottom: 0;
+}
+
 .help-block {
   font-size: 12px;
   color: $hint-text;
@@ -11,6 +15,17 @@
   font-weight: bold;
 }
 
-body > .alert {
-  margin-bottom: 0;
+.table tr > td:last-child a {
+  color: $gray-dark;
+  &:hover {
+    color: #000;
+  }
+}
+
+.table tr:hover td:last-child a {
+  display: inline-block !important;
+}
+
+.actions .btn {
+  margin-right: 10px;
 }

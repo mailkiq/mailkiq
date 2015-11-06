@@ -6,6 +6,7 @@ module BootstrapHelper
 
   def icon_link_to(path, options = {})
     icon = options.delete(:icon)
+    options[:class] = 'hidden-md hidden-lg'
     link_to tag(:span, class: "glyphicon glyphicon-#{icon}"), path, options
   end
 end

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :passwords, controller: 'clearance/passwords', only: [:create, :new]
   resources :campaigns
   resources :lists do
-    resources :custom_fields, except: [:show]
+    resources :custom_fields, except: [:show, :new]
   end
 
   scope path: '/accounts/:account_id', as: :account do

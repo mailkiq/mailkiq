@@ -2,6 +2,11 @@
 en:
   actions:
     confirm: Are you sure?
+  helpers:
+    submit:
+      custom_field:
+        create: Add custom field
+        update: Save changes
   nav:
     links:
       dashboard: Dashboard
@@ -56,3 +61,8 @@ en:
         When users unsubscribe from a newsletter, they'll be sent to a generic
         unsubscription confirmation page. To redirect users to a page of your
         preference, enter the link below.
+  custom_fields:
+    index:
+      title: Custom fields
+    edit:
+      title: Custom fields

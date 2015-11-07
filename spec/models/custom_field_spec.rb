@@ -11,10 +11,6 @@ describe CustomField, type: :model do
   it { is_expected.to belong_to :list }
   it { is_expected.to have_db_index :list_id }
   it { is_expected.to have_db_index([:field_name, :list_id]).unique }
-  it do
-    is_expected.to have_db_column(:hidden).of_type(:boolean)
-      .with_options null: false, default: false
-  end
 
   describe '#set_key' do
     it 'parameterize field name before validation' do

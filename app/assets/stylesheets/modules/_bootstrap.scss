@@ -15,17 +15,21 @@ body > .alert {
   font-weight: bold;
 }
 
-.table tr > td:last-child a {
-  color: $gray-dark;
-  &:hover {
-    color: #000;
-  }
-}
-
-.table tr:hover td:last-child a {
-  display: inline-block !important;
-}
-
 .actions .btn {
   margin-right: 10px;
+}
+
+.table {
+  tr > td:last-child > a {
+    color: $gray-dark;
+    margin-left: 15px;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  tr:hover > td:last-child a {
+    display: inline-block !important;
+  }
 }

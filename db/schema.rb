@@ -52,13 +52,12 @@ ActiveRecord::Schema.define(version: 20151103162605) do
   add_index "campaigns", ["list_id"], name: "index_campaigns_on_list_id", using: :btree
 
   create_table "custom_fields", force: :cascade do |t|
-    t.string   "key",                        null: false
-    t.integer  "data_type",  default: 0,     null: false
-    t.string   "field_name",                 null: false
-    t.boolean  "hidden",     default: false, null: false
-    t.integer  "list_id",                    null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "key",                    null: false
+    t.integer  "data_type",  default: 0, null: false
+    t.string   "field_name",             null: false
+    t.integer  "list_id",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "custom_fields", ["field_name", "list_id"], name: "index_custom_fields_on_field_name_and_list_id", unique: true, using: :btree

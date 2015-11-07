@@ -7,13 +7,10 @@
     <%= render 'custom_fields/table' %>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Add a new field</div>
+      <div class="panel-heading">Edit field</div>
       <div class="panel-body">
         <%= simple_form_for [@list, @custom_field], html: { class: 'row' } do |f| %>
           <%= f.input :field_name, wrapper_html: { class: 'col-md-5' }  %>
-          <%= f.input :data_type, as: :select, wrapper_html: { class: 'col-md-3' },
-            include_blank: false, collection: CustomField.data_types.keys.map(&:to_sym) %>
-
           <div class="col-md-12 actions">
             <%= f.button :submit, class: 'btn-success' %> or <%= link_to 'go back', list_path(@list) %>
           </div>

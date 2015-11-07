@@ -14,7 +14,7 @@ describe SettingsController, type: :controller do
       sign_in_as account
     end
 
-    describe 'PUT /profile' do
+    describe 'PUT /settings/profile' do
       before { put :profile, account_params }
 
       it { is_expected.to use_before_action :require_login }
@@ -25,7 +25,7 @@ describe SettingsController, type: :controller do
       it { is_expected.not_to permit_params(aws_params) }
     end
 
-    describe 'PUT /aws' do
+    describe 'PUT /settings/aws' do
       before { put :aws, account_params }
 
       it { is_expected.to use_before_action :require_login }

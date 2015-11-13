@@ -7,6 +7,8 @@ en:
       custom_field:
         create: Add custom field
         update: Save changes
+      import:
+        create: Import these subscribers
   nav:
     links:
       dashboard: Dashboard

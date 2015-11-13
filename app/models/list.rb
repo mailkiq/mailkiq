@@ -6,7 +6,13 @@ class List < ActiveRecord::Base
                       with: URI.regexp(%w(http https)), allow_blank: true
 
   belongs_to :account
+  has_many :custom_fields, dependent: :destroy
   has_many :subscriptions, dependent: :delete_all
   has_many :subscribers, through: :subscriptions
-  has_many :custom_fields, dependent: :destroy
+
+  def subscribe!(subscriber)
+    record = subscriptions.find_or_initialize_by subscriber_id: subscriber.id
+    record.status ||= double_optin ? :unconfirmed : :active
+    record.save
+  end
 end

@@ -1,5 +1,5 @@
 class CustomField < ActiveRecord::Base
-  RESERVED_NAMES = /name|email/i
+  RESERVED_NAMES = /^(name|email)$/i
 
   before_validation :set_key, if: :field_name?
   validates :field_name, presence: true, length: { maximum: 30 },
@@ -8,6 +8,10 @@ class CustomField < ActiveRecord::Base
   validate :validate_reserved_names
   enum data_type: [:text, :number, :date]
   belongs_to :list
+
+  def match?(value)
+    /^(#{key}|#{field_name})$/i.match(value)
+  end
 
   private
 

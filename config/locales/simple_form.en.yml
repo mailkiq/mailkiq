@@ -74,6 +74,8 @@ en:
           from all lists in this brand.
         confirmation_subject: A generic subject line will be used if you leave this field empty (only applies for double opt-ins)
         confirmation_message: A generic email message will be used if you leave this field empty (only applies for double opt-ins)
+      import:
+        text: Each subscriber should be on a new line. You can include any extra details such as name and age, and we'll match them up with your custom fields.
     options:
       account:
         language:

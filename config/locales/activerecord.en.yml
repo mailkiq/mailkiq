@@ -7,3 +7,12 @@ en:
           invalid_token: 'AWS access key ID provided does not exist.'
         custom_field:
           reserved: 'reserved name'
+  activemodel:
+    errors:
+      models:
+        import:
+          attributes:
+            base:
+              unknown_column: 'Column <strong>%{name}</strong> is invalid'
+              invalid_email: 'No valid email address specified at line %{lineno}'
+              name_blank: 'Name is missing at line %{lineno}'

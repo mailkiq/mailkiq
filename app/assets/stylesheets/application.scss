@@ -1,6 +1,8 @@
 @import 'modules/variables';
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'redactor';
+
 @import 'modules/mixins';
 @import 'modules/base';
 @import 'modules/layout';
@@ -11,4 +13,4 @@
 @import 'modules/campaigns';
 @import 'modules/lists';
 @import 'modules/custom_fields';
-@import 'redactor';
+@import 'modules/imports';

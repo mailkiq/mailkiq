@@ -23,6 +23,6 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.require(:campaign).permit :name, :subject, :from_name, :from_email,
-      :reply_to, :html_text
+                                     :reply_to, :html_text
   end
 end

@@ -2,23 +2,14 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h2 class="title">Your existing fields</h2>
+    <h2 class="title"><%= t '.title' %></h2>
 
     <%= render 'custom_fields/table' %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Add a new field</div>
-      <div class="panel-body">
-        <%= simple_form_for [@list, @custom_field], html: { class: 'row' } do |f| %>
-          <%= f.input :field_name, wrapper_html: { class: 'col-md-5' }  %>
-          <%= f.input :data_type, as: :select, wrapper_html: { class: 'col-md-3' },
-            include_blank: false, collection: CustomField.data_types.keys.map(&:to_sym) %>
-
-          <div class="col-md-12 actions">
-            <%= f.button :submit, class: 'btn-success' %> or <%= link_to 'go back', list_path(@list) %>
-          </div>
-        <% end %>
-      </div>
-    </div>
+    <%= render layout: 'custom_fields/form', locals: { title: t('.add_field') } do |f| %>
+      <%= f.input :field_name, wrapper_html: { class: 'col-md-5' }  %>
+      <%= f.input :data_type, as: :select, wrapper_html: { class: 'col-md-3' },
+        include_blank: false, collection: CustomField.data_types.keys.map(&:to_sym) %>
+    <% end %>
   </div>
 </div>

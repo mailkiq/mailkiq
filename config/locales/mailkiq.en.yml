@@ -65,6 +65,11 @@ en:
         preference, enter the link below.
   custom_fields:
     index:
-      title: Custom fields
+      title: Your existing fields
+      add_field: Add a new field
     edit:
-      title: Custom fields
+      title: Your existing fields
+      edit_field: Edit field
+  imports:
+    new:
+      title: Add new subscribers

@@ -73,3 +73,11 @@ en:
   imports:
     new:
       title: Add new subscribers
+  templates:
+    index:
+      title: Templates
+      new_template: New Template
+    new:
+      title: Create template
+    edit:
+      title: Edit template

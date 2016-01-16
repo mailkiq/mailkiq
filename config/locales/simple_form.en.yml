@@ -21,6 +21,8 @@ en:
         aws:
           aws_access_key_id: 'Access key ID'
           aws_secret_access_key: 'Secret access key'
+      template:
+        html_text: HTML code
       list:
         name: List name
         double_optin: Double Opt-In

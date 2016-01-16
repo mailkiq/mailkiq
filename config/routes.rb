@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :campaigns
+  resources :templates
   resources :lists do
     resources :custom_fields, except: [:show, :new]
     resources :subscribers, only: [] do
@@ -33,5 +34,6 @@ Rails.application.routes.draw do
   get '/session' => redirect('/login')
   get '/passwords' => redirect('/passwords/new')
   get '/settings' => redirect('/settings/profile')
-  get '/lists/:list_id/subscribers/import' => redirect('/lists/%{list_id}/subscribers/import/new')
+  get '/lists/:list_id/subscribers/import' =>
+    redirect('/lists/%{list_id}/subscribers/import/new')
 end

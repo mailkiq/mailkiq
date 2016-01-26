@@ -11,7 +11,6 @@ describe Account, type: :model do
   it { is_expected.not_to allow_value('asdf.com').for :email }
 
   it { is_expected.to have_db_index(:email).unique }
-  it { is_expected.to have_many(:lists).dependent :destroy }
   it { is_expected.to have_many(:campaigns).dependent :destroy }
   it { is_expected.to have_many(:templates).dependent :destroy }
   it { is_expected.to have_many(:subscribers).dependent :destroy }

@@ -10,7 +10,6 @@ class Account < ActiveRecord::Base
   validates :time_zone, time_zone: true, if: :time_zone?
   validates_with AccessKeysValidator, if: :validate_access_keys?
 
-  has_many :lists, dependent: :destroy
   has_many :campaigns, dependent: :destroy
   has_many :templates, dependent: :destroy
   has_many :subscribers, dependent: :destroy
@@ -24,6 +23,6 @@ class Account < ActiveRecord::Base
   end
 
   def validate_access_keys?
-    send new_record?? :aws_keys? : :aws_keys_changed?
+    send(new_record? ? :aws_keys? : :aws_keys_changed?)
   end
 end

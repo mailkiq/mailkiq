@@ -8,7 +8,6 @@ class CreateCampaigns < ActiveRecord::Migration
       t.string :reply_to
       t.text :plain_text
       t.text :html_text, null: false
-      t.belongs_to :list, null: false, index: true, foreign_key: true
       t.belongs_to :account, null: false, index: true, foreign_key: true
       t.timestamp :send_at, null: false
       t.timestamps null: false

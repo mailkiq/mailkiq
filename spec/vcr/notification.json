@@ -1,0 +1,11 @@
+{
+  "Type" : "Notification",
+  "MessageId" : "c2a6436c-4af5-5781-b79b-0c65945ba1aa",
+  "TopicArn" : "arn:aws:sns:us-east-1:390722072336:ses-complaints-topic",
+  "Message" : "{\"notificationType\":\"Complaint\",\"complaint\":{\"complainedRecipients\":[{\"emailAddress\":\"romecosta@yahoo.com\"}],\"arrivalDate\":\"2016-01-08T15:23:32.000Z\",\"complaintFeedbackType\":\"abuse\",\"userAgent\":\"Yahoo!-Mail-Feedback/1.0\",\"timestamp\":\"2016-01-08T15:57:34.000Z\",\"feedbackId\":\"0000015221f510b7-885a34d0-b620-11e5-a7d7-05b448588654-000000\"},\"mail\":{\"timestamp\":\"2016-01-08T15:23:46.000Z\",\"messageId\":\"0000015221d5e019-4e37bdbd-7f1d-410a-a62c-217bfa5bb0b9-000000\",\"destination\":[\"romecosta@yahoo.com\"],\"sendingAccountId\":\"390722072336\",\"sourceArn\":\"arn:aws:ses:us-east-1:390722072336:identity/naoresponda@votenaweb.com.br\",\"source\":\"naoresponda@votenaweb.com.br\"}}",
+  "Timestamp" : "2016-01-08T15:57:34.956Z",
+  "SignatureVersion" : "1",
+  "Signature" : "hF1uOV482HHd0gjjV0mXZwWGvstHbRlws7JtUXL79T3WBc9/VihomdHvs86KyenreOo4bd0lrha6HtDfGpC/8tzhr1lmIjI/BbCohzuFTmTvPVA67HDl3o3MdcrR68Zmeq8+nO8XTr2Q+rSZYUWKtJgq3adOU7WJ+218W2NoE84FYG+SRkzFZU34NigPpKHlJpD/EOUPyCewJgTg814bEMQQRazpaP9qE/UbvYJDxr/rMI8vHrFkAsfzNm6QIbM+jlGrBA0joeqBnbH4pc3ULY8uuKv1UbG6VyGYAAKLwSu3eSZ8OTD8tGtS7qvN6JwzJaAO2FtXnxBoFO9s4ohhMQ==",
+  "SigningCertURL" : "https://sns.us-east-1.amazonaws.com/SimpleNotificationService-bb750dd426d95ee9390147a5624348ee.pem",
+  "UnsubscribeURL" : "https://sns.us-east-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:390722072336:ses-complaints-topic:479d44a3-127e-42c3-b3ff-f1280c6a928e"
+}

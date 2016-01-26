@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20151103162605) do
     t.string   "reply_to"
     t.text     "plain_text"
     t.text     "html_text",  null: false
-    t.integer  "list_id",    null: false
     t.integer  "account_id", null: false
     t.datetime "send_at",    null: false
     t.datetime "created_at", null: false
@@ -49,7 +48,6 @@ ActiveRecord::Schema.define(version: 20151103162605) do
   end
 
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
-  add_index "campaigns", ["list_id"], name: "index_campaigns_on_list_id", using: :btree
 
   create_table "custom_fields", force: :cascade do |t|
     t.string   "key",                    null: false
@@ -119,10 +117,5 @@ ActiveRecord::Schema.define(version: 20151103162605) do
 
   add_index "templates", ["account_id"], name: "index_templates_on_account_id", using: :btree
 
-  add_foreign_key "campaigns", "accounts"
-  add_foreign_key "custom_fields", "lists"
-  add_foreign_key "lists", "accounts"
-  add_foreign_key "subscribers", "accounts"
   add_foreign_key "subscriptions", "subscribers"
-  add_foreign_key "templates", "accounts"
 end

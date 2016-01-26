@@ -1,7 +1,0 @@
----
-pt-BR:
-  activerecord:
-    errors:
-      models:
-        account:
-          invalid_token: 'Chaves de autenticação inválidas.'

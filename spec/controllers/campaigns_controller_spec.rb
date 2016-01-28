@@ -3,16 +3,24 @@ require 'rails_helper'
 describe CampaignsController, type: :controller do
   context 'when logged in' do
     before do
-      sign_in_as Fabricate.build(:account)
-      get :index
+      @account = Fabricate.build(:account)
+      sign_in_as @account
     end
 
-    describe 'GET /campaigns' do
-      before { get :index }
+    it_behaves_like 'a index request', path: '/campaigns'
 
-      it { is_expected.to use_before_action :require_login }
-      it { is_expected.to respond_with :success }
-      it { is_expected.to render_with_layout 'admin' }
+    it_behaves_like 'a new request', path: '/campaigns/new'
+
+    it_behaves_like 'a create request', path: '/campaigns' do
+      before do
+        allow(@account).to receive_message_chain(:campaigns, :create)
+          .with(params)
+      end
+
+      let(:params) { Fabricate.attributes_for :campaign }
+      let(:permitted_params) do
+        %i(name subject from_name from_email reply_to html_text)
+      end
     end
   end
 end

@@ -11,12 +11,12 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign = current_user.campaigns.new campaign_params
-    if @campaign.save
-      redirect_to campaigns_path
-    else
-      render action: :new
-    end
+    @campaign = current_user.campaigns.create campaign_params
+    respond_with @campaign, location: campaigns_path
+  end
+
+  def edit
+    @campaign = current_user.campaigns.find params[:id]
   end
 
   private

@@ -117,5 +117,6 @@ ActiveRecord::Schema.define(version: 20151103162605) do
 
   add_index "templates", ["account_id"], name: "index_templates_on_account_id", using: :btree
 
+  add_foreign_key "campaigns", "accounts"
   add_foreign_key "subscriptions", "subscribers"
 end

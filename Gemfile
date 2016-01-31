@@ -7,6 +7,7 @@ gem 'clearance'
 gem 'fog-aws'
 gem 'responders'
 gem 'simple_form'
+gem 'puma'
 
 # DB
 gem 'pg'
@@ -15,6 +16,10 @@ gem 'pg'
 gem 'sass-rails'
 gem 'sprockets-es6'
 gem 'uglifier'
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development do
   gem 'guard-migrate'

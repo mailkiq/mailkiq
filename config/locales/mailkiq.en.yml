@@ -4,9 +4,8 @@ en:
     confirm: Are you sure?
   nav:
     links:
-      dashboard: Dashboard
+      sending_statistics: Sending Statistics
       campaigns: Campaigns
-      templates: Templates
       settings: Settings
       sign_out: Sign Out
   home:
@@ -20,8 +19,8 @@ en:
     aws:
       title: Access Keys
   dashboard:
-    index:
-      page_title: Dashboard
+    show:
+      page_title: Sending Statistics
       title: Account Overview
       sending_limits: "%{count} of %{remaining}"
       send_rate: "%{rate} per second"
@@ -31,14 +30,6 @@ en:
       title: Create new campaign
     index:
       title: Campaigns
-  templates:
-    index:
-      title: Templates
-      new_template: New Template
-    new:
-      title: Create template
-    edit:
-      title: Edit template
   subscribers:
     index:
       title: Subscribers

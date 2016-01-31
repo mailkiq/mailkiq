@@ -119,4 +119,5 @@ ActiveRecord::Schema.define(version: 20151103162605) do
 
   add_foreign_key "campaigns", "accounts"
   add_foreign_key "subscriptions", "subscribers"
+  add_foreign_key "templates", "accounts"
 end

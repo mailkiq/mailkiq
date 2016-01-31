@@ -11,7 +11,6 @@ class Account < ActiveRecord::Base
   validates_with AccessKeysValidator, if: :validate_access_keys?
 
   has_many :campaigns, dependent: :destroy
-  has_many :templates, dependent: :destroy
   has_many :subscribers, dependent: :destroy
 
   def aws_keys?

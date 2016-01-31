@@ -31,7 +31,6 @@ Rails.application.routes.draw do
 
   resources :bounces, only: [:create]
   resources :campaigns
-  resources :templates
   resources :subscribers
 
   # ux improvements

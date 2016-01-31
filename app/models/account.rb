@@ -25,4 +25,8 @@ class Account < ActiveRecord::Base
   def validate_access_keys?
     send(new_record? ? :aws_keys? : :aws_keys_changed?)
   end
+
+  def admin?
+    email == 'rainerborene@gmail.com'
+  end
 end

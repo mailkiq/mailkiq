@@ -4,7 +4,7 @@
   <h1><%= t('.title') %></h1>
   <h4><%= t('.description') %></h4>
 
-  <%= simple_form_for @account, url: sign_up_path do |f| %>
+  <%= simple_form_for @account do |f| %>
     <%= f.input :name %>
     <%= f.input :email, as: :email %>
     <%= f.input :password %>

@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.3.0'
+
 gem 'rails', '4.2.5'
 gem 'clearance'
 gem 'fog-aws'
@@ -10,7 +12,6 @@ gem 'simple_form'
 gem 'pg'
 
 # Assets
-gem 'bootstrap-sass', '~> 3.3.5'
 gem 'sass-rails'
 gem 'sprockets-es6'
 gem 'uglifier'

@@ -3,8 +3,8 @@
 //= require jquery/dist/jquery
 //= require jquery-ujs/src/rails
 //= require redactor
-//= require bootstrap/dropdown
-//= require bootstrap/tab
+//= require bootstrap-sass/assets/javascripts/bootstrap/dropdown
+//= require bootstrap-sass/assets/javascripts/bootstrap/tab
 //= require_tree ./components
 //= require_self
 

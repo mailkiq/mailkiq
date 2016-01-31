@@ -1,7 +1,4 @@
-class SubscribersController < ApplicationController
-  before_action :require_login
-  layout 'admin'
-
+class SubscribersController < AdminController
   def index
     @subscribers = current_user.subscribers
   end

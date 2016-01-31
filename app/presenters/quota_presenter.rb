@@ -1,8 +1,9 @@
-class QuotaPresenter < Struct.new(:account, :view_context)
+QuotaPresenter = Struct.new(:account, :view_context) do
   delegate :t, :content_tag, to: :view_context
 
   def ses
-    @ses ||= Fog::AWS::SES.new account.slice(:aws_access_key_id, :aws_secret_access_key)
+    @ses ||= Fog::AWS::SES.new account.slice(:aws_access_key_id,
+                                             :aws_secret_access_key)
   end
 
   def send_quota
@@ -26,12 +27,12 @@ class QuotaPresenter < Struct.new(:account, :view_context)
   end
 
   def sandbox_badge_tag
-    content_tag :span, t('dashboard.index.sandbox'), class: 'label label-default' if sandbox?
+    content_tag :span, t('dashboard.show.sandbox'), class: 'label label-default'
   end
 
   def progress_bar_tag
     percentage = sent_last_hours * 100 / max_hour_send
     content_tag :div, nil, style: "width: #{percentage}%",
-      class: 'progress-bar progress-bar-info'
+                           class: 'progress-bar progress-bar-info'
   end
 end

@@ -1,7 +1,4 @@
-class CampaignsController < ApplicationController
-  before_action :require_login
-  layout 'admin'
-
+class CampaignsController < AdminController
   def index
     @campaigns = current_user.campaigns
   end

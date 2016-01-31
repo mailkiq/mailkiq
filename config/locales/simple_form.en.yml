@@ -21,29 +21,6 @@ en:
         aws:
           aws_access_key_id: 'Access key ID'
           aws_secret_access_key: 'Secret access key'
-      template:
-        html_text: HTML code
-      list:
-        name: List name
-        double_optin: Double Opt-In
-        subscribed_url: Subscribe success page
-        confirm_url: Subscription confirmed page
-        unsubscribed_url: Unsubscribe confirmation page
-        thankyou: |
-          Send user a thank you email after they subscribe through the subscribe
-          form or API.
-        thankyou_subject: Thank you email subject
-        thankyou_message: Thank you email message
-        confirmation_subject: Confirmation email subject
-        confirmation_message: Double Opt-In confirmation message
-        goodbye: |
-          Send user a confirmation email after they unsubscribe from
-          a newsletter or through the API.
-        goodbye_subject: Goodbye email subject
-        goodbye_message: Goodbye email message
-      custom_field:
-        field_name: Field Name
-        data_type: Data Type
     placeholders:
       account:
         name: 'Annie Terry'
@@ -51,33 +28,11 @@ en:
         password: 'Enter a password'
       password:
         email: 'annie@west.com'
-      list:
-        subscribed_url: 'http://'
-        unsubscribed_url: 'http://'
-        confirm_url: 'http://'
     hints:
       account:
-        aws_region: |
-          Please select the same region as what's set in your Amazon SES console
-          in the region selection drop down menu at the top right.
+        aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."
         profile:
           password: "Leave password blank if don't want to change it."
-      campaign:
-        name: This will be displayed in your campaigns list and reports.
-      list:
-        double_optin: |
-          If you select double opt-in, users will be required to click a link in
-          a confirmation email they'll receive when they sign up via the
-          subscribe form or API.
-        confirm_url: (only applies for double opt-ins)
-        unsubscribe_all_list: |
-          When a user unsubscribes from a newsletter or through the API, choose
-          whether to unsubscribe them from this list only, or unsubscribe them
-          from all lists in this brand.
-        confirmation_subject: A generic subject line will be used if you leave this field empty (only applies for double opt-ins)
-        confirmation_message: A generic email message will be used if you leave this field empty (only applies for double opt-ins)
-      import:
-        text: Each subscriber should be on a new line. You can include any extra details such as name and age, and we'll match them up with your custom fields.
     options:
       account:
         language:
@@ -87,8 +42,3 @@ en:
           us-east-1: 'US East (N. Virginia)'
           us-west-2: 'US West (Oregon)'
           eu-west-1: 'EU (Ireland)'
-      custom_field:
-        data_type:
-          text: 'Text'
-          number: 'Number'
-          date: 'Date'

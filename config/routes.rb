@@ -1,5 +1,9 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   root to: 'home#index'
+
+  mount Sidekiq::Web => '/sidekiq'
 
   get '/login', to: 'clearance/sessions#new', as: :sign_in
   get '/signup', to: 'accounts#new', as: :sign_up

@@ -5,9 +5,11 @@ ruby '2.3.0'
 gem 'rails', '4.2.5'
 gem 'clearance'
 gem 'fog-aws'
-gem 'responders'
-gem 'simple_form'
 gem 'puma'
+gem 'responders'
+gem 'sidekiq'
+gem 'simple_form'
+gem 'sinatra', require: false
 
 # DB
 gem 'pg'

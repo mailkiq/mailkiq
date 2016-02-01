@@ -5,6 +5,7 @@ ruby '2.3.0'
 gem 'rails', '4.2.5'
 gem 'clearance'
 gem 'fog-aws'
+gem 'jwt', require: false
 gem 'puma'
 gem 'responders'
 gem 'sentry-raven'

@@ -1,5 +1,3 @@
-require 'fog/aws/ses'
-
 module SES
   class Base
     attr_reader :settings

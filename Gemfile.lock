@@ -107,6 +107,7 @@ GEM
     i18n (0.7.0)
     ipaddress (0.8.2)
     json (1.8.3)
+    jwt (1.5.2)
     listen (3.0.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -261,6 +262,7 @@ DEPENDENCIES
   fog-aws
   guard-migrate
   guard-rspec
+  jwt
   pg
   pry-byebug
   puma

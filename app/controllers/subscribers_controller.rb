@@ -1,4 +1,6 @@
 class SubscribersController < AdminController
+  respond_to :html, :json
+
   def index
     @subscribers = current_user.subscribers
   end

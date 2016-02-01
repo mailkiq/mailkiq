@@ -7,6 +7,7 @@ gem 'clearance'
 gem 'fog-aws'
 gem 'puma'
 gem 'responders'
+gem 'sentry-raven'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', require: false

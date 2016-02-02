@@ -10,5 +10,11 @@ module SES
     def bounced_recipients=(json)
       attributes[:bounced_recipients] = SES::BouncedRecipients.new.load(json)
     end
+
+    def as_json
+      json = attributes.dup
+      json[:bounced_recipients] = bounced_recipients.map(&:email)
+      json
+    end
   end
 end

@@ -11,4 +11,6 @@ module SES
   autoload :Complaint,             'ses/complaint'
   autoload :ComplaintNotification, 'ses/complaint_notification'
   autoload :Mail,                  'ses/mail'
+  autoload :Delivery,              'ses/delivery'
+  autoload :DeliveryNotification,  'ses/delivery_notification'
 end

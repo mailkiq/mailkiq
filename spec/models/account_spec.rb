@@ -17,6 +17,7 @@ describe Account, type: :model do
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_many(:campaigns).dependent :destroy }
   it { is_expected.to have_many(:subscribers).dependent :destroy }
+  it { is_expected.to have_many(:notifications).dependent :destroy }
 
   context 'invalid credentials', vcr: { cassette_name: :invalid_token } do
     it 'append error message to AWS Access key ID attribute' do

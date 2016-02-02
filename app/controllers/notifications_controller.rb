@@ -3,32 +3,39 @@ require 'sns'
 
 class NotificationsController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  # before_action :require_token
+  before_action :find_account
 
   def create
-    data = AuthToken.decode params.require(:token)
-    account = Account.find data[:user_id]
+    # TODO: Validate X-Amz-Sns-Message-Type header.
+    # TODO: Validate X-Amz-Sns-Topic-Arn header.
+    # TODO: measure all the things!
+    # TODO: move to a background process
 
-    json = JSON.parse(request.body.read)
-    notification = SNS::Notification.new json
+    # Verify the authenticity of messages.
+    @message_body = request.body.read
+    @verifier = SNS::MessageVerifier.new
+    @verifier.authenticate! @message_body
 
-    Raven.extra_context notification: json
+    # Parse message
+    @json = JSON.parse(@message_body)
+    @notification = SNS::Notification.new @json
 
-    fail 'blah'
+    # Automatic subscription confirmation.
+    if @notification.subscription_confirmation?
+      sns = Fog::AWS::SNS.new(@account.credentials)
+      sns.confirm_subscription @notification.topic_arn, @notification.token
+    else
+      @account.notifications.create! message: @notification.message.as_json
+    end
 
-    # 2 - subscribe automático do SNS
-    # if notification.subscription_confirmation?
-    #   3 - Measure how many confirmations today.
-    #   Excon.get(notification.subscribe_url)
-    # else
-    #   # 3 - store event on database.
-    # end
-
-    # head :ok
+    head :ok
   end
 
-  # 1 - authenticate
-  # def require_token
-  #   sign_in_as account
-  # end
+  private
+
+  def find_account
+    @decoded_token = AuthToken.decode params.require(:token)
+    @account = Account.find @decoded_token.fetch(:account_id)
+    Raven.user_context @account.slice(:id, :name, :email)
+  end
 end

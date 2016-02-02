@@ -12,6 +12,7 @@ class Account < ActiveRecord::Base
 
   has_many :campaigns, dependent: :destroy
   has_many :subscribers, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   def aws_keys?
     aws_access_key_id? && aws_secret_access_key?
@@ -23,6 +24,10 @@ class Account < ActiveRecord::Base
 
   def validate_access_keys?
     send(new_record? ? :aws_keys? : :aws_keys_changed?)
+  end
+
+  def credentials
+    slice :aws_access_key_id, :aws_secret_access_key
   end
 
   def admin?

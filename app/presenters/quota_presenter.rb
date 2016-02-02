@@ -2,8 +2,7 @@ QuotaPresenter = Struct.new(:account, :view_context) do
   delegate :t, :content_tag, to: :view_context
 
   def ses
-    @ses ||= Fog::AWS::SES.new account.slice(:aws_access_key_id,
-                                             :aws_secret_access_key)
+    @ses ||= Fog::AWS::SES.new account.credentials
   end
 
   def send_quota

@@ -11,5 +11,13 @@ module SES
     def mail=(json)
       attributes[:mail] = SES::Mail.new(json)
     end
+
+    def as_json
+      {
+        type: type,
+        bounce: bounce.as_json,
+        mail: mail.attributes
+      }
+    end
   end
 end

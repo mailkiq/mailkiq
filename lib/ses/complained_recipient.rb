@@ -1,5 +1,5 @@
 module SES
   class ComplainedRecipient < Fog::Model
-    attribute :email, aliases: 'emailAddress'
+    identity :email, aliases: 'emailAddress'
   end
 end

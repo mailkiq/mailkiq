@@ -11,5 +11,13 @@ module SES
     def mail=(json)
       attributes[:mail] = SES::Mail.new(json)
     end
+
+    def as_json(_options = {})
+      {
+        type: type,
+        complaint: complaint.as_json,
+        mail: mail.attributes
+      }
+    end
   end
 end

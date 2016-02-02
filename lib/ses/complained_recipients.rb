@@ -1,5 +1,5 @@
 module SES
   class ComplainedRecipients < Fog::Collection
-    model SES::ComplainedRecipient
+    model ComplainedRecipient
   end
 end

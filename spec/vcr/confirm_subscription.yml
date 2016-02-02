@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sns.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ConfirmSubscription&Token=2336412f37fb687f5d51e6e241d44a2cb691d3e87f0ef07c60251949910f6afcd958901bf64300e8a8f70120732970855d2f3590385ef21144a7df2570b15358a3f7cdbfdd3b29b48cfaa09c5d3c0b35e29245b28ed6b976ae26b78a85a2def5160bb9e8c3f1e4ec707e328c7fa22d4f71e45c272cc44b4bd442b90843027332&TopicArn=arn%3Aaws%3Asns%3Aus-east-1%3A390722072336%3Ases-bounces-topic
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      x-amz-date:
+      - 20160201T180244Z
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160201/us-east-1/sns/aws4_request,
+        SignedHeaders=content-type;host;x-amz-date, Signature=48c41a40ccf102ab5c9f98f0fcca5e944916f7d0f0c67d709f15918bfb7ad464
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - 1083f2bb-d2d1-50d6-bbb6-bd9272d5b61b
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '407'
+      Date:
+      - Mon, 01 Feb 2016 18:02:44 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ConfirmSubscriptionResponse xmlns="http://sns.amazonaws.com/doc/2010-03-31/">
+          <ConfirmSubscriptionResult>
+            <SubscriptionArn>arn:aws:sns:us-east-1:390722072336:ses-bounces-topic:90a0e1ec-0e91-44f4-8155-9d7147df4995</SubscriptionArn>
+          </ConfirmSubscriptionResult>
+          <ResponseMetadata>
+            <RequestId>1083f2bb-d2d1-50d6-bbb6-bd9272d5b61b</RequestId>
+          </ResponseMetadata>
+        </ConfirmSubscriptionResponse>
+    http_version: 
+  recorded_at: Mon, 01 Feb 2016 18:02:45 GMT
+recorded_with: VCR 3.0.1

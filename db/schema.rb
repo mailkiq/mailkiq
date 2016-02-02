@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103162605) do
+ActiveRecord::Schema.define(version: 20160202125621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,39 +49,14 @@ ActiveRecord::Schema.define(version: 20151103162605) do
 
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
 
-  create_table "custom_fields", force: :cascade do |t|
-    t.string   "key",                    null: false
-    t.integer  "data_type",  default: 0, null: false
-    t.string   "field_name",             null: false
-    t.integer  "list_id",                null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "notifications", force: :cascade do |t|
+    t.jsonb    "message",    null: false
+    t.integer  "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "custom_fields", ["field_name", "list_id"], name: "index_custom_fields_on_field_name_and_list_id", unique: true, using: :btree
-  add_index "custom_fields", ["list_id"], name: "index_custom_fields_on_list_id", using: :btree
-
-  create_table "lists", force: :cascade do |t|
-    t.string   "name",                                 null: false
-    t.boolean  "double_optin",         default: false, null: false
-    t.string   "confirm_url"
-    t.string   "subscribed_url"
-    t.string   "unsubscribed_url"
-    t.boolean  "thankyou",             default: false, null: false
-    t.string   "thankyou_subject"
-    t.text     "thankyou_message"
-    t.boolean  "goodbye",              default: false, null: false
-    t.string   "goodbye_subject"
-    t.text     "goodbye_message"
-    t.string   "confirmation_subject"
-    t.text     "confirmation_message"
-    t.boolean  "unsubscribe_all_list", default: true,  null: false
-    t.integer  "account_id",                           null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-  end
-
-  add_index "lists", ["account_id"], name: "index_lists_on_account_id", using: :btree
+  add_index "notifications", ["account_id"], name: "index_notifications_on_account_id", using: :btree
 
   create_table "subscribers", force: :cascade do |t|
     t.string   "name",                       null: false
@@ -96,28 +71,7 @@ ActiveRecord::Schema.define(version: 20151103162605) do
   add_index "subscribers", ["account_id"], name: "index_subscribers_on_account_id", using: :btree
   add_index "subscribers", ["custom_fields"], name: "index_subscribers_on_custom_fields", using: :gin
 
-  create_table "subscriptions", force: :cascade do |t|
-    t.integer  "status",        null: false
-    t.integer  "list_id",       null: false
-    t.integer  "subscriber_id", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "subscriptions", ["list_id"], name: "index_subscriptions_on_list_id", using: :btree
-  add_index "subscriptions", ["subscriber_id"], name: "index_subscriptions_on_subscriber_id", using: :btree
-
-  create_table "templates", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.text     "html_text",  null: false
-    t.integer  "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "templates", ["account_id"], name: "index_templates_on_account_id", using: :btree
-
   add_foreign_key "campaigns", "accounts"
-  add_foreign_key "subscriptions", "subscribers"
-  add_foreign_key "templates", "accounts"
+  add_foreign_key "notifications", "accounts"
+  add_foreign_key "subscribers", "accounts"
 end

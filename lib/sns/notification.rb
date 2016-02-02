@@ -10,6 +10,7 @@ module SNS
     attribute :subscribe_url, aliases: 'SubscribeURL'
     attribute :unsubscribe_url, aliases: 'UnsubscribeURL'
     attribute :message, aliases: 'Message'
+    attribute :token, aliases: 'Token'
 
     def subscription_confirmation?
       type == 'SubscriptionConfirmation'
@@ -39,6 +40,8 @@ module SNS
                 SES::ComplaintNotification
               elsif payload.key? 'bounce'
                 SES::BounceNotification
+              elsif payload.key? 'delivery'
+                SES::DeliveryNotification
               end
 
       attributes[:message] = klass.new(payload)

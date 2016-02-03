@@ -1,0 +1,26 @@
+<%= simple_form_for @campaign do |f| %>
+  <div class="col-md-4">
+    <%= f.input :name %>
+    <%= f.input :subject %>
+    <%= f.input :from_name %>
+    <%= f.input :from_email %>
+  </div>
+
+  <div class="col-md-12">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#source" data-toggle="tab">HTML</a></li>
+      <li><a href="#preview" data-toggle="tab">Preview</a></li>
+    </ul>
+
+    <div class="tab-content tab-source-preview">
+      <div id="source" class="tab-pane active">
+        <%= f.input :html_text, label: false, input_html: { rows: 14 } %>
+      </div>
+      <div id="preview" class="tab-pane">
+        Preview
+      </div>
+    </div>
+
+    <%= f.button :submit, class: 'btn btn-success' %>
+  </div>
+<% end %>

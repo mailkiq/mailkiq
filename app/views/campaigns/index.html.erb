@@ -15,13 +15,26 @@
           <th>Sent</th>
           <th>Unique Opens</th>
           <th>Unique Clicks</th>
-          <th>Actions</th>
+          <th width="100"></th>
         </tr>
       </thead>
       <tbody>
-        <% if @campaigns.any? %>
+        <% @campaigns.each do |campaign| %>
+          <tr>
+            <td><%= campaign.name %></td>
+            <td><%= current_user.subscribers.count %></td>
+            <td><%= campaign.send_at %></td>
+            <td>0</td>
+            <td>0</td>
+            <td>
+              <%= icon_link_to edit_campaign_path(campaign), icon: :pencil %>
+              <%= icon_link_to campaign_path(campaign), icon: :trash,
+                    method: :delete, data: { confirm: t('actions.confirm') } %>
+            </td>
+          </tr>
+        <% end %>
 
-        <% else %>
+        <% unless @campaigns.any? %>
           <tr>
             <td colspan="6">There are no campaigns yet. Send one!</td>
           </tr>

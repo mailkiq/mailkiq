@@ -16,6 +16,18 @@ class CampaignsController < AdminController
     @campaign = current_user.campaigns.find params[:id]
   end
 
+  def update
+    @campaign = current_user.campaigns.find params[:id]
+    @campaign.update campaign_params
+    respond_with @campaign, location: campaigns_path
+  end
+
+  def destroy
+    @campaign = current_user.campaigns.find params[:id]
+    @campaign.destroy
+    respond_with @campaign, location: campaigns_path
+  end
+
   private
 
   def campaign_params

@@ -9,7 +9,7 @@ class CreateCampaigns < ActiveRecord::Migration
       t.text :plain_text
       t.text :html_text, null: false
       t.belongs_to :account, null: false, index: true, foreign_key: true
-      t.timestamp :send_at, null: false
+      t.timestamp :send_at
       t.timestamps null: false
     end
   end

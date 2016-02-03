@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20160203115340) do
     t.text     "plain_text"
     t.text     "html_text",  null: false
     t.integer  "account_id", null: false
-    t.datetime "send_at",    null: false
+    t.datetime "send_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

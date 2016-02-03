@@ -16,7 +16,7 @@ describe API::V1::NotificationsController, type: :controller do
         allow(Account).to receive(:find).with(1).and_return(account)
         allow_any_instance_of(SNS::MessageVerifier).to receive(:authenticate!)
 
-        post :create, format: :json, token: AuthToken.encode(account_id: 1)
+        post :create, format: :json, token: Token.encode(account_id: 1)
       end
 
       it { is_expected.to respond_with :success }

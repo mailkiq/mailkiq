@@ -1,6 +1,6 @@
 require 'jwt'
 
-module AuthToken
+module Token
   module_function
 
   def secret_key_base

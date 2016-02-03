@@ -39,7 +39,7 @@ module API::V1
     # end
 
     def require_token
-      @decoded_token = AuthToken.decode params.require(:token)
+      @decoded_token = Token.decode params.require(:token)
       @account = Account.find @decoded_token.fetch(:account_id)
       Raven.user_context @account.slice(:id, :name, :email)
     end

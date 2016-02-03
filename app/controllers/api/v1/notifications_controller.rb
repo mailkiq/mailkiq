@@ -1,6 +1,3 @@
-require 'ses'
-require 'sns'
-
 module API::V1
   class NotificationsController < BaseController
     # before_action :require_amazon_headers

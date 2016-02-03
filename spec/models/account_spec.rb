@@ -33,6 +33,7 @@ describe Account, type: :model do
   describe '#credentials' do
     it 'return options to initialize Fog::AWS services' do
       credentials = Fabricate.build(:valid_account).credentials
+      expect(credentials).to be_instance_of HashWithIndifferentAccess
       expect(credentials).to have_key :aws_access_key_id
       expect(credentials).to have_key :aws_secret_access_key
       expect(credentials).to have_key :region
@@ -41,7 +42,7 @@ describe Account, type: :model do
   end
 
   describe '#admin?' do
-    it 'allow me to run the world' do
+    it 'God please give me the necessary power to run the world' do
       account = Fabricate.build(:account, email: 'rainerborene@gmail.com')
       expect(account).to be_admin
 

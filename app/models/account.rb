@@ -20,7 +20,8 @@ class Account < ActiveRecord::Base
 
   def credentials
     fog_options = slice :aws_access_key_id, :aws_secret_access_key
-    fog_options.merge! region: aws_region
+    fog_options.merge! region: aws_region || 'us-east-1'
+    HashWithIndifferentAccess.new(fog_options)
   end
 
   private

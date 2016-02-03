@@ -35,21 +35,18 @@ ActiveRecord::Schema.define(version: 20160203115340) do
 
   create_table "ahoy_messages", force: :cascade do |t|
     t.string   "token"
-    t.text     "to"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "utm_source"
-    t.string   "utm_medium"
-    t.string   "utm_term"
-    t.string   "utm_content"
-    t.string   "utm_campaign"
+    t.text     "to",          null: false
+    t.integer  "user_id",     null: false
+    t.string   "user_type",   null: false
+    t.integer  "campaign_id", null: false
     t.datetime "sent_at"
     t.datetime "opened_at"
     t.datetime "clicked_at"
   end
 
+  add_index "ahoy_messages", ["campaign_id"], name: "index_ahoy_messages_on_campaign_id", using: :btree
   add_index "ahoy_messages", ["token"], name: "index_ahoy_messages_on_token", using: :btree
-  add_index "ahoy_messages", ["user_id", "user_type"], name: "index_ahoy_messages_on_user_id_and_user_type", using: :btree
+  add_index "ahoy_messages", ["user_type", "user_id"], name: "index_ahoy_messages_on_user_type_and_user_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "name",       null: false
@@ -60,7 +57,6 @@ ActiveRecord::Schema.define(version: 20160203115340) do
     t.text     "plain_text"
     t.text     "html_text",  null: false
     t.integer  "account_id", null: false
-    t.datetime "send_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -89,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   add_index "subscribers", ["account_id"], name: "index_subscribers_on_account_id", using: :btree
   add_index "subscribers", ["custom_fields"], name: "index_subscribers_on_custom_fields", using: :gin
 
+  add_foreign_key "ahoy_messages", "campaigns"
   add_foreign_key "campaigns", "accounts"
   add_foreign_key "notifications", "accounts"
   add_foreign_key "subscribers", "accounts"

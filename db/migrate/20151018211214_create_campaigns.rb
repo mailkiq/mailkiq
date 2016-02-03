@@ -1,6 +1,6 @@
 class CreateCampaigns < ActiveRecord::Migration
   def change
-    create_table :campaigns do |t|
+    create_table :campaigns, force: :cascade do |t|
       t.string :name, null: false
       t.string :subject, null: false
       t.string :from_name, null: false
@@ -9,7 +9,6 @@ class CreateCampaigns < ActiveRecord::Migration
       t.text :plain_text
       t.text :html_text, null: false
       t.belongs_to :account, null: false, index: true, foreign_key: true
-      t.timestamp :send_at
       t.timestamps null: false
     end
   end

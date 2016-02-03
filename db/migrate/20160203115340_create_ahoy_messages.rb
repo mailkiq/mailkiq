@@ -4,29 +4,19 @@ class CreateAhoyMessages < ActiveRecord::Migration
       t.string :token
 
       # user
-      t.text :to
-      t.integer :user_id
-      t.string :user_type
+      t.text :to, null: false
+      t.references :user, null: false, polymorphic: true, index: true
 
-      # optional - feel free to remove
-      # t.string :mailer
-      # t.text :subject
-      # t.text :content
-
-      # optional
-      t.string :utm_source
-      t.string :utm_medium
-      t.string :utm_term
-      t.string :utm_content
-      t.string :utm_campaign
+      # campaign
+      t.belongs_to :campaign, null: false, index: true, foreign_key: true
 
       # timestamps
       t.timestamp :sent_at
       t.timestamp :opened_at
       t.timestamp :clicked_at
-    end
 
-    add_index :ahoy_messages, [:token]
-    add_index :ahoy_messages, [:user_id, :user_type]
+      # indexes
+      t.index :token
+    end
   end
 end

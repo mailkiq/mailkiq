@@ -36,6 +36,12 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
+    ahoy_email (0.3.0)
+      addressable
+      nokogiri
+      rails
+      safely_block
     arel (6.0.3)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -43,7 +49,7 @@ GEM
       execjs (~> 2.0)
     bcrypt (3.1.10)
     builder (3.2.2)
-    byebug (8.2.1)
+    byebug (8.2.2)
     clearance (1.12.1)
       bcrypt
       email_validator (~> 1.4)
@@ -60,6 +66,7 @@ GEM
       railties (>= 4.0, < 5.1)
     email_validator (1.6.0)
       activemodel
+    errbase (0.0.3)
     erubis (2.7.0)
     eventmachine (1.0.9.1)
     excon (0.45.4)
@@ -164,7 +171,7 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_serve_static_assets (0.0.4)
+    rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.4)
     railties (4.2.5)
       actionpack (= 4.2.5)
@@ -190,7 +197,7 @@ GEM
     rspec-mocks (3.4.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
-    rspec-rails (3.4.1)
+    rspec-rails (3.4.2)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
@@ -199,6 +206,8 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    safely_block (0.1.0)
+      errbase
     sass (3.4.21)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -255,6 +264,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ahoy_email
   clearance
   database_rewinder
   dotenv-rails

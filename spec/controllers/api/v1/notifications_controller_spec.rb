@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe NotificationsController, type: :controller do
+describe API::V1::NotificationsController, type: :controller do
   describe 'POST /notifications' do
     confirm_subscription = { cassette_name: :confirm_subscription }
 

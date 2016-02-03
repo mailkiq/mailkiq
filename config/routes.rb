@@ -29,9 +29,14 @@ Rails.application.routes.draw do
     match '/settings/aws', to: 'settings#aws', as: :aws_settings
   end
 
-  resources :notifications, only: [:create]
   resources :campaigns
   resources :subscribers
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1, constraints: { format: :json } do
+      resources :notifications, only: [:create]
+    end
+  end
 
   # ux improvements
   get '/accounts', to: redirect('/sign_up')

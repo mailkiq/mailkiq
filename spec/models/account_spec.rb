@@ -29,4 +29,24 @@ describe Account, type: :model do
         .to include(error_message)
     end
   end
+
+  describe '#credentials' do
+    it 'return options to initialize Fog::AWS services' do
+      credentials = Fabricate.build(:valid_account).credentials
+      expect(credentials).to have_key :aws_access_key_id
+      expect(credentials).to have_key :aws_secret_access_key
+      expect(credentials).to have_key :region
+      expect(credentials.size).to eq(3)
+    end
+  end
+
+  describe '#admin?' do
+    it 'allow me to run the world' do
+      account = Fabricate.build(:account, email: 'rainerborene@gmail.com')
+      expect(account).to be_admin
+
+      account.email = 'blah@blah.com'
+      expect(account).to_not be_admin
+    end
+  end
 end

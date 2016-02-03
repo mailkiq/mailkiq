@@ -14,6 +14,17 @@ class Account < ActiveRecord::Base
   has_many :subscribers, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  def admin?
+    email == 'rainerborene@gmail.com'
+  end
+
+  def credentials
+    fog_options = slice :aws_access_key_id, :aws_secret_access_key
+    fog_options.merge! region: aws_region
+  end
+
+  private
+
   def aws_keys?
     aws_access_key_id? && aws_secret_access_key?
   end
@@ -24,13 +35,5 @@ class Account < ActiveRecord::Base
 
   def validate_access_keys?
     send(new_record? ? :aws_keys? : :aws_keys_changed?)
-  end
-
-  def credentials
-    slice :aws_access_key_id, :aws_secret_access_key
-  end
-
-  def admin?
-    email == 'rainerborene@gmail.com'
   end
 end

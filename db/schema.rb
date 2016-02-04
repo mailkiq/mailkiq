@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160203115340) do
 
   create_table "ahoy_messages", force: :cascade do |t|
     t.string   "token"
+    t.string   "message_id"
     t.text     "to",          null: false
     t.integer  "user_id",     null: false
     t.string   "user_type",   null: false
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   end
 
   add_index "ahoy_messages", ["campaign_id"], name: "index_ahoy_messages_on_campaign_id", using: :btree
+  add_index "ahoy_messages", ["message_id"], name: "index_ahoy_messages_on_message_id", using: :btree
   add_index "ahoy_messages", ["token"], name: "index_ahoy_messages_on_token", using: :btree
   add_index "ahoy_messages", ["user_type", "user_id"], name: "index_ahoy_messages_on_user_type_and_user_id", using: :btree
 

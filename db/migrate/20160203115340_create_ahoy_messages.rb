@@ -2,6 +2,7 @@ class CreateAhoyMessages < ActiveRecord::Migration
   def change
     create_table :ahoy_messages do |t|
       t.string :token
+      t.string :message_id
 
       # user
       t.text :to, null: false
@@ -17,6 +18,7 @@ class CreateAhoyMessages < ActiveRecord::Migration
 
       # indexes
       t.index :token
+      t.index :message_id
     end
   end
 end

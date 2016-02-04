@@ -1,6 +1,6 @@
 class CreateAccounts < ActiveRecord::Migration
   def change
-    create_table :accounts, force: :cascade do |t|
+    create_table :accounts do |t|
       t.string :name, null: false
       t.citext :email, null: false
       t.string :encrypted_password, limit: 128

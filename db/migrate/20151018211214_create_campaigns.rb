@@ -1,6 +1,6 @@
 class CreateCampaigns < ActiveRecord::Migration
   def change
-    create_table :campaigns, force: :cascade do |t|
+    create_table :campaigns do |t|
       t.string :name, null: false
       t.string :subject, null: false
       t.string :from_name, null: false

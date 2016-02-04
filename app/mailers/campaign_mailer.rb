@@ -11,14 +11,21 @@ class CampaignMailer < ActionMailer::Base
 
     options = {
       to: subscriber.email,
-      from: "#{campaign.from_name} <#{campaign.from_email}>",
+      from: campaign.sender,
       subject: campaign.subject,
+      delivery_method: :ses,
       delivery_method_options: campaign.account.credentials
     }
 
-    mail(options) do |format|
+    response = mail(options) do |format|
       format.html { render text: campaign.html_text }
       format.text { render text: campaign.plain_text } if campaign.plain_text?
     end
+
+    # Note: Amazon SES overrides any Message-ID header you provide.
+    # This is the reason we're reusing the message_id variable here.
+    # Clever way to pass data to SES::Base instance.
+    response.message_id = headers['Ahoy-Message-Id'].to_s
+    response
   end
 end

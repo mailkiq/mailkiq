@@ -11,4 +11,12 @@ describe Campaign, type: :model do
 
   it { is_expected.to belong_to :account }
   it { is_expected.to have_db_index :account_id }
+
+  describe '#sender' do
+    it 'concatenates from_name and from_email fields' do
+      campaign = Fabricate.build(:campaign)
+      sender = "#{campaign.from_name} <#{campaign.from_email}>"
+      expect(campaign.sender).to eq(sender)
+    end
+  end
 end

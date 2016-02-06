@@ -115,6 +115,9 @@ GEM
     ipaddress (0.8.2)
     json (1.8.3)
     jwt (1.5.2)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     listen (3.0.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -275,6 +278,7 @@ DEPENDENCIES
   guard-migrate
   guard-rspec
   jwt
+  kaminari
   page_meta
   pg
   pry-byebug

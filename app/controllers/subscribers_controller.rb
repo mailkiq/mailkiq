@@ -1,6 +1,6 @@
 class SubscribersController < AdminController
   def index
-    @subscribers = current_user.subscribers
+    @subscribers = current_user.subscribers.page params[:page]
   end
 
   def new

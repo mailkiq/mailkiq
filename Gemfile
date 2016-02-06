@@ -7,6 +7,7 @@ gem 'ahoy_email'
 gem 'clearance'
 gem 'fog-aws'
 gem 'jwt', require: false
+gem 'kaminari'
 gem 'page_meta'
 gem 'puma'
 gem 'responders'

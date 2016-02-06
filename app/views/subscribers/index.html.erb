@@ -6,6 +6,9 @@
     </h2>
 
     <table class="table">
+      <caption>
+         <%= page_entries_info @subscribers %>
+      </caption>
       <thead>
         <tr>
           <th>Name</th>
@@ -33,5 +36,7 @@
         <% end %>
       </tbody>
     </table>
+
+    <%= paginate @subscribers %>
   </div>
 </div>

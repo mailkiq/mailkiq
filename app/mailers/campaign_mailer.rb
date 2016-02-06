@@ -1,4 +1,9 @@
+require_dependency 'ses'
+require_dependency 'sns'
+
 class CampaignMailer < ActionMailer::Base
+  add_delivery_method :ses, SES::Base
+
   def campaign(campaign_id, subscriber_id)
     campaign = Campaign.find campaign_id
     subscriber = Subscriber.find subscriber_id

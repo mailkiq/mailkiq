@@ -30,11 +30,5 @@ module Mailkiq
 
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller
-
-    config.before_initialize do
-      require_dependency 'ses'
-      require_dependency 'sns'
-      ActionMailer::Base.add_delivery_method :ses, SES::Base
-    end
   end
 end

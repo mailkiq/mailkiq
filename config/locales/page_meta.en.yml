@@ -1,0 +1,24 @@
+en:
+  page_meta:
+    titles:
+      settings:
+        profile: Your Profile
+        aws: Access Keys
+      subscribers:
+        index: Subscribers
+        new: New subscriber
+        edit: Edit subscriber
+      dashboard:
+        show: Sending Statistics
+      campaigns:
+        new: Create new campaign
+        edit: Edit campaign
+        index: Campaigns
+      accounts:
+        new: Join Mailkiq
+      clearance:
+        sessions:
+          new: Login to Mailkiq
+        passwords:
+          new: Reset your password
+          edit: Change your password

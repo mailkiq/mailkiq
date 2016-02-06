@@ -8,32 +8,14 @@ en:
       campaigns: Campaigns
       settings: Settings
       sign_out: Sign Out
-  home:
+      subscribers: Subscribers
+  marketing:
     index:
       login: Login
       sign_up: Sign Up
       sign_out: Sign Out
-  settings:
-    profile:
-      title: Your Profile
-    aws:
-      title: Access Keys
   dashboard:
     show:
-      page_title: Sending Statistics
-      title: Account Overview
       sending_limits: "%{count} of %{remaining}"
       send_rate: "%{rate} per second"
       sandbox: Sandbox Mode
-  campaigns:
-    new:
-      title: Create new campaign
-    index:
-      title: Campaigns
-  subscribers:
-    index:
-      title: Subscribers
-    new:
-      title: New subscriber
-    edit:
-      title: Edit subscriber

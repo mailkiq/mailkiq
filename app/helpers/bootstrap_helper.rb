@@ -9,4 +9,9 @@ module BootstrapHelper
     options[:class] = 'hidden-md hidden-lg'
     link_to tag(:span, class: "glyphicon glyphicon-#{icon}"), path, options
   end
+
+  def page_title
+    naming = PageMeta::Naming.new(controller)
+    t("page_meta.titles.#{naming.controller}.#{naming.action}")
+  end
 end

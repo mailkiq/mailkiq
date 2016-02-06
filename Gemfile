@@ -2,11 +2,12 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.5.1'
 gem 'ahoy_email'
 gem 'clearance'
 gem 'fog-aws'
 gem 'jwt', require: false
+gem 'page_meta'
 gem 'puma'
 gem 'responders'
 gem 'sentry-raven'

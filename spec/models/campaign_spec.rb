@@ -11,6 +11,10 @@ describe Campaign, type: :model do
 
   it { is_expected.to belong_to :account }
   it { is_expected.to have_db_index :account_id }
+  it do
+    is_expected.to have_many(:messages).class_name('Ahoy::Message')
+      .dependent(:destroy)
+  end
 
   describe '#sender' do
     it 'concatenates from_name and from_email fields' do

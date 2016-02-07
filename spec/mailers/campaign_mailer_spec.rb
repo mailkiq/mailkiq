@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 describe CampaignMailer, type: :mailer do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { expect(described_class.delivery_methods).to include(ses: SES::Base) }
+
+  describe '#campaign' do
+    pending
+  end
 end

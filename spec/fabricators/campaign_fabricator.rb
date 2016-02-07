@@ -5,3 +5,7 @@ Fabricator(:campaign) do
   from_email 'jonh@doe.com'
   html_text 'Testing'
 end
+
+Fabricator(:freeletics_campaign, from: :campaign) do
+  name 'Coma direito e duplique o resultado dos treinos'
+end

@@ -8,16 +8,16 @@
 
   <div class="col-md-12">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#source" data-toggle="tab">HTML</a></li>
-      <li><a href="#preview" data-toggle="tab">Preview</a></li>
+      <li class="active"><a href="#html" data-toggle="tab">HTML</a></li>
+      <li><a href="#text" data-toggle="tab">Text</a></li>
     </ul>
 
     <div class="tab-content tab-source-preview">
-      <div id="source" class="tab-pane active">
+      <div id="html" class="tab-pane active">
         <%= f.input :html_text, label: false, input_html: { rows: 14 } %>
       </div>
-      <div id="preview" class="tab-pane">
-        Preview
+      <div id="text" class="tab-pane">
+        <%= f.input :plain_text, label: false, input_html: { rows: 14 } %>
       </div>
     </div>
 

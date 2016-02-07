@@ -9,31 +9,37 @@ module AhoyEmail
       @mailer = mailer
     end
 
+    def processable?
+      action_name = mailer.action_name.to_sym
+      options[:message] &&
+        (!options[:only] || options[:only].include?(action_name)) &&
+        !options[:except].to_a.include?(action_name)
+    end
+
     def process
+      return unless processable?
+
       safely do
-        action_name = mailer.action_name.to_sym
-        if options[:message] && (!options[:only] || options[:only].include?(action_name)) && !options[:except].to_a.include?(action_name)
-          @ahoy_message = AhoyEmail.message_model.new
-          ahoy_message.token = generate_token
-          ahoy_message.to = Array(message.to).join(', ') if ahoy_message.respond_to?(:to=)
-          ahoy_message.subscriber = options[:subscriber]
+        @ahoy_message = AhoyEmail.message_model.new
+        ahoy_message.token = generate_token
+        ahoy_message.to = Array(message.to).join(', ') if ahoy_message.respond_to?(:to=)
+        ahoy_message.subscriber = options[:subscriber]
 
-          track_open if options[:open]
-          track_links if options[:utm_params] || options[:click]
+        track_open if options[:open]
+        track_links if options[:utm_params] || options[:click]
 
-          ahoy_message.mailer = options[:mailer] if ahoy_message.respond_to?(:mailer=)
-          ahoy_message.subject = message.subject if ahoy_message.respond_to?(:subject=)
-          ahoy_message.content = message.to_s if ahoy_message.respond_to?(:content=)
+        ahoy_message.mailer = options[:mailer] if ahoy_message.respond_to?(:mailer=)
+        ahoy_message.subject = message.subject if ahoy_message.respond_to?(:subject=)
+        ahoy_message.content = message.to_s if ahoy_message.respond_to?(:content=)
 
-          UTM_PARAMETERS.each do |k|
-            ahoy_message.send("#{k}=", options[k.to_sym]) if ahoy_message.respond_to?("#{k}=")
-          end
-
-          ahoy_message.assign_attributes(options[:extra] || {})
-
-          ahoy_message.save
-          message['Ahoy-Message-Id'] = ahoy_message.id.to_s
+        UTM_PARAMETERS.each do |k|
+          ahoy_message.send("#{k}=", options[k.to_sym]) if ahoy_message.respond_to?("#{k}=")
         end
+
+        ahoy_message.assign_attributes(options[:extra] || {})
+
+        ahoy_message.save
+        message["Ahoy-Message-Id"] = ahoy_message.id.to_s
       end
     end
 
@@ -59,9 +65,7 @@ module AhoyEmail
           options = options.except(:only, :except).merge(mailer.ahoy_options)
         end
         options.each do |k, v|
-          if v.respond_to?(:call)
-            options[k] = v.call(message, mailer)
-          end
+          options[k] = v.call(message, mailer) if v.respond_to?(:call)
         end
         options
       end
@@ -80,8 +84,7 @@ module AhoyEmail
                     id: ahoy_message.token,
                     format: 'gif'
 
-      pixel = ActionController::Base.helpers.image_tag url, size: '1x1',
-                                                            alt: nil
+      pixel = ActionController::Base.helpers.image_tag(url, size: '1x1', alt: nil)
 
       # try to add before body tag
       if raw_source.match(regex)
@@ -94,9 +97,10 @@ module AhoyEmail
     def track_links
       return unless html_part?
       body = (message.html_part || message).body
+
       doc = Nokogiri::HTML(body.raw_source)
       doc.css('a[href]').each do |link|
-        uri = parse_uri(link['href'])
+        uri = parse_uri link['href']
         next unless trackable?(uri)
         # utm params first
         if options[:utm_params] && !skip_attribute?(link, 'utm-params')
@@ -108,16 +112,16 @@ module AhoyEmail
           link['href'] = uri.to_s
         end
 
-        next unless options[:click] && skip_attribute?(link, 'click')
-
-        signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'),
-                                            AhoyEmail.secret_token,
-                                            link['href'])
-        link['href'] = url_for controller: 'messages',
-                               action: 'click',
-                               id: ahoy_message.token,
-                               url: link['href'],
-                               signature: signature
+        if options[:click] && !skip_attribute?(link, 'click')
+          signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'),
+                                              AhoyEmail.secret_token,
+                                              link['href'])
+          link['href'] = url_for controller: 'messages',
+                                 action: 'click',
+                                 id: ahoy_message.token,
+                                 url: link['href'],
+                                 signature: signature
+        end
       end
 
       # hacky
@@ -154,15 +158,11 @@ module AhoyEmail
       Addressable::URI.parse(href.to_s) rescue nil
     end
 
-    def url_helpers
-      @url_helpers ||= Rails.application.routes.url_helpers
-    end
-
     def url_for(opt)
       opt = (ActionMailer::Base.default_url_options || {})
             .merge(options[:url_options])
             .merge(opt)
-      url_helpers.url_for(opt)
+      Rails.application.routes.url_helpers.url_for(opt)
     end
   end
 end

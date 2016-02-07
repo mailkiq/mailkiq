@@ -1,12 +1,12 @@
-class CreateAhoyMessages < ActiveRecord::Migration
+class CreateMessages < ActiveRecord::Migration
   def change
-    create_table :ahoy_messages do |t|
+    create_table :messages do |t|
       t.string :token
       t.string :message_id
 
       # user
       t.text :to, null: false
-      t.references :user, null: false, polymorphic: true, index: true
+      t.belongs_to :subscriber, null: false, index: true, foreign_key: true
 
       # campaign
       t.belongs_to :campaign, null: false, index: true, foreign_key: true

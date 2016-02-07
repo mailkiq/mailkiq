@@ -33,23 +33,6 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["remember_token"], name: "index_accounts_on_remember_token", using: :btree
 
-  create_table "ahoy_messages", force: :cascade do |t|
-    t.string   "token"
-    t.string   "message_id"
-    t.text     "to",          null: false
-    t.integer  "user_id",     null: false
-    t.string   "user_type",   null: false
-    t.integer  "campaign_id", null: false
-    t.datetime "sent_at"
-    t.datetime "opened_at"
-    t.datetime "clicked_at"
-  end
-
-  add_index "ahoy_messages", ["campaign_id"], name: "index_ahoy_messages_on_campaign_id", using: :btree
-  add_index "ahoy_messages", ["message_id"], name: "index_ahoy_messages_on_message_id", using: :btree
-  add_index "ahoy_messages", ["token"], name: "index_ahoy_messages_on_token", using: :btree
-  add_index "ahoy_messages", ["user_type", "user_id"], name: "index_ahoy_messages_on_user_type_and_user_id", using: :btree
-
   create_table "campaigns", force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "subject",    null: false
@@ -64,6 +47,22 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   end
 
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "token"
+    t.string   "message_id"
+    t.text     "to",            null: false
+    t.integer  "subscriber_id", null: false
+    t.integer  "campaign_id",   null: false
+    t.datetime "sent_at"
+    t.datetime "opened_at"
+    t.datetime "clicked_at"
+  end
+
+  add_index "messages", ["campaign_id"], name: "index_messages_on_campaign_id", using: :btree
+  add_index "messages", ["message_id"], name: "index_messages_on_message_id", using: :btree
+  add_index "messages", ["subscriber_id"], name: "index_messages_on_subscriber_id", using: :btree
+  add_index "messages", ["token"], name: "index_messages_on_token", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.jsonb    "message",    null: false
@@ -87,8 +86,9 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   add_index "subscribers", ["account_id"], name: "index_subscribers_on_account_id", using: :btree
   add_index "subscribers", ["custom_fields"], name: "index_subscribers_on_custom_fields", using: :gin
 
-  add_foreign_key "ahoy_messages", "campaigns"
   add_foreign_key "campaigns", "accounts"
+  add_foreign_key "messages", "campaigns"
+  add_foreign_key "messages", "subscribers"
   add_foreign_key "notifications", "accounts"
   add_foreign_key "subscribers", "accounts"
 end

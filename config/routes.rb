@@ -1,6 +1,12 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  namespace :api, defaults: { format: :json } do
+    namespace :v1, constraints: { format: :json } do
+      resources :notifications, only: [:create]
+    end
+  end
+
   resources :passwords, controller: 'clearance/passwords', only: [:create, :new]
   resource :session, controller: 'clearance/sessions', only: [:create]
   resources :accounts, controller: 'accounts', only: [:create] do
@@ -34,10 +40,9 @@ Rails.application.routes.draw do
     resource :delivery, except: [:edit, :update]
   end
 
-  namespace :api, defaults: { format: :json } do
-    namespace :v1, constraints: { format: :json } do
-      resources :notifications, only: [:create]
-    end
+  resources :messages, only: [] do
+    get :open, on: :member
+    get :click, on: :member
   end
 
   # ux improvements

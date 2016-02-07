@@ -10,11 +10,7 @@ describe Subscriber, type: :model do
   it { is_expected.to have_db_index :custom_fields }
   it { is_expected.to have_db_index([:account_id, :email]).unique }
   it { is_expected.to belong_to :account }
-
-  it do
-    is_expected.to have_many(:messages).class_name('Ahoy::Message')
-      .dependent(:destroy)
-  end
+  it { is_expected.to have_many(:messages).dependent :delete_all }
 
   it do
     is_expected.to have_db_column(:custom_fields)

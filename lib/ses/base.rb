@@ -10,7 +10,7 @@ module SES
       ses = Fog::AWS::SES.new(settings)
       response = ses.send_raw_email(mail)
 
-      ahoy_message = Ahoy::Message.find mail.message_id
+      ahoy_message = Message.find mail.message_id
       ahoy_message.update message_id: response.body['MessageId']
       mail.message_id = "#{ahoy_message.message_id}@email.amazonses.com"
 

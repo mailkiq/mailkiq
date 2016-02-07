@@ -3,7 +3,7 @@ class CampaignMailer < ActionMailer::Base
     campaign = Campaign.find campaign_id
     subscriber = Subscriber.find subscriber_id
 
-    track user: subscriber,
+    track subscriber: subscriber,
           click: true,
           utm_source: 'mailkiq',
           utm_campaign: campaign.name.parameterize,

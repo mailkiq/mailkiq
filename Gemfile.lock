@@ -37,11 +37,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    ahoy_email (0.3.0)
-      addressable
-      nokogiri
-      rails
-      safely_block
     arel (6.0.3)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -270,7 +265,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ahoy_email
+  addressable
   clearance
   database_rewinder
   dotenv-rails
@@ -288,6 +283,7 @@ DEPENDENCIES
   rails_12factor
   responders
   rspec-rails
+  safely_block
   sass-rails
   sentry-raven
   shoulda-matchers

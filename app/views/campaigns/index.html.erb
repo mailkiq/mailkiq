@@ -10,7 +10,6 @@
         <tr>
           <th>Campaign</th>
           <th>Recipients</th>
-          <th>Sent</th>
           <th>Unique Opens</th>
           <th>Unique Clicks</th>
           <th width="107"></th>
@@ -21,9 +20,8 @@
           <tr>
             <td><%= campaign.name %></td>
             <td><%= current_user.subscribers.count %></td>
-            <td></td>
-            <td>0</td>
-            <td>0</td>
+            <td><%= campaign.unique_opens_count %></td>
+            <td><%= campaign.unique_clicks_count %></td>
             <td>
               <%= icon_link_to new_campaign_delivery_path(campaign), icon: :send %>
               <%= icon_link_to edit_campaign_path(campaign), icon: :pencil %>

@@ -13,4 +13,12 @@ class Campaign < ActiveRecord::Base
   def queue_name
     "campaign-#{id}"
   end
+
+  def unique_opens_count
+    messages.opened.count
+  end
+
+  def unique_clicks_count
+    messages.clicked.count
+  end
 end

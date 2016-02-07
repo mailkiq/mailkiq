@@ -13,7 +13,7 @@
           <th>Sent</th>
           <th>Unique Opens</th>
           <th>Unique Clicks</th>
-          <th width="100"></th>
+          <th width="107"></th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +25,7 @@
             <td>0</td>
             <td>0</td>
             <td>
+              <%= icon_link_to new_campaign_delivery_path(campaign), icon: :send %>
               <%= icon_link_to edit_campaign_path(campaign), icon: :pencil %>
               <%= icon_link_to campaign_path(campaign), icon: :trash,
                     method: :delete, data: { confirm: t('actions.confirm') } %>

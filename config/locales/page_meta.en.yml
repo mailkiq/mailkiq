@@ -16,6 +16,8 @@ en:
         index: Campaigns
       accounts:
         new: Join Mailkiq
+      deliveries:
+        new: Send campaign
       clearance:
         sessions:
           new: Login to Mailkiq

@@ -5,4 +5,12 @@ class Subscriber < ActiveRecord::Base
   belongs_to :account
   has_many :messages, class_name: 'Ahoy::Message', dependent: :destroy, as: :user
   paginates_per 25
+
+  def first_name
+    name.split(' ').first
+  end
+
+  def last_name
+    name.split(' ')[1..-1].join(' ')
+  end
 end

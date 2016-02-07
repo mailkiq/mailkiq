@@ -41,7 +41,8 @@ describe CampaignsController, type: :controller do
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, :subject, :from_name, :from_email, :reply_to, :html_text)
+        is_expected.to permit(:name, :subject, :from_name, :from_email,
+                              :reply_to, :html_text, :plain_text)
           .for(:create, params: { campaign: @params })
           .on(:campaign)
       end
@@ -77,7 +78,8 @@ describe CampaignsController, type: :controller do
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, :subject, :from_name, :from_email, :reply_to, :html_text)
+        is_expected.to permit(:name, :subject, :from_name, :from_email,
+                              :reply_to, :html_text, :plain_text)
           .for(:update, params: { id: @campaign.id, campaign: @params })
           .on(:campaign)
       end

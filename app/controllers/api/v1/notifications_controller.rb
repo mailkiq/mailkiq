@@ -1,6 +1,3 @@
-require_dependency 'ses'
-require_dependency 'sns'
-
 module API::V1
   class NotificationsController < BaseController
     before_action :require_token

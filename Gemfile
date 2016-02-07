@@ -13,6 +13,7 @@ gem 'puma'
 gem 'responders'
 gem 'sentry-raven'
 gem 'sidekiq'
+gem 'sidekiq-limit_fetch'
 gem 'simple_form'
 gem 'sinatra', require: false
 
@@ -45,6 +46,6 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'pry-byebug'
+  gem 'pry-remote'
   gem 'rspec-rails'
 end

@@ -49,7 +49,6 @@ GEM
       execjs (~> 2.0)
     bcrypt (3.1.10)
     builder (3.2.2)
-    byebug (8.2.2)
     clearance (1.12.1)
       bcrypt
       email_validator (~> 1.4)
@@ -145,9 +144,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.3.0)
-      byebug (~> 8.0)
-      pry (~> 0.10)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     puma (2.16.0)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -229,6 +228,8 @@ GEM
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
+    sidekiq-limit_fetch (3.1.0)
+      sidekiq (>= 4)
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
@@ -281,7 +282,7 @@ DEPENDENCIES
   kaminari
   page_meta
   pg
-  pry-byebug
+  pry-remote
   puma
   rails (= 4.2.5.1)
   rails_12factor
@@ -291,6 +292,7 @@ DEPENDENCIES
   sentry-raven
   shoulda-matchers
   sidekiq
+  sidekiq-limit_fetch
   simple_form
   sinatra
   spring

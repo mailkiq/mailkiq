@@ -1,9 +1,4 @@
-require_dependency 'ses'
-require_dependency 'sns'
-
 class CampaignMailer < ActionMailer::Base
-  add_delivery_method :ses, SES::Base
-
   def campaign(campaign_id, subscriber_id)
     campaign = Campaign.find campaign_id
     subscriber = Subscriber.find subscriber_id
@@ -14,12 +9,17 @@ class CampaignMailer < ActionMailer::Base
           utm_campaign: campaign.name.parameterize,
           extra: { campaign_id: campaign_id }
 
+    subject = Template.render campaign.subject,
+                              first_name: subscriber.first_name,
+                              last_name: subscriber.last_name,
+                              full_name: subscriber.name
+
     options = {
       to: subscriber.email,
       from: campaign.sender,
-      subject: campaign.subject,
+      subject: subject,
       delivery_method: :ses,
-      delivery_method_options: campaign.account.credentials
+      delivery_method_options: campaign.credentials
     }
 
     response = mail(options) do |format|

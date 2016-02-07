@@ -29,8 +29,10 @@ Rails.application.routes.draw do
     match '/settings/aws', to: 'settings#aws', as: :aws_settings
   end
 
-  resources :campaigns
   resources :subscribers
+  resources :campaigns do
+    resource :delivery, except: [:edit, :update]
+  end
 
   namespace :api, defaults: { format: :json } do
     namespace :v1, constraints: { format: :json } do

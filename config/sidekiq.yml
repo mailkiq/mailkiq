@@ -1,2 +1,3 @@
 ---
+:concurrency: 15
 :dynamic: true

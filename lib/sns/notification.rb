@@ -23,7 +23,7 @@ module SNS
     end
 
     def data
-      if message.respond_to?(:complain)
+      if message.respond_to?(:complaint)
         message.complaint
       elsif message.respond_to?(:bounce)
         message.bounce

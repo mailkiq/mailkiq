@@ -64,8 +64,9 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   add_index "messages", ["uid"], name: "index_messages_on_uid", using: :btree
 
   create_table "notifications", force: :cascade do |t|
-    t.string "message_uid", null: false
-    t.jsonb  "data",        null: false
+    t.integer "type",        null: false
+    t.string  "message_uid", null: false
+    t.jsonb   "data",        null: false
   end
 
   add_index "notifications", ["message_uid"], name: "index_notifications_on_message_uid", using: :btree

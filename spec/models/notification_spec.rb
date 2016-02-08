@@ -9,4 +9,15 @@ describe Notification, type: :model do
       .with_foreign_key(:message_uid)
       .with_primary_key(:uid)
   end
+
+  it do
+    is_expected.to define_enum_for(:type)
+      .with([:bounce, :complaint, :delivery])
+  end
+
+  describe '.inheritance_column' do
+    it 'disable STI feature' do
+      expect(described_class.inheritance_column).to be_nil
+    end
+  end
 end

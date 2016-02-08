@@ -13,8 +13,9 @@ module API::V1
       if @notification.subscription_confirmation?
         sns = Fog::AWS::SNS.new(@account.credentials)
         sns.confirm_subscription @notification.topic_arn, @notification.token
-      else
-        @account.notifications.create! message: @notification.message.as_json
+      elsif @notification.ses?
+        Notification.create! message_uid: @notification.mail.id,
+                             data: @notification.data
       end
 
       head :ok

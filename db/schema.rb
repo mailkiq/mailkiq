@@ -49,9 +49,8 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
+    t.string   "uid"
     t.string   "token"
-    t.string   "message_id"
-    t.text     "to",            null: false
     t.integer  "subscriber_id", null: false
     t.integer  "campaign_id",   null: false
     t.datetime "sent_at"
@@ -60,18 +59,16 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   end
 
   add_index "messages", ["campaign_id"], name: "index_messages_on_campaign_id", using: :btree
-  add_index "messages", ["message_id"], name: "index_messages_on_message_id", using: :btree
   add_index "messages", ["subscriber_id"], name: "index_messages_on_subscriber_id", using: :btree
   add_index "messages", ["token"], name: "index_messages_on_token", using: :btree
+  add_index "messages", ["uid"], name: "index_messages_on_uid", using: :btree
 
   create_table "notifications", force: :cascade do |t|
-    t.jsonb    "message",    null: false
-    t.integer  "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "message_uid", null: false
+    t.jsonb  "data",        null: false
   end
 
-  add_index "notifications", ["account_id"], name: "index_notifications_on_account_id", using: :btree
+  add_index "notifications", ["message_uid"], name: "index_notifications_on_message_uid", using: :btree
 
   create_table "subscribers", force: :cascade do |t|
     t.string   "name",                       null: false
@@ -89,6 +86,5 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   add_foreign_key "campaigns", "accounts"
   add_foreign_key "messages", "campaigns"
   add_foreign_key "messages", "subscribers"
-  add_foreign_key "notifications", "accounts"
   add_foreign_key "subscribers", "accounts"
 end

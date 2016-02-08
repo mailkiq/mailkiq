@@ -1,11 +1,10 @@
 class CreateMessages < ActiveRecord::Migration
   def change
     create_table :messages do |t|
+      t.string :uid
       t.string :token
-      t.string :message_id
 
       # user
-      t.text :to, null: false
       t.belongs_to :subscriber, null: false, index: true, foreign_key: true
 
       # campaign
@@ -17,8 +16,8 @@ class CreateMessages < ActiveRecord::Migration
       t.timestamp :clicked_at
 
       # indexes
+      t.index :uid
       t.index :token
-      t.index :message_id
     end
   end
 end

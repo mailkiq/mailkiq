@@ -16,21 +16,19 @@ module SNS
       type == 'SubscriptionConfirmation'
     end
 
-    def complaint?
-      message.respond_to? :complaint
+    def ses?
+      message.respond_to?(:complaint) ||
+        message.respond_to?(:bounce) ||
+        message.respond_to?(:delivery)
     end
 
-    def bounce?
-      message.respond_to?(:bounce) && message.bounce.bounce_type == 'Permanent'
-    end
-
-    def emails
-      if complaint?
-        message.complaint.complained_recipients.map(&:email)
-      elsif bounce?
-        message.bounce.bounced_recipients.map(&:email)
-      else
-        []
+    def data
+      if message.respond_to?(:complain)
+        message.complaint
+      elsif message.respond_to?(:bounce)
+        message.bounce
+      elsif message.respond_to?(:delivery)
+        message.delivery
       end
     end
 

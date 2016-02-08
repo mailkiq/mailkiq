@@ -15,7 +15,6 @@ module AhoyEmail
       safely do
         @ahoy_message = AhoyEmail.message_model.new
         ahoy_message.token = generate_token
-        ahoy_message.to = Array(message.to).join(', ')
         ahoy_message.subscriber = options[:subscriber]
 
         track_open if options[:open]

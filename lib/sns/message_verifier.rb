@@ -3,9 +3,6 @@ require 'openssl'
 require 'base64'
 
 module SNS
-  class VerificationError < StandardError
-  end
-
   # A utility class that can be used to verify the authenticity of messages
   # sent by Amazon SNS.
   #
@@ -32,6 +29,9 @@ module SNS
     ).freeze
 
     AWS_HOSTNAMES = [/^sns\.[a-zA-Z0-9\-]{3,}\.amazonaws\.com(\.cn)?$/]
+
+    class VerificationError < StandardError
+    end
 
     def initialize
       @cached_pems = {}

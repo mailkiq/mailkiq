@@ -23,7 +23,7 @@ class CampaignMailer < ActionMailer::Base
     }
 
     response = mail(options) do |format|
-      format.html { render text: campaign.html_text }
+      format.html { render text: campaign.html_text } if campaign.html_text?
       format.text { render text: campaign.plain_text } if campaign.plain_text?
     end
 

@@ -9,37 +9,22 @@ module AhoyEmail
       @mailer = mailer
     end
 
-    def processable?
-      action_name = mailer.action_name.to_sym
-      options[:message] &&
-        (!options[:only] || options[:only].include?(action_name)) &&
-        !options[:except].to_a.include?(action_name)
-    end
-
     def process
       return unless processable?
 
       safely do
         @ahoy_message = AhoyEmail.message_model.new
         ahoy_message.token = generate_token
-        ahoy_message.to = Array(message.to).join(', ') if ahoy_message.respond_to?(:to=)
+        ahoy_message.to = Array(message.to).join(', ')
         ahoy_message.subscriber = options[:subscriber]
 
         track_open if options[:open]
         track_links if options[:utm_params] || options[:click]
 
-        ahoy_message.mailer = options[:mailer] if ahoy_message.respond_to?(:mailer=)
-        ahoy_message.subject = message.subject if ahoy_message.respond_to?(:subject=)
-        ahoy_message.content = message.to_s if ahoy_message.respond_to?(:content=)
-
-        UTM_PARAMETERS.each do |k|
-          ahoy_message.send("#{k}=", options[k.to_sym]) if ahoy_message.respond_to?("#{k}=")
-        end
-
-        ahoy_message.assign_attributes(options[:extra] || {})
-
+        ahoy_message.assign_attributes options[:extra] || {}
         ahoy_message.save
-        message["Ahoy-Message-Id"] = ahoy_message.id.to_s
+
+        message['Ahoy-Message-Id'] = ahoy_message.id.to_s
       end
     end
 
@@ -57,6 +42,13 @@ module AhoyEmail
     end
 
     protected
+
+    def processable?
+      action_name = mailer.action_name.to_sym
+      options[:message] &&
+        (!options[:only] || options[:only].include?(action_name)) &&
+        !options[:except].to_a.include?(action_name)
+    end
 
     def options
       @options ||= begin
@@ -162,7 +154,11 @@ module AhoyEmail
       opt = (ActionMailer::Base.default_url_options || {})
             .merge(options[:url_options])
             .merge(opt)
-      Rails.application.routes.url_helpers.url_for(opt)
+      self.class.url_helpers.url_for(opt)
+    end
+
+    def self.url_helpers
+      @url_helpers ||= Rails.application.routes.url_helpers
     end
   end
 end

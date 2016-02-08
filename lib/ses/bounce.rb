@@ -13,7 +13,7 @@ module SES
 
     def as_json
       json = attributes.dup
-      json[:bounced_recipients] = bounced_recipients.map(&:email)
+      json[:bounced_recipients] = bounced_recipients.map(&:attributes)
       json
     end
   end

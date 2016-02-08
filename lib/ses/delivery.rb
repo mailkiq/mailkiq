@@ -5,5 +5,7 @@ module SES
     attribute :smtp_response, aliases: 'smtpResponse'
     attribute :recipients
     attribute :timestamp, type: :timestamp
+
+    alias_method :as_json, :attributes
   end
 end

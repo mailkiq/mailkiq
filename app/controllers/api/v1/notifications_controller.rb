@@ -14,8 +14,6 @@ module API::V1
         sns = Fog::AWS::SNS.new(@account.credentials)
         sns.confirm_subscription @notification.topic_arn, @notification.token
       elsif @notification.ses?
-        Raven.extra_context data: @notification.data.as_json
-
         Notification.create! message_uid: @notification.message.mail.id,
                              type: @notification.message.type.downcase,
                              data: @notification.data.as_json

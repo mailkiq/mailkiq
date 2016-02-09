@@ -20,4 +20,27 @@ describe Campaign, type: :model do
       expect(campaign.sender).to eq(sender)
     end
   end
+
+  describe '#queue_name' do
+    it 'sidekiq queue name' do
+      campaign = Fabricate.build(:campaign, id: 1)
+      expect(campaign.queue_name).to eq('campaign-1')
+    end
+  end
+
+  describe '#unique_opens_count' do
+    it 'number of unique opens for the campaign' do
+      campaign = Fabricate.build(:campaign)
+      expect(campaign).to receive_message_chain(:messages, :opened, :count)
+      campaign.unique_opens_count
+    end
+  end
+
+  describe '#unique_clicks_count' do
+    it 'number of uniques clicks for the campaign' do
+      campaign = Fabricate.build(:campaign)
+      expect(campaign).to receive_message_chain(:messages, :clicked, :count)
+      campaign.unique_clicks_count
+    end
+  end
 end

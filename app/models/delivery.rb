@@ -1,11 +1,13 @@
 class Delivery
   include ActiveModel::Model
-  attr_accessor :campaign, :email
+
+  attr_accessor :account, :campaign, :not_tagged_with
 
   def save
-    subscriber = Subscriber.find_by! email: email
+    DeliveryWorker.perform_async campaign.id, not_tagged_with
+  end
 
-    CampaignMailer.delay(queue: campaign.queue_name)
-      .campaign(campaign.id, subscriber.id)
+  def tags
+    account.campaigns.map { |record| "Opened #{record.name}" }
   end
 end

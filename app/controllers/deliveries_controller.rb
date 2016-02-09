@@ -2,7 +2,7 @@ class DeliveriesController < AdminController
   before_action :find_campaign
 
   def new
-    @delivery = Delivery.new
+    @delivery = Delivery.new account: current_user
   end
 
   def create
@@ -12,16 +12,10 @@ class DeliveriesController < AdminController
     respond_with @deliver, location: campaign_delivery_path(@campaign)
   end
 
-  def show
-  end
-
-  def destroy
-  end
-
   private
 
   def deliver_params
-    params.require(:delivery).permit :email
+    params.require(:delivery).permit :not_tagged_with
   end
 
   def find_campaign

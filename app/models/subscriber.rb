@@ -13,4 +13,12 @@ class Subscriber < ActiveRecord::Base
   def last_name
     name.split(' ')[1..-1].join(' ')
   end
+
+  def interpolations
+    {
+      first_name: first_name,
+      last_name: last_name,
+      full_name: name
+    }
+  end
 end

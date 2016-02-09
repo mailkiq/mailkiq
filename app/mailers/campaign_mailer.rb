@@ -9,10 +9,7 @@ class CampaignMailer < ActionMailer::Base
           utm_campaign: campaign.name.parameterize,
           extra: { campaign_id: campaign_id }
 
-    subject = Template.render campaign.subject,
-                              first_name: subscriber.first_name,
-                              last_name: subscriber.last_name,
-                              full_name: subscriber.name
+    subject = Template.render campaign.subject, subscriber.interpolations
 
     options = {
       to: subscriber.email,

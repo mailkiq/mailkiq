@@ -16,4 +16,28 @@ describe Subscriber, type: :model do
     is_expected.to have_db_column(:custom_fields)
       .of_type(:jsonb).with_options(null: false, default: {})
   end
+
+  describe '#first_name' do
+    it 'returns subscriber first name' do
+      subscriber = Fabricate.build(:subscriber)
+      expect(subscriber.first_name).to eq('John')
+    end
+  end
+
+  describe '#last_name' do
+    it 'returns subscriber last name' do
+      subscriber = Fabricate.build(:subscriber)
+      expect(subscriber.last_name).to eq('Doe')
+    end
+  end
+
+  describe '#interpolations' do
+    it 'attributes for mailer' do
+      interpolations = Fabricate.build(:subscriber).interpolations
+      expect(interpolations).to have_key :first_name
+      expect(interpolations).to have_key :last_name
+      expect(interpolations).to have_key :full_name
+      expect(interpolations.size).to eq(3)
+    end
+  end
 end

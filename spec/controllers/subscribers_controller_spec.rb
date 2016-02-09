@@ -41,7 +41,7 @@ describe SubscribersController, type: :controller do
       it { is_expected.to redirect_to subscribers_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, :email)
+        is_expected.to permit(:name, :email, :state)
           .for(:create, params: { subscriber: @params })
           .on(:subscriber)
       end
@@ -77,7 +77,7 @@ describe SubscribersController, type: :controller do
       it { is_expected.to redirect_to subscribers_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, :email)
+        is_expected.to permit(:name, :email, :state)
           .for(:update, params: { id: @subscriber.id, subscriber: @params })
           .on(:subscriber)
       end

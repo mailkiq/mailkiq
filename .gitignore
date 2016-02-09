@@ -17,8 +17,3 @@ spec/examples.txt
 
 # Ignore sensitive data
 .env.test
-
-# bower
-/node_modules
-/vendor/assets/bower
-

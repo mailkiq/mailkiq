@@ -40,6 +40,10 @@ Rails.application.routes.draw do
     resource :delivery, except: [:edit, :update]
   end
 
+  resources :subscriptions, only: [] do
+    get :unsubscribe, on: :member
+  end
+
   resources :messages, only: [] do
     get :open, on: :member
     get :click, on: :member

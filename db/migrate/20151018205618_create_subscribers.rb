@@ -3,6 +3,7 @@ class CreateSubscribers < ActiveRecord::Migration
     create_table :subscribers do |t|
       t.string :name, null: false
       t.string :email, null: false
+      t.integer :state, null: false
       t.jsonb :custom_fields, null: false, default: {}
       t.belongs_to :account, null: false, index: true, foreign_key: true
       t.timestamps null: false

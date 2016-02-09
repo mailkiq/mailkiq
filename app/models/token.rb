@@ -1,5 +1,3 @@
-require 'jwt'
-
 module Token
   module_function
 
@@ -7,13 +5,13 @@ module Token
     Rails.application.secrets.secret_key_base
   end
 
-  def encode(payload, ttl_in_minutes = 60 * 24 * 30)
-    payload[:exp] = ttl_in_minutes.minutes.from_now.to_i
-    JWT.encode payload, secret_key_base
+  def encode(payload)
+    verifier = ActiveSupport::MessageVerifier.new(secret_key_base)
+    verifier.generate(payload)
   end
 
   def decode(token)
-    decoded_token = JWT.decode token, secret_key_base
-    HashWithIndifferentAccess.new decoded_token.first
+    verifier = ActiveSupport::MessageVerifier.new(secret_key_base)
+    verifier.verify(token)
   end
 end

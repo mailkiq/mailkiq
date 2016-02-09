@@ -1,15 +1,9 @@
-//= require flight/index
-//= require almond/almond
-//= require jquery/dist/jquery
-//= require jquery-ujs/src/rails
-//= require bootstrap-sass/assets/javascripts/bootstrap/dropdown
-//= require bootstrap-sass/assets/javascripts/bootstrap/tab
-//= require_tree ./components
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap/dropdown
+//= require bootstrap/tab
 //= require_self
 
-var $ = require('jquery');
-var Common = require('components/common');
-
 $(function(){
-  Common.attachTo(document);
+  $('body > .alert').delay(5000).slideUp(500);
 });

@@ -34,11 +34,18 @@ en:
         profile:
           password: "Leave password blank if don't want to change it."
     options:
+      subscriber:
+        state:
+          active: 'Active'
+          unconfirmed: 'Unconfirmed'
+          unsubscribed: 'Unsubscribed'
+          bounced: 'Bounced'
+          deleted: 'Deleted'
       account:
         language:
-          en: 'English'
-          pt-BR: 'Português'
+          'en': 'English'
+          'pt-BR': 'Português'
         aws_region:
-          us-east-1: 'US East (N. Virginia)'
-          us-west-2: 'US West (Oregon)'
-          eu-west-1: 'EU (Ireland)'
+          'us-east-1': 'US East (N. Virginia)'
+          'us-west-2': 'US West (Oregon)'
+          'eu-west-1': 'EU (Ireland)'

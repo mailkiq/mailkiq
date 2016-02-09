@@ -1,6 +1,7 @@
+@import 'bourbon';
 @import 'modules/variables';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap';
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
 
 @import 'modules/mixins';
 @import 'modules/base';
@@ -10,3 +11,4 @@
 @import 'modules/header';
 @import 'modules/dashboard';
 @import 'modules/campaigns';
+@import 'modules/subscriptions';

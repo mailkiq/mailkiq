@@ -6,13 +6,12 @@
     </h2>
 
     <table class="table">
-      <caption>
-         <%= page_entries_info @subscribers %>
-      </caption>
+      <caption><%= page_entries_info @subscribers %></caption>
       <thead>
         <tr>
           <th>Name</th>
           <th>Email</th>
+          <th>State</th>
           <th width="100"></th>
         </tr>
       </thead>
@@ -21,6 +20,9 @@
           <tr>
             <td><%= subscriber.name %></td>
             <td><%= subscriber.email %></td>
+            <td>
+              <span class="label label-default"><%= subscriber.state.capitalize %></span>
+            </td>
             <td>
               <%= icon_link_to edit_subscriber_path(subscriber), icon: :pencil %>
               <%= icon_link_to subscriber_path(subscriber), icon: :trash,

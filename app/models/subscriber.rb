@@ -4,6 +4,7 @@ class Subscriber < ActiveRecord::Base
   validates :email, presence: true, email: true
   belongs_to :account
   has_many :messages, dependent: :delete_all
+  enum state: [:active, :unconfirmed, :unsubscribed, :bounced, :deleted]
   paginates_per 25
 
   def first_name

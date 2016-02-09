@@ -13,6 +13,11 @@ describe Subscriber, type: :model do
   it { is_expected.to have_many(:messages).dependent :delete_all }
 
   it do
+    is_expected.to define_enum_for(:state)
+      .with([:active, :unconfirmed, :unsubscribed, :bounced, :deleted])
+  end
+
+  it do
     is_expected.to have_db_column(:custom_fields)
       .of_type(:jsonb).with_options(null: false, default: {})
   end

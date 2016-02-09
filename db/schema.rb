@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   create_table "subscribers", force: :cascade do |t|
     t.string   "name",                       null: false
     t.string   "email",                      null: false
+    t.integer  "state",                      null: false
     t.jsonb    "custom_fields", default: {}, null: false
     t.integer  "account_id",                 null: false
     t.datetime "created_at",                 null: false

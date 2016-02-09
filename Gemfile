@@ -6,7 +6,6 @@ gem 'rails', '4.2.5.1'
 gem 'addressable', require: false
 gem 'clearance'
 gem 'fog-aws'
-gem 'jwt', require: false
 gem 'kaminari'
 gem 'page_meta'
 gem 'puma'
@@ -22,6 +21,9 @@ gem 'sinatra', require: false
 gem 'pg'
 
 # Assets
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bourbon'
+gem 'jquery-rails'
 gem 'sass-rails'
 gem 'sprockets-es6'
 gem 'uglifier'

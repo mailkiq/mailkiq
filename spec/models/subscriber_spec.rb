@@ -25,14 +25,14 @@ describe Subscriber, type: :model do
   describe '#first_name' do
     it 'returns subscriber first name' do
       subscriber = Fabricate.build(:subscriber)
-      expect(subscriber.first_name).to eq('John')
+      expect(subscriber.first_name).to eq('Rainer')
     end
   end
 
   describe '#last_name' do
     it 'returns subscriber last name' do
       subscriber = Fabricate.build(:subscriber)
-      expect(subscriber.last_name).to eq('Doe')
+      expect(subscriber.last_name).to eq('Borene')
     end
   end
 

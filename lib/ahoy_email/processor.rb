@@ -12,31 +12,27 @@ module AhoyEmail
     def process
       return unless processable?
 
-      safely do
-        @ahoy_message = AhoyEmail.message_model.new
-        ahoy_message.token = generate_token
-        ahoy_message.subscriber = options[:subscriber]
+      @ahoy_message = AhoyEmail.message_model.new
+      ahoy_message.token = generate_token
+      ahoy_message.subscriber = options[:subscriber]
 
-        track_open if options[:open]
-        track_links if options[:utm_params] || options[:click]
+      track_open if options[:open]
+      track_links if options[:utm_params] || options[:click]
 
-        ahoy_message.assign_attributes options[:extra] || {}
-        ahoy_message.save
+      ahoy_message.assign_attributes options[:extra] || {}
+      ahoy_message.save
 
-        message['Ahoy-Message-Id'] = ahoy_message.id.to_s
-      end
+      message['Ahoy-Message-Id'] = ahoy_message.id.to_s
     end
 
     def track_send
-      safely do
-        if (message_id = message['Ahoy-Message-Id']) && message.perform_deliveries
-          ahoy_message = AhoyEmail.message_model.where(id: message_id.to_s).first
-          if ahoy_message
-            ahoy_message.sent_at = Time.now
-            ahoy_message.save
-          end
-          message['Ahoy-Message-Id'] = nil
+      if (message_id = message['Ahoy-Message-Id']) && message.perform_deliveries
+        ahoy_message = AhoyEmail.message_model.where(id: message_id.to_s).first
+        if ahoy_message
+          ahoy_message.sent_at = Time.now
+          ahoy_message.save
         end
+        message['Ahoy-Message-Id'] = nil
       end
     end
 

@@ -10,7 +10,6 @@ gem 'kaminari'
 gem 'page_meta'
 gem 'puma'
 gem 'responders'
-gem 'safely_block', require: false
 gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'

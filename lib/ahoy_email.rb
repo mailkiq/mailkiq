@@ -1,5 +1,4 @@
 require 'openssl'
-require 'safely_block'
 require 'addressable/uri'
 require 'ahoy_email/processor'
 require 'ahoy_email/interceptor'

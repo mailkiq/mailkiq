@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendRawEmail&RawMessage.Data=RGF0ZTogVHVlLCAwOSBGZWIgMjAxNiAyMjo0ODowNSAtMDIwMA0KRnJvbTog%0AUmFpbmVyIEJvcmVuZSA8cmFpbmVyQHRob3VnaHRwbGFuZS5jb20%2BDQpUbzog%0AcmFpbmVyQHRob3VnaHRwbGFuZS5jb20NCk1lc3NhZ2UtSUQ6IDw1NmJhODhj%0ANTZhZDNfNmIwNDcxMGU0MzYwNTNAYXJjaC5tYWlsPg0KU3ViamVjdDogVGhl%0AIFRydXRoIEFib3V0IFdoZWF0DQpNaW1lLVZlcnNpb246IDEuMA0KQ29udGVu%0AdC1UeXBlOiB0ZXh0L2h0bWw7DQogY2hhcnNldD1VVEYtOA0KQ29udGVudC1U%0AcmFuc2Zlci1FbmNvZGluZzogN2JpdA0KDQo8IURPQ1RZUEUgaHRtbCBQVUJM%0ASUMgIi0vL1czQy8vRFREIEhUTUwgNC4wIFRyYW5zaXRpb25hbC8vRU4iICJo%0AdHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwL2xvb3NlLmR0ZCI%2BDQo8%0AaHRtbD48Ym9keT48cD5UZXN0aW5nPGltZyBzcmM9Imh0dHA6Ly9sb2NhbGhv%0Ac3Q6MzAwMC9tZXNzYWdlcy9LN3NUc2VPdjE3VFc1YXh3UVBRSXhqZm5zWHUw%0AT2l0Vy9vcGVuLmdpZiIgd2lkdGg9IjEiIGhlaWdodD0iMSI%2BPC9wPjwvYm9k%0AeT48L2h0bWw%2BDQo%3D
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Date:
+      - Wed, 10 Feb 2016 00:48:05 +0000
+      X-Amzn-Authorization:
+      - AWS3-HTTPS AWSAccessKeyId=AKIAIOT5SABFNLCZ5QTQ, Algorithm=HmacSHA256, Signature=7giDinM4DCrGX+q2KbWXUSGoZQyG3er2yTFtUWYi0Mg=
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - f307413e-cf8f-11e5-8bc6-1d8951655e7e
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '338'
+      Date:
+      - Wed, 10 Feb 2016 00:48:06 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendRawEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendRawEmailResult>
+            <MessageId>00000152c8a64a62-8a09e19d-6839-42a2-a6a4-34078f04b08a-000000</MessageId>
+          </SendRawEmailResult>
+          <ResponseMetadata>
+            <RequestId>f307413e-cf8f-11e5-8bc6-1d8951655e7e</RequestId>
+          </ResponseMetadata>
+        </SendRawEmailResponse>
+    http_version: 
+  recorded_at: Wed, 10 Feb 2016 00:48:07 GMT
+recorded_with: VCR 3.0.1

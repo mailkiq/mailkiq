@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe CampaignMailer, type: :mailer do
-  it { expect(described_class.delivery_methods).to include(ses: SES::Base) }
-
   describe '#campaign', vcr: { cassette_name: :send_raw_email } do
     let(:account) { Fabricate.build :valid_account }
     let(:campaign) { Fabricate.build :campaign, id: rand(10), account: account }

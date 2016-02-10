@@ -215,6 +215,9 @@ GEM
       rspec-expectations (~> 3.4.0)
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
+    rspec-sidekiq (2.2.0)
+      rspec (~> 3.0, >= 3.0.0)
+      sidekiq (>= 2.4.0)
     rspec-support (3.4.1)
     sass (3.4.21)
     sass-rails (5.0.4)
@@ -294,6 +297,7 @@ DEPENDENCIES
   rails_12factor
   responders
   rspec-rails
+  rspec-sidekiq
   sass-rails
   sentry-raven
   shoulda-matchers

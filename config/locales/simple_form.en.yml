@@ -39,6 +39,7 @@ en:
           active: 'Active'
           unconfirmed: 'Unconfirmed'
           unsubscribed: 'Unsubscribed'
+          complained: 'Complained'
           bounced: 'Bounced'
           deleted: 'Deleted'
       account:

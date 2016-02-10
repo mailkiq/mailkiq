@@ -14,7 +14,7 @@ describe Subscriber, type: :model do
 
   it do
     is_expected.to define_enum_for(:state)
-      .with([:active, :unconfirmed, :unsubscribed, :bounced, :deleted])
+      .with(%i(active unconfirmed unsubscribed bounced complained deleted))
   end
 
   it do

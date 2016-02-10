@@ -20,9 +20,7 @@
           <tr>
             <td><%= subscriber.name %></td>
             <td><%= subscriber.email %></td>
-            <td>
-              <span class="label label-default"><%= subscriber.state.capitalize %></span>
-            </td>
+            <td><%= state_badge_tag subscriber.state %></td>
             <td>
               <%= icon_link_to edit_subscriber_path(subscriber), icon: :pencil %>
               <%= icon_link_to subscriber_path(subscriber), icon: :trash,

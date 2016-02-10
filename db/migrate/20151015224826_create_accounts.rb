@@ -11,6 +11,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :aws_region
       t.string :language
       t.string :time_zone
+      t.timestamps null: false
       t.index :remember_token
       t.index :email, unique: true
     end

@@ -1,3 +1,2 @@
-require 'arel_helpers'
-
-ActiveRecord::Base.send(:include, ArelHelpers)
+require 'extensions/active_record'
+require 'extensions/string'

@@ -9,7 +9,6 @@
           <%= f.input :name, placeholder: false %>
           <%= f.input :email, placeholder: false, as: :email %>
           <%= f.input :password, placeholder: false %>
-          <%= f.input :language, collection: Account::LANGUAGES.map(&:to_sym) %>
           <%= f.input :time_zone %>
           <%= f.button :submit, class: 'btn-success' %>
         <% end %>

@@ -5,6 +5,7 @@ class Campaign < ActiveRecord::Base
   has_many :messages, dependent: :delete_all
   belongs_to :account
   delegate :credentials, to: :account, allow_nil: true
+  before_destroy :clear_sidekiq_queue
 
   def sender
     "#{from_name} <#{from_email}>"
@@ -20,5 +21,11 @@ class Campaign < ActiveRecord::Base
 
   def unique_clicks_count
     messages.clicked.count
+  end
+
+  private
+
+  def clear_sidekiq_queue
+    Sidekiq::Queue.new(queue_name).clear
   end
 end

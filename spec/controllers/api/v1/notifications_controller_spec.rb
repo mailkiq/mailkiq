@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe API::V1::NotificationsController, type: :controller do
-  describe 'POST /notifications' do
+  describe 'POST /api/v1/notifications' do
     confirm_subscription = { cassette_name: :confirm_subscription }
 
     context 'confirm subscription', vcr: confirm_subscription do
@@ -11,6 +11,7 @@ describe API::V1::NotificationsController, type: :controller do
       end
 
       before do
+        request.headers['X-Amz-Sns-Topic-Arn'] = 'arn:aws:sns:*'
         request.env['RAW_POST_DATA'] = notification.to_json
 
         allow(Account).to receive(:find).with(1).and_return(account)
@@ -20,8 +21,14 @@ describe API::V1::NotificationsController, type: :controller do
       end
 
       it { is_expected.to respond_with :success }
-      it { expect(assigns(:json)).to eq(notification) }
+      it { is_expected.to use_before_action :validate_amazon_headers }
+      it { is_expected.to use_before_action :authenticate! }
       it { expect(assigns(:notification)).to be_subscription_confirmation }
+    end
+
+    context 'amazon headers validation' do
+      before { post :create, format: :json }
+      it { is_expected.to respond_with :unauthorized }
     end
   end
 end

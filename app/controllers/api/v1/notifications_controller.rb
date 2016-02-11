@@ -1,5 +1,6 @@
 module API::V1
   class NotificationsController < BaseController
+    before_action :validate_amazon_headers
     before_action :authenticate!
 
     def create
@@ -20,6 +21,16 @@ module API::V1
       end
 
       head :ok
+    end
+
+    private
+
+    def validate_amazon_headers
+      amz_sns_topic = request.headers['X-Amz-Sns-Topic-Arn'].to_s
+      unless amz_sns_topic.start_with?('arn:aws:sns')
+        message = 'Invalid Amazon SES notification.'
+        render json: { message: message }, status: :unauthorized
+      end
     end
   end
 end

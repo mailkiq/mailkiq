@@ -12,8 +12,11 @@ describe CampaignMailer, type: :mailer do
       expect(Subscriber).to receive(:find).with(subscriber.id)
         .and_return(subscriber)
 
+      expect_any_instance_of(AhoyEmail::Processor).to receive(:process)
+      expect_any_instance_of(AhoyEmail::Processor).to receive(:track_send)
+
       ahoy_message = Message.new
-      expect_any_instance_of(Message).to receive(:save)
+
       expect(Message).to receive(:find).and_return(ahoy_message)
       expect(ahoy_message).to receive(:update) do |attributes|
         ahoy_message.assign_attributes(attributes)
@@ -28,7 +31,6 @@ describe CampaignMailer, type: :mailer do
       expect(message.subject).to eq(campaign.subject)
       expect(message.delivery_method).to be_instance_of SES::Base
       expect(message.delivery_method.settings).to eq(account.credentials)
-      expect(message.to_s).to match(/open.gif/)
     end
   end
 end

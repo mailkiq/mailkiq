@@ -11,7 +11,7 @@ module API::V1
 
     use_renderers :json
 
-    private
+    protected
 
     def authenticate_with_token
       token = Token.decode params.require(:token)

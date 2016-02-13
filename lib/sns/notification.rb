@@ -22,6 +22,26 @@ module SNS
         message.respond_to?(:delivery)
     end
 
+    def emails
+      if message.respond_to?(:complaint)
+        message.complaint.complained_recipients.map(&:email)
+      elsif message.respond_to?(:bounce)
+        message.bounce.bounced_recipients.map(&:email)
+      else
+        message.delivery.recipients
+      end
+    end
+
+    def state
+      if message.respond_to?(:complaint)
+        :complained
+      elsif message.respond_to?(:bounce)
+        :bounced
+      elsif message.respond_to?(:delivery)
+        :active
+      end
+    end
+
     def data
       if message.respond_to?(:complaint)
         message.complaint

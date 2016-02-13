@@ -12,7 +12,7 @@ module AhoyEmail
     def process
       return unless processable?
 
-      @ahoy_message = AhoyEmail.message_model.new
+      @ahoy_message = Message.new
       ahoy_message.token = generate_token
       ahoy_message.subscriber = options[:subscriber]
 
@@ -27,7 +27,7 @@ module AhoyEmail
 
     def track_send
       if (message_id = message['Ahoy-Message-Id']) && message.perform_deliveries
-        ahoy_message = AhoyEmail.message_model.where(id: message_id.to_s).first
+        ahoy_message = Message.where(id: message_id.to_s).first
         if ahoy_message
           ahoy_message.sent_at = Time.now
           ahoy_message.save
@@ -100,9 +100,7 @@ module AhoyEmail
         end
 
         if options[:click] && !skip_attribute?(link, 'click')
-          signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'),
-                                              AhoyEmail.secret_token,
-                                              link['href'])
+          signature = Signature.hexdigest link['href']
           link['href'] = url_for controller: 'messages',
                                  action: 'click',
                                  id: ahoy_message.token,
@@ -142,7 +140,9 @@ module AhoyEmail
     # Return uri if valid, nil otherwise
     def parse_uri(href)
       # to_s prevent to return nil from this method
-      Addressable::URI.parse(href.to_s) rescue nil
+      Addressable::URI.parse(href.to_s)
+    rescue
+      nil
     end
 
     def url_for(opt)

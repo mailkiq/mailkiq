@@ -2,7 +2,7 @@ module Token
   module_function
 
   def secret_key_base
-    Rails.application.secrets.secret_key_base
+    @secret_key_base ||= Rails.application.secrets.secret_key_base
   end
 
   def encode(payload)

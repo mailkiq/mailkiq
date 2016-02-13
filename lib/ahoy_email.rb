@@ -1,11 +1,10 @@
-require 'openssl'
 require 'addressable/uri'
 require 'ahoy_email/processor'
 require 'ahoy_email/interceptor'
 require 'ahoy_email/mailer'
 
 module AhoyEmail
-  mattr_accessor :secret_token, :options, :subscribers, :message_model
+  mattr_accessor :options
 
   self.options = {
     message: true,
@@ -22,8 +21,6 @@ module AhoyEmail
       "#{mailer.class.name}##{mailer.action_name}"
     end
   }
-
-  self.subscribers = []
 
   def self.track(options)
     self.options = self.options.merge(options)

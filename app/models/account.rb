@@ -11,7 +11,7 @@ class Account < ActiveRecord::Base
   validates_with AccessKeysValidator, if: :validate_access_keys?
 
   has_many :campaigns, dependent: :destroy
-  has_many :subscribers, dependent: :destroy
+  has_many :subscribers, dependent: :delete_all
 
   def admin?
     email == 'rainerborene@gmail.com'

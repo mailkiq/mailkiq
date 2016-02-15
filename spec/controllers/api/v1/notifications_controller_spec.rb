@@ -27,8 +27,7 @@ describe API::V1::NotificationsController, type: :controller do
         send_raw_json! 'spec/vcr/bounce.json'
 
         expect(Notification).to receive(:create!).with an_instance_of(Hash)
-        expect(account).to receive_message_chain(:subscribers, :where,
-                                                 :update_all)
+        expect(account).to receive_message_chain(:subscribers, :where, :update_all)
           .with an_instance_of(Hash)
 
         post :create, format: :json, token: Token.encode(account_id: 1)

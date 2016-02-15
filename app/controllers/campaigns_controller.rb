@@ -28,6 +28,11 @@ class CampaignsController < AdminController
     respond_with @campaign, location: campaigns_path
   end
 
+  def preview
+    @campaign = current_user.campaigns.find params[:id]
+    render layout: false
+  end
+
   private
 
   def campaign_params

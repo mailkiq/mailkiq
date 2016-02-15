@@ -12,7 +12,7 @@
           <th>Recipients</th>
           <th>Unique Opens</th>
           <th>Unique Clicks</th>
-          <th width="107"></th>
+          <th width="150"></th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +23,7 @@
             <td><%= campaign.unique_opens_count %></td>
             <td><%= campaign.unique_clicks_count %></td>
             <td>
+              <%= icon_link_to preview_campaign_path(campaign), icon: 'eye-open' %>
               <%= icon_link_to new_campaign_delivery_path(campaign), icon: :send %>
               <%= icon_link_to edit_campaign_path(campaign), icon: :pencil %>
               <%= icon_link_to campaign_path(campaign), icon: :trash,

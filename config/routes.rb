@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   resources :subscribers
   resources :campaigns do
     resource :delivery, except: [:edit, :update]
+    get :preview, on: :member
   end
 
   resources :subscriptions, only: [] do

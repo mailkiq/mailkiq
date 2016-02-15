@@ -4,6 +4,8 @@ class Subscriber < ActiveRecord::Base
   validates :email, presence: true, email: true
   belongs_to :account
   has_many :messages, dependent: :delete_all
+  has_many :taggings, dependent: :delete_all
+  has_many :tags, through: :taggings
   enum state: %i(active unconfirmed unsubscribed bounced complained deleted)
   paginates_per 25
 

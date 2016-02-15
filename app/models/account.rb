@@ -12,6 +12,7 @@ class Account < ActiveRecord::Base
 
   has_many :campaigns, dependent: :destroy
   has_many :subscribers, dependent: :delete_all
+  has_many :tags, dependent: :delete_all
 
   def admin?
     email == 'rainerborene@gmail.com'

@@ -31,6 +31,6 @@ class SubscribersController < AdminController
   private
 
   def subscriber_params
-    params.require(:subscriber).permit :name, :email, :state
+    params.require(:subscriber).permit :name, :email, :state, tag_ids: []
   end
 end

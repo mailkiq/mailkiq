@@ -22,9 +22,10 @@ gem 'pg'
 # Assets
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bourbon'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'sass-rails'
-gem 'sprockets-es6'
+gem 'selectize-rails'
 gem 'uglifier'
 
 group :production do

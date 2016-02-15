@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203115340) do
+ActiveRecord::Schema.define(version: 20160215135604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,8 +87,26 @@ ActiveRecord::Schema.define(version: 20160203115340) do
   add_index "subscribers", ["account_id"], name: "index_subscribers_on_account_id", using: :btree
   add_index "subscribers", ["custom_fields"], name: "index_subscribers_on_custom_fields", using: :gin
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "subscriber_id"
+    t.datetime "created_at",    null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "slug",       null: false
+    t.integer  "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tags", ["account_id"], name: "index_tags_on_account_id", using: :btree
+  add_index "tags", ["slug", "account_id"], name: "index_tags_on_slug_and_account_id", unique: true, using: :btree
+
   add_foreign_key "campaigns", "accounts"
   add_foreign_key "messages", "campaigns"
   add_foreign_key "messages", "subscribers"
   add_foreign_key "subscribers", "accounts"
+  add_foreign_key "tags", "accounts"
 end

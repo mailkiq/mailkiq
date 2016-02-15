@@ -1,9 +1,10 @@
 class Segment
-  attr_reader :account, :not_tagged_with
+  attr_reader :account, :tagged_with, :not_tagged_with
 
   def initialize(options = {})
     @account = options[:account]
-    @not_tagged_with = options[:not_tagged_with]
+    @tagged_with = Array(options[:tagged_with])
+    @not_tagged_with = Array(options[:not_tagged_with])
   end
 
   def jobs(campaign_id:)
@@ -13,15 +14,16 @@ class Segment
 
   private
 
-  def subscribers
-    if not_tagged_with.present?
-      Subscribers::UnopenedQuery.new(untagged_campaign.id).call
-    else
-      account.subscribers
+  def stack_relation
+    relation = Subscriber.where account_id: account.id
+    [OpenedQuery, TagQuery].each do |klass|
+      new_relation = klass.new(relation, tagged_with, not_tagged_with).call
+      relation = new_relation if new_relation
     end
+    relation
   end
 
-  def untagged_campaign
-    Campaign.find_by! name: not_tagged_with.gsub('Opened ', '')
+  def subscribers
+    stack_relation
   end
 end

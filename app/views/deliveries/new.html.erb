@@ -5,6 +5,7 @@
     </h2>
 
     <%= simple_form_for @delivery, url: campaign_delivery_path(@campaign) do |f| %>
+      <%= f.input :tagged_with, as: :select, collection: @delivery.tags %>
       <%= f.input :not_tagged_with, as: :select, collection: @delivery.tags %>
       <%= f.button :submit %>
     <% end %>

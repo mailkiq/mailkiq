@@ -18,7 +18,7 @@ module API::V1
                              data: @sns.data.as_json
 
         current_account.subscribers.where(email: @sns.emails)
-          .update_all state: @sns.state
+          .update_all state: Subscriber.states[@sns.state]
       end
 
       head :ok

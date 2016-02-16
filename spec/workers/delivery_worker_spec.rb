@@ -15,7 +15,7 @@ describe DeliveryWorker, type: :worker do
 
     expect(Sidekiq::Client).to receive(:push_bulk).and_call_original
 
-    subject.perform(1, nil)
+    subject.perform(1, nil, nil)
 
     expect(CampaignWorker).to have_enqueued_job(1, 1)
     expect(CampaignWorker).to have_enqueued_job(1, 2)

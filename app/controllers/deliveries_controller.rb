@@ -15,7 +15,7 @@ class DeliveriesController < AdminController
   private
 
   def deliver_params
-    params.require(:delivery).permit :not_tagged_with
+    params.require(:delivery).permit tagged_with: [], not_tagged_with: []
   end
 
   def find_campaign

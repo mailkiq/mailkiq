@@ -7,4 +7,5 @@
 
 $ ->
   $('body > .alert').delay(5000).slideUp(500)
-  $('#subscriber_tag_ids').selectize()
+  $('#subscriber_tag_ids, #delivery_tagged_with, #delivery_not_tagged_with')
+    .selectize()

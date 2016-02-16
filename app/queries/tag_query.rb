@@ -11,7 +11,10 @@ class TagQuery < Query
 
     @relation.joins! taggings_subscribers
     @relation.where! Tagging[:tag_id].in(with_tags) if with_tags.present?
-    @relation.where! Tagging[:tag_id].not_in(without_tags) if without_tags.present?
+    @relation.where! Arel::Nodes::Grouping.new(
+      Tagging[:tag_id].not_in(without_tags).or(Tagging[:tag_id].eq(nil))
+    ) if without_tags.present?
+
     @relation
   end
 

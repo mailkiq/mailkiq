@@ -1,5 +1,4 @@
 ---
-:concurrency: 5
 :dynamic: true
 :queues:
   - [critical, 2]

@@ -88,10 +88,13 @@ ActiveRecord::Schema.define(version: 20160215135604) do
   add_index "subscribers", ["custom_fields"], name: "index_subscribers_on_custom_fields", using: :gin
 
   create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "subscriber_id"
+    t.integer  "tag_id",        null: false
+    t.integer  "subscriber_id", null: false
     t.datetime "created_at",    null: false
   end
+
+  add_index "taggings", ["subscriber_id"], name: "index_taggings_on_subscriber_id", using: :btree
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",       null: false
@@ -108,5 +111,7 @@ ActiveRecord::Schema.define(version: 20160215135604) do
   add_foreign_key "messages", "campaigns"
   add_foreign_key "messages", "subscribers"
   add_foreign_key "subscribers", "accounts"
+  add_foreign_key "taggings", "subscribers"
+  add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "accounts"
 end

@@ -9,6 +9,8 @@ class Subscriber < ActiveRecord::Base
   enum state: %i(active unconfirmed unsubscribed bounced complained deleted)
   paginates_per 25
 
+  scope :actived, -> { where state: states[:active] }
+
   def first_name
     name.split(' ').first
   end

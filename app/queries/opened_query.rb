@@ -5,11 +5,12 @@ class OpenedQuery < Query
 
     return if tagged_campaigns.blank? && untagged_campaigns.blank?
 
-    subscribers_messages = subscribers.join(messages, Arel::Nodes::OuterJoin)
-                           .on(messages[:subscriber_id].eq(subscribers[:id]))
-                           .join_sources
+    join_sources = Subscriber.arel_table
+                   .join(Message.arel_table, Arel::Nodes::OuterJoin)
+                   .on(Message[:subscriber_id].eq(Subscriber[:id]))
+                   .join_sources
 
-    @relation = @relation.distinct.joins(subscribers_messages)
+    @relation = @relation.distinct.joins(join_sources)
     @relation.where! tagged_node(tagged_campaigns) if tagged_campaigns
     @relation.where! untagged_node(untagged_campaigns) if untagged_campaigns
     @relation
@@ -18,11 +19,11 @@ class OpenedQuery < Query
   private
 
   def tagged_node(campaigns)
-    messages[:campaign_id].in(campaigns).and(messages[:opened_at].not_eq(nil))
+    Message[:campaign_id].in(campaigns).and(Message[:opened_at].not_eq(nil))
   end
 
   def untagged_node(campaigns)
-    messages[:campaign_id].in(campaigns).and(messages[:opened_at].eq(nil))
+    Message[:campaign_id].in(campaigns).and(Message[:opened_at].eq(nil))
   end
 
   def pluck_campaigns(tags)

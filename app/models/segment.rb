@@ -15,7 +15,7 @@ class Segment
   private
 
   def stack_relation
-    relation = Subscriber.where account_id: account.id
+    relation = Subscriber.where(account_id: account.id).actived
     [OpenedQuery, TagQuery].each do |klass|
       new_relation = klass.new(relation, tagged_with, not_tagged_with).call
       relation = new_relation if new_relation

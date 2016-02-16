@@ -4,7 +4,7 @@ class Delivery
   attr_accessor :account, :campaign, :tagged_with, :not_tagged_with
 
   def save
-    DeliveryWorker.perform_async campaign.id, not_tagged_with
+    DeliveryWorker.perform_async campaign.id, tagged_with, not_tagged_with
   end
 
   def tags

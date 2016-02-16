@@ -16,8 +16,6 @@ describe Notification, type: :model do
   end
 
   describe '.inheritance_column' do
-    it 'disable STI feature' do
-      expect(described_class.inheritance_column).to be_nil
-    end
+    it { expect(described_class.inheritance_column).to be_nil }
   end
 end

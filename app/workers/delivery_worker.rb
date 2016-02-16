@@ -3,9 +3,10 @@ class DeliveryWorker
 
   sidekiq_options queue: :critical, backtrace: true
 
-  def perform(campaign_id, not_tagged_with)
+  def perform(campaign_id, tagged_with, not_tagged_with)
     campaign = Campaign.find campaign_id
     segment = Segment.new account: campaign.account,
+                          tagged_with: tagged_with,
                           not_tagged_with: not_tagged_with
 
     Sidekiq::Client.push_bulk 'queue' => campaign.queue_name,

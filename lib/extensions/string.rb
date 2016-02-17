@@ -1,8 +1,6 @@
 class String
   def render!(locals = {})
-    locals.each do |name, value|
-      gsub! "%#{name}%", value
-    end
+    locals.each { |name, value| gsub! "%#{name}%", value.to_s }
     self
   end
 end

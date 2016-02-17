@@ -23,14 +23,14 @@ describe Subscriber, type: :model do
   end
 
   describe '#first_name' do
-    it 'returns subscriber first name' do
+    it 'return first name' do
       subscriber = Fabricate.build(:subscriber)
       expect(subscriber.first_name).to eq('Rainer')
     end
   end
 
   describe '#last_name' do
-    it 'returns subscriber last name' do
+    it 'return last name' do
       subscriber = Fabricate.build(:subscriber)
       expect(subscriber.last_name).to eq('Borene')
     end
@@ -43,6 +43,12 @@ describe Subscriber, type: :model do
       expect(interpolations).to have_key :last_name
       expect(interpolations).to have_key :full_name
       expect(interpolations.size).to eq(3)
+    end
+
+    it 'no failing with empty name' do
+      subscriber = Fabricate.build(:subscriber, name: '')
+      expect(subscriber.first_name).to be_nil
+      expect(subscriber.last_name).to be_nil
     end
   end
 end

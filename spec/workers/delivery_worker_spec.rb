@@ -3,6 +3,7 @@ require 'rails_helper'
 describe DeliveryWorker, type: :worker do
   it { is_expected.to be_processed_in :critical }
   it { is_expected.to save_backtrace }
+  it { is_expected.to be_retryable false }
 
   it 'pipeline mail jobs to Redis' do
     campaign = Fabricate.build(:campaign, id: 1)

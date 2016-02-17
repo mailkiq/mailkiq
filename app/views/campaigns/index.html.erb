@@ -19,7 +19,7 @@
         <% @campaigns.each do |campaign| %>
           <tr>
             <td><%= campaign.name %></td>
-            <td><%= current_user.subscribers.count %></td>
+            <td><%= campaign.messages_count %></td>
             <td><%= campaign.unique_opens_count %></td>
             <td><%= campaign.unique_clicks_count %></td>
             <td>

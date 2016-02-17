@@ -4,8 +4,10 @@ class Campaign < ActiveRecord::Base
   validates_with IdentityValidator, if: :account_id?
   has_many :messages, dependent: :delete_all
   belongs_to :account
-  delegate :credentials, to: :account, allow_nil: true
   before_destroy :clear_sidekiq_queue
+
+  delegate :credentials, to: :account, allow_nil: true
+  delegate :count, to: :messages, prefix: true
 
   def sender
     "#{from_name} <#{from_email}>"

@@ -13,6 +13,9 @@ describe Campaign, type: :model do
   it { is_expected.to have_db_index :account_id }
   it { is_expected.to have_many(:messages).dependent :delete_all }
 
+  it { is_expected.to delegate_method(:count).to(:messages).with_prefix }
+  it { is_expected.to delegate_method(:credentials).to(:account) }
+
   describe '#sender' do
     it 'concatenates from_name and from_email fields' do
       campaign = Fabricate.build(:campaign)

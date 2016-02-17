@@ -19,9 +19,9 @@
         <% @campaigns.each do |campaign| %>
           <tr>
             <td><%= campaign.name %></td>
-            <td><%= campaign.messages_count %></td>
-            <td><%= campaign.unique_opens_count %></td>
-            <td><%= campaign.unique_clicks_count %></td>
+            <td><%= number_with_delimiter campaign.messages_count %></td>
+            <td><%= number_with_delimiter campaign.unique_opens_count %></td>
+            <td><%= number_with_delimiter campaign.unique_clicks_count %></td>
             <td>
               <%= icon_link_to preview_campaign_path(campaign), icon: 'eye-open' %>
               <%= icon_link_to new_campaign_delivery_path(campaign), icon: :send %>

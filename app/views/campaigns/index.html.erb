@@ -20,14 +20,19 @@
           <tr>
             <td><%= campaign.name %></td>
             <td><%= number_with_delimiter campaign.messages_count %></td>
-            <td><%= number_with_delimiter campaign.unique_opens_count %></td>
-            <td><%= number_with_delimiter campaign.unique_clicks_count %></td>
+            <td>
+              <%= number_with_delimiter campaign.unique_opens_count %>
+              <%= percentage_badge_tag campaign.unique_opens_count, campaign.messages_count  %>
+            </td>
+            <td>
+              <%= number_with_delimiter campaign.unique_clicks_count %>
+              <%= percentage_badge_tag campaign.unique_clicks_count, campaign.messages_count  %>
+            </td>
             <td>
               <%= icon_link_to preview_campaign_path(campaign), icon: 'eye-open' %>
               <%= icon_link_to new_campaign_delivery_path(campaign), icon: :send %>
               <%= icon_link_to edit_campaign_path(campaign), icon: :pencil %>
-              <%= icon_link_to campaign_path(campaign), icon: :trash,
-                    method: :delete, data: { confirm: t('actions.confirm') } %>
+              <%= trash_link_to campaign_path(campaign) %>
             </td>
           </tr>
         <% end %>

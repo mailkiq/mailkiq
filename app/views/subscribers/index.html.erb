@@ -23,8 +23,7 @@
             <td><%= state_badge_tag subscriber.state %></td>
             <td>
               <%= icon_link_to edit_subscriber_path(subscriber), icon: :pencil %>
-              <%= icon_link_to subscriber_path(subscriber), icon: :trash,
-                    method: :delete, data: { confirm: t('actions.confirm') } %>
+              <%= trash_link_to subscriber_path(subscriber) %>
             </td>
           </tr>
         <% end %>

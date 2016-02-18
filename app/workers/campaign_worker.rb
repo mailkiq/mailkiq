@@ -1,18 +1,12 @@
 class CampaignWorker
   include Sidekiq::Worker
 
-  sidekiq_options backtrace: true, retry: 3
+  sidekiq_options backtrace: true, retry: false, dead: true
 
   def perform(campaign_id, subscriber_id)
-    CampaignMailer.campaign(campaign_id, subscriber_id).deliver_now
-  rescue Fog::AWS::SES::InvalidParameterError => ex
-    if invalid_email_address?(ex.message)
-      subscriber = Subscriber.find(subscriber_id)
-      subscriber.email.gsub!('@.', '@')
-      subscriber.email.gsub!(/\.{2,}/, '.')
-      subscriber.update_column :email, subscriber.email
+    ActiveRecord::Base.transaction do
+      CampaignMailer.campaign(campaign_id, subscriber_id).deliver_now
     end
-    raise
   end
 
   private

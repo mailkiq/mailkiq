@@ -1,4 +1,5 @@
 ---
-:dynamic: true
 :queues:
-  - [critical, 2]
+  - [critical, 20]
+  - [campaigns, 10]
+  - [default, 10]

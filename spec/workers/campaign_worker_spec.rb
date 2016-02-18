@@ -2,14 +2,14 @@ require 'rails_helper'
 
 describe CampaignWorker, type: :worker do
   it { is_expected.to save_backtrace }
-  it { is_expected.to be_retryable 3 }
+  it { is_expected.to be_retryable false }
 
   it 'delivers campaign to subscriber' do
     expect(CampaignMailer).to receive_message_chain(:campaign, :deliver_now)
     subject.perform(1, 1)
   end
 
-  it 'catch error and fixes email address' do
+  skip 'catch error and fixes email address' do
     subscriber = Fabricate.build(:subscriber_with_dot)
 
     expect(Subscriber).to receive(:find).with(1).and_return(subscriber)

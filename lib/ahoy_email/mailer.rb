@@ -18,9 +18,7 @@ module AhoyEmail
 
     module InstanceMethods
       def track(options = {})
-        self.ahoy_options ||= {}
-        self.ahoy_options.merge! message: true
-        self.ahoy_options.merge! options
+        self.ahoy_options = (ahoy_options || {}).merge(message: true).merge(options)
       end
 
       def mail(headers = {}, &block)

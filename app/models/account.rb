@@ -1,5 +1,6 @@
 class Account < ActiveRecord::Base
   include Clearance::User
+  include Person
 
   LANGUAGES = %w(en pt-BR)
   REGIONS = %w(us-east-1 us-west-2 eu-west-1)

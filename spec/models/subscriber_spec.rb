@@ -22,19 +22,7 @@ describe Subscriber, type: :model do
       .of_type(:jsonb).with_options(null: false, default: {})
   end
 
-  describe '#first_name' do
-    it 'return first name' do
-      subscriber = Fabricate.build(:subscriber)
-      expect(subscriber.first_name).to eq('Rainer')
-    end
-  end
-
-  describe '#last_name' do
-    it 'return last name' do
-      subscriber = Fabricate.build(:subscriber)
-      expect(subscriber.last_name).to eq('Borene')
-    end
-  end
+  it { expect(described_class.ancestors).to include Person }
 
   describe '#interpolations' do
     it 'attributes for mailer' do

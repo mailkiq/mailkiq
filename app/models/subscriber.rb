@@ -1,4 +1,5 @@
 class Subscriber < ActiveRecord::Base
+  include Person
   validates_presence_of :name
   validates_uniqueness_of :email, scope: :account_id
   validates :email, presence: true, email: true
@@ -10,14 +11,6 @@ class Subscriber < ActiveRecord::Base
   paginates_per 25
 
   scope :actived, -> { where state: states[:active] }
-
-  def first_name
-    name.split(' ').first if name?
-  end
-
-  def last_name
-    name.split(' ')[1..-1].join(' ') if name?
-  end
 
   def interpolations
     {

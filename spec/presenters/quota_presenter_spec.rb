@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
-
   subject do
     account = Fabricate.build(:valid_account)
     view = ActionController::Base.new.view_context
@@ -49,6 +48,22 @@ describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
     end
   end
 
+  describe '#human_send_rate' do
+    it 'friendly send rate number ' do
+      expect(subject.human_send_rate).to eq('1 email per second')
+      expect(subject).to receive(:max_send_rate).and_return(90)
+      expect(subject.human_send_rate).to eq('90 emails per second')
+    end
+  end
+
+  describe '#human_sending_limits' do
+    it 'friendly sending limits number' do
+      expect(subject).to receive(:sent_last_hours).and_return(500_000)
+      expect(subject).to receive(:max_hour_send).and_return(1_000_000)
+      expect(subject.human_sending_limits).to eq('500,000 of 1,000,000')
+    end
+  end
+
   describe '#sandbox_badge_tag' do
     it 'make a span tag with label classes' do
       span = '<span class="label label-default">Sandbox Mode</span>'
@@ -66,5 +81,4 @@ describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
       expect(subject.progress_bar_tag).to eq(half)
     end
   end
-
 end

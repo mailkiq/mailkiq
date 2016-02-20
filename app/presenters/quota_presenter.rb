@@ -1,5 +1,6 @@
 QuotaPresenter = Struct.new(:account, :view_context) do
-  delegate :t, :content_tag, to: :view_context
+  delegate :t, :pluralize, :number_with_delimiter, :content_tag,
+           to: :view_context
 
   def ses
     @ses ||= Fog::AWS::SES.new account.credentials
@@ -23,6 +24,16 @@ QuotaPresenter = Struct.new(:account, :view_context) do
 
   def sent_last_hours
     send_quota['SentLast24Hours'].to_i
+  end
+
+  def human_send_rate
+    t 'dashboard.show.send_rate', rate: pluralize(max_send_rate, 'email')
+  end
+
+  def human_sending_limits
+    t 'dashboard.show.sending_limits',
+      count: number_with_delimiter(sent_last_hours),
+      remaining: number_with_delimiter(max_hour_send)
   end
 
   def sandbox_badge_tag

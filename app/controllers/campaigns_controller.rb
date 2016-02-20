@@ -1,6 +1,6 @@
 class CampaignsController < AdminController
   def index
-    @campaigns = current_user.campaigns
+    @campaigns = current_user.campaigns.recents
   end
 
   def new

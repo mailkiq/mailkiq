@@ -9,6 +9,8 @@ class Campaign < ActiveRecord::Base
   delegate :credentials, to: :account, allow_nil: true
   delegate :count, to: :messages, prefix: true
 
+  scope :recents, -> { order created_at: :desc }
+
   def sender
     "#{from_name} <#{from_email}>"
   end

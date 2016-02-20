@@ -8,7 +8,7 @@ describe CampaignsController, type: :controller do
 
     describe 'GET /campaigns' do
       before do
-        expect(account).to receive(:campaigns)
+        expect(account).to receive_message_chain(:campaigns, :recents)
         get :index
       end
 

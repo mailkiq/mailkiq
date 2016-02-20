@@ -12,6 +12,7 @@ gem 'puma'
 gem 'responders'
 gem 'sentry-raven'
 gem 'sidekiq'
+gem 'sidekiq-limit_fetch'
 gem 'simple_form'
 gem 'sinatra', require: false
 

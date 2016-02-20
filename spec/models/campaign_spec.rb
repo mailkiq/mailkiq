@@ -24,6 +24,13 @@ describe Campaign, type: :model do
     end
   end
 
+  describe '#queue_name' do
+    it 'sidekiq queue name' do
+      campaign = Fabricate.build(:campaign, id: 1)
+      expect(campaign.queue_name).to eq('campaign-1')
+    end
+  end
+
   describe '#unique_opens_count' do
     it 'number of unique opens for the campaign' do
       campaign = Fabricate.build(:campaign)

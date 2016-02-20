@@ -4,13 +4,17 @@ class Campaign < ActiveRecord::Base
   validates_with IdentityValidator, if: :account_id?
   has_many :messages, dependent: :delete_all
   belongs_to :account
-  # before_destroy :clear_sidekiq_queue
+  before_destroy :clear_sidekiq_queue
 
   delegate :credentials, to: :account, allow_nil: true
   delegate :count, to: :messages, prefix: true
 
   def sender
     "#{from_name} <#{from_email}>"
+  end
+
+  def queue_name
+    "campaign-#{id}"
   end
 
   def unique_opens_count
@@ -23,7 +27,7 @@ class Campaign < ActiveRecord::Base
 
   private
 
-  # def clear_sidekiq_queue
-  #   Sidekiq::Queue.new(queue_name).clear
-  # end
+  def clear_sidekiq_queue
+    Sidekiq::Queue.new(queue_name).clear
+  end
 end

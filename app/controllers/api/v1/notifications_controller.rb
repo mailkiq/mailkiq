@@ -26,12 +26,13 @@ module API::V1
 
     private
 
+    def sns?
+      request.headers['X-Amz-Sns-Topic-Arn'].to_s.start_with?('arn:aws:sns')
+    end
+
     def validate_amazon_headers
-      amz_sns_topic = request.headers['X-Amz-Sns-Topic-Arn'].to_s
-      unless amz_sns_topic.start_with?('arn:aws:sns')
-        message = 'Invalid Amazon SES notification.'
-        render json: { message: message }, status: :unauthorized
-      end
+      render json: { message: 'Invalid Amazon SES notification.' },
+             status: :unauthorized unless sns?
     end
   end
 end

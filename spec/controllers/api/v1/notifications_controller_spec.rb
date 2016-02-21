@@ -15,6 +15,7 @@ describe API::V1::NotificationsController, type: :controller do
         post :create, format: :json, token: Token.encode(account_id: 1)
       end
 
+      it { is_expected.to filter_param :token }
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :validate_amazon_headers }
       it { is_expected.to use_before_action :authenticate! }
@@ -33,6 +34,7 @@ describe API::V1::NotificationsController, type: :controller do
         post :create, format: :json, token: Token.encode(account_id: 1)
       end
 
+      it { is_expected.to filter_param :token }
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :validate_amazon_headers }
       it { is_expected.to use_before_action :authenticate! }

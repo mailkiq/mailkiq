@@ -24,6 +24,21 @@ describe Subscriber, type: :model do
 
   it { expect(described_class.ancestors).to include Person }
 
+  context 'uniqueness validation' do
+    subject do
+      expect_any_instance_of(AccessKeysValidator).to receive(:validate)
+        .at_least(2)
+        .and_return(true)
+      account = Fabricate.create :account
+      Fabricate.create :subscriber, account: account
+    end
+
+    it do
+      is_expected.to validate_uniqueness_of(:email)
+        .scoped_to(:account_id)
+    end
+  end
+
   describe '#interpolations' do
     it 'attributes for mailer' do
       interpolations = Fabricate.build(:subscriber).interpolations

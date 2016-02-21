@@ -1,12 +1,18 @@
 require 'rails_helper'
 
 describe Delivery, type: :model do
-  subject do
-    Delivery.new account: Account.new,
-                 campaign: Campaign.new(id: 10),
-                 tagged_with: ['mulherada a'],
-                 not_tagged_with: ['mulherada b']
-  end
+  it { is_expected.to respond_to :account }
+  it { is_expected.to respond_to :account= }
+  it { is_expected.to respond_to :campaign }
+  it { is_expected.to respond_to :campaign= }
+  it { is_expected.to respond_to :tagged_with }
+  it { is_expected.to respond_to :tagged_with= }
+  it { is_expected.to respond_to :not_tagged_with }
+  it { is_expected.to respond_to :not_tagged_with= }
+
+  it { expect(described_class.ancestors).to include ActiveModel::Model }
+
+  subject { Fabricate.build :delivery }
 
   describe '#save' do
     it 'enqueue delivery job' do
@@ -24,8 +30,9 @@ describe Delivery, type: :model do
 
       expect(subject.account).to receive(:tags).and_return([tag])
       expect(subject.account).to receive(:campaigns).and_return([campaign])
-      expect(subject.tags)
-        .to eq(['Mulherada A', 'Opened The Truth About Wheat'])
+      expect(subject.tags).to eq([
+        'Mulherada A', 'Opened The Truth About Wheat'
+      ])
     end
   end
 end

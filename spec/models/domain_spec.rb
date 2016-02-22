@@ -13,6 +13,20 @@ describe Domain, type: :model do
   it { is_expected.to belong_to :account }
   it { is_expected.to delegate_method(:credentials).to :account }
 
+  describe '#txt_name' do
+    it 'return TXT record name' do
+      domain = Domain.new name: 'patriotas.net'
+      expect(domain.txt_name).to eq('_amazonses.patriotas.net')
+    end
+  end
+
+  describe '#txt_value' do
+    it 'alias to verification_token' do
+      domain = Domain.new verification_token: 'blah'
+      expect(domain.txt_value).to eq(domain.verification_token)
+    end
+  end
+
   describe '#verify_domain_identity', vcr: { cassette_name: :verify_domain_identity } do
     it 'verify a new domain on before create callback' do
       account = Fabricate.build :valid_account
@@ -29,8 +43,12 @@ describe Domain, type: :model do
     end
   end
 
-  describe '#delete_identity' do
+  describe '#delete_identity', vcr: { cassette_name: :delete_identity } do
     it 'remove domain identity on Amazon SES' do
+      account = Fabricate.build :valid_account
+      domain = Domain.new name: 'patriotas.net', account: account
+      response = domain.send(:delete_identity)
+      expect(response.status).to eq(200)
     end
   end
 end

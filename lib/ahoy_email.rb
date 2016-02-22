@@ -1,8 +1,3 @@
-require 'addressable/uri'
-require 'ahoy_email/processor'
-require 'ahoy_email/interceptor'
-require 'ahoy_email/mailer'
-
 module AhoyEmail
   mattr_accessor :options
 
@@ -26,6 +21,3 @@ module AhoyEmail
     self.options = self.options.merge(options)
   end
 end
-
-ActionMailer::Base.send :include, AhoyEmail::Mailer
-ActionMailer::Base.register_interceptor AhoyEmail::Interceptor

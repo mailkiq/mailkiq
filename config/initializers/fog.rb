@@ -16,6 +16,4 @@ require 'fog/models/sns/messages'
 require 'fog/models/sns/message_verifier'
 require 'fog/models/sns/notification'
 
-require 'ahoy_email'
-
 ActionMailer::Base.add_delivery_method :ses, Fog::AWS::SES::Base

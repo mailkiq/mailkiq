@@ -30,7 +30,7 @@ describe Domain, type: :model do
   end
 
   describe '#delete_identity' do
-    it 'remove domain from ses' do
+    it 'remove domain identity on Amazon SES' do
     end
   end
 end

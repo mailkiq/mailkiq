@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=VerifyDomainIdentity&Domain=patriotas.net
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Date:
+      - Mon, 22 Feb 2016 13:56:34 +0000
+      X-Amzn-Authorization:
+      - AWS3-HTTPS AWSAccessKeyId=AKIAIOT5SABFNLCZ5QTQ, Algorithm=HmacSHA256, Signature=FX0EbjbcS5NhXZk7zKJEyYfLTIq4ErbBJPA158YwEcc=
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - 15f967b8-d96c-11e5-8d08-573d0d273a7e
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '370'
+      Date:
+      - Mon, 22 Feb 2016 13:56:35 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <VerifyDomainIdentityResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <VerifyDomainIdentityResult>
+            <VerificationToken>3RPd+UgYrwcWA3+fygXo5LqqMzLAEcK9KOD7EVpVMTs=</VerificationToken>
+          </VerifyDomainIdentityResult>
+          <ResponseMetadata>
+            <RequestId>15f967b8-d96c-11e5-8d08-573d0d273a7e</RequestId>
+          </ResponseMetadata>
+        </VerifyDomainIdentityResponse>
+    http_version: 
+  recorded_at: Mon, 22 Feb 2016 13:56:36 GMT
+recorded_with: VCR 3.0.1

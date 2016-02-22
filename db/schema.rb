@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215135604) do
+ActiveRecord::Schema.define(version: 20160222132702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(version: 20160215135604) do
   end
 
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
+
+  create_table "domains", force: :cascade do |t|
+    t.string   "name",               null: false
+    t.string   "verification_token", null: false
+    t.integer  "status",             null: false
+    t.integer  "account_id",         null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "domains", ["account_id"], name: "index_domains_on_account_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "uid"
@@ -108,6 +119,7 @@ ActiveRecord::Schema.define(version: 20160215135604) do
   add_index "tags", ["slug", "account_id"], name: "index_tags_on_slug_and_account_id", unique: true, using: :btree
 
   add_foreign_key "campaigns", "accounts"
+  add_foreign_key "domains", "accounts"
   add_foreign_key "messages", "campaigns"
   add_foreign_key "messages", "subscribers"
   add_foreign_key "subscribers", "accounts"

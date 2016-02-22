@@ -29,7 +29,7 @@ describe CampaignMailer, type: :mailer do
       expect(message.from).to include(campaign.from_email)
       expect(message.to).to include(subscriber.email)
       expect(message.subject).to eq(campaign.subject)
-      expect(message.delivery_method).to be_instance_of SES::Base
+      expect(message.delivery_method).to be_instance_of Fog::AWS::SES::Base
       expect(message.delivery_method.settings).to eq(account.credentials)
     end
   end

@@ -5,9 +5,9 @@ module API::V1
 
     def create
       @message_body = request.body.read
-      @verifier = SNS::MessageVerifier.new
+      @verifier = Fog::AWS::SNS::MessageVerifier.new
       @verifier.authenticate! @message_body
-      @sns = SNS::Notification.new JSON.parse(@message_body)
+      @sns = Fog::AWS::SNS::Notification.new JSON.parse(@message_body)
 
       if @sns.subscription_confirmation?
         sns = Fog::AWS::SNS.new(current_account.credentials)

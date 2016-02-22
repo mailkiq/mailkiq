@@ -48,7 +48,7 @@ describe API::V1::NotificationsController, type: :controller do
     def mock!
       request.headers['X-Amz-Sns-Topic-Arn'] = 'arn:aws:sns:*'
       expect(Account).to receive(:find).with(1).and_return(account)
-      expect_any_instance_of(SNS::MessageVerifier).to receive(:authenticate!)
+      expect_any_instance_of(Fog::AWS::SNS::MessageVerifier).to receive(:authenticate!)
     end
 
     def send_raw_json!(path)

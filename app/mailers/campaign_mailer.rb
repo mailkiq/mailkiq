@@ -39,7 +39,8 @@ class CampaignMailer < ActionMailer::Base
 
     parts = message.parts.any? ? message.parts : [message]
     parts.each do |part|
-      part.body.raw_source.gsub!(/%unsubscribe_url%/i, unsubscribe_url)
+      part.body.raw_source.gsub!(/%unsubscribe_url%/i,
+                                 CGI.escape(unsubscribe_url))
     end
   end
 end

@@ -5,6 +5,7 @@ ruby '2.3.0'
 gem 'rails', '4.2.5.1'
 gem 'addressable', require: false
 gem 'clearance'
+gem 'dedent'
 gem 'fog-aws'
 gem 'kaminari'
 gem 'page_meta'

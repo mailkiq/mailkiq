@@ -65,6 +65,7 @@ GEM
     connection_pool (2.2.0)
     daemons (1.2.3)
     database_rewinder (0.5.3)
+    dedent (1.0.1)
     diff-lcs (1.2.5)
     dotenv (2.1.0)
     dotenv-rails (2.1.0)
@@ -283,6 +284,7 @@ DEPENDENCIES
   clearance
   coffee-rails
   database_rewinder
+  dedent
   dotenv-rails
   fabrication
   fog-aws

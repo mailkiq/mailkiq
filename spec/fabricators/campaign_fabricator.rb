@@ -3,7 +3,11 @@ Fabricator(:campaign) do
   subject 'The Truth About Wheat'
   from_name 'Rainer Borene'
   from_email 'rainer@thoughtplane.com'
-  html_text 'Testing'
+  html_text <<-EOF.dedent
+    Hello World!
+
+    %unsubscribe_url%
+  EOF
 end
 
 Fabricator(:freeletics_campaign, from: :campaign) do

@@ -9,11 +9,13 @@ class DeliveryWorker
                           tagged_with: tagged_with,
                           not_tagged_with: not_tagged_with
 
-    jobs = segment.jobs_for(campaign_id: campaign_id)
-    jobs.in_groups_of(50_000, false).each do |group|
-      Sidekiq::Client.push_bulk 'queue' => campaign.queue_name,
-                                'class' => CampaignWorker,
-                                'args'  => group
-    end
+    Sidekiq::Queue[campaign.queue_name].pause
+    Sidekiq::Client.push_bulk(
+      'queue' => campaign.queue_name,
+      'class' => CampaignWorker,
+      'args'  => segment.jobs_for(campaign_id: campaign_id)
+    )
+
+    Sidekiq::Queue[campaign.queue_name].unpause
   end
 end

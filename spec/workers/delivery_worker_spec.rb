@@ -14,6 +14,8 @@ describe DeliveryWorker, type: :worker do
       .with(campaign_id: campaign.id)
       .and_return([[1, 1], [1, 2]])
 
+    expect_any_instance_of(Sidekiq::Queue).to receive(:pause)
+    expect_any_instance_of(Sidekiq::Queue).to receive(:unpause)
     expect(Sidekiq::Client).to receive(:push_bulk).and_call_original
 
     subject.perform(1, nil, nil)

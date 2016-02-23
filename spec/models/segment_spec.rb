@@ -20,11 +20,11 @@ describe Segment, type: :model do
     end
   end
 
-  describe '#jobs' do
+  describe '#jobs_for' do
     it 'args for bulk processing' do
       expect(subject).to receive_message_chain(:chain_queries, :pluck)
         .and_return([2, 3, 4])
-      expect(subject.jobs(campaign_id: 1)).to eq([[1, 2], [1, 3], [1, 4]])
+      expect(subject.jobs_for(campaign_id: 1)).to eq([[1, 2], [1, 3], [1, 4]])
     end
   end
 

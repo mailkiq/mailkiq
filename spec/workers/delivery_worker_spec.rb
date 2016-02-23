@@ -3,14 +3,14 @@ require 'rails_helper'
 describe DeliveryWorker, type: :worker do
   it { is_expected.to be_processed_in :critical }
   it { is_expected.to save_backtrace }
-  it { is_expected.to be_retryable false }
+  it { is_expected.to be_retryable 0 }
 
   it 'pipeline mail jobs to Redis' do
     campaign = Fabricate.build(:campaign, id: 1)
 
     expect(campaign).to receive(:account)
     expect(Campaign).to receive(:find).and_return(campaign)
-    expect_any_instance_of(Segment).to receive(:jobs)
+    expect_any_instance_of(Segment).to receive(:jobs_for)
       .with(campaign_id: campaign.id)
       .and_return([[1, 1], [1, 2]])
 

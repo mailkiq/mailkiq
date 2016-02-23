@@ -14,7 +14,7 @@ class Segment
     @not_tagged_with = Array(value)
   end
 
-  def jobs(campaign_id:)
+  def jobs_for(campaign_id:)
     subscriber_ids = chain_queries.pluck(:id)
     subscriber_ids.map! { |subscriber_id| [campaign_id, subscriber_id] }
   end

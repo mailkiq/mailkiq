@@ -1,7 +1,7 @@
 class DeliveryWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: :critical, retry: false, backtrace: true
+  sidekiq_options queue: :critical, backtrace: true, retry: 0
 
   def perform(campaign_id, tagged_with, not_tagged_with)
     campaign = Campaign.find campaign_id
@@ -9,8 +9,11 @@ class DeliveryWorker
                           tagged_with: tagged_with,
                           not_tagged_with: not_tagged_with
 
-    Sidekiq::Client.push_bulk 'queue' => campaign.queue_name,
-                              'class' => CampaignWorker,
-                              'args' => segment.jobs(campaign_id: campaign_id)
+    jobs = segment.jobs_for(campaign_id: campaign_id)
+    jobs.in_groups_of(50_000, false).each do |group|
+      Sidekiq::Client.push_bulk 'queue' => campaign.queue_name,
+                                'class' => CampaignWorker,
+                                'args'  => group
+    end
   end
 end

@@ -1,7 +1,7 @@
 class CampaignWorker
   include Sidekiq::Worker
 
-  sidekiq_options backtrace: true, retry: false, dead: true
+  sidekiq_options backtrace: true, retry: 0
 
   def perform(campaign_id, subscriber_id)
     ActiveRecord::Base.transaction do

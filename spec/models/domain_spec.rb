@@ -13,6 +13,19 @@ describe Domain, type: :model do
   it { is_expected.to belong_to :account }
   it { is_expected.to delegate_method(:credentials).to :account }
 
+  it 'validate uniqueness of domain name' do
+    expect_any_instance_of(AccessKeysValidator).to receive(:validate)
+      .at_least(2)
+      .and_return(true)
+
+    expect_any_instance_of(Domain).to receive(:verify_domain_identity)
+      .and_return(true)
+
+    Fabricate.create :domain
+
+    is_expected.to validate_uniqueness_of :name
+  end
+
   describe '#txt_name' do
     it 'return TXT record name' do
       domain = Domain.new name: 'patriotas.net'

@@ -1,5 +1,6 @@
 class Domain < ActiveRecord::Base
-  validates_presence_of :name, :verification_token, :status
+  validates :name, presence: true, uniqueness: true
+  validates_presence_of :verification_token, :status
   belongs_to :account
   enum status: [:pending, :success, :failed, :temporary_failure, :not_started]
   before_create :verify_domain_identity

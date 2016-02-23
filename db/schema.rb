@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20160222132702) do
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
 
   create_table "domains", force: :cascade do |t|
-    t.string   "name",               null: false
+    t.citext   "name",               null: false
     t.string   "verification_token", null: false
     t.integer  "status",             null: false
     t.integer  "account_id",         null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160222132702) do
   end
 
   add_index "domains", ["account_id"], name: "index_domains_on_account_id", using: :btree
+  add_index "domains", ["name"], name: "index_domains_on_name", unique: true, using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "uid"

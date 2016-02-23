@@ -54,7 +54,7 @@ module Fog
         # @raise [VerificationError] Raised when the given message has failed
         #   verification.
         def authenticate!(message_body)
-          msg = JSON.load(message_body)
+          msg = ::JSON.load(message_body)
           if public_key(msg).verify(sha1, signature(msg), canonical_string(msg))
             true
           else

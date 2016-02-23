@@ -40,6 +40,15 @@ describe Domain, type: :model do
     end
   end
 
+  describe '#sync_verification_status!', vcr: { cassette_name: :get_identity_verification_attributes } do
+    it 'fetch verification status on Amazon SES' do
+      account = Fabricate.build(:valid_account)
+      domain = Domain.new name: 'thoughtplane.com', account: account
+      expect(domain).to receive(:update_column).with(:status, 'success')
+      domain.sync_verification_status!
+    end
+  end
+
   describe '#verify_domain_identity', vcr: { cassette_name: :verify_domain_identity } do
     it 'verify a new domain on before create callback' do
       account = Fabricate.build :valid_account

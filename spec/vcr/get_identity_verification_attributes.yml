@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=GetIdentityVerificationAttributes&Identities.member.1=thoughtplane.com
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Date:
+      - Tue, 23 Feb 2016 13:26:59 +0000
+      X-Amzn-Authorization:
+      - AWS3-HTTPS AWSAccessKeyId=AKIAIOT5SABFNLCZ5QTQ, Algorithm=HmacSHA256, Signature=0J956ryneu5pUhO32gUyf4nqm8UYlQ47nYZkGIOBSgU=
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - 1e88750f-da31-11e5-bf85-4d0de5ff2f37
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '644'
+      Date:
+      - Tue, 23 Feb 2016 13:26:59 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <GetIdentityVerificationAttributesResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <GetIdentityVerificationAttributesResult>
+            <VerificationAttributes>
+              <entry>
+                <key>thoughtplane.com</key>
+                <value>
+                  <VerificationToken>oPld11CtXSBGVTVgv6DFtRe2EdmM5I6R6OfADMQ++kQ=</VerificationToken>
+                  <VerificationStatus>Success</VerificationStatus>
+                </value>
+              </entry>
+            </VerificationAttributes>
+          </GetIdentityVerificationAttributesResult>
+          <ResponseMetadata>
+            <RequestId>1e88750f-da31-11e5-bf85-4d0de5ff2f37</RequestId>
+          </ResponseMetadata>
+        </GetIdentityVerificationAttributesResponse>
+    http_version: 
+  recorded_at: Tue, 23 Feb 2016 13:27:00 GMT
+recorded_with: VCR 3.0.1

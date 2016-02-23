@@ -1,17 +1,26 @@
-require 'rails_helper'
+require 'spec_helper'
+
+class Human
+  include Person
+  attr_accessor :name
+
+  def name?
+    name.present?
+  end
+end
 
 describe Person, type: :model do
+  subject do
+    human = Human.new
+    human.name = 'Jesus Christ'
+    human
+  end
+
   describe '#first_name' do
-    it 'return first name' do
-      subscriber = Fabricate.build(:subscriber)
-      expect(subscriber.first_name).to eq('Rainer')
-    end
+    it { expect(subject.first_name).to eq('Jesus') }
   end
 
   describe '#last_name' do
-    it 'return last name' do
-      subscriber = Fabricate.build(:subscriber)
-      expect(subscriber.last_name).to eq('Borene')
-    end
+    it { expect(subject.last_name).to eq('Christ') }
   end
 end

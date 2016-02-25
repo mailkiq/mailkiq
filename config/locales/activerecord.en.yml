@@ -7,3 +7,4 @@ en:
           invalid_token: 'AWS access key ID provided does not exist.'
         campaign:
           unverified_email_address: 'Email address is not verified.'
+          unverified_domain: 'Email domain is not verified.'

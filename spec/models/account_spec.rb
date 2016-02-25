@@ -34,9 +34,16 @@ describe Account, type: :model do
     end
   end
 
+  describe '#domain_names' do
+    it 'pluck name on domains association' do
+      expect(subject).to receive_message_chain(:domains, :pluck)
+      subject.domain_names
+    end
+  end
+
   describe '#credentials' do
     it 'return options to initialize Fog::AWS services' do
-      credentials = Fabricate.build(:valid_account).credentials
+      credentials = subject.credentials
       expect(credentials).to be_instance_of HashWithIndifferentAccess
       expect(credentials).to have_key :aws_access_key_id
       expect(credentials).to have_key :aws_secret_access_key
@@ -47,7 +54,7 @@ describe Account, type: :model do
 
   describe '#admin?' do
     it 'God please give me the necessary power to run the world' do
-      account = Fabricate.build(:account, email: 'rainerborene@gmail.com')
+      account = described_class.new email: 'rainerborene@gmail.com'
       expect(account).to be_admin
 
       account.email = 'blah@blah.com'

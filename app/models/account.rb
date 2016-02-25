@@ -22,10 +22,14 @@ class Account < ActiveRecord::Base
     email == 'rainerborene@gmail.com'
   end
 
+  def domain_names
+    domains.pluck(:name)
+  end
+
   def credentials
     fog_options = slice :aws_access_key_id, :aws_secret_access_key
     fog_options.merge! region: aws_region || 'us-east-1'
-    HashWithIndifferentAccess.new(fog_options)
+    fog_options.with_indifferent_access
   end
 
   private

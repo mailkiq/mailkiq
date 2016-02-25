@@ -5,7 +5,7 @@ class Domain < ActiveRecord::Base
   enum status: [:pending, :success, :failed, :temporary_failure, :not_started]
   before_create :verify_domain_identity
   before_destroy :delete_identity
-  delegate :credentials, to: :account, allow_nil: true
+  delegate :credentials, to: :account, prefix: true
   alias_attribute :txt_value, :verification_token
 
   def txt_name
@@ -22,7 +22,7 @@ class Domain < ActiveRecord::Base
   private
 
   def ses
-    @ses ||= Fog::AWS::SES.new(credentials)
+    @ses ||= Fog::AWS::SES.new(account_credentials)
   end
 
   def verify_domain_identity

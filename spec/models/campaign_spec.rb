@@ -14,7 +14,8 @@ describe Campaign, type: :model do
   it { is_expected.to have_many(:messages).dependent :delete_all }
 
   it { is_expected.to delegate_method(:count).to(:messages).with_prefix }
-  it { is_expected.to delegate_method(:credentials).to(:account) }
+  it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
+  it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
 
   describe '#sender' do
     it 'concatenates from_name and from_email fields' do

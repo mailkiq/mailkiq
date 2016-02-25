@@ -1,8 +1,6 @@
 #= require jquery
 #= require jquery_ujs
 #= require selectize
-#= require bootstrap/dropdown
-#= require bootstrap/tab
 #= require_tree ./components
 #= require_self
 

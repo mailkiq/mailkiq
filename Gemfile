@@ -21,7 +21,6 @@ gem 'sinatra', require: false
 gem 'pg'
 
 # Assets
-gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bourbon'
 gem 'coffee-rails'
 gem 'jquery-rails'

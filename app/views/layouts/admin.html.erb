@@ -13,16 +13,20 @@
       </div>
     <% end %>
 
-    <header class="l-header navbar navbar-default navbar-static-top">
+    <header class="l-header">
       <div class="container">
-        <span class="navbar-brand hidden-xs">
-          <%= image_tag 'logo.png', size: '142x29', alt: 'Mailkiq' %>
-        </span>
+        <div class="brand">
+          &nbsp;
+        </div>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to t('nav.links.sending_statistics'), signed_in_root_path %></li>
+        <ul class="nav">
+          <li><%= link_to t('nav.links.dashboard'), signed_in_root_path %></li>
           <li><%= link_to t('nav.links.campaigns'), campaigns_path %></li>
           <li><%= link_to t('nav.links.subscribers'), subscribers_path %></li>
+        </ul>
+
+        <ul class="nav-dropdown">
+          <li>Settings</li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="glyphicon glyphicon-cog hidden-xs"></span>

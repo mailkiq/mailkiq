@@ -4,7 +4,7 @@ en:
     confirm: Are you sure?
   nav:
     links:
-      sending_statistics: Sending Statistics
+      dashboard: Dashboard
       campaigns: Campaigns
       settings: Settings
       sign_out: Sign Out

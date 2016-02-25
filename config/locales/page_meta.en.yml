@@ -3,7 +3,7 @@ en:
     titles:
       settings:
         profile: Your Profile
-        aws: Access Keys
+        aws: Amazon Web Services
       subscribers:
         index: Subscribers
         new: New subscriber

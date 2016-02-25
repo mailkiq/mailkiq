@@ -35,3 +35,11 @@ class Domain < ActiveRecord::Base
     ses.delete_identity(name)
   end
 end
+
+# TODO: Add html_class helper.
+# TODO: Change HTML tag selectors
+# TODO: Add form to manage Domains on settings#aws view.
+# TODO: Use accepts_nested_attributes to handle nested forms.
+# TODO: Implement trigger to sync status!
+# TODO: Use vue.js for front-end interactions
+# TODO: Validate campaign from_email based on exiting Domain records.

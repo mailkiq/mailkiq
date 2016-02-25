@@ -16,6 +16,8 @@ class Account < ActiveRecord::Base
   has_many :tags, dependent: :delete_all
   has_many :domains, dependent: :destroy
 
+  accepts_nested_attributes_for :domains, allow_destroy: true
+
   def admin?
     email == 'rainerborene@gmail.com'
   end

@@ -4,6 +4,8 @@ class SettingsController < AdminController
   end
 
   def aws
+    @domains = current_user.domains
+    @domains.build if @domains.empty?
     update aws_params if request.put?
   end
 

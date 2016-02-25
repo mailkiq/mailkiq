@@ -26,6 +26,8 @@ en:
         name: 'Annie Terry'
         email: 'annie@west.com'
         password: 'Enter a password'
+        domains:
+          name: 'Enter the domain name'
       password:
         email: 'annie@west.com'
     hints:

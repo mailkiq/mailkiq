@@ -2,13 +2,22 @@
   <h1><%= page_title %></h1>
   <h4><%= t('.description') %></h4>
 
+  <% if @account.paypal_payment_token.present? %>
+    Payment has been provided. Click "Subscribe" to complete the subscription.
+  <% end %>
+
   <%= simple_form_for @account do |f| %>
     <%= f.input :name %>
     <%= f.input :email, as: :email %>
     <%= f.input :password %>
     <%= f.input :aws_access_key_id %>
     <%= f.input :aws_secret_access_key %>
+    <%= f.input :plan_id, as: :hidden %>
+    <%= f.input :paypal_customer_token, as: :hidden %>
+    <%= f.input :paypal_payment_token, as: :hidden %>
     <%= f.hint t('.access_keys') %>
     <%= f.button :submit, class: 'btn-success' %>
   <% end %>
+
+  <%= link_to 'Pagar com PayPal', paypal_checkout_path(plan_id: 1) %>
 </div>

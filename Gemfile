@@ -16,6 +16,7 @@ gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'simple_form'
 gem 'sinatra', require: false
+gem 'paypal-recurring'
 
 # DB
 gem 'pg'

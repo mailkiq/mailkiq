@@ -11,12 +11,25 @@ class Account < ActiveRecord::Base
   validates :time_zone, time_zone: true, if: :time_zone?
   validates_with AccessKeysValidator, if: :validate_access_keys?
 
+  belongs_to :plan
   has_many :campaigns, dependent: :destroy
   has_many :subscribers, dependent: :delete_all
   has_many :tags, dependent: :delete_all
   has_many :domains, dependent: :destroy
 
   accepts_nested_attributes_for :domains, allow_destroy: true
+
+  attr_accessor :paypal_payment_token
+
+  def paypal
+    Payment.new(self)
+  end
+
+  def save_with_payment
+    response = paypal.make_recurring
+    self.paypal_recurring_profile_token = response.profile_id
+    save!
+  end
 
   def admin?
     email == 'rainerborene@gmail.com'

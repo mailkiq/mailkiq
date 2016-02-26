@@ -11,25 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222132702) do
+ActiveRecord::Schema.define(version: 20160226010709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "name",                              null: false
-    t.citext   "email",                             null: false
-    t.string   "encrypted_password",    limit: 128
-    t.string   "confirmation_token",    limit: 128
-    t.string   "remember_token",        limit: 128
+    t.string   "name",                                       null: false
+    t.citext   "email",                                      null: false
+    t.string   "encrypted_password",             limit: 128
+    t.string   "confirmation_token",             limit: 128
+    t.string   "remember_token",                 limit: 128
     t.string   "aws_access_key_id"
     t.string   "aws_secret_access_key"
     t.string   "aws_region"
     t.string   "language"
     t.string   "time_zone"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "plan_id"
+    t.string   "paypal_customer_token"
+    t.string   "paypal_recurring_profile_token"
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
@@ -84,6 +87,13 @@ ActiveRecord::Schema.define(version: 20160222132702) do
   end
 
   add_index "notifications", ["message_uid"], name: "index_notifications_on_message_uid", using: :btree
+
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "subscribers", force: :cascade do |t|
     t.string   "name",                       null: false

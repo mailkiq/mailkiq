@@ -7,8 +7,10 @@ gem 'addressable', require: false
 gem 'clearance'
 gem 'dedent'
 gem 'fog-aws'
+gem 'has_scope'
 gem 'kaminari'
 gem 'page_meta'
+gem 'paypal-recurring'
 gem 'puma'
 gem 'responders'
 gem 'sentry-raven'
@@ -16,7 +18,6 @@ gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'simple_form'
 gem 'sinatra', require: false
-gem 'paypal-recurring'
 
 # DB
 gem 'pg'

@@ -1,6 +1,9 @@
 class CampaignsController < AdminController
+  has_scope :sort, using: [:column, :direction],
+                   default: { column: 'name', direction: 'asc' }
+
   def index
-    @campaigns = current_user.campaigns.recents
+    @campaigns = apply_scopes current_user.campaigns
   end
 
   def new

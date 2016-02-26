@@ -11,7 +11,13 @@ class Campaign < ActiveRecord::Base
   delegate :credentials, :domain_names, to: :account, prefix: true
   delegate :count, to: :messages, prefix: true
 
-  scope :recents, -> { order created_at: :desc }
+  def self.sort(column, direction)
+    if column_names.include?(column) && %w(asc desc).include?(direction)
+      order column => direction
+    else
+      all
+    end
+  end
 
   def sender
     "#{from_name} <#{from_email}>"

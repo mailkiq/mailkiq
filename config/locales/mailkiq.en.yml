@@ -19,3 +19,15 @@ en:
       sending_limits: "%{count} of %{remaining}"
       send_rate: "%{rate} per second"
       sandbox: Sandbox Mode
+  campaigns:
+    index:
+      new_campaign: New campaign
+      campaign: Campaign
+      recipients: Recipients
+      unique_opens: Unique Opens
+      unique_clicks: Unique Clicks
+      no_campaigns: No campaigns found.
+      preview: Preview
+      send: Send
+      edit: Edit
+      delete: Delete

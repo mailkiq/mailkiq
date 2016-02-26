@@ -2,16 +2,16 @@
   appearance: none;
   background-color: $action-color;
   border: 0;
-  border-radius: $base-border-radius;
-  color: #fff;
+  color: $dark-gray;
   cursor: pointer;
   display: inline-block;
   font-family: $base-font-family;
-  font-size: $base-font-size;
+  font-size: $button-font-size;
   -webkit-font-smoothing: antialiased;
   font-weight: 600;
   line-height: 1;
-  padding: $small-spacing $base-spacing;
+  padding: $button-padding;
+  text-transform: uppercase;
   text-decoration: none;
   transition: background-color $base-duration $base-timing;
   user-select: none;
@@ -20,9 +20,11 @@
 
   &:hover,
   &:focus {
-    background-color: shade($action-color, 20%);
-    color: #fff;
+    background-color: $green;
+    color: $dark-gray;
   }
+
+  &:active { background-color: $dark-green; }
 
   &:disabled {
     cursor: not-allowed;

@@ -1,48 +1,44 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2 class="title">
-      <%= page_title %>
-      <%= link_to 'Create new campaign', new_campaign_path, class: 'btn btn-default pull-right' %>
-    </h2>
+<h2>
+  <%= page_title %>
+  <%= link_to t('.new_campaign'), new_campaign_path, class: 'btn' %>
+</h2>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Campaign</th>
-          <th>Recipients</th>
-          <th>Unique Opens</th>
-          <th>Unique Clicks</th>
-          <th width="150"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @campaigns.each do |campaign| %>
-          <tr>
-            <td><%= campaign.name %></td>
-            <td><%= number_with_delimiter campaign.messages_count %></td>
-            <td>
-              <%= number_with_delimiter campaign.unique_opens_count %>
-              <%= percentage_badge_tag campaign.unique_opens_count, campaign.messages_count  %>
-            </td>
-            <td>
-              <%= number_with_delimiter campaign.unique_clicks_count %>
-              <%= percentage_badge_tag campaign.unique_clicks_count, campaign.messages_count  %>
-            </td>
-            <td>
-              <%= icon_link_to preview_campaign_path(campaign), icon: 'eye-open' %>
-              <%= icon_link_to new_campaign_delivery_path(campaign), icon: :send %>
-              <%= icon_link_to edit_campaign_path(campaign), icon: :pencil %>
-              <%= trash_link_to campaign_path(campaign) %>
-            </td>
-          </tr>
-        <% end %>
+<table class="table">
+  <thead>
+    <tr>
+      <th width="300"><%= t '.campaign' %></th>
+      <th><%= t '.recipients' %></th>
+      <th><%= t '.unique_opens' %></th>
+      <th><%= t '.unique_clicks' %></th>
+      <th width="241"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @campaigns.each do |campaign| %>
+      <tr>
+        <td><%= campaign.name %></td>
+        <td><%= number_with_delimiter campaign.messages_count %></td>
+        <td>
+          <%= number_with_delimiter campaign.unique_opens_count %>
+          <%= percentage_badge_tag campaign.unique_opens_count, campaign.messages_count  %>
+        </td>
+        <td>
+          <%= number_with_delimiter campaign.unique_clicks_count %>
+          <%= percentage_badge_tag campaign.unique_clicks_count, campaign.messages_count  %>
+        </td>
+        <td class="actions">
+          <%= link_to t('.preview'), preview_campaign_path(campaign) %>
+          <%= link_to t('.send'), new_campaign_delivery_path(campaign) %>
+          <%= link_to t('.edit'), edit_campaign_path(campaign) %>
+          <%= link_to t('.delete'), campaign_path(campaign) %>
+        </td>
+      </tr>
+    <% end %>
 
-        <% unless @campaigns.any? %>
-          <tr>
-            <td colspan="6">There are no campaigns yet. Send one!</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+    <% unless @campaigns.any? %>
+      <tr>
+        <td colspan="5"><%= t '.no_campaigns' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

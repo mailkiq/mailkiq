@@ -1,9 +1,8 @@
 .l-header {
   @include box-sizing(border-box);
-  background: $header-background;
+  background: $header-background-color;
   height: 70px;
   padding-top: 19px;
-  font-family: $montserrat;
 
   a { @include transition(all 0.2s ease-in-out); }
 
@@ -38,8 +37,8 @@
       &:last-child { margin-right: 0; }
 
       &.active a, a:hover {
-        color: $nav-primary;
-        border-bottom-color: $nav-primary;
+        color: $action-color;
+        border-bottom-color: $action-color;
       }
     }
   }
@@ -52,7 +51,7 @@
       font-size: 18px;
       line-height: 36px;
 
-      &:hover { color: $nav-primary; }
+      &:hover { color: $action-color; }
     }
   }
 }

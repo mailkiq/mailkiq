@@ -1,24 +1,47 @@
 table {
   border-collapse: collapse;
-  margin: $small-spacing 0;
+  margin: $table-spacing 0;
   table-layout: fixed;
   width: 100%;
 }
 
 th {
   border-bottom: 1px solid shade($base-border-color, 25%);
-  font-weight: 600;
-  padding: $small-spacing 0;
+  font-size: 12px;
+  font-weight: 700;
+  padding: $table-spacing 0;
   text-align: left;
+  text-transform: uppercase;
 }
 
 td {
   border-bottom: $base-border;
-  padding: $small-spacing 0;
+  padding: $table-spacing 0;
 }
 
 tr,
 td,
 th {
   vertical-align: middle;
+}
+
+td.actions a {
+  color: $light-gray;
+  font-size: 12px;
+  text-transform: uppercase;
+
+  &:hover {
+    color: shade($light-gray, 50%);
+  }
+
+  &:after {
+    content: '|';
+    margin-left: 9px;
+    margin-right: 5px;
+  }
+
+  &:last-child:after {
+    content: '';
+    margin-right: 0;
+  }
 }

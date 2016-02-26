@@ -1,5 +1,9 @@
+// Bourbon
+$all-buttons: append($all-buttons, '.btn');
+
 // Typography
-$base-font-family: $helvetica;
+$montserrat: 'Montserrat', sans-serif;
+$base-font-family: $montserrat;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
@@ -16,14 +20,17 @@ $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
+$green: #73ff7d;
+$light-green: #b8ffbd;
+$dark-green: #98ce9c;
 $blue: #1565c0;
-$dark-gray: #333;
-$medium-gray: #999;
-$light-gray: #ddd;
+$dark-gray: #4f4f4f;
+$medium-gray: #b3b3b3;
+$light-gray: #b3b3b3;
 
 // Font Colors
 $base-font-color: $dark-gray;
-$action-color: $blue;
+$action-color: $light-green;
 
 // Border
 $base-border-color: $light-gray;
@@ -40,3 +47,9 @@ $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $l
 // Animations
 $base-duration: 150ms;
 $base-timing: ease;
+
+// Extras
+$header-background-color: $medium-gray;
+$button-font-size: 12px;
+$button-padding: 15px;
+$table-spacing: 30px;

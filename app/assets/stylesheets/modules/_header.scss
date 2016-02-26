@@ -24,10 +24,10 @@
       color: #fff;
       text-transform: uppercase;
       margin-left: right;
-      padding-bottom: 16px;
+      padding-bottom: 21px;
       line-height: 30px;
       font-size: 12px;
-      border-bottom: 5px solid transparent;
+      box-shadow: none;
     }
 
     li {
@@ -38,7 +38,7 @@
 
       &.active a, a:hover {
         color: $action-color;
-        border-bottom-color: $action-color;
+        box-shadow: 0px -5px 0px $action-color inset;
       }
     }
   }

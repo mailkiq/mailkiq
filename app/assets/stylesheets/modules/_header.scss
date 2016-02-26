@@ -1,10 +1,11 @@
 .l-header {
+  @include box-sizing(border-box);
   background: $header-background;
-  height: 55px;
-  padding-top: 25px;
+  height: 70px;
+  padding-top: 19px;
   font-family: $montserrat;
 
-  .dropdown { display: none; }
+  a { @include transition(all 0.2s ease-in-out); }
 
   .brand {
     width: 123px;
@@ -14,8 +15,9 @@
   }
 
   .nav {
+    width: 435px;
     text-align: center;
-    margin-left: 150px;
+    margin-left: 153px;
     float: left;
 
     a {
@@ -23,24 +25,34 @@
       color: #fff;
       text-transform: uppercase;
       margin-left: right;
-      padding-bottom: 25px;
-      border-bottom: 6px solid transparent;
+      padding-bottom: 16px;
+      line-height: 30px;
+      font-size: 12px;
+      border-bottom: 5px solid transparent;
+    }
 
-      &.active {
+    li {
+      display: inline;
+      margin-right: 90px;
+
+      &:last-child { margin-right: 0; }
+
+      &.active a, a:hover {
         color: $nav-primary;
         border-bottom-color: $nav-primary;
       }
-    }
-
-    > li {
-      display: inline;
-      margin-right: 100px;
-
-      &:last-child { margin-right: 0; }
     }
   }
 
   .nav-dropdown {
     float: right;
+
+    a {
+      color: #fff;
+      font-size: 18px;
+      line-height: 36px;
+
+      &:hover { color: $nav-primary; }
+    }
   }
 }

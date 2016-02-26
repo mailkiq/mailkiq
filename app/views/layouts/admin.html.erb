@@ -15,30 +15,16 @@
 
     <header class="l-header">
       <div class="container">
-        <div class="brand">
-          &nbsp;
-        </div>
+        <div class="brand">&nbsp;</div>
 
         <ul class="nav">
-          <li><%= link_to t('nav.links.dashboard'), signed_in_root_path %></li>
-          <li><%= link_to t('nav.links.campaigns'), campaigns_path %></li>
-          <li><%= link_to t('nav.links.subscribers'), subscribers_path %></li>
+          <%= nav_link_to t('nav.links.dashboard'), signed_in_root_path %>
+          <%= nav_link_to t('nav.links.campaigns'), campaigns_path %>
+          <%= nav_link_to t('nav.links.subscribers'), subscribers_path %>
         </ul>
 
         <ul class="nav-dropdown">
-          <li>Settings</li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="glyphicon glyphicon-cog hidden-xs"></span>
-              <span class="visible-xs">Account</span>
-            </a>
-
-            <ul class="dropdown-menu">
-              <li><%= link_to t('nav.links.settings'), profile_settings_path %></li>
-              <li class="divider"></li>
-              <li><%= link_to t('nav.links.sign_out'), sign_out_path, method: :delete %></li>
-            </ul>
-          </li>
+          <li><%= link_to '', profile_settings_path, class: 'ss-settings' %></li>
         </ul>
       </div>
     </header>

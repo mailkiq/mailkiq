@@ -51,6 +51,10 @@ th a {
   }
 }
 
+tfoot th {
+  border-bottom: none;
+}
+
 td.actions a {
   color: $light-gray;
   font-size: 12px;

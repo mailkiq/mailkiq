@@ -29,3 +29,10 @@ en:
       send: Send
       edit: Edit
       delete: Delete
+  subscribers:
+    index:
+      new_subscriber: New subscriber
+      no_subscribers: No subscribers found.
+      name: Name
+      email: Email
+      state: State

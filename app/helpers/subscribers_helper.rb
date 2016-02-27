@@ -8,8 +8,8 @@ module SubscribersHelper
     deleted: :danger
   }
 
-  def state_badge_tag(state)
+  def state_tag(state)
     variation = COLORS[state.to_sym]
-    content_tag :span, state.capitalize, class: "label label-#{variation}"
+    content_tag :span, state.capitalize, class: "label-#{variation}"
   end
 end

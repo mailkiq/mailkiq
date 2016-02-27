@@ -1,41 +1,44 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2 class="title">
-      <%= page_title %>
-      <%= link_to 'New subscriber', new_subscriber_path, class: 'btn btn-default pull-right' %>
-    </h2>
+<h2>
+  <%= page_title %>
+  <%= link_to t('.new_subscriber'), new_subscriber_path, class: 'btn' %>
+</h2>
 
-    <table class="table">
-      <caption><%= page_entries_info @subscribers %></caption>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>State</th>
-          <th width="100"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @subscribers.each do |subscriber| %>
-          <tr>
-            <td><%= subscriber.name %></td>
-            <td><%= subscriber.email %></td>
-            <td><%= state_badge_tag subscriber.state %></td>
-            <td>
-              <%= icon_link_to edit_subscriber_path(subscriber), icon: :pencil %>
-              <%= trash_link_to subscriber_path(subscriber) %>
-            </td>
-          </tr>
-        <% end %>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= t '.name' %></th>
+      <th><%= t '.email' %></th>
+      <th><%= t '.state' %></th>
+      <th width="106"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subscribers.each do |subscriber| %>
+      <tr>
+        <td><%= subscriber.name %></td>
+        <td><%= subscriber.email %></td>
+        <td><%= state_tag subscriber.state %></td>
+        <td class="actions">
+          <%= link_to t('.edit'), edit_subscriber_path(subscriber) %>
+          <%= link_to_delete subscriber_path(subscriber) %>
+        </td>
+      </tr>
+    <% end %>
 
-        <% unless @subscribers.any? %>
-          <tr>
-            <td colspan="3">Add your first subscriber.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <% unless @subscribers.any? %>
+      <tr>
+        <td colspan="4"><%= t '.no_subscribers' %></td>
+      </tr>
+    <% end %>
+  </tbody>
 
-    <%= paginate @subscribers %>
-  </div>
-</div>
+  <% if @subscribers.any? %>
+    <tfoot>
+      <tr>
+        <th colspan="4"><%= page_entries_info @subscribers %></th>
+      </tr>
+    </tfoot>
+  <% end %>
+</table>
+
+<%= paginate @subscribers %>

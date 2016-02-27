@@ -11,4 +11,8 @@ module ApplicationHelper
     sort_params = { column: column, direction: sort_direction }
     link_to title, { sort: sort_params }, class: css_class
   end
+
+  def html_class
+    "#{controller_name}-controller"
+  end
 end

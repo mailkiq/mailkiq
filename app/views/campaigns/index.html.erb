@@ -30,7 +30,7 @@
           <%= link_to t('.preview'), preview_campaign_path(campaign) %>
           <%= link_to t('.send'), new_campaign_delivery_path(campaign) %>
           <%= link_to t('.edit'), edit_campaign_path(campaign) %>
-          <%= link_to t('.delete'), campaign_path(campaign) %>
+          <%= link_to_delete campaign_path(campaign) %>
         </td>
       </tr>
     <% end %>

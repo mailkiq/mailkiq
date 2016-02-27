@@ -9,15 +9,9 @@ module BootstrapHelper
     content_tag :li, link_to(name, path), class: css_class
   end
 
-  def icon_link_to(path, options = {})
-    icon = options.delete(:icon)
-    options[:class] = 'hidden-md hidden-lg'
-    link_to tag(:span, class: "glyphicon glyphicon-#{icon}"), path, options
-  end
-
-  def trash_link_to(path)
-    icon_link_to path, icon: :trash, method: :delete,
-                       data: { confirm: t('actions.confirm') }
+  def link_to_delete(path)
+    link_to t('.delete'), path, method: :delete,
+                                data: { confirm: t('actions.confirm') }
   end
 
   def percentage_badge_tag(number, total)

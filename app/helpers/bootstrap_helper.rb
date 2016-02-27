@@ -4,14 +4,13 @@ module BootstrapHelper
     t("page_meta.titles.#{naming.controller}.#{naming.action}")
   end
 
-  def nav_link_to(name, path)
-    css_class = 'active' if request.path == path
+  def nav_link_to(name, path, ctrl = nil)
+    css_class = 'active' if request.path == path || controller_name == ctrl
     content_tag :li, link_to(name, path), class: css_class
   end
 
   def link_to_delete(path)
-    link_to t('.delete'), path, method: :delete,
-                                data: { confirm: t('actions.confirm') }
+    link_to t('.delete'), path, method: :delete, data: { confirm: t('simple_form.helpers.confirm') }
   end
 
   def percentage_badge_tag(number, total)

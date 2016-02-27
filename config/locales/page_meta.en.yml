@@ -11,7 +11,7 @@ en:
       dashboard:
         show: Sending Statistics
       campaigns:
-        new: Create new campaign
+        new: New campaign
         edit: Edit campaign
         index: Campaigns
       accounts:

@@ -1,0 +1,12 @@
+.simple_form {
+  .required abbr { display: none; }
+
+  .half {
+    float: left;
+    margin-bottom: 20px;
+
+    .string { width: 480px; }
+  }
+
+  .actions { margin: 60px 0 45px; }
+}

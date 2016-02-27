@@ -35,3 +35,16 @@
     }
   }
 }
+
+.btn-danger {
+  background-color: $light-red;
+
+  &:hover,
+  &:focus {
+    background-color: $red;
+  }
+
+  &:active {
+    background-color: $dark-red;
+  }
+}

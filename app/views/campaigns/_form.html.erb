@@ -1,26 +1,14 @@
-<%= simple_form_for @campaign do |f| %>
-  <div class="col-md-4">
-    <%= f.input :name %>
-    <%= f.input :subject %>
-    <%= f.input :from_name %>
-    <%= f.input :from_email %>
-  </div>
+<h2><%= page_title %></h3>
 
-  <div class="col-md-12">
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#html" data-toggle="tab">HTML</a></li>
-      <li><a href="#text" data-toggle="tab">Text</a></li>
-    </ul>
+<%= simple_form_for @campaign, html: { class: 'campaign_form'} do |f| %>
+  <%= f.input :name, wrapper_html: { class: 'half' } %>
+  <%= f.input :subject, wrapper_html: { class: 'half' } %>
+  <%= f.input :from_name, wrapper_html: { class: 'half' } %>
+  <%= f.input :from_email, wrapper_html: { class: 'half' } %>
+  <%= f.input :html_text, input_html: { rows: 14 } %>
 
-    <div class="tab-content tab-source-preview">
-      <div id="html" class="tab-pane active">
-        <%= f.input :html_text, label: false, input_html: { rows: 14 } %>
-      </div>
-      <div id="text" class="tab-pane">
-        <%= f.input :plain_text, label: false, input_html: { rows: 14 } %>
-      </div>
-    </div>
-
-    <%= f.button :submit, class: 'btn btn-success' %>
+  <div class="actions">
+    <%= f.button :submit %>
+    <%= link_to t('simple_form.helpers.cancel'), campaigns_path, class: 'btn btn-danger' %>
   </div>
 <% end %>

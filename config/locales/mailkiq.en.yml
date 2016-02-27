@@ -1,7 +1,5 @@
 ---
 en:
-  actions:
-    confirm: Are you sure?
   nav:
     links:
       dashboard: Dashboard

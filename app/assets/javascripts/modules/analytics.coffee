@@ -1,4 +1,4 @@
-window.Analytics =
+App.Analytics =
   init: ->
     mixpanel.init '30cfb1aa3e9a5253a479242388d15667'
     mixpanel.register '$ignore': true if location.hostname.match('localhost')
@@ -14,6 +14,11 @@ window.Analytics =
 
   track: (name, properties) ->
     mixpanel.track name, properties
+
+  pageview: ->
+    @track 'Page viewed',
+      'page name' : document.title,
+      'url' : window.location.pathname
 
   source: ->
     if document.referrer.search('https?://(.*)google.([^/?]*)') == 0

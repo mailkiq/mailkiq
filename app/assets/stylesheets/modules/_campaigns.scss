@@ -1,0 +1,42 @@
+.campaign_form {
+  @include clearfix;
+  margin-top: 60px;
+
+  .btn-danger { margin-left: 40px; }
+}
+
+.campaign_name,
+.campaign_from_name { margin-right: 20px; }
+
+#campaign_html_text {
+  background: $medium-gray;
+  font-family: $monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  resize: none;
+
+  &::-webkit-scrollbar {
+    background: $medium-gray;
+    width: 20px;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #4f4f4f;
+    border: 10px solid $medium-gray;
+    border-left: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $very-light-gray;
+    background-clip: padding-box;
+    border: 13px solid rgba(0,0,0,0);
+    border-left-width: 3px;
+  }
+}

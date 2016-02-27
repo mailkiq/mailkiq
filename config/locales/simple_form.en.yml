@@ -55,5 +55,5 @@ en:
           'us-west-2': 'US West (Oregon)'
           'eu-west-1': 'EU (Ireland)'
     helpers:
-      cancel: 'Cancel'
+      back: 'Back'
       confirm: 'Are you sure?'

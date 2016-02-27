@@ -1,9 +1,14 @@
+<h2><%= page_title %></h2>
+
 <%= simple_form_for @subscriber do |f| %>
   <div class="col-md-6">
     <%= f.input :name %>
     <%= f.input :email %>
     <%= f.input :state, collection: Subscriber.states.symbolize_keys.keys, include_blank: false %>
     <%= f.association :tags %>
-    <%= f.button :submit, class: 'btn btn-success' %>
+
+    <div class="actions">
+      <%= f.button :submit %>
+    </div>
   </div>
 <% end %>

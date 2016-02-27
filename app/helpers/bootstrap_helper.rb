@@ -4,8 +4,9 @@ module BootstrapHelper
     t("page_meta.titles.#{naming.controller}.#{naming.action}")
   end
 
-  def nav_link_to(name, path, ctrl = nil)
-    css_class = 'active' if request.path == path || controller_name == ctrl
+  def nav_link_to(key, path)
+    name = t("nav.links.#{key}")
+    css_class = 'active' if request.path == path || controller_name.to_sym == key
     content_tag :li, link_to(name, path), class: css_class
   end
 

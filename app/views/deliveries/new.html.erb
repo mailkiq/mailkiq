@@ -1,13 +1,13 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2 class="title">
-      <%= page_title %>
-    </h2>
+<h2><%= page_title %></h2>
 
-    <%= simple_form_for @delivery, url: campaign_delivery_path(@campaign) do |f| %>
-      <%= f.input :tagged_with, as: :select, collection: @delivery.tags, input_html: { multiple: true } %>
-      <%= f.input :not_tagged_with, as: :select, collection: @delivery.tags, input_html: { multiple: true } %>
-      <%= f.button :submit %>
-    <% end %>
+<%= simple_form_for @delivery, url: campaign_delivery_path(@campaign) do |f| %>
+  <%= f.input :tagged_with, as: :select, collection: @delivery.tags,
+                            input_html: { multiple: true, style: 'width: 100%' } %>
+
+  <%= f.input :not_tagged_with, as: :select, collection: @delivery.tags,
+                            input_html: { multiple: true, style: 'width: 100%' } %>
+
+  <div class="actions">
+    <%= f.button :submit %>
   </div>
-</div>
+<% end %>

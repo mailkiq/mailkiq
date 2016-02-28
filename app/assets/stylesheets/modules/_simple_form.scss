@@ -3,9 +3,11 @@
 
   .half {
     float: left;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 
     .string { width: 480px; }
+
+    input, textarea { margin-bottom: 0; }
   }
 
   .actions { margin: 60px 0 45px; }

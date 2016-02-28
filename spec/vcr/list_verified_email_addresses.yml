@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ListVerifiedEmailAddresses
+    headers:
+      User-Agent:
+      - fog-core/1.36.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Date:
+      - Sun, 28 Feb 2016 20:23:49 +0000
+      X-Amzn-Authorization:
+      - AWS3-HTTPS AWSAccessKeyId=AKIAIOT5SABFNLCZ5QTQ, Algorithm=HmacSHA256, Signature=Dj8+fZ0ar0h8avp5blxvo3P5o3NWKI7p1vjQ90f7Fyg=
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - 2dd334ad-de59-11e5-8e53-8da05a7cbc64
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '412'
+      Date:
+      - Sun, 28 Feb 2016 20:23:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ListVerifiedEmailAddressesResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <ListVerifiedEmailAddressesResult>
+            <VerifiedEmailAddresses>
+              <member>rainer@thoughtplane.com</member>
+            </VerifiedEmailAddresses>
+          </ListVerifiedEmailAddressesResult>
+          <ResponseMetadata>
+            <RequestId>2dd334ad-de59-11e5-8e53-8da05a7cbc64</RequestId>
+          </ResponseMetadata>
+        </ListVerifiedEmailAddressesResponse>
+    http_version: 
+  recorded_at: Sun, 28 Feb 2016 20:23:50 GMT
+recorded_with: VCR 3.0.1

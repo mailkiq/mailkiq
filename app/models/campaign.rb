@@ -1,8 +1,8 @@
 class Campaign < ActiveRecord::Base
   validates_presence_of :name, :subject, :from_name, :html_text
   validates :from_email, presence: true, email: true,
-                         identity: { credentials_method: :account_credentials,
-                                     domains_method: :account_domain_names }
+                         identity: { credentials: :account_credentials,
+                                     domains: :account_domain_names }
 
   has_many :messages, dependent: :delete_all
   belongs_to :account
@@ -11,11 +11,13 @@ class Campaign < ActiveRecord::Base
   delegate :credentials, :domain_names, to: :account, prefix: true
   delegate :count, to: :messages, prefix: true
 
+  scope :recents, -> { order created_at: :desc }
+
   def self.sort(column, direction)
     if column_names.include?(column) && %w(asc desc).include?(direction)
       order column => direction
     else
-      all
+      recents
     end
   end
 

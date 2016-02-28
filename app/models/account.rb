@@ -19,6 +19,8 @@ class Account < ActiveRecord::Base
 
   accepts_nested_attributes_for :domains, allow_destroy: true
 
+  delegate :domain_names, to: :domains
+
   attr_accessor :paypal_payment_token
 
   def paypal
@@ -33,10 +35,6 @@ class Account < ActiveRecord::Base
 
   def admin?
     email == 'rainerborene@gmail.com'
-  end
-
-  def domain_names
-    domains.pluck(:name)
   end
 
   def credentials

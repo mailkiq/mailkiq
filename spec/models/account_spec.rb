@@ -22,6 +22,9 @@ describe Account, type: :model do
   it { is_expected.to have_many(:subscribers).dependent :delete_all }
   it { is_expected.to have_many(:tags).dependent :delete_all }
   it { is_expected.to have_many(:domains).dependent :destroy }
+  it { is_expected.to belong_to(:plan) }
+
+  it { is_expected.to delegate_method(:domain_names).to(:domains) }
 
   context 'invalid credentials', vcr: { cassette_name: :invalid_token } do
     it 'append error message to AWS Access key ID attribute' do
@@ -31,13 +34,6 @@ describe Account, type: :model do
       expect(account.errors.keys).to eq([:aws_access_key_id])
       expect(account.errors.messages[:aws_access_key_id])
         .to include(error_message)
-    end
-  end
-
-  describe '#domain_names' do
-    it 'pluck name on domains association' do
-      expect(subject).to receive_message_chain(:domains, :pluck)
-      subject.domain_names
     end
   end
 

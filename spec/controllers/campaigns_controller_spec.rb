@@ -8,13 +8,15 @@ describe CampaignsController, type: :controller do
 
     describe 'GET /campaigns' do
       before do
-        expect(account).to receive_message_chain(:campaigns, :recents)
+        expect(controller).to receive(:apply_scopes).with(account.campaigns)
         get :index
       end
 
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to render_with_layout 'admin' }
       it { is_expected.to respond_with :success }
+
+      it { is_expected.to have_scope(:sort).use(:column, :direction) }
     end
 
     describe 'GET /campaigns/new' do
@@ -44,7 +46,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to set_flash[:notice] }
       it do
         is_expected.to permit(:name, :subject, :from_name, :from_email,
-                              :reply_to, :html_text, :plain_text)
+                              :html_text, :plain_text)
           .for(:create, params: { campaign: params })
           .on(:campaign)
       end
@@ -82,7 +84,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to set_flash[:notice] }
       it do
         is_expected.to permit(:name, :subject, :from_name, :from_email,
-                              :reply_to, :html_text, :plain_text)
+                              :html_text, :plain_text)
           .for(:update, params: { id: campaign.id, campaign: params })
           .on(:campaign)
       end

@@ -1,6 +1,5 @@
 class CampaignsController < AdminController
-  has_scope :sort, using: [:column, :direction],
-                   default: { column: 'name', direction: 'asc' }
+  has_scope :sort, using: [:column, :direction]
 
   def index
     @campaigns = apply_scopes current_user.campaigns
@@ -40,6 +39,6 @@ class CampaignsController < AdminController
 
   def campaign_params
     params.require(:campaign).permit :name, :subject, :from_name, :from_email,
-                                     :reply_to, :html_text, :plain_text
+                                     :html_text, :plain_text
   end
 end

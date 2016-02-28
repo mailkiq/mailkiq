@@ -89,8 +89,8 @@ ActiveRecord::Schema.define(version: 20160226010709) do
   add_index "notifications", ["message_uid"], name: "index_notifications_on_message_uid", using: :btree
 
   create_table "plans", force: :cascade do |t|
-    t.string   "name"
-    t.decimal  "price"
+    t.string   "name",       null: false
+    t.decimal  "price",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

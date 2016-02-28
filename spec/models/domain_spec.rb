@@ -23,7 +23,7 @@ describe Domain, type: :model do
 
     Fabricate.create :domain
 
-    is_expected.to validate_uniqueness_of :name
+    is_expected.to validate_uniqueness_of(:name).case_insensitive
   end
 
   describe '#txt_name' do
@@ -40,7 +40,8 @@ describe Domain, type: :model do
     end
   end
 
-  describe '#sync_verification_status!', vcr: { cassette_name: :get_identity_verification_attributes } do
+  describe '#sync_verification_status!',
+           vcr: { cassette_name: :get_identity_verification_attributes } do
     it 'fetch verification status on Amazon SES' do
       account = Fabricate.build(:valid_account)
       domain = Domain.new name: 'thoughtplane.com', account: account
@@ -49,7 +50,8 @@ describe Domain, type: :model do
     end
   end
 
-  describe '#verify_domain_identity', vcr: { cassette_name: :verify_domain_identity } do
+  describe '#verify_domain_identity',
+           vcr: { cassette_name: :verify_domain_identity } do
     it 'verify a new domain on before create callback' do
       account = Fabricate.build :valid_account
       domain = Domain.new name: 'patriotas.net', account: account

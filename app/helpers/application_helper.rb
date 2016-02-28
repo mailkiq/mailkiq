@@ -1,7 +1,7 @@
 module ApplicationHelper
   def sortable(column, title)
-    sort_column = current_scopes[:sort][:column]
-    sort_direction = current_scopes[:sort][:direction]
+    sort_column = current_scopes.dig :sort, :column
+    sort_direction = current_scopes.dig :sort, :direction
 
     if column == sort_column
       css_class = "current #{sort_direction}"

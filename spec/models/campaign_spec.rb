@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe Campaign, type: :model do
+  before do
+    allow_any_instance_of(IdentityValidator).to receive(:validate_each)
+  end
+
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of :subject }
   it { is_expected.to validate_presence_of :from_name }
@@ -16,6 +20,8 @@ describe Campaign, type: :model do
   it { is_expected.to delegate_method(:count).to(:messages).with_prefix }
   it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
+
+  it { expect(described_class).to respond_to(:sort).with(2).arguments }
 
   describe '#sender' do
     it 'concatenates from_name and from_email fields' do

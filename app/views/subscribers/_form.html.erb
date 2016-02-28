@@ -1,14 +1,12 @@
 <h2><%= page_title %></h2>
 
-<%= simple_form_for @subscriber do |f| %>
-  <div class="col-md-6">
-    <%= f.input :name %>
-    <%= f.input :email %>
-    <%= f.input :state, collection: Subscriber.states.symbolize_keys.keys, include_blank: false %>
-    <%= f.association :tags, input_html: { style: 'width: 50%' } %>
+<%= simple_form_for @subscriber, html: { class: 'subscriber_form' } do |f| %>
+  <%= f.input :state, collection: Subscriber.states.symbolize_keys.keys, include_blank: false %>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.association :tags, input_html: { style: 'width: 100%' } %>
 
-    <div class="actions">
-      <%= f.button :submit %>
-    </div>
+  <div class="actions">
+    <%= f.button :submit %>
   </div>
 <% end %>

@@ -27,7 +27,6 @@ gem 'bourbon'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'sass-rails'
-gem 'selectize-rails'
 gem 'uglifier'
 
 group :production do

@@ -4,6 +4,7 @@ ruby '2.3.0'
 
 gem 'rails', '4.2.5.1'
 gem 'addressable', require: false
+gem 'auto_strip_attributes'
 gem 'clearance'
 gem 'dedent'
 gem 'fog-aws'

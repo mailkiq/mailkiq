@@ -15,6 +15,8 @@ class Campaign < ActiveRecord::Base
 
   scope :recents, -> { order created_at: :desc }
 
+  auto_strip_attributes :name, :subject, :from_name, :from_email
+
   def sender
     "#{from_name} <#{from_email}>"
   end

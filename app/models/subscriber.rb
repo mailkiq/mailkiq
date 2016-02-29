@@ -15,6 +15,8 @@ class Subscriber < ActiveRecord::Base
   scope :recents, -> { order created_at: :desc }
   scope :actived, -> { where state: states[:active] }
 
+  auto_strip_attributes :name, :email
+
   def interpolations
     {
       first_name: first_name,

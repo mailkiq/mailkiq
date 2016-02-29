@@ -8,7 +8,12 @@ describe CampaignsController, type: :controller do
 
     describe 'GET /campaigns' do
       before do
-        expect(controller).to receive(:apply_scopes).with(account.campaigns)
+        relation = double
+        expect(relation).to receive(:recents)
+        expect(controller).to receive(:apply_scopes)
+          .with(account.campaigns)
+          .and_return(relation)
+
         get :index
       end
 

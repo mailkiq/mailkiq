@@ -1,6 +1,10 @@
 class SubscribersController < AdminController
+  has_scope :page, default: 1
+  has_scope :sort, using: [:column, :direction]
+
   def index
-    @subscribers = current_user.subscribers.page params[:page]
+    @subscribers = apply_scopes current_user.subscribers
+    @subscribers = @subscribers.recents unless current_scopes.key?(:sort)
   end
 
   def new

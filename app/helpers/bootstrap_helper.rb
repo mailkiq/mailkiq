@@ -11,7 +11,7 @@ module BootstrapHelper
   end
 
   def link_to_delete(path)
-    link_to t('.delete'), path, method: :delete, data: { confirm: t('simple_form.helpers.confirm') }
+    link_to t('actions.delete'), path, method: :delete, data: { confirm: t('actions.confirm') }
   end
 
   def percentage_badge_tag(number, total)

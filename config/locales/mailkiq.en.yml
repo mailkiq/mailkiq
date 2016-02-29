@@ -1,38 +1,43 @@
 ---
 en:
+  actions:
+    edit: 'Edit'
+    delete: 'Delete'
+    back: 'Back'
+    confirm: 'Are you sure?'
+    preview: 'Preview'
+    send: 'Send'
   nav:
     links:
-      dashboard: Dashboard
-      campaigns: Campaigns
-      settings: Settings
-      sign_out: Sign Out
-      subscribers: Subscribers
+      dashboard: 'Dashboard'
+      campaigns: 'Campaigns'
+      settings: 'Settings'
+      sign_out: 'Sign Out'
+      subscribers: 'Subscribers'
+      profile: 'Profile'
+      aws: 'Amazon Web Services'
   marketing:
     index:
-      login: Login
-      sign_up: Sign Up
-      sign_out: Sign Out
+      login: 'Login'
+      sign_up: 'Sign Up'
+      sign_out: 'Sign Out'
   dashboard:
     show:
       sending_limits: "%{count} of %{remaining}"
       send_rate: "%{rate} per second"
-      sandbox: Sandbox Mode
+      sandbox: 'Sandbox Mode'
   campaigns:
     index:
-      new_campaign: New campaign
-      campaign: Campaign
-      recipients: Recipients
-      unique_opens: Unique Opens
-      unique_clicks: Unique Clicks
-      no_campaigns: No campaigns found.
-      preview: Preview
-      send: Send
-      edit: Edit
-      delete: Delete
+      new_campaign: 'New campaign'
+      campaign: 'Campaign'
+      recipients: 'Recipients'
+      unique_opens: 'Unique Opens'
+      unique_clicks: 'Unique Clicks'
+      no_campaigns: 'No campaigns found.'
   subscribers:
     index:
-      new_subscriber: New subscriber
-      no_subscribers: No subscribers found.
-      name: Name
-      email: Email
-      state: State
+      new_subscriber: 'New subscriber'
+      no_subscribers: 'No subscribers found.'
+      name: 'Name'
+      email: 'Email'
+      state: 'State'

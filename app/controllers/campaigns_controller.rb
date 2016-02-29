@@ -1,8 +1,10 @@
 class CampaignsController < AdminController
+  has_scope :page, default: 1
   has_scope :sort, using: [:column, :direction]
 
   def index
     @campaigns = apply_scopes current_user.campaigns
+    @campaigns = @campaigns.recents unless current_scopes.key?(:sort)
   end
 
   def new

@@ -6,9 +6,9 @@
 <table class="table">
   <thead>
     <tr>
-      <th><%= t '.name' %></th>
-      <th><%= t '.email' %></th>
-      <th><%= t '.state' %></th>
+      <th><%= sortable 'name', t('.name') %></th>
+      <th><%= sortable 'email', t('.email') %></th>
+      <th><%= sortable 'state', t('.state') %></th>
       <th width="106"></th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
         <td><%= subscriber.email %></td>
         <td><%= state_tag subscriber.state %></td>
         <td class="actions">
-          <%= link_to t('.edit'), edit_subscriber_path(subscriber) %>
+          <%= link_to t('actions.edit'), edit_subscriber_path(subscriber) %>
           <%= link_to_delete subscriber_path(subscriber) %>
         </td>
       </tr>

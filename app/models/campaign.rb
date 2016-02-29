@@ -1,4 +1,6 @@
 class Campaign < ActiveRecord::Base
+  extend Sortable
+
   validates_presence_of :name, :subject, :from_name, :html_text
   validates :from_email, presence: true, email: true,
                          identity: { credentials: :account_credentials,
@@ -12,14 +14,6 @@ class Campaign < ActiveRecord::Base
   delegate :count, to: :messages, prefix: true
 
   scope :recents, -> { order created_at: :desc }
-
-  def self.sort(column, direction)
-    if column_names.include?(column) && %w(asc desc).include?(direction)
-      order column => direction
-    else
-      recents
-    end
-  end
 
   def sender
     "#{from_name} <#{from_email}>"

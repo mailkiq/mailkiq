@@ -27,9 +27,9 @@
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.messages_count  %>
         </td>
         <td class="actions">
-          <%= link_to t('.preview'), preview_campaign_path(campaign) %>
-          <%= link_to t('.send'), new_campaign_delivery_path(campaign) %>
-          <%= link_to t('.edit'), edit_campaign_path(campaign) %>
+          <%= link_to t('actions.preview'), preview_campaign_path(campaign) %>
+          <%= link_to t('actions.send'), new_campaign_delivery_path(campaign) %>
+          <%= link_to t('actions.edit'), edit_campaign_path(campaign) %>
           <%= link_to_delete campaign_path(campaign) %>
         </td>
       </tr>

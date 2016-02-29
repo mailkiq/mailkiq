@@ -8,7 +8,12 @@ describe SubscribersController, type: :controller do
 
     describe 'GET /subscribers' do
       before do
-        expect(account).to receive_message_chain(:subscribers, :page)
+        relation = double
+        expect(relation).to receive(:recents)
+        expect(controller).to receive(:apply_scopes)
+          .with(account.subscribers)
+          .and_return(relation)
+
         get :index
       end
 

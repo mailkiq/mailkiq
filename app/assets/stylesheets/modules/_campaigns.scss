@@ -7,6 +7,10 @@
 .campaign_name,
 .campaign_from_name { margin-right: 20px; }
 
+.campaigns-controller .table tr > td:first-child {
+  padding-right: 30px;
+}
+
 #campaign_html_text {
   background: $medium-gray;
   font-family: $monospace;

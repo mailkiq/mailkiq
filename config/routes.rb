@@ -50,11 +50,11 @@ Rails.application.routes.draw do
     get :click, on: :member
   end
 
-  get 'paypal/checkout' => 'accounts#checkout'
+  get 'paypal/checkout', to: 'accounts#checkout'
 
   # ux improvements
+  get '/session', to: redirect('/sign_in')
   get '/accounts', to: redirect('/sign_up')
   get '/passwords', to: redirect('/passwords/new')
   get '/settings', to: redirect('/settings/profile')
-  get '/session', to: redirect('/login')
 end

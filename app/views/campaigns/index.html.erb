@@ -9,7 +9,7 @@
       <th width="400"><%= sortable 'name', t('.campaign') %></th>
       <th width="108"><%= sortable 'recipients_count', t('.recipients') %></th>
       <th><%= sortable 'unique_opens_count', t('.unique_opens') %></th>
-      <th width="110"><%= sortable 'unique_clicks_count', t('.unique_clicks') %></th>
+      <th width="113"><%= sortable 'unique_clicks_count', t('.unique_clicks') %></th>
       <th width="231"></th>
     </tr>
   </thead>
@@ -17,14 +17,14 @@
     <% @campaigns.each do |campaign| %>
       <tr>
         <td><%= campaign.name %></td>
-        <td><%= number_with_delimiter campaign.messages_count %></td>
+        <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
           <%= number_with_delimiter campaign.unique_opens_count %>
-          <%= percentage_badge_tag campaign.unique_opens_count, campaign.messages_count  %>
+          <%= percentage_badge_tag campaign.unique_opens_count, campaign.recipients_count %>
         </td>
         <td>
           <%= number_with_delimiter campaign.unique_clicks_count %>
-          <%= percentage_badge_tag campaign.unique_clicks_count, campaign.messages_count  %>
+          <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
         <td class="actions">
           <%= link_to t('actions.preview'), preview_campaign_path(campaign) %>

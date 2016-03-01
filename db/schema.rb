@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226010709) do
+ActiveRecord::Schema.define(version: 20160301023243) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "citext"
+  enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name",                                       null: false
@@ -39,16 +40,19 @@ ActiveRecord::Schema.define(version: 20160226010709) do
   add_index "accounts", ["remember_token"], name: "index_accounts_on_remember_token", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "subject",    null: false
-    t.string   "from_name",  null: false
-    t.string   "from_email", null: false
+    t.string   "name",                            null: false
+    t.string   "subject",                         null: false
+    t.string   "from_name",                       null: false
+    t.string   "from_email",                      null: false
     t.string   "reply_to"
     t.text     "plain_text"
-    t.text     "html_text",  null: false
-    t.integer  "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "html_text",                       null: false
+    t.integer  "account_id",                      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "recipients_count",    default: 0, null: false
+    t.integer  "unique_opens_count",  default: 0, null: false
+    t.integer  "unique_clicks_count", default: 0, null: false
   end
 
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree

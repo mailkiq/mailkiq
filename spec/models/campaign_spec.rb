@@ -16,12 +16,15 @@ describe Campaign, type: :model do
   it { is_expected.to belong_to :account }
   it { is_expected.to have_db_index :account_id }
   it { is_expected.to have_many(:messages).dependent :delete_all }
+  it { is_expected.to have_db_column(:recipients_count).of_type :integer }
+  it { is_expected.to have_db_column(:unique_opens_count).of_type :integer }
+  it { is_expected.to have_db_column(:unique_clicks_count).of_type :integer }
 
-  it { is_expected.to delegate_method(:count).to(:messages).with_prefix }
   it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
 
   it { expect(described_class).to respond_to(:sort).with(2).arguments }
+  it { expect(described_class).to respond_to(:recents) }
 
   describe '#sender' do
     it 'concatenates from_name and from_email fields' do
@@ -35,22 +38,6 @@ describe Campaign, type: :model do
     it 'sidekiq queue name' do
       campaign = Fabricate.build(:campaign, id: 1)
       expect(campaign.queue_name).to eq('campaign-1')
-    end
-  end
-
-  describe '#unique_opens_count' do
-    it 'number of unique opens for the campaign' do
-      campaign = Fabricate.build(:campaign)
-      expect(campaign).to receive_message_chain(:messages, :opened, :count)
-      campaign.unique_opens_count
-    end
-  end
-
-  describe '#unique_clicks_count' do
-    it 'number of uniques clicks for the campaign' do
-      campaign = Fabricate.build(:campaign)
-      expect(campaign).to receive_message_chain(:messages, :clicked, :count)
-      campaign.unique_clicks_count
     end
   end
 

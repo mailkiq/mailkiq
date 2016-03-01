@@ -9,6 +9,7 @@ describe DeliveryWorker, type: :worker do
     campaign = Fabricate.build(:campaign, id: 1)
 
     expect(campaign).to receive(:account)
+    expect(campaign).to receive(:update_column).with(:recipients_count, 2)
     expect(Campaign).to receive(:find).and_return(campaign)
     expect_any_instance_of(Segment).to receive(:jobs_for)
       .with(campaign_id: campaign.id)
@@ -16,6 +17,8 @@ describe DeliveryWorker, type: :worker do
 
     expect_any_instance_of(Sidekiq::Queue).to receive(:pause)
     expect_any_instance_of(Sidekiq::Queue).to receive(:unpause)
+    expect_any_instance_of(Sidekiq::Queue).to receive(:size).and_return(2)
+
     expect(Sidekiq::Client).to receive(:push_bulk).and_call_original
 
     subject.perform(1, nil, nil)

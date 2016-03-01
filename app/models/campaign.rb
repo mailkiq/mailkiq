@@ -11,7 +11,6 @@ class Campaign < ActiveRecord::Base
   before_destroy :clear_sidekiq_queue
 
   delegate :credentials, :domain_names, to: :account, prefix: true
-  delegate :count, to: :messages, prefix: true
 
   scope :recents, -> { order created_at: :desc }
 
@@ -23,14 +22,6 @@ class Campaign < ActiveRecord::Base
 
   def queue_name
     "campaign-#{id}"
-  end
-
-  def unique_opens_count
-    messages.opened.count
-  end
-
-  def unique_clicks_count
-    messages.clicked.count
   end
 
   private

@@ -3,11 +3,11 @@ module Fog
     class SES
       class Complaint < Fog::Model
         identity :id, aliases: 'feedbackId'
-        attribute :arrival_date, aliases: 'arrivalDate', type: :timestamp
+        attribute :arrival_date, aliases: 'arrivalDate', type: :time
         attribute :complaint_feedback_type, aliases: 'complaintFeedbackType'
         attribute :complained_recipients, aliases: 'complainedRecipients'
         attribute :user_agent, aliases: 'userAgent'
-        attribute :timestamp, type: :timestamp
+        attribute :timestamp, type: :time
 
         def complained_recipients=(json)
           attributes[:complained_recipients] = ComplainedRecipients.new.load(json)

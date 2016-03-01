@@ -7,7 +7,7 @@ module Fog
         attribute :bounce_type, aliases: 'bounceType'
         attribute :reporting_mta, aliases: 'reportingMTA'
         attribute :bounced_recipients, aliases: 'bouncedRecipients'
-        attribute :timestamp, type: :timestamp
+        attribute :timestamp, type: :time
 
         def bounced_recipients=(json)
           attributes[:bounced_recipients] = BouncedRecipients.new.load(json)

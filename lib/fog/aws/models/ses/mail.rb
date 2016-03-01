@@ -3,7 +3,7 @@ module Fog
     class SES
       class Mail < Fog::Model
         identity :id, aliases: 'messageId'
-        attribute :timestamp, type: :timestamp
+        attribute :timestamp, type: :time
         attribute :source_arn, aliases: 'sourceArn'
         attribute :sending_account_id, aliases: 'sendingAccountId'
         attribute :source

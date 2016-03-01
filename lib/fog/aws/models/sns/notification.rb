@@ -5,7 +5,7 @@ module Fog
         identity :id, aliases: 'MessageId'
         attribute :type, aliases: 'Type'
         attribute :topic_arn, aliases: 'TopicArn'
-        attribute :timestamp, aliases: 'Timestamp', type: :timestamp
+        attribute :timestamp, aliases: 'Timestamp', type: :time
         attribute :signature_version, aliases: 'SignatureVersion'
         attribute :signature, aliases: 'Signature'
         attribute :signing_cert_url, aliases: 'SigningCertURL'

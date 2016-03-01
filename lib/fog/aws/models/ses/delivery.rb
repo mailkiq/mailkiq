@@ -6,7 +6,7 @@ module Fog
         attribute :processing_time_millis, aliases: 'processingTimeMillis'
         attribute :smtp_response, aliases: 'smtpResponse'
         attribute :recipients
-        attribute :timestamp, type: :timestamp
+        attribute :timestamp, type: :time
 
         alias_method :as_json, :attributes
       end

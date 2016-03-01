@@ -27,8 +27,9 @@ describe API::V1::NotificationsController, type: :controller do
         mock!
         send_raw_json! 'spec/vcr/bounce.json'
 
+        message_chains = %i(subscribers where update_all)
         expect(Notification).to receive(:create!).with an_instance_of(Hash)
-        expect(account).to receive_message_chain(:subscribers, :where, :update_all)
+        expect(account).to receive_message_chain(*message_chains)
           .with an_instance_of(Hash)
 
         post :create, format: :json, token: Token.encode(account_id: 1)
@@ -38,6 +39,12 @@ describe API::V1::NotificationsController, type: :controller do
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :validate_amazon_headers }
       it { is_expected.to use_before_action :authenticate! }
+
+      it 'parse timestamp correctly' do
+        message = assigns(:sns).message
+        expect(message.bounce.timestamp.to_date).to eq Date.parse('2016-02-02')
+        expect(message.mail.timestamp.to_date).to eq Date.parse('2016-02-02')
+      end
     end
 
     context 'validate amazon headers' do
@@ -48,7 +55,8 @@ describe API::V1::NotificationsController, type: :controller do
     def mock!
       request.headers['X-Amz-Sns-Topic-Arn'] = 'arn:aws:sns:*'
       expect(Account).to receive(:find).with(1).and_return(account)
-      expect_any_instance_of(Fog::AWS::SNS::MessageVerifier).to receive(:authenticate!)
+      expect_any_instance_of(Fog::AWS::SNS::MessageVerifier)
+        .to receive(:authenticate!)
     end
 
     def send_raw_json!(path)

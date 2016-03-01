@@ -18,7 +18,7 @@ class DeliveryWorker
       'args'  => segment.jobs_for(campaign_id: campaign_id)
     )
 
-    campaign.update_column :recipients_count, queue.size
+    campaign.update_columns recipients_count: queue.size, sent_at: Time.now
 
     queue.unpause
   end

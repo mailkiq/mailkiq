@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301023243) do
+ActiveRecord::Schema.define(version: 20160301161239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160301023243) do
     t.integer  "recipients_count",    default: 0, null: false
     t.integer  "unique_opens_count",  default: 0, null: false
     t.integer  "unique_clicks_count", default: 0, null: false
+    t.datetime "sent_at"
   end
 
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree

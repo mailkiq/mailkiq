@@ -6,18 +6,20 @@
 <table class="table">
   <thead>
     <tr>
-      <th width="400"><%= sortable 'name', t('.campaign') %></th>
-      <th width="108"><%= sortable 'recipients_count', t('.recipients') %></th>
+      <th width="480"><%= sortable 'name', t('.campaign') %></th>
+      <th><%= sortable 'recipients_count', t('.recipients') %></th>
+      <th><%= sortable 'sent_at', t('.sent_at') %></th>
       <th><%= sortable 'unique_opens_count', t('.unique_opens') %></th>
-      <th width="113"><%= sortable 'unique_clicks_count', t('.unique_clicks') %></th>
-      <th width="231"></th>
+      <th><%= sortable 'unique_clicks_count', t('.unique_clicks') %></th>
+      <th width="20"></th>
     </tr>
   </thead>
   <tbody>
     <% @campaigns.each do |campaign| %>
       <tr>
-        <td><%= campaign.name %></td>
+        <td><%= content_tag :p, campaign.name, title: campaign.name %></p></td>
         <td><%= number_with_delimiter campaign.recipients_count %></td>
+        <td><%= time_tag campaign.sent_at, format: '%d/%m/%Y' if campaign.sent_at? %></td>
         <td>
           <%= number_with_delimiter campaign.unique_opens_count %>
           <%= percentage_badge_tag campaign.unique_opens_count, campaign.recipients_count %>
@@ -27,10 +29,7 @@
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
         <td class="actions">
-          <%= link_to t('actions.preview'), preview_campaign_path(campaign) %>
-          <%= link_to t('actions.send'), new_campaign_delivery_path(campaign) %>
-          <%= link_to t('actions.edit'), edit_campaign_path(campaign) %>
-          <%= link_to_delete campaign_path(campaign) %>
+          <span class="ss-settings"></span>
         </td>
       </tr>
     <% end %>

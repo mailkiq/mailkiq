@@ -7,9 +7,13 @@ describe DeliveryWorker, type: :worker do
 
   it 'pipeline mail jobs to Redis' do
     campaign = Fabricate.build(:campaign, id: 1)
+    now = Time.now
 
+    expect(Time).to receive(:now).at_least(:once).and_return(now)
     expect(campaign).to receive(:account)
-    expect(campaign).to receive(:update_column).with(:recipients_count, 2)
+    expect(campaign).to receive(:update_columns)
+      .with(recipients_count: 2, sent_at: now)
+
     expect(Campaign).to receive(:find).and_return(campaign)
     expect_any_instance_of(Segment).to receive(:jobs_for)
       .with(campaign_id: campaign.id)

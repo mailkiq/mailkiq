@@ -13,6 +13,8 @@ describe Domain, type: :model do
   it { is_expected.to belong_to :account }
   it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
 
+  it { expect(described_class).to respond_to :succeed }
+
   it 'validate uniqueness of domain name' do
     expect_any_instance_of(AccessKeysValidator).to receive(:validate)
       .at_least(2)

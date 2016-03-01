@@ -44,9 +44,8 @@ en:
       description: To be emailed a link to reset your password, please enter
         your email address.
   sessions:
-    form:
-      forgot_password: Forgot password?
-      signup: Sign Up
+    new:
+      forgot_passwor: Forgot password?
   accounts:
     new:
       description: Send newsletters, 100x cheaper.

@@ -10,7 +10,7 @@ class Subscriber < ActiveRecord::Base
   has_many :taggings, dependent: :delete_all
   has_many :tags, through: :taggings
   enum state: %i(active unconfirmed unsubscribed bounced complained deleted)
-  paginates_per 25
+  paginates_per 10
 
   scope :recents, -> { order created_at: :desc }
   scope :actived, -> { where state: states[:active] }

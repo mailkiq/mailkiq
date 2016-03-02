@@ -7,8 +7,8 @@
   <thead>
     <tr>
       <th width="480"><%= sortable 'name', t('.campaign') %></th>
-      <th><%= sortable 'recipients_count', t('.recipients') %></th>
       <th><%= sortable 'sent_at', t('.sent_at') %></th>
+      <th><%= sortable 'recipients_count', t('.recipients') %></th>
       <th><%= sortable 'unique_opens_count', t('.unique_opens') %></th>
       <th><%= sortable 'unique_clicks_count', t('.unique_clicks') %></th>
       <th width="20"></th>
@@ -18,8 +18,8 @@
     <% @campaigns.each do |campaign| %>
       <tr>
         <td><%= content_tag :p, campaign.name, title: campaign.name %></p></td>
-        <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td><%= time_tag campaign.sent_at, format: '%d/%m/%Y' if campaign.sent_at? %></td>
+        <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
           <%= number_with_delimiter campaign.unique_opens_count %>
           <%= percentage_badge_tag campaign.unique_opens_count, campaign.recipients_count %>
@@ -29,7 +29,7 @@
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
         <td class="actions">
-          <span class="ss-settings"></span>
+          <%= icon_link_to :wrench, '#' %>
         </td>
       </tr>
     <% end %>

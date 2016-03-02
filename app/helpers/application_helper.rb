@@ -1,4 +1,13 @@
 module ApplicationHelper
+  def html_class
+    "#{controller_name}-controller"
+  end
+
+  def page_title
+    naming = PageMeta::Naming.new(controller)
+    t("page_meta.titles.#{naming.controller}.#{naming.action}")
+  end
+
   def sortable(column, title)
     sort_column = current_scopes.dig(:sort, :column)
     sort_direction = current_scopes.dig(:sort, :direction) || 'asc'
@@ -12,7 +21,24 @@ module ApplicationHelper
     link_to title, { sort: sort_params }, class: css_class
   end
 
-  def html_class
-    "#{controller_name}-controller"
+  def nav_link_to(key, path)
+    name = t("nav.links.#{key}")
+    css_class = 'active' if request.path == path ||
+                            controller_name.to_sym == key
+    content_tag :li, link_to(name, path), class: css_class
+  end
+
+  def icon_link_to(icon, path, options = {})
+    if options.delete(:delete)
+      options[:method] = :delete
+      options[:data] = { confirm: t('actions.confirm') }
+    end
+
+    link_to content_tag(:span, nil, class: "ss-#{icon}"), path, options
+  end
+
+  def link_to_delete(path)
+    link_to t('actions.delete'), path, method: :delete,
+                                       data: { confirm: t('actions.confirm') }
   end
 end

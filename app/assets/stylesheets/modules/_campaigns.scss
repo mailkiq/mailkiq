@@ -8,7 +8,17 @@
 .campaign_from_name { margin-right: 20px; }
 
 .campaigns-controller .table {
-  .actions { vertical-align: middle; }
+  .actions {
+    vertical-align: middle;
+  }
+
+  .ss-wrench {
+    vertical-align: -4px;
+  }
+
+  td {
+    padding: 29px 0 24px;
+  }
 
   tr > td:first-child p {
     @include ellipsis(90%);

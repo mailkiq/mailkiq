@@ -42,13 +42,18 @@ describe Domain, type: :model do
     end
   end
 
-  describe '#sync_verification_status!',
+  describe '#save_verification_attributes!',
            vcr: { cassette_name: :get_identity_verification_attributes } do
     it 'fetch verification status on Amazon SES' do
+      verification_token = 'oPld11CtXSBGVTVgv6DFtRe2EdmM5I6R6OfADMQ++kQ='
       account = Fabricate.build(:valid_account)
       domain = Domain.new name: 'thoughtplane.com', account: account
-      expect(domain).to receive(:update_column).with(:status, 'success')
-      domain.sync_verification_status!
+
+      expect(domain).to receive(:status=).with(Domain.statuses[:success])
+      expect(domain).to receive(:verification_token=).with(verification_token)
+      expect(domain).to receive(:save!)
+
+      domain.save_verification_attributes!
     end
   end
 

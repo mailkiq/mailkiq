@@ -13,9 +13,10 @@ module API::V1
         sns = Fog::AWS::SNS.new(current_account.credentials)
         sns.confirm_subscription @sns.topic_arn, @sns.token
       elsif @sns.ses?
-        Notification.create! message_uid: @sns.message.mail.id,
+        message_id = find_message_uuid(@sns.message.mail.id)
+        Notification.create! message_id: message_id,
                              type: @sns.message.type.downcase,
-                             data: @sns.data.as_json
+                             metadata: @sns.data.as_json
 
         current_account.subscribers.where(email: @sns.emails)
           .update_all state: Subscriber.states[@sns.state]
@@ -25,6 +26,10 @@ module API::V1
     end
 
     private
+
+    def find_message_uuid(uuid)
+      Message.where(uuid: @sns.message.mail.id).pluck(:id).first
+    end
 
     def sns?
       request.headers['X-Amz-Sns-Topic-Arn'].to_s.start_with?('arn:aws:sns')

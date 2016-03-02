@@ -1,22 +1,20 @@
 class CreateMessages < ActiveRecord::Migration
   def change
     create_table :messages do |t|
-      t.string :uid
-      t.string :token
+      t.string :uuid, null: false, limit: 60
+      t.string :token, null: false, limit: 32
+      t.string :referer
+      t.string :user_agent
+      t.inet :last_open_ip
 
-      # user
       t.belongs_to :subscriber, null: false, index: true, foreign_key: true
-
-      # campaign
       t.belongs_to :campaign, null: false, index: true, foreign_key: true
 
-      # timestamps
-      t.timestamp :sent_at
+      t.timestamp :sent_at, null: false
       t.timestamp :opened_at
       t.timestamp :clicked_at
 
-      # indexes
-      t.index :uid
+      t.index :uuid
       t.index :token
     end
   end

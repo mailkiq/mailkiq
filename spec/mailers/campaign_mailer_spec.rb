@@ -12,9 +12,6 @@ describe CampaignMailer, type: :mailer do
       expect(Subscriber).to receive(:find).with(subscriber.id)
         .and_return(subscriber)
 
-      expect_any_instance_of(AhoyEmail::Processor).to receive(:process)
-      expect_any_instance_of(AhoyEmail::Processor).to receive(:track_send)
-
       ahoy_message = Message.new
 
       expect(Message).to receive(:find).and_return(ahoy_message)

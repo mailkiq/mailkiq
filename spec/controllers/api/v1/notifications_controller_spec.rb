@@ -7,12 +7,13 @@ describe API::V1::NotificationsController, type: :controller do
     confirm_subscription = { cassette_name: :confirm_subscription }
 
     context 'confirm subscription', vcr: confirm_subscription do
+      let(:subscription_confirmation) { fixture :subscription_confirmation }
       let(:sns) { assigns :sns }
 
       before do
         mock!
-        send_raw_json! 'spec/vcr/subscription_confirmation.json'
-        post :create, format: :json, token: Token.encode(account_id: 1)
+        request.env['RAW_POST_DATA'] = subscription_confirmation.to_json
+        post :create, format: :json, api_key: account.api_key
       end
 
       it { is_expected.to filter_param :token }
@@ -23,16 +24,27 @@ describe API::V1::NotificationsController, type: :controller do
     end
 
     context 'insert new notification on the database' do
+      let(:bounce) { fixture :bounce }
+      let(:sns) { Fog::AWS::SNS::Notification.new bounce }
+
       before do
         mock!
-        send_raw_json! 'spec/vcr/bounce.json'
+        request.env['RAW_POST_DATA'] = bounce.to_json
 
-        message_chains = %i(subscribers where update_all)
-        expect(Notification).to receive(:create!).with an_instance_of(Hash)
-        expect(account).to receive_message_chain(*message_chains)
-          .with an_instance_of(Hash)
+        expect(account)
+          .to receive_message_chain(:subscribers, :where, :update_all)
+          .with(state: Subscriber.states[:bounced])
 
-        post :create, format: :json, token: Token.encode(account_id: 1)
+        expect(Message).to receive_message_chain(:where, :pluck, :first)
+          .and_return(1)
+
+        expect(Notification).to receive(:create!).with(
+          message_id: 1,
+          type: sns.message.type.downcase,
+          metadata: sns.data.as_json
+        )
+
+        post :create, format: :json, api_key: account.api_key
       end
 
       it { is_expected.to filter_param :token }
@@ -54,13 +66,17 @@ describe API::V1::NotificationsController, type: :controller do
 
     def mock!
       request.headers['X-Amz-Sns-Topic-Arn'] = 'arn:aws:sns:*'
-      expect(Account).to receive(:find).with(1).and_return(account)
+
+      expect(Account).to receive(:find_by)
+        .with(api_key: account.api_key)
+        .and_return(account)
+
       expect_any_instance_of(Fog::AWS::SNS::MessageVerifier)
         .to receive(:authenticate!)
     end
 
-    def send_raw_json!(path)
-      request.env['RAW_POST_DATA'] = File.read(path)
+    def fixture(path)
+      JSON.parse File.read("spec/vcr/#{path}.json")
     end
   end
 end

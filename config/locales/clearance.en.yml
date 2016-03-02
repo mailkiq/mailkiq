@@ -45,7 +45,7 @@ en:
         your email address.
   sessions:
     new:
-      forgot_passwor: Forgot password?
+      forgot_password: Forgot password?
   accounts:
     new:
       description: Send newsletters, 100x cheaper.

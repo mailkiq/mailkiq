@@ -8,7 +8,15 @@ class CreateCampaigns < ActiveRecord::Migration
       t.string :reply_to
       t.text :plain_text
       t.text :html_text, null: false
+
+      # counter cache
+      t.integer :recipients_count, null: false, default: 0
+      t.integer :unique_opens_count, null: false, default: 0
+      t.integer :unique_clicks_count, null: false, default: 0
+
       t.belongs_to :account, null: false, index: true, foreign_key: true
+
+      t.datetime :sent_at
       t.timestamps null: false
     end
   end

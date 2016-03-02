@@ -18,11 +18,14 @@ class Domain < ActiveRecord::Base
     "_amazonses.#{name}"
   end
 
-  def sync_verification_status!
+  def save_verification_attributes!
     response = ses.get_identity_verification_attributes([name])
     response.body['VerificationAttributes'].each do |domain|
-      update_column :status, domain['VerificationStatus'].underscore
+      new_status = domain['VerificationStatus'].underscore
+      self.status = self.class.statuses[new_status]
+      self.verification_token = domain['VerificationToken']
     end
+    save!
   end
 
   private

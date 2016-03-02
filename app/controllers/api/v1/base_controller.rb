@@ -13,13 +13,8 @@ module API::V1
 
     protected
 
-    def authenticate_with_token
-      token = Token.decode params.require(:token)
-      Account.find token.fetch(:account_id)
-    end
-
     def current_account
-      @current_account ||= authenticate_with_token
+      @current_account ||= Account.find_by(api_key: params[:api_key])
     end
 
     def signed_in?

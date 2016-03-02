@@ -6,14 +6,24 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :encrypted_password, limit: 128
       t.string :confirmation_token, limit: 128
       t.string :remember_token, limit: 128
+      t.string :language
+      t.string :time_zone
+      t.uuid :api_key, null: false, default: 'uuid_generate_v4()'
+
+      # amazon access keys
       t.string :aws_access_key_id
       t.string :aws_secret_access_key
       t.string :aws_region
-      t.string :language
-      t.string :time_zone
+
+      # payment
+      t.string :paypal_customer_token
+      t.string :paypal_recurring_profile_token
+      t.belongs_to :plan
+
       t.timestamps null: false
       t.index :remember_token
       t.index :email, unique: true
+      t.index :api_key, unique: true
     end
   end
 end

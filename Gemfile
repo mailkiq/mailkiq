@@ -35,6 +35,7 @@ group :production do
 end
 
 group :development do
+  gem 'faker', require: false
   gem 'guard-migrate'
   gem 'guard-rspec'
   gem 'spring'

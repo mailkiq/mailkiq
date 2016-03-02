@@ -2,8 +2,6 @@ require 'rails_helper'
 
 describe Domain, type: :model do
   it { is_expected.to validate_presence_of :name }
-  it { is_expected.to validate_presence_of :verification_token }
-  it { is_expected.to validate_presence_of :status }
   it do
     is_expected.to define_enum_for(:status).with([
       :pending, :success, :failed, :temporary_failure, :not_started

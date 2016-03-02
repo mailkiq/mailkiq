@@ -21,7 +21,6 @@ describe DeliveryWorker, type: :worker do
 
     expect_any_instance_of(Sidekiq::Queue).to receive(:pause)
     expect_any_instance_of(Sidekiq::Queue).to receive(:unpause)
-    expect_any_instance_of(Sidekiq::Queue).to receive(:size).and_return(2)
 
     expect(Sidekiq::Client).to receive(:push_bulk).and_call_original
 

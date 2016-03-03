@@ -4,7 +4,7 @@ en:
     errors:
       models:
         account:
-          invalid_token: 'AWS access key ID provided does not exist.'
+          invalid_token: 'AWS access key ID provided does not exist'
         campaign:
-          unverified_email_address: 'Email address is not verified.'
-          unverified_domain: 'Email domain is not verified.'
+          unverified_email_address: 'is not verified'
+          unverified_domain: 'domain is not verified'

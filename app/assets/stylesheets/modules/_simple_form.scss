@@ -1,13 +1,24 @@
 .simple_form {
   .required abbr { display: none; }
 
-  .half {
+  .input.half {
     float: left;
     margin-bottom: 35px;
-
-    .string { width: 480px; }
+    width: 480px;
 
     input, textarea { margin-bottom: 0; }
+  }
+
+  .error {
+    color: #ffb6b6;
+    font-weight: bold;
+    margin-left: 6px;
+  }
+
+  .field_with_errors {
+    input, textarea {
+      border-color: #ffb6b6;
+    }
   }
 
   .actions { margin: 60px 0 45px; }

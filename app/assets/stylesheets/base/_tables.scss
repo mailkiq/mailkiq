@@ -1,12 +1,11 @@
 table {
   border-collapse: collapse;
   margin: $table-spacing 0;
-  table-layout: fixed;
   width: 100%;
 }
 
 th {
-  border-bottom: 1px solid shade($base-border-color, 25%);
+  border-bottom: 1px solid #969696;
   font-size: 12px;
   font-weight: 300;
   padding: $table-spacing 0;
@@ -15,7 +14,7 @@ th {
 }
 
 td {
-  border-bottom: $base-border;
+  border-bottom: 1px solid #969696;
   padding: $table-spacing 0;
 }
 
@@ -59,9 +58,12 @@ td.actions {
   text-align: right;
 
   > a {
-    font-size: 15px;
+    display: inline-block;
+    font-size: 14px;
     color: #b3b3b3;
     margin-left: 15px;
+    height: 18px;
+    vertical-align: -2px;
 
     &:first-child {
       margin-left: 0;

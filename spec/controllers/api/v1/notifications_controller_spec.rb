@@ -54,8 +54,16 @@ describe API::V1::NotificationsController, type: :controller do
 
       it 'parse timestamp correctly' do
         message = assigns(:sns).message
-        expect(message.bounce.timestamp.to_date).to eq Date.parse('2016-02-02')
-        expect(message.mail.timestamp.to_date).to eq Date.parse('2016-02-02')
+        bounce_timestamp = message.bounce.timestamp
+        mail_timestamp = message.mail.timestamp
+
+        expect(bounce_timestamp).to be_utc
+        expect(bounce_timestamp.utc_offset).to be_zero
+        expect(bounce_timestamp.to_date).to eq '2016-02-02'.to_date
+
+        expect(mail_timestamp).to be_utc
+        expect(mail_timestamp.utc_offset).to be_zero
+        expect(mail_timestamp.to_date).to eq '2016-02-02'.to_date
       end
     end
 

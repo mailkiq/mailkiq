@@ -14,6 +14,7 @@ module API::V1
         sns.confirm_subscription @sns.topic_arn, @sns.token
       elsif @sns.ses?
         message_id = find_message_uuid(@sns.message.mail.id)
+
         Notification.create! message_id: message_id,
                              type: @sns.message.type.downcase,
                              metadata: @sns.data.as_json

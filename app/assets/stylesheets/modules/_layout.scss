@@ -1,3 +1,18 @@
+h2 {
+  font-size: 34px;
+
+  .btn { float: right; }
+
+  .count {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    color: $medium-gray;
+  }
+
+  + form { margin-top: 60px; }
+}
+
 .container {
   @include clearfix;
   width: 980px;

@@ -2,12 +2,12 @@
 @import "base/base";
 @import "chosen";
 
-@import "modules/base";
+@import "modules/layout";
 @import "modules/icons";
 @import "modules/alerts";
-@import "modules/layout";
 @import "modules/header";
 @import "modules/simple_form";
 @import "modules/campaigns";
 @import "modules/subscribers";
 @import "modules/deliveries";
+@import "modules/kaminari";

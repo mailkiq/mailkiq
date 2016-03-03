@@ -1,6 +1,7 @@
 <h2>
-  <%= page_title %>
   <%= link_to t('.new_subscriber'), new_subscriber_path, class: 'btn' %>
+  <%= page_title %>
+  <span class="count"><%= page_entries_info @subscribers %></span>
 </h2>
 
 <table class="table">
@@ -35,10 +36,10 @@
   <% if @subscribers.any? %>
     <tfoot>
       <tr>
-        <th colspan="4"><%= page_entries_info @subscribers %></th>
+        <td colspan="4"><%= paginate @subscribers, first: nil %></td>
       </tr>
     </tfoot>
   <% end %>
 </table>
 
-<%= paginate @subscribers %>
+

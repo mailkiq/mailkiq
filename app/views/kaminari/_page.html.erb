@@ -1,9 +1,3 @@
-<% if page.current? %>
-  <li class="active">
-    <%= content_tag :a, page, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)) %>
-  </li>
-<% else %>
-  <li>
-    <%= link_to page, url, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)) %>
-  </li>
-<% end %>
+<span class="page<%= ' current' if page.current? %>">
+  <%= link_to_unless page.current?, page, url, { remote: remote, rel: page.next? ? 'next' : page.prev? ? 'prev' : nil } %>
+</span>

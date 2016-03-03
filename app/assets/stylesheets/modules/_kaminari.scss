@@ -1,0 +1,32 @@
+.pagination {
+  text-align: center;
+
+  .page, .last {
+    &:before {
+      content: '/';
+      margin-left: 5px;
+      margin-right: 5px;
+      color: $medium-gray;
+    }
+  }
+
+  .page:first-child:before {
+    content: none;
+  }
+
+  span, a {
+    color: $medium-gray;
+  }
+
+  .current {
+    color: $dark-gray;
+  }
+
+  .prev {
+    float: left;
+  }
+
+  .next {
+    float: right;
+  }
+}

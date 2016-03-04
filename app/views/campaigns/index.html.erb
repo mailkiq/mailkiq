@@ -21,11 +21,11 @@
         <td><%= time_tag campaign.sent_at, format: '%d/%m/%Y' if campaign.sent_at? %></td>
         <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
-          <%= number_with_delimiter campaign.unique_opens_count %>
+          <%= number_with_delimiter campaign.messages.opened.count %>
           <%= percentage_badge_tag campaign.unique_opens_count, campaign.recipients_count %>
         </td>
         <td>
-          <%= number_with_delimiter campaign.unique_clicks_count %>
+          <%= number_with_delimiter campaign.messages.clicked.count %>
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
         <td class="actions">

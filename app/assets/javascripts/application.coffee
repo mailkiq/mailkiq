@@ -12,6 +12,9 @@ $ ->
   App.Analytics.init()
   App.Analytics.pageview()
 
-  $('body > .alert').delay(5000).slideUp(500)
   $('#subscriber_tag_ids, #delivery_tagged_with, #delivery_not_tagged_with')
     .chosen()
+
+  $('.flash-close').click (ev) ->
+    $(this).parents('.flash').remove()
+    ev.preventDefault()

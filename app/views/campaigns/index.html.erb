@@ -1,6 +1,7 @@
 <h2>
   <%= page_title %>
   <%= link_to t('.new_campaign'), new_campaign_path, class: 'btn' %>
+  <span class="count"><%= page_entries_info @campaigns %></span>
 </h2>
 
 <table class="table">

@@ -1,6 +1,6 @@
 <% [:success, :error, :notice, :failure, :alert].each do |key| -%>
   <% if flash.key? key -%>
-    <div class="flash flash_<%= key %>">
+    <div class="flash flash-<%= key %>">
       <div class="container">
         <p><%= h flash[key] %></p>
         <a href="#" class="flash-close ss-delete"></a>

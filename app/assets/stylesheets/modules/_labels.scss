@@ -15,9 +15,16 @@
 }
 
 .label-percentage {
+  display: inline-block;
+  position: absolute;
   background: #fcffb8;
   color: #4f4f4f;
   font-size: 12px;
   text-align: center;
-  padding: 8px 12px;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 25px;
+  margin-top: -11px;
+  margin-left: 5px;
 }

@@ -18,8 +18,14 @@
   <tbody>
     <% @campaigns.each do |campaign| %>
       <tr>
-        <td><%= content_tag :p, campaign.name, title: campaign.name %></p></td>
-        <td><%= time_tag campaign.sent_at, format: '%d/%m/%Y' if campaign.sent_at? %></td>
+        <td><%= content_tag :span, truncate(campaign.name, length: 52), title: campaign.name %></td>
+        <td>
+          <% if campaign.sent_at? %>
+            <%= time_tag campaign.sent_at, format: '%d/%m/%Y' %>
+          <% else %>
+            -
+          <% end %>
+        </td>
         <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
           <%= number_with_delimiter campaign.messages.opened.count %>

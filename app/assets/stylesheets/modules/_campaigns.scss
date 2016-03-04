@@ -5,18 +5,8 @@
 }
 
 .campaign_name,
-.campaign_from_name { margin-right: 20px; }
-
-.campaigns-controller .table {
-  td {
-    padding: 29px 0 24px;
-    vertical-align: top;
-  }
-
-  tr > td:first-child p {
-    @include ellipsis(90%);
-    margin: 0;
-  }
+.campaign_from_name {
+  margin-right: 20px;
 }
 
 #campaign_html_text {

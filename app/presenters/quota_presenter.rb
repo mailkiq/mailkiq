@@ -2,12 +2,16 @@ QuotaPresenter = Struct.new(:account, :view_context) do
   delegate :t, :pluralize, :number_with_delimiter, :content_tag,
            to: :view_context
 
+  def cache_key
+    "#{account.cache_key}/send_quota"
+  end
+
   def ses
     @ses ||= Fog::AWS::SES.new account.credentials
   end
 
   def send_quota
-    @quota ||= Rails.cache.fetch [account.cache_key, :send_quota] do
+    @quota ||= Rails.cache.fetch cache_key, expires_in: 1.hour do
       ses.get_send_quota.body
     end
   end
@@ -42,14 +46,7 @@ QuotaPresenter = Struct.new(:account, :view_context) do
     content_tag :span, t('dashboard.show.sandbox'), class: 'label label-default'
   end
 
-  def progress_bar_tag
-    percentage = sent_last_hours * 100 / max_hour_send
-    content_tag :div, nil, style: "width: #{percentage}%",
-                           class: 'progress-bar progress-bar-info'
-  end
-
-  def metrics
-    campaigns = account.campaigns.select(:id)
-    Message.where(campaign_id: campaigns).group_by_day(:sent_at, dates: true).count
+  def to_json
+    MetricQuery.sent_by_account(account).to_json
   end
 end

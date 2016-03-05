@@ -15,6 +15,10 @@ describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
   it { expect(subject.ses).to be_kind_of Fog::AWS::SES::Real }
   it { expect(subject.send_quota).to be_kind_of Hash }
 
+  describe '#cache_key' do
+    it { expect(subject.cache_key).to include 'send_quota' }
+  end
+
   describe '#sandbox?' do
     it 'sending quota is equal to 200' do
       expect(subject.max_hour_send).to eq(200)
@@ -68,17 +72,6 @@ describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
     it 'make a span tag with label classes' do
       span = '<span class="label label-default">Sandbox Mode</span>'
       expect(subject.sandbox_badge_tag).to eq(span)
-    end
-  end
-
-  describe '#progress_bar_tag' do
-    it 'make a progress bar tag with percentage' do
-      half = '<div style="width: 50%" class="progress-bar progress-bar-info"></div>'
-      zero = '<div style="width: 0%" class="progress-bar progress-bar-info"></div>'
-
-      expect(subject.progress_bar_tag).to eq(zero)
-      expect(subject).to receive(:sent_last_hours).and_return(100)
-      expect(subject.progress_bar_tag).to eq(half)
     end
   end
 end

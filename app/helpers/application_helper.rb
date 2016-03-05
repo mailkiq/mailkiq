@@ -23,8 +23,7 @@ module ApplicationHelper
 
   def nav_link_to(key, path)
     name = t("nav.links.#{key}")
-    css_class = 'active' if request.path == path ||
-                            controller_name.to_sym == key
+    css_class = 'active' if request.path == path || controller_name == key.to_s
     content_tag :li, link_to(name, path), class: css_class
   end
 
@@ -38,7 +37,11 @@ module ApplicationHelper
   end
 
   def link_to_delete(path)
-    link_to t('actions.delete'), path, method: :delete,
-                                       data: { confirm: t('actions.confirm') }
+    link_options = { method: :delete, data: { confirm: t('actions.confirm') } }
+    link_to t('actions.delete'), path, link_options
+  end
+
+  def dispatcher_route
+    "#{controller_name.titleize}##{action_name}"
   end
 end

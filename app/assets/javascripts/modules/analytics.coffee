@@ -9,7 +9,7 @@ App.Analytics =
       '$created': @account.created_at,
       '$email': @account.email
 
-  identify: (account) ->
+  setAccount: (account) ->
     @account = account
 
   track: (name, properties) ->

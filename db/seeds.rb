@@ -2,10 +2,9 @@ require 'faker'
 
 Faker::Config.locale = 'pt-BR'
 
-Account.destroy_all
-Campaign.destroy_all
-Subscriber.destroy_all
 Domain.delete_all
+Subscriber.destroy_all
+Account.destroy_all
 
 account = Account.find_or_create_by!(email: 'rainerborene@gmail.com') do |a|
   a.name = 'Rainer Borene'
@@ -28,18 +27,22 @@ campaign = Campaign.create!(
 )
 
 20.times do
-  now = Time.now
-  future = 3.days.from_now
+  subscriber = Subscriber.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    state: Subscriber.states[:active],
+    account_id: account.id
+  )
 
-  subscriber = Subscriber.create! name: Faker::Name.name,
-                                  email: Faker::Internet.email,
-                                  state: Subscriber.states[:active],
-                                  account_id: account.id
+  opened_at = Faker::Time.between(Time.now, 20.days.from_now, :all)
+  sent_at = Faker::Time.between(opened_at, 10.days.from_now, :all)
 
-  Message.create! uuid: SecureRandom.uuid,
-                  token: SecureRandom.hex,
-                  subscriber_id: subscriber.id,
-                  campaign_id: campaign.id,
-                  opened_at: Faker::Time.between(now, future, :all),
-                  sent_at: now
+  Message.create!(
+    uuid: SecureRandom.uuid,
+    token: SecureRandom.hex,
+    subscriber_id: subscriber.id,
+    campaign_id: campaign.id,
+    opened_at: opened_at,
+    sent_at: sent_at
+  )
 end

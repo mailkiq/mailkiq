@@ -7,7 +7,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :confirmation_token, limit: 128
       t.string :remember_token, limit: 128
       t.string :language
-      t.string :time_zone
+      t.string :time_zone, default: 'UTC'
       t.uuid :api_key, null: false, default: 'uuid_generate_v4()'
 
       # amazon access keys

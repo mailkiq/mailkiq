@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
     t.string   "confirmation_token",             limit: 128
     t.string   "remember_token",                 limit: 128
     t.string   "language"
-    t.string   "time_zone"
+    t.string   "time_zone",                                  default: "UTC"
     t.uuid     "api_key",                                    default: "uuid_generate_v4()"
     t.string   "aws_access_key_id"
     t.string   "aws_secret_access_key"

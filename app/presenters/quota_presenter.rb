@@ -7,7 +7,9 @@ QuotaPresenter = Struct.new(:account, :view_context) do
   end
 
   def send_quota
-    @quota ||= ses.get_send_quota.body
+    @quota ||= Rails.cache.fetch [account.cache_key, :send_quota] do
+      ses.get_send_quota.body
+    end
   end
 
   def sandbox?
@@ -44,5 +46,10 @@ QuotaPresenter = Struct.new(:account, :view_context) do
     percentage = sent_last_hours * 100 / max_hour_send
     content_tag :div, nil, style: "width: #{percentage}%",
                            class: 'progress-bar progress-bar-info'
+  end
+
+  def metrics
+    campaigns = account.campaigns.select(:id)
+    Message.where(campaign_id: campaigns).group_by_day(:sent_at, dates: true).count
   end
 end

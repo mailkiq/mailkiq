@@ -1,25 +1,16 @@
-<div class="row">
-  <div class="col-md-12">
-    <h3 class="title">
-      <%= page_title %> <%= @quota.sandbox_badge_tag if @quota.sandbox? %>
-    </h3>
-  </div>
+<% content_for :javascripts do -%>
+  <%= javascript_include_tag '//code.highcharts.com/highcharts.js' %>
+<% end -%>
 
-  <div class="col-md-6">
-    <div class="panel panel-default sending-limits">
-      <div class="panel-body">
-        <p class="stat">
-          <%= @quota.human_sending_limits %>
-        </p>
-        <div class="progress">
-          <%= @quota.progress_bar_tag %>
-        </div>
-        <p>
-          <%= @quota.human_send_rate %>
-        </p>
-      </div>
-    </div>
-  </div>
+<h2>
+  <%= page_title %>
+  <%= @quota.sandbox_badge_tag if @quota.sandbox? %>
+</h2>
 
-  <%= link_to 'Sign Out', sign_out_path, method: :delete %>
+<div class="panel">
+  <div class="panel-heading">
+    <%= t '.sending_volume' %>
+  </div>
+  <div class="panel-body" data-metrics='<%= raw @quota.metrics.to_json %>'>
+  </div>
 </div>

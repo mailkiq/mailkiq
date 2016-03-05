@@ -26,6 +26,7 @@ en:
       sending_limits: "%{count} of %{remaining}"
       send_rate: "%{rate} per second"
       sandbox: 'Sandbox Mode'
+      sending_volume: 'Sending Volume'
   campaigns:
     index:
       new_campaign: 'New campaign'

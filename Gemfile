@@ -9,7 +9,6 @@ gem 'clearance'
 gem 'dedent'
 gem 'fog-aws'
 gem 'has_scope'
-gem 'kaminari'
 gem 'page_meta'
 gem 'paypal-recurring'
 gem 'puma'
@@ -21,6 +20,8 @@ gem 'simple_form'
 gem 'sinatra', require: false
 
 # DB
+gem 'groupdate'
+gem 'kaminari'
 gem 'pg'
 
 # Assets

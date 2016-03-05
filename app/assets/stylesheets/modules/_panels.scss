@@ -1,0 +1,14 @@
+.panel {
+  border: $base-border;
+  border-radius: $base-border-radius;
+}
+
+.panel-heading {
+  background: #e4e4e4;
+  padding: 18px 20px;
+  font-weight: bold;
+}
+
+.panel-body {
+  padding: 18px 65px;
+}

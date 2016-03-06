@@ -4,9 +4,9 @@
 }
 
 .panel-heading {
-  background: #e4e4e4;
-  padding: 18px 20px;
+  background: $panel-background;
   font-weight: bold;
+  padding: 18px 20px;
 }
 
 .panel-body {

@@ -14,7 +14,7 @@ en:
       settings: 'Settings'
       sign_out: 'Sign Out'
       subscribers: 'Subscribers'
-      profile: 'Profile'
+      your_profile: 'Your Profile'
       aws: 'Amazon Web Services'
   marketing:
     index:

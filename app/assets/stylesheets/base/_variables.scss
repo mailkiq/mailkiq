@@ -1,5 +1,7 @@
-// Bourbon
+// Buttons
 $all-buttons: append($all-buttons, '.btn');
+$button-font-size: 12px;
+$button-padding: 15px;
 
 // Typography
 $montserrat: 'Montserrat', sans-serif;
@@ -20,17 +22,22 @@ $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
-$green: #73ff7d;
-$light-green: #b8ffbd;
-$dark-green: #98ce9c;
 $blue: #1565c0;
 $dark-gray: #4f4f4f;
-$medium-gray: #b3b3b3;
-$light-gray: #b3b3b3;
-$very-light-gray: #ececec;
-$light-red: #ffb6b6;
-$red: #ff6e6e;
+$dark-green: #98ce9c;
 $dark-red: #bf8888;
+$green: #73ff7d;
+$light-gray: #b3b3b3;
+$light-green: #b8ffbd;
+$light-red: #ffb6b6;
+$medium-gray: #b3b3b3;
+$red: #ff6e6e;
+$very-light-gray: #ececec;
+$white: #fff;
+$yellow: #fcffb8;
+$success-color: #93cc97;
+$warning-color: #ccbf91;
+$danger-color: #cc9191;
 
 // Font Colors
 $base-font-color: $dark-gray;
@@ -54,6 +61,9 @@ $base-timing: ease;
 
 // Extras
 $header-background-color: $medium-gray;
-$button-font-size: 12px;
-$button-padding: 15px;
 $table-spacing: 29px 0 30px;
+$brand-background: #808080;
+$panel-background: #e4e4e4;
+
+// Scrollbars
+$scrollbar-track: $dark-gray;

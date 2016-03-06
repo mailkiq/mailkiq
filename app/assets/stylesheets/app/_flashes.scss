@@ -2,14 +2,14 @@
   font-size: 12px;
 
   p {
-    margin: 0;
-    line-height: 30px;
-    text-transform: uppercase;
     float: left;
+    line-height: 30px;
+    margin: 0;
+    text-transform: uppercase;
   }
 
   a {
-    color: #4f4f4f;
+    color: $dark-gray;
     float: right;
     margin-top: 8px;
   }
@@ -20,9 +20,9 @@
 }
 
 .flash-notice {
-  background: #b8ffbd;
+  background: $light-green;
 }
 
 .flash-alert {
-  background: #ffb6b6;
+  background: $light-red;
 }

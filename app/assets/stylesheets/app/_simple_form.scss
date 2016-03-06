@@ -1,0 +1,33 @@
+.simple-form {
+  .required abbr {
+    display: none;
+  }
+
+  .input.half {
+    float: left;
+    margin-bottom: 35px;
+    width: 480px;
+
+    input,
+    textarea {
+      margin-bottom: 0;
+    }
+  }
+
+  .error {
+    color: $light-red;
+    font-weight: bold;
+    margin-left: 6px;
+  }
+
+  .actions {
+    margin: 60px 0 45px;
+  }
+}
+
+.field-with-errors {
+  input,
+  textarea {
+    border-color: $light-red;
+  }
+}

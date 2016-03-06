@@ -5,18 +5,24 @@
     <%= render 'shared/mixpanel' %>
   </head>
   <body data-route="<%= dispatcher_route %>">
-    <header class="l-header">
+    <header class="header">
       <div class="container">
         <div class="brand">&nbsp;</div>
 
-        <ul class="nav">
-          <%= nav_link_to :dashboard, signed_in_root_path %>
-          <%= nav_link_to :campaigns, campaigns_path %>
-          <%= nav_link_to :subscribers, subscribers_path %>
-        </ul>
+        <nav class="nav">
+          <ul>
+            <%= nav_link_to :dashboard, signed_in_root_path %>
+            <%= nav_link_to :campaigns, campaigns_path %>
+            <%= nav_link_to :subscribers, subscribers_path %>
+          </ul>
+        </nav>
+
+        <%= link_to '', '#', class: 'nav-dropdown-toggle ss-settings' %>
 
         <ul class="nav-dropdown">
-          <li><%= link_to '', profile_settings_path, class: 'ss-settings' %></li>
+          <li><%= link_to t('nav.links.your_profile'), profile_settings_path, class: 'ss-user right' %></li>
+          <li><%= link_to t('nav.links.aws'), aws_settings_path, class: 'ss-key right' %></li>
+          <li><%= link_to t('nav.links.sign_out'), sign_out_path, method: :delete, class: 'ss-logout right' %></li>
         </ul>
       </div>
     </header>

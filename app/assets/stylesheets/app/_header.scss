@@ -1,0 +1,119 @@
+.header {
+  @include box-sizing(border-box);
+  background: $header-background-color;
+  height: 70px;
+  padding-top: 19px;
+
+  a {
+    @include transition(all .2s ease-in-out);
+  }
+
+  .container {
+    position: relative;
+  }
+
+  .brand {
+    background: $brand-background;
+    float: left;
+    height: 32px;
+    width: 123px;
+  }
+
+  .nav-dropdown-toggle {
+    color: $white;
+    float: right;
+    font-size: 18px;
+    line-height: 36px;
+    margin-right: -16px;
+    padding-bottom: 15px;
+    text-align: center;
+    width: 50px;
+
+    &:hover,
+    &.active {
+      box-shadow: 0 -5px 0 $action-color inset;
+    }
+  }
+}
+
+.nav {
+  float: left;
+  margin-left: 153px;
+  width: 435px;
+
+  a {
+    box-shadow: none;
+    color: $white;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 30px;
+    margin-left: right;
+    padding-bottom: 21px;
+    text-transform: uppercase;
+  }
+
+  li {
+    display: inline;
+    margin-right: 90px;
+
+    &:last-child { margin-right: 0; }
+
+    &.active a,
+    a:hover {
+      box-shadow: 0 -5px 0 $action-color inset;
+      color: $action-color;
+    }
+  }
+}
+
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  right: -16px;
+  top: 70px;
+  width: 270px;
+
+  &.active {
+    display: block;
+  }
+
+  &:before {
+    @include triangle(16px 8px, $light-green, up);
+    content: '';
+    display: block;
+    position: absolute;
+    right: 17px;
+    top: -8px;
+  }
+
+  li {
+    background-color: $light-green;
+    padding-left: 20px;
+    padding-right: 16px;
+
+    &:hover {
+      background-color: shade($light-green, 20%);
+    }
+
+    &:last-child a {
+      border-bottom: 0;
+    }
+
+    &:nth-child(2) a {
+      border-bottom: 1px solid $dark-gray;
+      border-top: 1px solid $dark-gray;
+    }
+  }
+
+  a {
+    color: $dark-gray;
+    display: block;
+    line-height: 51px;
+  }
+
+  .right:after {
+    float: right;
+    line-height: 21px;
+    margin-top: 17px;
+  }
+}

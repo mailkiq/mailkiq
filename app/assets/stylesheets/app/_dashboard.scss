@@ -1,3 +1,9 @@
-.dashboard-controller .main h2 {
-  margin-bottom: 70px;
+.dashboard-controller {
+  .main h2 {
+    margin-bottom: 70px;
+  }
+
+  .panel-body {
+    padding: 18px 65px;
+  }
 }

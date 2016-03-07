@@ -43,3 +43,11 @@ en:
       name: 'Name'
       email: 'Email'
       state: 'State'
+  settings:
+    aws:
+      authentication: 'Authentication'
+      domains: 'Domains'
+      domain: 'Domain'
+      status: 'Status'
+    profile:
+      your_profile: 'Your Profile'

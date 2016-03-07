@@ -1,18 +1,14 @@
-<div class="row">
-  <%= render 'settings/navigation' %>
+<%= render 'settings/navigation' %>
 
-  <div class="col-md-9">
-    <div class="panel panel-default">
-      <div class="panel-heading">Profile</div>
-      <div class="panel-body row">
-        <%= simple_form_for current_user, url: profile_settings_path, html: { method: :put, class: 'col-md-8' } do |f| %>
-          <%= f.input :name, placeholder: false %>
-          <%= f.input :email, placeholder: false, as: :email %>
-          <%= f.input :password, placeholder: false %>
-          <%= f.input :time_zone %>
-          <%= f.button :submit, class: 'btn-success' %>
-        <% end %>
-      </div>
-    </div>
+<div class="panel">
+  <div class="panel-heading"><%= t '.your_profile' %></div>
+  <div class="panel-body">
+    <%= simple_form_for current_user, url: profile_settings_path, html: { method: :put } do |f| %>
+      <%= f.input :name, placeholder: false %>
+      <%= f.input :email, placeholder: false, as: :email %>
+      <%= f.input :password, placeholder: false %>
+      <%= f.input :time_zone %>
+      <%= f.button :submit, class: 'btn-success' %>
+    <% end %>
   </div>
 </div>

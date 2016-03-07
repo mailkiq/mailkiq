@@ -1,5 +1,5 @@
 class Subscriber < ActiveRecord::Base
-  extend Sortable
+  include Sortable
   include Person
 
   validates_presence_of :name
@@ -12,7 +12,6 @@ class Subscriber < ActiveRecord::Base
   enum state: %i(active unconfirmed unsubscribed bounced complained deleted)
   paginates_per 10
 
-  scope :recents, -> { order created_at: :desc }
   scope :actived, -> { where state: states[:active] }
 
   auto_strip_attributes :name, :email

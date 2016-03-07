@@ -23,10 +23,10 @@ class IdentityValidator < ActiveModel::EachValidator
   end
 
   def domains_method_name
-    options.fetch(:domains)
+    options.fetch(:domains, :account_domain_names)
   end
 
   def credentials_method_name
-    options.fetch(:credentials)
+    options.fetch(:credentials, :account_credentials)
   end
 end

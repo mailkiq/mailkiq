@@ -1,18 +1,14 @@
 class Campaign < ActiveRecord::Base
-  extend Sortable
+  include Sortable
 
   validates_presence_of :name, :subject, :from_name, :html_text
-  validates :from_email, presence: true, email: true,
-                         identity: { credentials: :account_credentials,
-                                     domains: :account_domain_names }
+  validates :from_email, presence: true, email: true, identity: true
 
   has_many :messages, dependent: :delete_all
   belongs_to :account
   before_destroy :clear_sidekiq_queue
 
   delegate :credentials, :domain_names, to: :account, prefix: true
-
-  scope :recents, -> { order created_at: :desc }
 
   auto_strip_attributes :name, :subject, :from_name, :from_email
 

@@ -1,3 +1,5 @@
+notification :tmux, color_location: []
+
 guard 'migrate' do
   watch(%r{^db/migrate/(\d+).+\.rb})
   watch('db/seeds.rb')

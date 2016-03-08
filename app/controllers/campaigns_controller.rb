@@ -1,4 +1,5 @@
-class CampaignsController < AdminController
+class CampaignsController < ApplicationController
+  before_action :require_login
   has_scope :page, default: 1
   has_scope :sort, using: [:column, :direction]
 

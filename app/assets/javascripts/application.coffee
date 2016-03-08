@@ -12,9 +12,6 @@
   init: ->
     [controller_name, action_name] = $('body').data('route').split('#')
 
-    App.Analytics.init()
-    App.Analytics.pageview()
-
     new App.Controllers.Common().render()
 
     if App.Controllers.hasOwnProperty controller_name

@@ -1,11 +1,11 @@
-<div class="l-container-minimal">
+<div class="wrapper">
   <h2><%= page_title %></h2>
   <p><%= t('.description') %></p>
 
   <%= simple_form_for :password_reset,
-        url: account_password_path(@account, token: @account.confirmation_token),
+        url: account_password_path(@user, token: @user.confirmation_token),
         html: { method: :put } do |f| %>
-    <%= f.input :password, label: false %>
-    <%= f.button :submit, class: 'btn-success' %>
+    <%= f.input :password %>
+    <%= f.button :submit %>
   <% end %>
 </div>

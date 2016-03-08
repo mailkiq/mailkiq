@@ -41,7 +41,7 @@ en:
     edit:
       description: Your password has been reset. Choose a new password below.
     new:
-      description: To be emailed a link to reset your password, please enter
+      description: To be emailed a link to reset your password, <br>please enter
         your email address.
   sessions:
     new:

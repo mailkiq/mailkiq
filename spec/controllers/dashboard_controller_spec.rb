@@ -11,7 +11,6 @@ describe DashboardController, type: :controller do
 
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to respond_with :success }
-      it { is_expected.to render_with_layout 'admin' }
     end
   end
 end

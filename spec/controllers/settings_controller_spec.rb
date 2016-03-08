@@ -20,7 +20,6 @@ describe SettingsController, type: :controller do
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to respond_with :success }
       it { is_expected.to set_flash.now[:notice] }
-      it { is_expected.to render_with_layout 'admin' }
       it { is_expected.to permit_params(profile_params) }
       it { is_expected.not_to permit_params(aws_params) }
     end
@@ -31,7 +30,6 @@ describe SettingsController, type: :controller do
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to respond_with :success }
       it { is_expected.to set_flash.now[:notice] }
-      it { is_expected.to render_with_layout 'admin' }
       it { is_expected.to permit_params(aws_params) }
       it { is_expected.not_to permit_params(profile_params) }
     end

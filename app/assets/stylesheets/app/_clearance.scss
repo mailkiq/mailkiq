@@ -1,0 +1,73 @@
+.clearance {
+  body {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    background-color: $light-gray;
+    height: 100vh;
+  }
+
+  .wrapper {
+    @include flex-basis(490px);
+  }
+
+  .flash {
+    text-indent: 75px;
+  }
+
+  .simple-form {
+    background: $white;
+    padding: 50px 75px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+.session {
+  text-align: center;
+
+  .input {
+    text-align: left;
+
+    input {
+      margin-bottom: 30px;
+    }
+  }
+
+  .btn {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  a {
+    color: $dark-gray;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.password,
+.password_reset {
+  .input input {
+    margin-bottom: 0;
+  }
+
+  .btn {
+    margin-top: 40px;
+  }
+}
+
+.wrapper {
+  h2 {
+    margin-bottom: 0;
+  }
+
+  p {
+    line-height: 20px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+  }
+}

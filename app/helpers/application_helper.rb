@@ -44,4 +44,11 @@ module ApplicationHelper
   def dispatcher_route
     "#{controller_name.titleize}##{action_name}"
   end
+
+  def mixpanel_identity
+    current_user.to_json(
+      only: [:id,  :email, :created_at],
+      methods: [:first_name, :last_name]
+    )
+  end
 end

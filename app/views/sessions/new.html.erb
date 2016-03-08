@@ -1,16 +1,15 @@
-<div class="l-container-minimal">
-  <h2><%= page_title %></h2>
-
+<div class="wrapper">
   <% if notice %>
-    <div class="alert alert-danger">
-      <%=h notice %>
+    <div class="flash flash-alert">
+      <%= h notice %>
     </div>
   <% end %>
 
   <%= simple_form_for :session, url: session_path do |f| %>
     <%= f.input :email %>
     <%= f.input :password %>
-    <%= f.button :submit, class: 'btn-success' %>
-    <%= link_to t('.forgot_password'), new_password_path, class: 'btn btn-default' %>
+    <%= f.button :submit %>
+
+    <%= link_to t('.forgot_password'), new_password_path %>
   <% end %>
 </div>

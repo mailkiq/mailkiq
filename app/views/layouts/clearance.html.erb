@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html class="clearance">
+  <head>
+    <%= render 'shared/head' %>
+    <%= render 'shared/mixpanel' %>
+  </head>
+  <body data-route="<%= dispatcher_route %>">
+    <%= yield %>
+  </body>
+</html>

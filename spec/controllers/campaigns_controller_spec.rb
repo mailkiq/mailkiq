@@ -18,7 +18,6 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :require_login }
-      it { is_expected.to render_with_layout 'admin' }
       it { is_expected.to respond_with :success }
 
       it { is_expected.to have_scope(:sort).use(:column, :direction) }
@@ -31,7 +30,6 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :require_login }
-      it { is_expected.to render_with_layout 'admin' }
       it { is_expected.to respond_with :success }
     end
 
@@ -69,7 +67,6 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :require_login }
-      it { is_expected.to render_with_layout 'admin' }
       it { is_expected.to respond_with :success }
     end
 

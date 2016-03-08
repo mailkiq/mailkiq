@@ -1,4 +1,6 @@
-class SettingsController < AdminController
+class SettingsController < ApplicationController
+  before_action :require_login
+
   def profile
     update profile_params if request.put?
   end

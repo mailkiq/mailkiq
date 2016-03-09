@@ -14,9 +14,12 @@ gem 'paypal-recurring'
 gem 'puma'
 gem 'responders'
 gem 'sentry-raven'
+gem 'simple_form'
+
+# Job scheduling
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
-gem 'simple_form'
+gem 'sidekiq-unique-jobs'
 gem 'sinatra', require: false
 
 # DB

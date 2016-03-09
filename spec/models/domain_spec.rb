@@ -40,8 +40,7 @@ describe Domain, type: :model do
     end
   end
 
-  describe '#save_verification_attributes!',
-           vcr: { cassette_name: :get_identity_verification_attributes } do
+  describe '#sync!', vcr: { cassette_name: :get_identity_verification_attributes } do
     it 'fetch verification status on Amazon SES' do
       verification_token = 'oPld11CtXSBGVTVgv6DFtRe2EdmM5I6R6OfADMQ++kQ='
       account = Fabricate.build(:valid_account)
@@ -51,12 +50,11 @@ describe Domain, type: :model do
       expect(domain).to receive(:verification_token=).with(verification_token)
       expect(domain).to receive(:save!)
 
-      domain.save_verification_attributes!
+      domain.sync!
     end
   end
 
-  describe '#verify_domain_identity',
-           vcr: { cassette_name: :verify_domain_identity } do
+  describe '#verify_domain_identity', vcr: { cassette_name: :verify_domain_identity } do
     it 'verify a new domain on before create callback' do
       account = Fabricate.build :valid_account
       domain = Domain.new name: 'patriotas.net', account: account

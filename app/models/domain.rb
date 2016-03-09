@@ -17,7 +17,7 @@ class Domain < ActiveRecord::Base
     "_amazonses.#{name}"
   end
 
-  def save_verification_attributes!
+  def sync!
     response = ses.get_identity_verification_attributes([name])
     response.body['VerificationAttributes'].each do |domain|
       new_status = domain['VerificationStatus'].underscore
@@ -27,16 +27,16 @@ class Domain < ActiveRecord::Base
     save!
   end
 
-  def verify_domain_identity
-    response = ses.verify_domain_identity(name)
-    self.status = self.class.statuses[:pending]
-    self.verification_token = response.body['VerificationToken']
-  end
-
   private
 
   def ses
     @ses ||= Fog::AWS::SES.new(account_credentials)
+  end
+
+  def verify_domain_identity
+    response = ses.verify_domain_identity(name)
+    self.status = self.class.statuses[:pending]
+    self.verification_token = response.body['VerificationToken']
   end
 
   def delete_identity

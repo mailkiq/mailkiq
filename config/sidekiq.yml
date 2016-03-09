@@ -1,5 +1,6 @@
 ---
 :dynamic: true
 :queues:
-  - [critical, 20]
+  - [deliveries, 20]
+  - [platform, 15]
   - [default, 10]

@@ -1,7 +1,7 @@
 class DeliveryWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: :critical, backtrace: true, retry: 0
+  sidekiq_options queue: :deliveries, backtrace: true, retry: 0
 
   def perform(campaign_id, tagged_with, not_tagged_with)
     campaign = Campaign.find campaign_id

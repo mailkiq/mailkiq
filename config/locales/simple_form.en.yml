@@ -13,8 +13,8 @@ en:
         html_text: 'HTML'
       account:
         name: 'Your name'
-        aws_access_key_id: 'AWS Access key ID'
-        aws_secret_access_key: 'AWS Secret access key'
+        aws_access_key_id: 'Access Key ID'
+        aws_secret_access_key: 'Secret Access Key'
         aws_region: 'Your Amazon SES region'
         language: 'Select your language'
         time_zone: 'Select your time zone'
@@ -24,12 +24,12 @@ en:
           aws_access_key_id: 'Access key ID'
           aws_secret_access_key: 'Secret access key'
     placeholders:
+      domain:
+        name: 'Enter the domain name'
       account:
         name: 'Annie Terry'
         email: 'annie@west.com'
         password: 'Enter a password'
-        domains:
-          name: 'Enter the domain name'
       password:
         email: 'annie@west.com'
     hints:
@@ -38,6 +38,13 @@ en:
         profile:
           password: "Leave password blank if don't want to change it."
     options:
+      domain:
+        status:
+          pending: 'Pending Verification'
+          success: 'Success'
+          failed: 'Failed'
+          temporary_failure: 'Temporary Failure'
+          not_started: 'Not Started'
       subscriber:
         state:
           active: 'Active'

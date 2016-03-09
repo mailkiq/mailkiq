@@ -13,5 +13,5 @@ en:
     settings:
       profile:
         notice: 'Profile updated successfully'
-      aws:
+      amazon:
         notice: 'Access keys updated successfully'

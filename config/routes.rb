@@ -32,9 +32,10 @@ Rails.application.routes.draw do
 
   scope via: [:get, :put] do
     match '/settings/profile', to: 'settings#profile', as: :profile_settings
-    match '/settings/aws', to: 'settings#aws', as: :aws_settings
+    match '/settings/amazon', to: 'settings#amazon', as: :amazon_settings
   end
 
+  resources :domains, only: [:create, :destroy]
   resources :subscribers
   resources :campaigns do
     resource :delivery, except: [:edit, :update]

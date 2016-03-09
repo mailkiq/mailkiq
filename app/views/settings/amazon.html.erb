@@ -1,0 +1,45 @@
+<h2 class="page-title"><%= page_title %></h2>
+
+<div class="amazon">
+  <%= simple_form_for current_user, url: amazon_settings_path, html: { method: :put } do |f| %>
+    <h2 class="subtitle"><%= t '.authentication' %></h2>
+
+    <%= f.input :aws_access_key_id %>
+    <%= f.input :aws_secret_access_key %>
+    <%= f.input :aws_region, include_blank: false, collection: Account::REGIONS.map(&:to_sym), hint: false %>
+
+    <div class="actions">
+      <%= f.hint :aws_region %>
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+</div>
+
+<div class="domains">
+  <h2 class="subtitle"><%= t '.domains' %></h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t '.domain' %></th>
+        <th><%= t '.status' %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.domains.each do |domain| %>
+        <tr>
+          <td><%= domain.name %></td>
+          <td><%= status_tag domain.status %></td>
+          <td>
+            <%= icon_link_to :delete, domain_path(domain), delete: true  %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= simple_form_for :domain, url: domains_path do |f| %>
+    <%= f.input :name, label: false %>
+  <% end %>
+</div>

@@ -5,10 +5,8 @@ class SettingsController < ApplicationController
     update profile_params if request.put?
   end
 
-  def aws
-    @domains = current_user.domains
-    @domains.build if @domains.empty?
-    update aws_params if request.put?
+  def amazon
+    update amazon_params if request.put?
   end
 
   private
@@ -23,7 +21,7 @@ class SettingsController < ApplicationController
                                     :time_zone
   end
 
-  def aws_params
+  def amazon_params
     params.require(:account).permit :aws_access_key_id, :aws_secret_access_key,
                                     :aws_region
   end

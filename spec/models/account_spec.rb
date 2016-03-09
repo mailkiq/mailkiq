@@ -13,9 +13,6 @@ describe Account, type: :model do
   it do
     is_expected.to validate_inclusion_of(:aws_region).in_array Account::REGIONS
   end
-  it do
-    is_expected.to accept_nested_attributes_for(:domains).allow_destroy(true)
-  end
 
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_many(:campaigns).dependent :destroy }

@@ -27,16 +27,16 @@ class Domain < ActiveRecord::Base
     save!
   end
 
-  private
-
-  def ses
-    @ses ||= Fog::AWS::SES.new(account_credentials)
-  end
-
   def verify_domain_identity
     response = ses.verify_domain_identity(name)
     self.status = self.class.statuses[:pending]
     self.verification_token = response.body['VerificationToken']
+  end
+
+  private
+
+  def ses
+    @ses ||= Fog::AWS::SES.new(account_credentials)
   end
 
   def delete_identity

@@ -1,10 +1,89 @@
-.nav-stacked {
-  float: left;
-  margin-right: 50px;
+.settings-controller {
+  select {
+    width: 100%;
+  }
+
+  .subtitle {
+    color: $heading-font-color;
+    margin-bottom: 45px;
+  }
+
+  .page-title {
+    margin-bottom: 60px;
+  }
 }
 
-.settings-controller .panel {
+.profile-form {
+  width: 490px;
+
+  input {
+    margin-bottom: 30px;
+  }
+
+  select {
+    margin-bottom: 0;
+  }
+
+  .field-with-hint input {
+    margin-bottom: 0;
+  }
+
+  .field-with-hint .hint {
+    margin-bottom: 30px;
+    margin-top: 6px;
+  }
+}
+
+.amazon {
+  float: left;
+  width: 475px;
+
+  .input input {
+    margin-bottom: 30px;
+  }
+
+  .input select {
+    margin-bottom: 0;
+  }
+
+  .hint {
+    float: left;
+    line-height: 14px;
+    width: 320px;
+  }
+
+  .actions {
+    @include clearfix;
+    margin-top: 50px;
+  }
+
+  .btn {
+    float: right;
+  }
+}
+
+.domains {
   float: right;
-  margin-bottom: 50px;
-  width: 757px;
+  width: 400px;
+
+  th {
+    padding-top: 0;
+  }
+
+  a {
+    color: $light-gray;
+
+    &:hover {
+      color: $dark-gray;
+    }
+
+    span:before {
+      position: relative;
+      top: 3px;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
 }

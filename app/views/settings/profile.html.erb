@@ -1,14 +1,12 @@
-<%= render 'settings/navigation' %>
+<h2><%= page_title %></h2>
 
-<div class="panel">
-  <div class="panel-heading"><%= t '.your_profile' %></div>
-  <div class="panel-body">
-    <%= simple_form_for current_user, url: profile_settings_path, html: { method: :put } do |f| %>
-      <%= f.input :name, placeholder: false %>
-      <%= f.input :email, placeholder: false, as: :email %>
-      <%= f.input :password, placeholder: false %>
-      <%= f.input :time_zone %>
-      <%= f.button :submit, class: 'btn-success' %>
-    <% end %>
+<%= simple_form_for current_user, url: profile_settings_path, html: { method: :put, class: 'profile-form' } do |f| %>
+  <%= f.input :name, placeholder: false %>
+  <%= f.input :email, placeholder: false, as: :email %>
+  <%= f.input :password, placeholder: false %>
+  <%= f.input :time_zone %>
+
+  <div class="actions">
+    <%= f.button :submit %>
   </div>
-</div>
+<% end %>

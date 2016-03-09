@@ -11,12 +11,16 @@
   a {
     color: $dark-gray;
     float: right;
-    margin-top: 8px;
   }
 
   + .main {
     margin-top: 25px;
   }
+}
+
+.flash-close:before {
+  position: relative;
+  top: 2px;
 }
 
 .flash-notice {

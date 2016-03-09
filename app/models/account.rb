@@ -17,8 +17,6 @@ class Account < ActiveRecord::Base
   has_many :tags, dependent: :delete_all
   has_many :domains, dependent: :destroy
 
-  accepts_nested_attributes_for :domains, allow_destroy: true
-
   delegate :domain_names, to: :domains
 
   attr_accessor :paypal_payment_token

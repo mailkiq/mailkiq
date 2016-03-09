@@ -15,7 +15,7 @@ en:
       sign_out: 'Sign Out'
       subscribers: 'Subscribers'
       your_profile: 'Your Profile'
-      aws: 'Amazon Web Services'
+      amazon: 'Amazon Web Services'
   marketing:
     index:
       login: 'Login'
@@ -44,7 +44,7 @@ en:
       email: 'Email'
       state: 'State'
   settings:
-    aws:
+    amazon:
       authentication: 'Authentication'
       domains: 'Domains'
       domain: 'Domain'

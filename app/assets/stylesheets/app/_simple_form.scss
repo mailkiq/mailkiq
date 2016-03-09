@@ -14,14 +14,30 @@
     }
   }
 
+  .actions {
+    margin: 60px 0 45px;
+  }
+
   .error {
     color: $light-red;
     font-weight: bold;
     margin-left: 6px;
   }
 
-  .actions {
-    margin: 60px 0 45px;
+  .hint {
+    color: #ababab;
+    font-size: 12px;
+  }
+}
+
+.field-with-hint {
+  input {
+    margin-bottom: 0;
+  }
+
+  .hint {
+    display: inline-block;
+    margin-bottom: .75em;
   }
 }
 

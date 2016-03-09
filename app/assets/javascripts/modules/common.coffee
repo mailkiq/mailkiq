@@ -1,4 +1,4 @@
-class App.Controllers.Common
+class App.Common
   constructor: ->
     @dropdownSelector = '.nav-dropdown-toggle'
     @closeSelector = '.flash-close'

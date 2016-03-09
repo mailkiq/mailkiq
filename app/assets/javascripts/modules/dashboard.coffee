@@ -1,4 +1,4 @@
-class App.Controllers.Dashboard
+class App.Dashboard.Show
   constructor: ->
     @el = $('.panel-body')
     @points = []
@@ -6,7 +6,7 @@ class App.Controllers.Dashboard
     $.each @el.data('metrics'), (date, value) =>
       @points.push [Date.parse(date), value]
 
-  show: ->
+  render: ->
     @el.highcharts
       chart:
         height: 120
@@ -39,6 +39,7 @@ class App.Controllers.Dashboard
       xAxis:
         type: 'datetime'
         labels:
+          format: '{value:%b. %d}'
           style:
             color: '#b3b3b3'
         lineColor: '#e1e1e1'

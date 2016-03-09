@@ -7,15 +7,15 @@
 #= require_tree ./modules
 
 @App =
-  Controllers: {}
+  Dashboard: {}
 
   init: ->
     [controller_name, action_name] = $('body').data('route').split('#')
 
-    new App.Controllers.Common().render()
+    new App.Common().render()
 
-    if App.Controllers.hasOwnProperty controller_name
-      (new App.Controllers[controller_name])[action_name]()
+    if App.hasOwnProperty(controller_name)
+      (new App[controller_name][action_name.capitalize()]).render()
 
 $ ->
   App.init()

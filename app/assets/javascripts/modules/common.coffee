@@ -1,6 +1,6 @@
 class App.Common
   constructor: ->
-    @dropdownSelector = '.nav-dropdown-toggle'
+    @dropdownSelector = '.dropdown-toggle'
     @closeSelector = '.flash-close'
     @chosenSelector = [
       '#subscriber_tag_ids',
@@ -14,14 +14,14 @@ class App.Common
 
   toggleDropdown: (ev) ->
     $(this).toggleClass('active')
-    $('.nav-dropdown').toggleClass('active')
+    $('.dropdown').toggleClass('active')
     ev.preventDefault()
 
   onDropdown: ($target) ->
     $target.hasClass('nav-dropdown') ||
-      $target.hasClass('nav-dropdown-toggle') ||
-      $target.parents('.nav-dropdown').length > 0 ||
-      $target.parents('.nav-dropdown-toggle').length > 0
+      $target.hasClass('dropdown-toggle') ||
+      $target.parents('.dropdown').length > 0 ||
+      $target.parents('.dropdown-toggle').length > 0
 
   render: ->
     $(@chosenSelector).chosen()
@@ -31,5 +31,5 @@ class App.Common
     $(document.body).click (ev) =>
       return if @onDropdown $(ev.target)
 
-      $('.nav-dropdown-toggle').removeClass('active')
-      $('.nav-dropdown').removeClass('active')
+      $('.dropdown-toggle').removeClass('active')
+      $('.dropdown').removeClass('active')

@@ -1,31 +1,32 @@
 .header {
   @include box-sizing(border-box);
   background: $header-background-color;
-  height: 70px;
-  padding-top: 19px;
 
   a {
     @include transition(all .2s ease-in-out);
   }
 
   .container {
-    position: relative;
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(center);
+    height: 70px;
   }
 
   .brand {
     background: $brand-background;
-    float: left;
     height: 32px;
     width: 123px;
   }
 
-  .nav-dropdown-toggle {
+  .dropdown-toggle {
     color: $white;
-    float: right;
+    display: inline-block;
     font-size: 18px;
+    left: 16px;
     line-height: 36px;
-    margin-right: -16px;
     padding-bottom: 15px;
+    position: relative;
     text-align: center;
     width: 50px;
 
@@ -37,9 +38,7 @@
 }
 
 .nav {
-  float: left;
-  margin-left: 153px;
-  width: 435px;
+  @include align-self(flex-end);
 
   a {
     box-shadow: none;
@@ -66,7 +65,12 @@
   }
 }
 
-.nav-dropdown {
+.dropdown-wrapper {
+  @include align-self(flex-end);
+  position: relative;
+}
+
+.dropdown {
   display: none;
   position: absolute;
   right: -16px;

@@ -2,7 +2,7 @@
   <% if flash.key? key -%>
     <div class="flash flash-<%= key %>">
       <div class="container">
-        <p><%= h flash[key] %></p>
+        <%= h flash[key] %>
         <a href="#" class="flash-close ss-delete"></a>
       </div>
     </div>

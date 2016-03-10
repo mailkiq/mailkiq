@@ -18,11 +18,11 @@ h2 {
 }
 
 .container {
-  @include clearfix;
   margin: 0 auto;
   width: 980px;
 }
 
 .main {
+  @include clearfix;
   margin-top: 55px;
 }

@@ -3,11 +3,6 @@
   line-height: 30px;
   text-transform: uppercase;
 
-  p {
-    float: left;
-    margin: 0;
-  }
-
   a {
     color: $dark-gray;
     float: right;
@@ -20,7 +15,7 @@
 
 .flash-close:before {
   position: relative;
-  top: 2px;
+  top: 1px;
 }
 
 .flash-notice {

@@ -6,7 +6,6 @@ class Campaign < ActiveRecord::Base
 
   has_many :messages, dependent: :delete_all
   belongs_to :account
-  before_destroy :clear_sidekiq_queue
 
   delegate :credentials, :domain_names, to: :account, prefix: true
 
@@ -18,11 +17,5 @@ class Campaign < ActiveRecord::Base
 
   def queue_name
     "campaign-#{id}"
-  end
-
-  private
-
-  def clear_sidekiq_queue
-    Sidekiq::Queue.new(queue_name).clear
   end
 end

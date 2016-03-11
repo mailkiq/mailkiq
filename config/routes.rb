@@ -39,19 +39,17 @@ Rails.application.routes.draw do
   resources :subscribers
   resources :campaigns do
     resource :delivery, except: [:edit, :update]
-    get :preview, on: :member
+    resource :preview, only: :show
   end
 
-  resources :subscriptions, only: [] do
-    get :unsubscribe, on: :member
+  scope :track do
+    resources :opens, only: :show
+    resources :clicks, only: :show
   end
 
-  resources :messages, only: [] do
-    get :open, on: :member
-    get :click, on: :member
-  end
+  resource :unsubscribe, only: :show
 
-  get 'paypal/checkout', to: 'accounts#checkout'
+  get 'paypal/checkout', to: 'paypal#checkout'
 
   # ux improvements
   get '/session', to: redirect('/sign_in')

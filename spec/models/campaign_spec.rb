@@ -40,14 +40,4 @@ describe Campaign, type: :model do
       expect(campaign.queue_name).to eq('campaign-1')
     end
   end
-
-  describe '#clear_sidekiq_queue' do
-    it 'remove pending jobs' do
-      expect(Sidekiq::Queue).to receive(:new).with('campaign-1')
-        .and_call_original
-      expect_any_instance_of(Sidekiq::Queue).to receive(:clear)
-
-      described_class.new(id: 1).send(:clear_sidekiq_queue)
-    end
-  end
 end

@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context, if: :signed_in?
   around_action :set_time_zone, if: :signed_in?
 
+  def ses
+    @ses ||= Fog::AWS::SES.new(current_user.credentials)
+  end
+
   private
 
   def set_time_zone(&block)

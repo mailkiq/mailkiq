@@ -22,12 +22,20 @@ describe DomainsController, type: :controller do
         .for(:create, params: { domain: { name: 'patriotras.net' } })
         .on(:domain)
     end
+
+    it 'verifies a domain' do
+      domain = assigns(:domain)
+      expect(domain.status).to eq('pending')
+      expect(domain.verification_token)
+        .to eq('3RPd+UgYrwcWA3+fygXo5LqqMzLAEcK9KOD7EVpVMTs=')
+    end
   end
 
   describe 'DELETE /domains/:id', vcr: { cassette_name: :delete_identity } do
     before do
       domain = Domain.new name: 'patriotas.net', account: account
 
+      expect(controller.ses).to receive(:delete_identity).with('patriotas.net')
       expect(domain).to receive(:destroy)
       expect(account).to receive_message_chain(:domains, :find)
         .and_return(domain)

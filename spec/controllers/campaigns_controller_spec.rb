@@ -97,7 +97,13 @@ describe CampaignsController, type: :controller do
 
       before do
         mock!
+
+        expect_any_instance_of(Sidekiq::Queue).to receive(:clear)
         expect(campaign).to receive(:destroy)
+        expect(Sidekiq::Queue).to receive(:new)
+          .with(campaign.queue_name)
+          .and_call_original
+
         delete :destroy, id: campaign.id
       end
 

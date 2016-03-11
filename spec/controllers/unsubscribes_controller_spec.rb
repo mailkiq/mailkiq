@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe SubscriptionsController, type: :controller do
-  describe 'GET /subscriptions/:id/unsubscribe' do
+describe UnsubscribesController, type: :controller do
+  describe 'GET /unsubscribe' do
     before do
       subscriber = Fabricate.build :subscriber, id: 1
 
@@ -10,10 +10,10 @@ describe SubscriptionsController, type: :controller do
         .with(subscriber.id)
         .and_return(subscriber)
 
-      get :unsubscribe, id: Token.encode(subscriber.id)
+      get :show, token: Token.encode(subscriber.id)
     end
 
-    it { is_expected.to render_template :unsubscribe }
+    it { is_expected.to render_template :show }
     it { is_expected.to respond_with :success }
   end
 end

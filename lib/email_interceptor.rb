@@ -3,7 +3,7 @@ require 'addressable/uri'
 class EmailInterceptor
   UTM_PARAMETERS = %w(utm_source utm_medium utm_term utm_content utm_campaign)
 
-  delegate :unsubscribe_subscription_url, :open_message_url, :click_message_url,
+  delegate :unsubscribe_url, :open_url, :click_url,
            :image_tag, to: :mailer
 
   attr_reader :token, :message, :mailer, :utm_params
@@ -34,7 +34,7 @@ class EmailInterceptor
     return unless html_part?
 
     regex = %r{</body>}i
-    url = open_message_url(id: token, format: :gif)
+    url = open_url(id: token, format: :gif)
     pixel = image_tag(url, size: '1x1', alt: nil)
 
     # try to add before body tag
@@ -66,7 +66,7 @@ class EmailInterceptor
       next if skip_attribute? link, 'click'
 
       signature = Signature.hexdigest link['href']
-      link['href'] = click_message_url id: token,
+      link['href'] = click_url id: token,
                                        url: link['href'],
                                        signature: signature
     end
@@ -77,7 +77,7 @@ class EmailInterceptor
 
   def substitute_unsubscribe_url
     token = Token.encode mailer.subscriber.id
-    unsubscribe_url = unsubscribe_subscription_url(token)
+    unsubscribe_url = unsubscribe_url(token)
 
     parts = message.parts.any? ? message.parts : [message]
     parts.each do |part|

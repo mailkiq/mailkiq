@@ -28,9 +28,16 @@ module ApplicationHelper
   end
 
   def icon_link_to(icon, path, options = {})
+    options[:data] ||= {}
+
     if options.delete(:delete)
       options[:method] = :delete
-      options[:data] = { confirm: t('actions.confirm') }
+      options[:data][:confirm] = t('actions.confirm')
+    end
+
+    if options.key?(:title)
+      options[:data][:balloon] = options.delete(:title)
+      options[:data]['balloon-pos'] = 'up'
     end
 
     link_to content_tag(:span, nil, class: "ss-#{icon}"), path, options
@@ -46,9 +53,7 @@ module ApplicationHelper
   end
 
   def mixpanel_identity
-    current_user.to_json(
-      only: [:id,  :email, :created_at],
-      methods: [:first_name, :last_name]
-    )
+    current_user.to_json only: [:id, :email, :created_at],
+                         methods: [:first_name, :last_name]
   end
 end

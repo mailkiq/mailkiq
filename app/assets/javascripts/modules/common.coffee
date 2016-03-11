@@ -12,9 +12,27 @@ class App.Common
     $(this).parents('.flash').remove()
     ev.preventDefault()
 
-  toggleDropdown: (ev) ->
-    $(this).toggleClass('active')
-    $('.dropdown').toggleClass('active')
+  hideDropdown: ->
+    $('.dropdown')
+      .removeClass('fadeInDown')
+      .addClass('fadeOutUp')
+
+    setTimeout ->
+      $('.dropdown').removeClass('active')
+    , 300
+
+  toggleDropdown: (ev) =>
+    $toggle = $(ev.target)
+    $toggle.toggleClass('active')
+
+    if $toggle.hasClass('active')
+      $('.dropdown')
+        .addClass('active')
+        .addClass('fadeInDown')
+        .removeClass('fadeOutUp')
+    else
+      @hideDropdown()
+
     ev.preventDefault()
 
   onDropdown: ($target) ->
@@ -32,4 +50,4 @@ class App.Common
       return if @onDropdown $(ev.target)
 
       $('.dropdown-toggle').removeClass('active')
-      $('.dropdown').removeClass('active')
+      @hideDropdown()

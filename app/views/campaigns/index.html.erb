@@ -7,12 +7,12 @@
 <table class="table">
   <thead>
     <tr>
-      <th width="480"><%= sortable 'name', t('.campaign') %></th>
+      <th width="400"><%= sortable 'name', t('.campaign') %></th>
       <th><%= sortable 'sent_at', t('.sent_at') %></th>
       <th><%= sortable 'recipients_count', t('.recipients') %></th>
       <th><%= sortable 'unique_opens_count', t('.unique_opens') %></th>
       <th><%= sortable 'unique_clicks_count', t('.unique_clicks') %></th>
-      <th width="20"></th>
+      <th width="115"></th>
     </tr>
   </thead>
   <tbody>
@@ -36,7 +36,10 @@
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
         <td class="actions">
-          <%= icon_link_to :wrench, '#' %>
+          <%= icon_link_to :view, campaign_preview_path(campaign), title: 'Preview' %>
+          <%= icon_link_to :send, new_campaign_delivery_path(campaign), title: 'Send' %>
+          <%= icon_link_to :pen, edit_campaign_path(campaign), title: 'Edit' %>
+          <%= icon_link_to :delete, campaign_path(campaign), title: 'Remove', delete: true %>
         </td>
       </tr>
     <% end %>

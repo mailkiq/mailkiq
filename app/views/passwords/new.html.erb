@@ -1,8 +1,8 @@
 <div class="wrapper">
-  <h2><%= page_title %></h2>
-  <p><%= raw t('.description') %></p>
-
   <%= simple_form_for :password, url: passwords_path do |f| %>
+    <h2><%= page_title %></h2>
+    <p><%= raw t('.description') %></p>
+
     <%= f.input :email %>
     <%= f.button :submit %>
   <% end %>

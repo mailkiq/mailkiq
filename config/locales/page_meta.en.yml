@@ -22,5 +22,5 @@ en:
         sessions:
           new: Login to Mailkiq
         passwords:
-          new: Reset your password
-          edit: Change your password
+          new: Reset Password
+          edit: Change Password

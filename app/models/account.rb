@@ -41,6 +41,15 @@ class Account < ActiveRecord::Base
     fog_options.with_indifferent_access
   end
 
+  def mixpanel_properties
+    {
+      :$first_name => first_name,
+      :$last_name  => last_name,
+      :$created    => created_at,
+      :$email      => email
+    }
+  end
+
   private
 
   def aws_keys?

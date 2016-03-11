@@ -1,23 +1,27 @@
 .clearance {
   body {
-    @include display(flex);
-    @include justify-content(center);
-    @include align-items(center);
     background-color: $light-gray;
-    height: 100vh;
   }
 
   .wrapper {
-    @include flex-basis(490px);
+    margin: 100px auto 0;
+    width: 490px;
   }
 
-  .flash {
-    text-indent: 75px;
+  .flash-alert {
+    text-align: center;
+  }
+
+  .flash-success {
+    font-weight: bold;
+    line-height: 20px;
+    padding: 20px 45px;
+    text-align: center;
   }
 
   .simple-form {
     background: $white;
-    padding: 50px 75px;
+    padding: 50px 85px;
   }
 
   .btn {
@@ -25,7 +29,31 @@
   }
 }
 
-.session {
+.wrapper h2 {
+  margin-bottom: 0;
+
+  + p {
+    color: $medium-gray;
+    font-size: 14px;
+    margin-bottom: 40px;
+    margin-top: 5px;
+  }
+}
+
+.signup {
+  font-size: 12px;
+  margin-top: 30px;
+  text-align: center;
+  text-transform: uppercase;
+
+  a {
+    color: $dark-gray;
+    font-weight: bold;
+  }
+}
+
+.simple-form.session {
+  padding-bottom: 40px;
   text-align: center;
 
   .input {
@@ -49,25 +77,19 @@
   }
 }
 
-.password,
-.password_reset {
+.simple-form.password,
+.simple-form.password_reset {
+  padding-top: 45px;
+
   .input input {
     margin-bottom: 0;
   }
 
   .btn {
-    margin-top: 40px;
+    margin-top: 25px;
   }
 }
 
-.wrapper {
-  h2 {
-    margin-bottom: 0;
-  }
-
-  p {
-    line-height: 20px;
-    margin-bottom: 35px;
-    margin-top: 10px;
-  }
+.simple-form.password_reset h2 {
+  margin-bottom: 50px;
 }

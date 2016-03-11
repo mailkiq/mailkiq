@@ -3,6 +3,10 @@ module ApplicationHelper
     "#{controller_name}-controller"
   end
 
+  def dispatcher_route
+    "#{controller_name.titleize}##{action_name}"
+  end
+
   def page_title
     naming = PageMeta::Naming.new(controller)
     t("page_meta.titles.#{naming.controller}.#{naming.action}")
@@ -46,14 +50,5 @@ module ApplicationHelper
   def link_to_delete(path)
     link_options = { method: :delete, data: { confirm: t('actions.confirm') } }
     link_to t('actions.delete'), path, link_options
-  end
-
-  def dispatcher_route
-    "#{controller_name.titleize}##{action_name}"
-  end
-
-  def mixpanel_identity
-    current_user.to_json only: [:id, :email, :created_at],
-                         methods: [:first_name, :last_name]
   end
 end

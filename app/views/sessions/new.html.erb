@@ -1,15 +1,17 @@
-<div class="wrapper">
-  <% if notice %>
-    <div class="flash flash-alert">
-      <%= h notice %>
-    </div>
-  <% end %>
+<% if notice %>
+  <div class="flash flash-alert">
+    <%= h notice %>
+  </div>
+<% end %>
 
+<div class="wrapper">
   <%= simple_form_for :session, url: session_path do |f| %>
-    <%= f.input :email %>
+    <%= f.input :email, error: 'blah' %>
     <%= f.input :password %>
     <%= f.button :submit %>
 
     <%= link_to t('.forgot_password'), new_password_path %>
   <% end %>
+
+  <p class="signup">Don't have an account? <%= link_to 'Sign Up', sign_up_path %></p>
 </div>

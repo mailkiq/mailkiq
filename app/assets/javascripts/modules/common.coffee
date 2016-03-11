@@ -16,10 +16,9 @@ class App.Common
     $('.dropdown')
       .removeClass('fadeInDown')
       .addClass('fadeOutUp')
-
-    setTimeout ->
-      $('.dropdown').removeClass('active')
-    , 300
+      .one 'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (e) ->
+        if e.originalEvent.animationName == 'fadeOutUp'
+          $(this).removeClass('active')
 
   toggleDropdown: (ev) =>
     $toggle = $(ev.target)

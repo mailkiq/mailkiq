@@ -30,8 +30,6 @@ en:
         name: 'Annie Terry'
         email: 'annie@west.com'
         password: 'Enter a password'
-      password:
-        email: 'annie@west.com'
     hints:
       account:
         aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."

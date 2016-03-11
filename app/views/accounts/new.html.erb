@@ -1,6 +1,6 @@
-<div class="l-container-minimal">
-  <h1><%= page_title %></h1>
-  <h4><%= t('.description') %></h4>
+<div class="wrapper">
+  <h2><%= page_title %></h2>
+  <p><%= t('.description') %></p>
 
   <% if @account.paypal_payment_token.present? %>
     Payment has been provided. Click "Subscribe" to complete the subscription.

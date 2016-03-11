@@ -4,7 +4,7 @@ describe OpensController, type: :controller do
   let(:message) { Message.new }
   let(:google_url) { 'http://www.google.com.br' }
 
-  describe 'GET /messages/:id/open' do
+  describe 'GET /track/opens/:id' do
     before do
       expect(message).to receive(:save!)
       expect(Message).to receive(:find_by).with(token: 'value')

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Campaign, type: :model do
   before do
-    allow_any_instance_of(IdentityValidator).to receive(:validate_each)
+    allow_any_instance_of(DomainValidator).to receive(:validate_each)
   end
 
   it { is_expected.to validate_presence_of :name }

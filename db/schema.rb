@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
     t.citext   "name",               null: false
     t.string   "verification_token", null: false
     t.integer  "status",             null: false
+    t.text     "dkim_tokens",        null: false, array: true
     t.integer  "account_id",         null: false
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false

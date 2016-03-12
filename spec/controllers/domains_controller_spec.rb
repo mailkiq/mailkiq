@@ -7,10 +7,11 @@ describe DomainsController, type: :controller do
     sign_in_as account
   end
 
-  describe 'POST /domains', vcr: { cassette_name: :verify_domain_identity } do
+  describe 'POST /domains', vcr: { cassette_name: :verify_domain } do
     before do
       allow_any_instance_of(Domain).to receive(:save)
-      post :create, domain: { name: 'patriotras.net' }
+      allow_any_instance_of(Domain).to receive(:transaction).and_yield
+      post :create, domain: { name: 'patriotas.net' }
     end
 
     it { is_expected.to use_before_action :require_login }
@@ -19,15 +20,15 @@ describe DomainsController, type: :controller do
     it { is_expected.to set_flash[:notice] }
     it do
       is_expected.to permit(:name)
-        .for(:create, params: { domain: { name: 'patriotras.net' } })
+        .for(:create, params: { domain: { name: 'patriotas.net' } })
         .on(:domain)
     end
 
-    it 'verifies a domain' do
+    it 'verify a new domain on Amazon SES' do
       domain = assigns(:domain)
       expect(domain.status).to eq('pending')
-      expect(domain.verification_token)
-        .to eq('3RPd+UgYrwcWA3+fygXo5LqqMzLAEcK9KOD7EVpVMTs=')
+      expect(domain.verification_token.size).to eq(44)
+      expect(domain.dkim_tokens.size).to eq(3)
     end
   end
 
@@ -36,6 +37,7 @@ describe DomainsController, type: :controller do
       domain = Domain.new name: 'patriotas.net', account: account
 
       expect(controller.ses).to receive(:delete_identity).with('patriotas.net')
+      expect(domain).to receive(:transaction).and_yield
       expect(domain).to receive(:destroy)
       expect(account).to receive_message_chain(:domains, :find)
         .and_return(domain)

@@ -2,7 +2,7 @@ class Campaign < ActiveRecord::Base
   include Sortable
 
   validates_presence_of :name, :subject, :from_name, :html_text
-  validates :from_email, presence: true, email: true, identity: true
+  validates :from_email, presence: true, email: true, domain: true
 
   has_many :messages, dependent: :delete_all
   belongs_to :account

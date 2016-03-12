@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=VerifyDomainIdentity&Domain=patriotas.net
+    headers:
+      User-Agent:
+      - fog-core/1.36.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Date:
+      - Sat, 12 Mar 2016 17:17:52 +0000
+      X-Amzn-Authorization:
+      - AWS3-HTTPS AWSAccessKeyId=AKIAIOT5SABFNLCZ5QTQ, Algorithm=HmacSHA256, Signature=6rhDSUsyLx37VLNdkfLcP3e+Ch3mzw2ao/DB1banITc=
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - 5b16bdc4-e876-11e5-9782-6d97ec4f3b3e
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '370'
+      Date:
+      - Sat, 12 Mar 2016 17:17:53 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <VerifyDomainIdentityResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <VerifyDomainIdentityResult>
+            <VerificationToken>huL6LWKzW/03aeiXo37y6G5aH44JSQS57wH1EUS+E+I=</VerificationToken>
+          </VerifyDomainIdentityResult>
+          <ResponseMetadata>
+            <RequestId>5b16bdc4-e876-11e5-9782-6d97ec4f3b3e</RequestId>
+          </ResponseMetadata>
+        </VerifyDomainIdentityResponse>
+    http_version: 
+  recorded_at: Sat, 12 Mar 2016 17:17:54 GMT
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=VerifyDomainDkim&Domain=patriotas.net
+    headers:
+      User-Agent:
+      - fog-core/1.36.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Date:
+      - Sat, 12 Mar 2016 17:17:54 +0000
+      X-Amzn-Authorization:
+      - AWS3-HTTPS AWSAccessKeyId=AKIAIOT5SABFNLCZ5QTQ, Algorithm=HmacSHA256, Signature=LQwHBby61R/i72Twds4xIU4MYA/EZ9MGxTJKgiyoCCc=
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - 5c385a0f-e876-11e5-bba5-354bc1cda04c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '469'
+      Date:
+      - Sat, 12 Mar 2016 17:17:55 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <VerifyDomainDkimResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <VerifyDomainDkimResult>
+            <DkimTokens>
+              <member>caam22fymjqv2h7lksfoo6u2nfuy5ofa</member>
+              <member>3xlbqcs2vp5aqegz5lgiwz7wddtf3r3r</member>
+              <member>ny6bruq3awhxsacghtg3mpqvcofgrjke</member>
+            </DkimTokens>
+          </VerifyDomainDkimResult>
+          <ResponseMetadata>
+            <RequestId>5c385a0f-e876-11e5-bba5-354bc1cda04c</RequestId>
+          </ResponseMetadata>
+        </VerifyDomainDkimResponse>
+    http_version: 
+  recorded_at: Sat, 12 Mar 2016 17:17:56 GMT
+recorded_with: VCR 3.0.1

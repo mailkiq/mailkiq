@@ -9,7 +9,6 @@ describe Domain, type: :model do
   end
 
   it { is_expected.to belong_to :account }
-  it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
 
   it { expect(described_class).to respond_to :succeed }
 
@@ -34,6 +33,18 @@ describe Domain, type: :model do
     it 'alias to verification_token' do
       domain = Domain.new verification_token: 'blah'
       expect(domain.txt_value).to eq(domain.verification_token)
+    end
+  end
+
+  describe '#cname_records' do
+    it 'generate fully-formed DNS records for use with DKIM' do
+      domain = Fabricate.build :domain
+      record = Domain::CNAME.new(
+        'a._domainkey.patriotas.net',
+        'a.dkim.amazonses.com'
+      )
+
+      expect(domain.cname_records).to include(record)
     end
   end
 end

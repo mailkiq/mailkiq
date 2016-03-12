@@ -6,6 +6,7 @@ class DomainsController < ApplicationController
     @domain.transaction do
       @domain.status = Domain.statuses[:pending]
       @domain.verification_token = get_verification_token(@domain.name)
+      @domain.dkim_tokens = get_dkim_tokens(@domain.name)
       @domain.save
     end
 
@@ -28,6 +29,10 @@ class DomainsController < ApplicationController
 
   def domain_params
     params.require(:domain).permit :name
+  end
+
+  def get_dkim_tokens(name)
+    ses.verify_domain_dkim(name).body['DkimTokens']
   end
 
   def get_verification_token(name)

@@ -18,8 +18,10 @@ class DomainWorker
     response = ses.get_identity_verification_attributes([domain.name])
     response.body['VerificationAttributes'].each do |attributes|
       new_status = attributes['VerificationStatus'].underscore
-      domain.update_columns status: Domain.statuses[new_status],
-                            verification_token: attributes['VerificationToken']
+      domain.update_columns(
+        status: Domain.statuses[new_status],
+        verification_token: attributes['VerificationToken']
+      )
     end
   end
 end

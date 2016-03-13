@@ -20,8 +20,8 @@
         <td><%= subscriber.email %></td>
         <td><%= state_tag subscriber.state %></td>
         <td class="actions">
-          <%= icon_link_to :pen, edit_subscriber_path(subscriber) %>
-          <%= icon_link_to :trash, subscriber_path(subscriber), delete: true %>
+          <%= icon_link_to :pen, edit_subscriber_path(subscriber), title: 'Edit the record' %>
+          <%= icon_link_to :trash, subscriber_path(subscriber), delete: true, title: 'Delete the record' %>
         </td>
       </tr>
     <% end %>
@@ -41,5 +41,3 @@
     </tfoot>
   <% end %>
 </table>
-
-

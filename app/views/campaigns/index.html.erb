@@ -38,8 +38,8 @@
         <td class="actions">
           <%= icon_link_to :view, campaign_preview_path(campaign), title: 'Preview' %>
           <%= icon_link_to :send, new_campaign_delivery_path(campaign), title: 'Send' %>
-          <%= icon_link_to :pen, edit_campaign_path(campaign), title: 'Edit' %>
-          <%= icon_link_to :delete, campaign_path(campaign), title: 'Remove', delete: true %>
+          <%= icon_link_to :pen, edit_campaign_path(campaign), title: 'Edit the record' %>
+          <%= icon_link_to :trash, campaign_path(campaign), title: 'Delete the record', delete: true %>
         </td>
       </tr>
     <% end %>

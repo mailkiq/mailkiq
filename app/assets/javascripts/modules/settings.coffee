@@ -10,12 +10,20 @@ class App.Settings.Amazon
       .addClass('last')
 
   openModal: (ev) =>
-    @overlay.addClass('active')
+    @overlay
+      .css('visibility', 'visible')
+      .addClass('active')
+
     ev.preventDefault()
 
   closeModal: (ev) =>
     return unless $(ev.target).hasClass('overlay')
+
     @overlay.removeClass('active')
+
+    setTimeout =>
+      @overlay.css('visibility', 'hidden')
+    , 250
 
   initializeClipboard: ->
     new Clipboard '.overlay td',

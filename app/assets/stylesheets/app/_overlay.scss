@@ -1,9 +1,9 @@
 .overlay {
-  @include display(flex);
   @include radial-gradient(rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .6));
   @include justify-content(center);
   @include align-items(center);
   @include transition(250ms opacity linear);
+  @include display(flex);
   background-color: rgba(61, 67, 76, .7);
   bottom: 0;
   left: 0;
@@ -16,7 +16,6 @@
 
   &.active {
     opacity: 1;
-    visibility: visible;
   }
 
   .box {

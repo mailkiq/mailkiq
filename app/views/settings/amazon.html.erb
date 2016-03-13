@@ -35,7 +35,7 @@
           <td><%= domain.name %></td>
           <td><%= status_tag domain.status %></td>
           <td>
-            <%= icon_link_to :delete, domain_path(domain), delete: true  %>
+            <%= icon_link_to :trash, domain_path(domain), delete: true, title: 'Delete the record'  %>
           </td>
         </tr>
       <% end %>

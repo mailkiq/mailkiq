@@ -70,20 +70,29 @@
     padding-top: 0;
   }
 
-  a {
-    color: $light-gray;
+  tr:last-child td {
+    border-bottom: 0;
+  }
+}
 
-    &:hover {
-      color: $dark-gray;
-    }
-
-    span:before {
-      position: relative;
-      top: 3px;
-    }
+.dns-records {
+  table {
+    margin: 0;
+    table-layout: fixed;
   }
 
-  tr:last-child td {
+  td span {
+    @include ellipsis(90%);
+    vertical-align: -6px;
+  }
+
+  select {
+    margin-bottom: 0;
+    margin-top: 20px;
+  }
+
+  tr:last-child td,
+  .last td {
     border-bottom: 0;
   }
 }

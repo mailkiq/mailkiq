@@ -26,3 +26,24 @@ h2 {
   @include clearfix;
   margin-top: 55px;
 }
+
+.icon {
+  color: $light-gray;
+  display: inline-block;
+  font-size: 14px;
+  height: 18px;
+  margin-left: 15px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:hover {
+    color: $dark-gray;
+  }
+
+  span:before {
+    position: relative;
+    top: 3px;
+  }
+}

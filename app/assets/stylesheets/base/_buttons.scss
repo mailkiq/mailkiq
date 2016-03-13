@@ -11,8 +11,8 @@
   font-weight: 600;
   line-height: 1;
   padding: $button-padding;
-  text-transform: uppercase;
   text-decoration: none;
+  text-transform: uppercase;
   transition: background-color $base-duration $base-timing;
   user-select: none;
   vertical-align: middle;
@@ -28,7 +28,7 @@
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: .5;
 
     &:hover {
       background-color: $action-color;
@@ -46,5 +46,18 @@
 
   &:active {
     background-color: $dark-red;
+  }
+}
+
+.btn-default {
+  background-color: $very-light-gray;
+
+  &:hover,
+  &:focus {
+    background-color: shade($very-light-gray, 20%);
+  }
+
+  &:active {
+    background-color: shade($very-light-gray, 30%);
   }
 }

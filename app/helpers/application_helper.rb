@@ -33,6 +33,7 @@ module ApplicationHelper
 
   def icon_link_to(icon, path, options = {})
     options[:data] ||= {}
+    options[:class] = 'icon'
 
     if options.delete(:delete)
       options[:method] = :delete

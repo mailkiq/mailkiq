@@ -1,31 +1,28 @@
 class App.Common
-  constructor: ->
-    @dropdownSelector = '.dropdown-toggle'
-    @closeSelector = '.flash-close'
-    @chosenSelector = [
-      '#subscriber_tag_ids',
-      '#delivery_tagged_with',
-      '#delivery_not_tagged_with'
-    ].join(', ')
+  chosenSelector: [
+    '#subscriber_tag_ids',
+    '#delivery_tagged_with',
+    '#delivery_not_tagged_with'
+  ].join(', ')
 
   closeClick: (ev) ->
-    $(this).parents('.flash').remove()
+    $(this).parent().remove()
     ev.preventDefault()
 
   hideDropdown: ->
-    $('.dropdown')
+    @dropdown
       .removeClass('fadeInDown')
       .addClass('fadeOutUp')
-      .one 'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (e) ->
+      .animationend (e) ->
         if e.originalEvent.animationName == 'fadeOutUp'
           $(this).removeClass('active')
 
   toggleDropdown: (ev) =>
-    $toggle = $(ev.target)
-    $toggle.toggleClass('active')
+    @dropdownToggleButton = $(ev.target)
+    @dropdownToggleButton.toggleClass('active')
 
-    if $toggle.hasClass('active')
-      $('.dropdown')
+    if @dropdownToggleButton.hasClass('active')
+      @dropdown
         .addClass('active')
         .addClass('fadeInDown')
         .removeClass('fadeOutUp')
@@ -34,19 +31,29 @@ class App.Common
 
     ev.preventDefault()
 
-  onDropdown: ($target) ->
-    $target.hasClass('nav-dropdown') ||
-      $target.hasClass('dropdown-toggle') ||
-      $target.parents('.dropdown').length > 0 ||
-      $target.parents('.dropdown-toggle').length > 0
+  onDropdown: (el) ->
+    el.hasClass('nav-dropdown') ||
+      el.hasClass('dropdown-toggle') ||
+      el.parents('.dropdown').length > 0 ||
+      el.parents('.dropdown-toggle').length > 0
+
+  bodyClick: (ev) =>
+    return if @onDropdown $(ev.target)
+    @dropdownToggleButton.removeClass('active')
+    @hideDropdown()
+
+  initializeElements: ->
+    @dropdown = $('.dropdown')
+    @dropdownToggleButton = $('.dropdown-toggle')
+    @flashCloseButton = $('.flash-close')
+    @selects = $(@chosenSelector)
+
+  initializeEvents: ->
+    @selects.chosen()
+    @flashCloseButton.click @closeClick
+    @dropdownToggleButton.click @toggleDropdown
+    $(document.body).click @bodyClick
 
   render: ->
-    $(@chosenSelector).chosen()
-    $(@closeSelector).click @closeClick
-    $(@dropdownSelector).click @toggleDropdown
-
-    $(document.body).click (ev) =>
-      return if @onDropdown $(ev.target)
-
-      $('.dropdown-toggle').removeClass('active')
-      @hideDropdown()
+    @initializeElements()
+    @initializeEvents()

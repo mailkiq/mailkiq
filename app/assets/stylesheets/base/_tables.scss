@@ -16,6 +16,10 @@ th {
 td {
   border-bottom: 1px solid #969696;
   padding: $table-spacing 0;
+
+  &.actions {
+    text-align: right;
+  }
 }
 
 tr,
@@ -33,8 +37,8 @@ th a {
   &.current { font-weight: 700; }
 
   &:after {
-    display: inline-block;
     color: $dark-gray;
+    display: inline-block;
     margin-left: 7px;
     vertical-align: 1px;
   }
@@ -51,26 +55,5 @@ th a {
 }
 
 tfoot td {
-  border-bottom: none;
-}
-
-td.actions {
-  text-align: right;
-
-  > a {
-    display: inline-block;
-    font-size: 14px;
-    color: #b3b3b3;
-    margin-left: 15px;
-    height: 18px;
-    vertical-align: -2px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:hover {
-      color: $dark-gray;
-    }
-  }
+  border-bottom: 0;
 }

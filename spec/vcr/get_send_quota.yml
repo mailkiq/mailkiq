@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=GetSendQuota
+    headers:
+      User-Agent:
+      - fog-core/1.36.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Date:
+      - Sun, 13 Mar 2016 23:09:14 +0000
+      X-Amzn-Authorization:
+      - AWS3-HTTPS AWSAccessKeyId=AKIAIOT5SABFNLCZ5QTQ, Algorithm=HmacSHA256, Signature=3z5SrjFRq/iHViyirWbSa6pjFuuwIRz/I0LhYzLPWI8=
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      x-amzn-RequestId:
+      - 9b3a827e-e970-11e5-90db-4322ec28103c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '372'
+      Date:
+      - Sun, 13 Mar 2016 23:09:14 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <GetSendQuotaResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <GetSendQuotaResult>
+            <Max24HourSend>50000.0</Max24HourSend>
+            <SentLast24Hours>0.0</SentLast24Hours>
+            <MaxSendRate>14.0</MaxSendRate>
+          </GetSendQuotaResult>
+          <ResponseMetadata>
+            <RequestId>9b3a827e-e970-11e5-90db-4322ec28103c</RequestId>
+          </ResponseMetadata>
+        </GetSendQuotaResponse>
+    http_version: 
+  recorded_at: Sun, 13 Mar 2016 23:09:15 GMT
+recorded_with: VCR 3.0.1

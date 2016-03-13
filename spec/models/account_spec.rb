@@ -23,7 +23,7 @@ describe Account, type: :model do
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
 
-  context 'invalid credentials', vcr: { cassette_name: :invalid_token } do
+  context 'invalid credentials', vcr: { cassette_name: :invalid_client_token_id } do
     it 'append error message to AWS Access key ID attribute' do
       account = Fabricate.build(:account)
       error_message = I18n.t('activerecord.errors.models.account.invalid_token')

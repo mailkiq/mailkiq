@@ -30,5 +30,7 @@ Fog::AWS::SES.class_eval do
   request :delete_identity
   request :get_identity_verification_attributes
   request :set_identity_dkim_enabled
+  request :set_identity_feedback_forwarding_enabled
+  request :set_identity_notification_topic
   request :verify_domain_dkim
 end

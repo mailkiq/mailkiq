@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SettingsController, type: :controller do
-  context 'when logged in', vcr: { cassette_name: :valid_credentials } do
+  context 'when logged in' do
     let(:amazon_params) { %i(aws_access_key_id aws_secret_access_key aws_region) }
     let(:profile_params) { %i(name email password language time_zone) }
     let(:account_params) do

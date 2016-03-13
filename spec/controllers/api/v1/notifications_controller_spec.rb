@@ -18,7 +18,6 @@ describe API::V1::NotificationsController, type: :controller do
 
       it { is_expected.to filter_param :token }
       it { is_expected.to respond_with :success }
-      it { is_expected.to use_before_action :validate_amazon_headers }
       it { is_expected.to use_before_action :authenticate! }
       it { expect(sns).to be_subscription_confirmation }
     end
@@ -49,7 +48,6 @@ describe API::V1::NotificationsController, type: :controller do
 
       it { is_expected.to filter_param :token }
       it { is_expected.to respond_with :success }
-      it { is_expected.to use_before_action :validate_amazon_headers }
       it { is_expected.to use_before_action :authenticate! }
 
       it 'parse timestamp correctly' do
@@ -73,7 +71,7 @@ describe API::V1::NotificationsController, type: :controller do
     end
 
     def mock!
-      request.headers['X-Amz-Sns-Topic-Arn'] = 'arn:aws:sns:*'
+      request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
 
       expect(Account).to receive(:find_by)
         .with(api_key: account.api_key)

@@ -9,6 +9,8 @@ describe Domain, type: :model do
   end
 
   it { is_expected.to belong_to :account }
+  it { is_expected.to delegate_method(:verify!).to(:identity).with_prefix }
+  it { is_expected.to delegate_method(:delete!).to(:identity).with_prefix }
 
   it { expect(described_class).to respond_to :succeed }
 

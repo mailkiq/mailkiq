@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
     t.string   "aws_access_key_id"
     t.string   "aws_secret_access_key"
     t.string   "aws_region"
+    t.string   "aws_topic_arn"
     t.string   "paypal_customer_token"
     t.string   "paypal_recurring_profile_token"
     t.integer  "plan_id"

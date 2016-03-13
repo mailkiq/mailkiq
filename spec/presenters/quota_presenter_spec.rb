@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
+describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
   subject do
     account = Fabricate.build(:valid_account)
     view = ActionController::Base.new.view_context
@@ -20,8 +20,11 @@ describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
   end
 
   describe '#sandbox?' do
-    it 'sending quota is equal to 200' do
-      expect(subject.max_hour_send).to eq(200)
+    it 'sending quota is equal to 50000' do
+      expect(subject.max_hour_send).to eq(50_000)
+      is_expected.to_not be_sandbox
+
+      expect(subject).to receive(:max_hour_send).and_return(200)
       is_expected.to be_sandbox
     end
 
@@ -33,15 +36,15 @@ describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
 
   describe '#max_send_rate' do
     it 'coerse MaxSendRate attribute to a number' do
-      expect(subject.send_quota['MaxSendRate']).to eq('1.0')
-      expect(subject.max_send_rate).to eq(1)
+      expect(subject.send_quota['MaxSendRate']).to eq('14.0')
+      expect(subject.max_send_rate).to eq(14)
     end
   end
 
   describe '#max_hour_send' do
     it 'coerse Max24HourSend attribute to a number' do
-      expect(subject.send_quota['Max24HourSend']).to eq('200.0')
-      expect(subject.max_hour_send).to eq(200)
+      expect(subject.send_quota['Max24HourSend']).to eq('50000.0')
+      expect(subject.max_hour_send).to eq(50_000)
     end
   end
 
@@ -54,7 +57,7 @@ describe QuotaPresenter, vcr: { cassette_name: :valid_credentials } do
 
   describe '#human_send_rate' do
     it 'friendly send rate number ' do
-      expect(subject.human_send_rate).to eq('1 email per second')
+      expect(subject.human_send_rate).to eq('14 emails per second')
       expect(subject).to receive(:max_send_rate).and_return(90)
       expect(subject.human_send_rate).to eq('90 emails per second')
     end

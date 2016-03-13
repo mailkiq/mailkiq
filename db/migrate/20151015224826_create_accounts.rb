@@ -14,6 +14,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :aws_access_key_id
       t.string :aws_secret_access_key
       t.string :aws_region
+      t.string :aws_topic_arn
 
       # payment
       t.string :paypal_customer_token

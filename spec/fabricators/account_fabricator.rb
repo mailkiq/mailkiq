@@ -12,6 +12,7 @@ end
 Fabricator(:valid_account, from: :account) do
   aws_access_key_id ENV['AWS_ACCESS_KEY_ID']
   aws_secret_access_key ENV['AWS_SECRET_ACCESS_KEY']
+  aws_topic_arn 'arn:aws:sns:us-east-1:390722072336:ses-bounces-topic'
 end
 
 Fabricator(:jane_doe, from: :valid_account) do

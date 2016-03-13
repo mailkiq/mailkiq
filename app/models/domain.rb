@@ -6,10 +6,16 @@ class Domain < ActiveRecord::Base
   enum status: [:pending, :success, :failed, :temporary_failure, :not_started]
   alias_attribute :txt_value, :verification_token
 
+  delegate :verify!, :delete!, to: :identity, prefix: true
+
   scope :succeed, -> { where status: statuses[:success] }
 
   def self.domain_names
     succeed.pluck(:name)
+  end
+
+  def identity
+    DomainIdentity.new(self)
   end
 
   def txt_name

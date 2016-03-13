@@ -14,7 +14,8 @@ account = Account.find_or_create_by!(email: 'rainerborene@gmail.com') do |a|
   a.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
 end
 
-domain = Domain.find_or_create_by!(name: 'thoughtplane.com', account: account)
+domain = Domain.new(name: 'thoughtplane.com', account: account)
+domain.identity_verify!
 domain.update_column :status, Domain.statuses[:success]
 
 campaign = Campaign.create!(

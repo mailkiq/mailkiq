@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.cache_store = :null_store
   config.cache_classes = true
   config.eager_load = false
   config.serve_static_files = true

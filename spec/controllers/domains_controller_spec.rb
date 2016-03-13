@@ -36,7 +36,6 @@ describe DomainsController, type: :controller do
     before do
       domain = Domain.new name: 'patriotas.net', account: account
 
-      expect(controller.ses).to receive(:delete_identity).with('patriotas.net')
       expect(domain).to receive(:transaction).and_yield
       expect(domain).to receive(:destroy)
       expect(account).to receive_message_chain(:domains, :find)

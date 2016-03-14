@@ -11,6 +11,7 @@ module Fog
         def deliver!(mail)
           ses = Fog::AWS::SES.new(settings)
           ses.send_raw_email(mail).tap do |response|
+            break if settings.key? :skip_message_tracking
             message = create_message! mail, response
             mail.message_id = "#{message.uuid}@email.amazonses.com"
           end

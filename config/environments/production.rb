@@ -15,4 +15,10 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.default_url_options = { host: 'mailkiq.com' }
+  config.action_mailer.delivery_method = :ses
+  config.action_mailer.ses_settings = {
+    aws_access_key_id: ENV['MAILKIQ_ACCESS_KEY_ID'],
+    aws_secret_access_key: ENV['MAILKIQ_SECRET_ACCESS_KEY'],
+    skip_message_tracking: true
+  }
 end

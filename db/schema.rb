@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
   add_index "accounts", ["remember_token"], name: "index_accounts_on_remember_token", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
-    t.string   "name",                            null: false
+    t.citext   "name",                            null: false
     t.string   "subject",                         null: false
     t.string   "from_name",                       null: false
     t.string   "from_email",                      null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
   end
 
   add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
+  add_index "campaigns", ["name", "account_id"], name: "index_campaigns_on_name_and_account_id", unique: true, using: :btree
 
   create_table "domains", force: :cascade do |t|
     t.citext   "name",               null: false
@@ -94,7 +95,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer "type",       null: false
-    t.jsonb   "metadata",   null: false
+    t.jsonb   "data",       null: false
     t.integer "message_id", null: false
   end
 
@@ -109,7 +110,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
 
   create_table "subscribers", force: :cascade do |t|
     t.string   "name",                       null: false
-    t.string   "email",                      null: false
+    t.citext   "email",                      null: false
     t.integer  "state",                      null: false
     t.jsonb    "custom_fields", default: {}, null: false
     t.integer  "account_id",                 null: false

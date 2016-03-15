@@ -40,7 +40,7 @@ describe API::V1::NotificationsController, type: :controller do
         expect(Notification).to receive(:create!).with(
           message_id: 1,
           type: sns.message.type.downcase,
-          metadata: sns.data.as_json
+          data: sns.data.as_json
         )
 
         post :create, format: :json, api_key: account.api_key

@@ -7,7 +7,6 @@ class SettingsController < ApplicationController
 
   def amazon
     DomainWorker.perform_async current_user.id
-
     update amazon_params if request.put?
   end
 

@@ -17,7 +17,7 @@ module API
 
           Notification.create! message_id: find_message_with_uuid,
                                type: @sns.message.type.downcase,
-                               metadata: @sns.data.as_json
+                               data: @sns.data.as_json
 
           current_account.subscribers.where(email: @sns.emails)
             .update_all state: Subscriber.states[@sns.state]

@@ -1,6 +1,7 @@
 require 'faker'
 
 Faker::Config.locale = 'pt-BR'
+ActionMailer::Base.default_url_options[:host] = 'mailkiq.com'
 
 Domain.delete_all
 Subscriber.destroy_all
@@ -13,6 +14,8 @@ account = Account.find_or_create_by!(email: 'rainerborene@gmail.com') do |a|
   a.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
   a.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
 end
+
+SetupNotification.new(account).up
 
 domain = Domain.new(name: 'thoughtplane.com', account: account)
 domain.identity_verify!

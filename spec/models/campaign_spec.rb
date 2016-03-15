@@ -26,6 +26,18 @@ describe Campaign, type: :model do
   it { expect(described_class).to respond_to(:sort).with(2).arguments }
   it { expect(described_class).to respond_to(:recents) }
 
+  it 'validates uniqueness of name scoped to account' do
+    expect_any_instance_of(AccessKeysValidator).to receive(:validate)
+      .at_least(:once)
+      .and_return(true)
+
+    Fabricate.create :campaign_with_account
+
+    is_expected.to validate_uniqueness_of(:name)
+      .scoped_to(:account_id)
+      .case_insensitive
+  end
+
   describe '#sender' do
     it 'concatenates from_name and from_email fields' do
       campaign = Fabricate.build(:campaign)

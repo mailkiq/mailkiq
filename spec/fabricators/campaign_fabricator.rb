@@ -10,6 +10,10 @@ Fabricator(:campaign) do
   EOF
 end
 
+Fabricator(:campaign_with_account, from: :campaign) do
+  account
+end
+
 Fabricator(:freeletics_campaign, from: :campaign) do
   name 'Coma direito e duplique o resultado dos treinos'
 end

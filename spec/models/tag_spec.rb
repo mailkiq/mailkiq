@@ -6,7 +6,7 @@ describe Tag, type: :model do
   it { is_expected.to have_many(:taggings).dependent :delete_all }
   it { is_expected.to have_many(:subscribers).through :taggings }
 
-  it 'validate uniqueness of tag per account' do
+  it 'validates unique name scoped to account' do
     expect_any_instance_of(AccessKeysValidator).to receive(:validate)
       .at_least(2)
       .and_return(true)

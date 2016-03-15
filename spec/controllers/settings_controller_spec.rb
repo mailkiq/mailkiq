@@ -25,7 +25,10 @@ describe SettingsController, type: :controller do
     end
 
     describe 'PUT /settings/amazon' do
-      before { put :amazon, account_params }
+      before do
+        expect(DomainWorker).to receive(:perform_async).at_least(:once)
+        put :amazon, account_params
+      end
 
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to respond_with :success }

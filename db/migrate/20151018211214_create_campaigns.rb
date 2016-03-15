@@ -1,7 +1,7 @@
 class CreateCampaigns < ActiveRecord::Migration
   def change
     create_table :campaigns do |t|
-      t.string :name, null: false
+      t.citext :name, null: false
       t.string :subject, null: false
       t.string :from_name, null: false
       t.string :from_email, null: false
@@ -18,6 +18,7 @@ class CreateCampaigns < ActiveRecord::Migration
 
       t.datetime :sent_at
       t.timestamps null: false
+      t.index [:name, :account_id], unique: true
     end
   end
 end

@@ -3,15 +3,10 @@ require 'addressable/uri'
 class EmailInterceptor
   UTM_PARAMETERS = %w(utm_source utm_medium utm_term utm_content utm_campaign)
 
-  delegate :unsubscribe_url, :open_url, :click_url,
-           :image_tag, to: :mailer
-
-  attr_reader :token, :message, :mailer, :utm_params
-
-  def initialize(message, mailer, utm_params = {})
+  def initialize(mailer, utm_params = {})
     @token = generate_token
-    @message = message
     @mailer = mailer
+    @message = mailer.message
     @utm_params = utm_params
   end
 
@@ -23,6 +18,10 @@ class EmailInterceptor
   end
 
   private
+
+  attr_reader :token, :message, :mailer, :utm_params
+
+  delegate :list_unsubscribe_url, :open_url, :click_url, :image_tag, to: :mailer
 
   def set_message_ivars
     message.instance_variable_set :@_token, @token
@@ -66,9 +65,10 @@ class EmailInterceptor
       next if skip_attribute? link, 'click'
 
       signature = Signature.hexdigest link['href']
+
       link['href'] = click_url id: token,
-                                       url: link['href'],
-                                       signature: signature
+                               url: link['href'],
+                               signature: signature
     end
 
     # hacky
@@ -76,12 +76,9 @@ class EmailInterceptor
   end
 
   def substitute_unsubscribe_url
-    token = Token.encode mailer.subscriber.id
-    unsubscribe_url = unsubscribe_url(token)
-
     parts = message.parts.any? ? message.parts : [message]
     parts.each do |part|
-      part.body.raw_source.gsub!(/%unsubscribe_url%/i, unsubscribe_url)
+      part.body.raw_source.gsub!(/%unsubscribe_url%/i, list_unsubscribe_url)
     end
   end
 

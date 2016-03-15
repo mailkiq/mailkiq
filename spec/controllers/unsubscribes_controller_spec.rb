@@ -10,7 +10,7 @@ describe UnsubscribesController, type: :controller do
         .with(subscriber.id)
         .and_return(subscriber)
 
-      get :show, token: Token.encode(subscriber.id)
+      get :show, token: subscriber.subscription_token
     end
 
     it { is_expected.to render_template :show }

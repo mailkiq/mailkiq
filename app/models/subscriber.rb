@@ -16,6 +16,10 @@ class Subscriber < ActiveRecord::Base
 
   auto_strip_attributes :name, :email
 
+  def subscription_token
+    @subscription_token ||= Token.encode(id)
+  end
+
   def interpolations
     {
       first_name: first_name,

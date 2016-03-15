@@ -4,11 +4,14 @@ class CampaignMailer < ActionMailer::Base
   include ActionView::Helpers::AssetTagHelper
 
   after_action :transform!
-  attr_reader :subscriber
+  attr_reader :subscriber, :list_unsubscribe_url
 
   def campaign(campaign_id, subscriber_id)
     @campaign = Campaign.find campaign_id
     @subscriber = Subscriber.find subscriber_id
+    @list_unsubscribe_url = unsubscribe_url(@subscriber.subscription_token)
+
+    headers['List-Unsubscribe'] = "<#{@list_unsubscribe_url}>"
 
     options = {
       to: @subscriber.email,
@@ -37,6 +40,6 @@ class CampaignMailer < ActionMailer::Base
       utm_campaign: @campaign.name.parameterize
     }
 
-    EmailInterceptor.new(message, self, utm_params).transform!
+    EmailInterceptor.new(self, utm_params).transform!
   end
 end

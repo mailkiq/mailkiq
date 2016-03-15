@@ -35,14 +35,17 @@ describe CampaignMailer, type: :mailer do
 
     it 'deliver campaign to the subscriber' do
       message = CampaignMailer.campaign(campaign.id, subscriber.id).deliver_now
-      token = Token.encode(subscriber.id)
+      list_unsubscribe_url = unsubscribe_url(subscriber.subscription_token)
+
+      expect(message.header['List-Unsubscribe'].value)
+        .to eq("<#{list_unsubscribe_url}>")
 
       expect(message.from).to include(campaign.from_email)
       expect(message.to).to include(subscriber.email)
       expect(message.subject).to eq(campaign.subject)
       expect(message.delivery_method).to be_instance_of Fog::AWS::SES::Base
       expect(message.delivery_method.settings).to eq(account.credentials)
-      expect(message.body.raw_source).to include unsubscribe_url(token)
+      expect(message.body.raw_source).to include(list_unsubscribe_url)
     end
   end
 end

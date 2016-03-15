@@ -26,7 +26,7 @@ describe Campaign, type: :model do
   it { expect(described_class).to respond_to(:sort).with(2).arguments }
   it { expect(described_class).to respond_to(:recents) }
 
-  it 'validates uniqueness of name scoped to account' do
+  it 'validates uniqueness of name column scoped to account_id' do
     expect_any_instance_of(AccessKeysValidator).to receive(:validate)
       .at_least(:once)
       .and_return(true)
@@ -38,11 +38,11 @@ describe Campaign, type: :model do
       .case_insensitive
   end
 
-  describe '#sender' do
+  describe '#from' do
     it 'concatenates from_name and from_email fields' do
       campaign = Fabricate.build(:campaign)
-      sender = "#{campaign.from_name} <#{campaign.from_email}>"
-      expect(campaign.sender).to eq(sender)
+      from = "#{campaign.from_name} <#{campaign.from_email}>"
+      expect(campaign.from).to eq(from)
     end
   end
 
@@ -50,6 +50,18 @@ describe Campaign, type: :model do
     it 'sidekiq queue name' do
       campaign = Fabricate.build(:campaign, id: 1)
       expect(campaign.queue_name).to eq('campaign-1')
+    end
+  end
+
+  describe '#validate_from_field' do
+    it 'validates format of from virtual attribute' do
+      subject.from_name = 'Jonh <x.'
+      subject.from_email = 'jonh@doe.com'
+
+      expect(subject).to_not be_valid
+      expect(subject.errors).to have_key(:from_name)
+      expect(subject.errors.get(:from_name))
+        .to include t('activerecord.errors.models.campaign.unstructured_from')
     end
   end
 end

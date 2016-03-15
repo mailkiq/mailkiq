@@ -24,8 +24,16 @@ describe Domain, type: :model do
     is_expected.to validate_uniqueness_of(:name).case_insensitive
   end
 
+  describe '#identity' do
+    it 'creates a sort of proxy object between SES API and current model' do
+      account = Fabricate.build :valid_account
+      subject.account = account
+      expect(subject.identity).to be_instance_of DomainIdentity
+    end
+  end
+
   describe '#txt_name' do
-    it 'return TXT record name' do
+    it 'returns the TXT record name' do
       domain = Domain.new name: 'patriotas.net'
       expect(domain.txt_name).to eq('_amazonses.patriotas.net')
     end
@@ -39,7 +47,7 @@ describe Domain, type: :model do
   end
 
   describe '#cname_records' do
-    it 'generate fully-formed DNS records for use with DKIM' do
+    it 'generates fully-formed DNS records for use with DKIM' do
       domain = Fabricate.build :domain
       record = Domain::CNAME.new(
         'a._domainkey.patriotas.net',

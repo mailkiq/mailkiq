@@ -16,7 +16,7 @@ describe API::V1::NotificationsController, type: :controller do
         post :create, format: :json, api_key: account.api_key
       end
 
-      it { is_expected.to filter_param :token }
+      it { is_expected.to filter_param :api_key }
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :authenticate! }
       it { expect(sns).to be_subscription_confirmation }
@@ -46,7 +46,7 @@ describe API::V1::NotificationsController, type: :controller do
         post :create, format: :json, api_key: account.api_key
       end
 
-      it { is_expected.to filter_param :token }
+      it { is_expected.to filter_param :api_key }
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :authenticate! }
 
@@ -66,7 +66,11 @@ describe API::V1::NotificationsController, type: :controller do
     end
 
     context 'validate amazon headers' do
-      before { post :create, format: :json }
+      before do
+        expect(Account).to receive(:find_by).and_return(nil)
+        post :create, format: :json
+      end
+
       it { is_expected.to respond_with :unauthorized }
     end
 

@@ -5,7 +5,7 @@ class CreateMessages < ActiveRecord::Migration
       t.string :token, null: false, limit: 32
       t.string :referer
       t.string :user_agent
-      t.inet :last_open_ip
+      t.inet :ip_address
 
       t.belongs_to :subscriber, null: false, index: true, foreign_key: true
       t.belongs_to :campaign, null: false, index: true, foreign_key: true

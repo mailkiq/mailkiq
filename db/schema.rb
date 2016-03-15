@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
     t.string   "token",         limit: 32, null: false
     t.string   "referer"
     t.string   "user_agent"
-    t.inet     "last_open_ip"
+    t.inet     "ip_address"
     t.integer  "subscriber_id",            null: false
     t.integer  "campaign_id",              null: false
     t.datetime "sent_at",                  null: false
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",       null: false
-    t.string   "slug",       null: false
+    t.citext   "slug",       null: false
     t.integer  "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

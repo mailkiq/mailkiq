@@ -1,12 +1,7 @@
 class ClicksController < ApplicationController
   def show
     @message = Message.find_by token: params[:id]
-
-    if @message && !@message.clicked_at
-      @message.clicked_at = Time.now
-      @message.opened_at ||= @message.clicked_at
-      @message.save!
-    end
+    @message.click! request if @message && @message.unclicked?
 
     url = params[:url].to_s
     signature = Signature.hexdigest(url)

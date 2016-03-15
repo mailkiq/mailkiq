@@ -6,6 +6,7 @@ describe ClicksController, type: :controller do
 
   describe 'GET /track/clicks/:id' do
     before do
+      expect(message).to receive(:click!).and_call_original
       expect(message).to receive(:save!)
       expect(Message).to receive(:find_by).with(token: 'value')
         .and_return(message)
@@ -15,9 +16,6 @@ describe ClicksController, type: :controller do
 
       get :show, id: 'value', signature: signature, url: google_url
     end
-
-    it { expect(message.clicked_at).to_not be_nil }
-    it { expect(message.opened_at).to eq(message.clicked_at) }
 
     it { is_expected.to respond_with :redirect }
     it { is_expected.to redirect_to(google_url) }

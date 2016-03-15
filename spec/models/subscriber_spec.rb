@@ -42,6 +42,13 @@ describe Subscriber, type: :model do
       .scoped_to(:account_id)
   end
 
+  describe '#subscription_token' do
+    it 'generates an unsubscription token' do
+      expect(subject).to receive(:id).and_return(1)
+      expect(subject.subscription_token).to eq Token.encode(1)
+    end
+  end
+
   describe '#interpolations' do
     it 'attributes for mailer' do
       interpolations = Fabricate.build(:subscriber).interpolations

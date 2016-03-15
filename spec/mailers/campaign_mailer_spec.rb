@@ -35,7 +35,7 @@ describe CampaignMailer, type: :mailer do
 
     it 'deliver campaign to the subscriber' do
       message = CampaignMailer.campaign(campaign.id, subscriber.id).deliver_now
-      list_unsubscribe_url = unsubscribe_url(subscriber.subscription_token)
+      list_unsubscribe_url = unsubscribe_url(token: subscriber.subscription_token)
 
       expect(message.header['List-Unsubscribe'].value)
         .to eq("<#{list_unsubscribe_url}>")

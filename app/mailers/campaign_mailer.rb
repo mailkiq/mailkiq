@@ -9,13 +9,13 @@ class CampaignMailer < ActionMailer::Base
   def campaign(campaign_id, subscriber_id)
     @campaign = Campaign.find campaign_id
     @subscriber = Subscriber.find subscriber_id
-    @list_unsubscribe_url = unsubscribe_url(@subscriber.subscription_token)
+    @list_unsubscribe_url = unsubscribe_url(token: @subscriber.subscription_token)
 
     headers['List-Unsubscribe'] = "<#{@list_unsubscribe_url}>"
 
     options = {
       to: @subscriber.email,
-      from: @campaign.sender,
+      from: @campaign.from,
       subject: @campaign.subject.render!(@subscriber.interpolations),
       delivery_method: :ses,
       delivery_method_options: @campaign.account_credentials

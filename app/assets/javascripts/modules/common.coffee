@@ -6,7 +6,7 @@ class App.Common
   ].join(', ')
 
   closeClick: (ev) ->
-    $(this).parent().remove()
+    $(this).parents('.flash').remove()
     ev.preventDefault()
 
   hideDropdown: ->

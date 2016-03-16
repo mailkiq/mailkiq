@@ -14,25 +14,25 @@
   }
 
   .brand {
-    background: $brand-background;
-    height: 32px;
-    width: 123px;
+    @include hide-text;
+    background: image-url('logo.png') no-repeat left top;
+    display: block;
+    height: 40px;
+    margin: 0;
+    width: 40px;
   }
 
   .dropdown-toggle {
     color: $white;
     display: inline-block;
     font-size: 18px;
-    left: 16px;
     line-height: 36px;
     padding-bottom: 15px;
-    position: relative;
     text-align: center;
-    width: 50px;
 
     &:hover,
     &.active {
-      box-shadow: 0 -5px 0 $action-color inset;
+      color: $action-color;
     }
   }
 }
@@ -74,7 +74,7 @@
   display: none;
   position: absolute;
   right: -16px;
-  top: 70px;
+  top: 46px;
   width: 270px;
 
   &.active {

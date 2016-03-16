@@ -1,7 +1,7 @@
 class Domain < ActiveRecord::Base
   CNAME = Struct.new(:name, :value)
 
-  validates :name, presence: true, uniqueness: { case_insensitive: true }
+  validates :name, presence: true, uniqueness: true
   belongs_to :account
   enum status: [:pending, :success, :failed, :temporary_failure, :not_started]
   alias_attribute :txt_value, :verification_token

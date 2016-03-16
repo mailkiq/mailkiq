@@ -3,8 +3,8 @@ class Campaign < ActiveRecord::Base
 
   validates :from_email, presence: true, email: true, domain: true
   validates_presence_of :name, :subject, :from_name, :html_text
-  validates_uniqueness_of :name, case_insensitive: true, scope: :account_id
-  validate :validate_from_field, if: :from_fields?
+  validates_uniqueness_of :name, scope: :account_id
+  validate :validate_from_field, if: :from?
 
   has_many :messages, dependent: :delete_all
   belongs_to :account
@@ -23,7 +23,7 @@ class Campaign < ActiveRecord::Base
 
   private
 
-  def from_fields?
+  def from?
     from_name? && from_email?
   end
 

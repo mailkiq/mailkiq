@@ -51,3 +51,9 @@ en:
       status: 'Status'
     profile:
       your_profile: 'Your Profile'
+  tags:
+    index:
+      new_tag: 'New tag'
+      name: 'Name'
+      subscribers: 'Subscribers'
+      no_tags: 'No tags found.'

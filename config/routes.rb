@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     match '/settings/amazon', to: 'settings#amazon', as: :amazon_settings
   end
 
+  resources :tags, except: [:show]
   resources :domains, only: [:create, :destroy]
   resources :subscribers
   resources :campaigns do

@@ -18,6 +18,10 @@ en:
         new: Join Mailkiq
       deliveries:
         new: Send campaign
+      tags:
+        index: Tags
+        new: New tag
+        edit: Edit tag
       clearance:
         sessions:
           new: Login to Mailkiq

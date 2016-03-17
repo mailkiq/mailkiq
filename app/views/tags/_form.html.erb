@@ -1,0 +1,9 @@
+<h2><%= page_title %></h2>
+
+<%= simple_form_for @tag do |f| %>
+  <%= f.input :name %>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

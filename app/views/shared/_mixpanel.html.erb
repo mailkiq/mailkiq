@@ -3,19 +3,17 @@
 mixpanel.init('30cfb1aa3e9a5253a479242388d15667');
 </script>
 <%= javascript_tag do %>
-  $(function(){
-    <% if Rails.env.development? -%>
-      mixpanel.register({ '$ignore': true });
-    <% end -%>
+  <% if Rails.env.development? -%>
+    mixpanel.register({ '$ignore': true });
+  <% end -%>
 
-    mixpanel.track('Page viewed', {
-      'page name': document.title,
-      'url' : window.location.pathname
-    });
-
-    <% if signed_in? -%>
-      mixpanel.identify(<%= current_user.id %>);
-      mixpanel.people.set(<%= raw current_user.mixpanel_properties.to_json %>);
-    <% end -%>
+  mixpanel.track('Page viewed', {
+    'page name': document.title,
+    'url' : window.location.pathname
   });
+
+  <% if signed_in? -%>
+    mixpanel.identify(<%= current_user.id %>);
+    mixpanel.people.set(<%= raw current_user.mixpanel_properties.to_json %>);
+  <% end -%>
 <% end %>

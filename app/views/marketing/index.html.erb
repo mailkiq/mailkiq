@@ -1,17 +1,27 @@
-<nav class="navbar navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <%= link_to image_tag('logo.png'), root_path, class: 'navbar-brand' %>
-    </div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= page_meta %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <%= stylesheet_link_tag :marketing, media: :all %>
+    <%= render 'shared/mixpanel' %>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="logo">Maikiq - Reinventing mail platform</h1>
+      <h2 class="tagline">Send newsletters, 100x cheaper</h2>
 
-    <ul class="nav navbar-nav navbar-right">
-      <% if signed_in? -%>
-        <li><span class="navbar-text">Hi, <%= current_user.name %></span></li>
-        <li><%= link_to t('.sign_out'), sign_out_path, method: :delete %></li>
-      <% else -%>
-        <li><%= link_to t('.sign_up'), sign_up_path %></li>
-        <li><%= link_to t('.login'), sign_in_path %></li>
-      <% end -%>
-    </nav>
-  </div>
-</nav>
+      <%= simple_form_for :newsletter do |f| %>
+        <%= f.input :email, required: false, label: 'Sign up for news!' %>
+      <% end %>
+
+      <footer class="footer">
+        <a class="badge" href="https://mixpanel.com/f/partner" rel="nofollow" class="">
+          <img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics">
+        </a>
+      </footer>
+    </div>
+  </body>
+</html>

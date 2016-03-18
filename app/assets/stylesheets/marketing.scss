@@ -1,0 +1,54 @@
+@import 'bourbon';
+@import 'normalize';
+@import 'base/variables';
+@import 'base/forms';
+
+body {
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  background: image-url('cover.jpg') no-repeat left top;
+  color: $dark-gray;
+  font-family: $montserrat;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+.logo {
+  @include hide-text;
+  background: image-url('logo-splash.png') no-repeat left top;
+  display: inline-block;
+  height: 80px;
+  margin: 0;
+  width: 264px;
+}
+
+.tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 21px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  margin-bottom: 100px;
+  margin-top: 50px;
+  text-transform: uppercase;
+}
+
+.footer {
+  @include clearfix;
+  line-height: 36px;
+  margin-top: 145px;
+}
+
+.newsletter {
+  @include clearfix;
+  margin: 0 auto;
+  text-align: left;
+  width: 480px;
+
+  input {
+    margin-bottom: 0;
+  }
+}

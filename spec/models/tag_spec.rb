@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Tag, type: :model do
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to belong_to :account }
-  it { is_expected.to have_many(:taggings).dependent :delete_all }
+  it { is_expected.to have_many(:taggings).dependent :restrict_with_error }
   it { is_expected.to have_many(:subscribers).through :taggings }
 
   it 'validates unique name scoped to account' do

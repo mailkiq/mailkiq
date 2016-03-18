@@ -36,10 +36,10 @@ describe SettingsController, type: :controller do
       it { is_expected.to permit_params(amazon_params) }
       it { is_expected.not_to permit_params(profile_params) }
     end
+  end
 
-    def permit_params(params)
-      permit(*params).on(:account)
-        .for(controller.action_name, verb: :put, params: account_params)
-    end
+  def permit_params(params)
+    permit(*params).on(:account)
+      .for(controller.action_name, verb: :put, params: account_params)
   end
 end

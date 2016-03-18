@@ -21,6 +21,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to respond_with :success }
 
       it { is_expected.to have_scope(:sort).use(:column, :direction) }
+      it { is_expected.to have_scope(:page) }
     end
 
     describe 'GET /campaigns/new' do
@@ -112,11 +113,11 @@ describe CampaignsController, type: :controller do
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
     end
+  end
 
-    def mock!
-      allow(account).to receive_message_chain(:campaigns, :find)
-        .with(campaign.id.to_s)
-        .and_return(campaign)
-    end
+  def mock!
+    allow(account).to receive_message_chain(:campaigns, :find)
+      .with(campaign.id.to_s)
+      .and_return(campaign)
   end
 end

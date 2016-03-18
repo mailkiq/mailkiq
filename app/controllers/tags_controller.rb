@@ -27,6 +27,12 @@ class TagsController < ApplicationController
     respond_with @tag, location: tags_path
   end
 
+  def destroy
+    @tag = current_user.tags.find params[:id]
+    @tag.destroy
+    respond_with @tag, location: tags_path
+  end
+
   private
 
   def tag_params

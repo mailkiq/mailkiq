@@ -102,11 +102,11 @@ describe SubscribersController, type: :controller do
       it { is_expected.to redirect_to subscribers_path }
       it { is_expected.to set_flash[:notice] }
     end
+  end
 
-    def mock!
-      allow(account).to receive_message_chain(:subscribers, :find)
-        .with(subscriber.id.to_s)
-        .and_return(subscriber)
-    end
+  def mock!
+    allow(account).to receive_message_chain(:subscribers, :find)
+      .with(subscriber.id.to_s)
+      .and_return(subscriber)
   end
 end

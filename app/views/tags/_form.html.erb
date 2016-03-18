@@ -1,6 +1,6 @@
 <h2><%= page_title %></h2>
 
-<%= simple_form_for @tag do |f| %>
+<%= simple_form_for @tag, html: { class: 'tags-form' } do |f| %>
   <%= f.input :name %>
 
   <div class="actions">

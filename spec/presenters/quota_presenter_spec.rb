@@ -12,13 +12,6 @@ describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
   it { is_expected.to respond_to :view_context }
   it { is_expected.to respond_to :account }
 
-  it { expect(subject.ses).to be_kind_of Fog::AWS::SES::Real }
-  it { expect(subject.send_quota).to be_kind_of Hash }
-
-  describe '#cache_key' do
-    it { expect(subject.cache_key).to include 'send_quota' }
-  end
-
   describe '#sandbox?' do
     it 'sending quota is equal to 50000' do
       expect(subject.max_hour_send).to eq(50_000)

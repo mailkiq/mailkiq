@@ -2,18 +2,8 @@ QuotaPresenter = Struct.new(:account, :view_context) do
   delegate :t, :pluralize, :number_with_delimiter, :content_tag,
            to: :view_context
 
-  def cache_key
-    "#{account.cache_key}/send_quota"
-  end
-
-  def ses
-    @ses ||= Fog::AWS::SES.new account.credentials
-  end
-
   def send_quota
-    @quota ||= Rails.cache.fetch cache_key, expires_in: 1.hour do
-      ses.get_send_quota.body
-    end
+    @quota ||= cache(:send_quota) { ses.get_send_quota.body }
   end
 
   def sandbox?
@@ -46,7 +36,31 @@ QuotaPresenter = Struct.new(:account, :view_context) do
     content_tag :span, t('dashboard.show.sandbox'), class: 'label label-default'
   end
 
-  def to_json
-    MetricQuery.sent_by_account(account).to_json
+  def send_statistics
+    cache :send_statistics do
+      values = ses.get_send_statistics.body['SendDataPoints'].each do |data|
+        data['Timestamp'] = Time.zone.parse(data['Timestamp']).to_date
+      end
+
+      values.group_by { |d| d['Timestamp'] }.map do |k, v|
+        {
+          Timestamp: k,
+          Complaints: v.map { |c| c['Complaints'].to_i }.inject(:+),
+          Rejects: v.map { |c| c['Rejects'].to_i }.inject(:+),
+          Bounces: v.map { |c| c['Bounces'].to_i }.inject(:+),
+          DeliveryAttempts: v.map { |c| c['DeliveryAttempts'].to_i }.inject(:+)
+        }
+      end
+    end
+  end
+
+  private
+
+  def ses
+    @ses ||= Fog::AWS::SES.new account.credentials
+  end
+
+  def cache(name, &block)
+    Rails.cache.fetch("#{account.cache_key}/#{name}", &block)
   end
 end

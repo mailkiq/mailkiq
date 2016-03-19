@@ -9,8 +9,8 @@
 
 <div class="panel">
   <div class="panel-heading">
-    <%= t '.sending_volume' %>
+    <%= t '.your_amazon_ses_metrics' %>
   </div>
-  <div class="panel-body" data-metrics='<%= raw @quota.to_json %>'>
+  <div class="panel-body" data-metrics='<%= raw @quota.send_statistics.to_json %>'>
   </div>
 </div>

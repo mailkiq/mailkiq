@@ -23,7 +23,7 @@ describe Campaign, type: :model do
   it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
 
-  it { expect(described_class).to respond_to(:sort).with(2).arguments }
+  it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recents) }
 
   it 'validates uniqueness of name column scoped to account_id' do

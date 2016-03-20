@@ -24,7 +24,7 @@ describe Subscriber, type: :model do
 
   it { expect(described_class).to respond_to(:recents) }
   it { expect(described_class).to respond_to(:actived) }
-  it { expect(described_class).to respond_to(:sort).with(2).arguments }
+  it { expect(described_class).to respond_to(:sort).with(1).argument }
 
   it { expect(described_class.ancestors).to include Person }
 

@@ -20,8 +20,8 @@ describe CampaignsController, type: :controller do
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to respond_with :success }
 
-      it { is_expected.to have_scope(:sort).use(:column, :direction) }
-      it { is_expected.to have_scope(:page) }
+      it { is_expected.to have_scope :sort }
+      it { is_expected.to have_scope :page }
     end
 
     describe 'GET /campaigns/new' do

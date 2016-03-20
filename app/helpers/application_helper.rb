@@ -13,16 +13,17 @@ module ApplicationHelper
   end
 
   def sortable(column, title)
-    sort_column = current_scopes.dig(:sort, :column)
-    sort_direction = current_scopes.dig(:sort, :direction) || 'asc'
+    current = current_scopes[:sort].to_s
+    direction = current.start_with?('-') ? :desc : :asc
+    sort = column.dup
 
-    if column == sort_column
-      css_class = "current #{sort_direction}"
-      sort_direction = sort_direction == 'asc' ? 'desc' : 'asc'
+    if current.tr('-', '') == column
+      css_class = "current #{direction}"
+      sort.prepend '-' if direction == :asc
+      sort.tr! '-', '' if direction == :desc
     end
 
-    sort_params = { column: column, direction: sort_direction }
-    link_to title, { sort: sort_params }, class: css_class
+    link_to title, { sort: sort }, class: css_class
   end
 
   def nav_link_to(key, path)

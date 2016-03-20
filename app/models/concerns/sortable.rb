@@ -6,9 +6,17 @@ module Sortable
   end
 
   class_methods do
-    def sort(column, direction)
-      if column_names.include?(column) && %w(asc desc).include?(direction)
-        order column => direction
+    def sort(column)
+      name = column
+      direction = :asc
+
+      if column.start_with? '-'
+        name = column.tr('-', '')
+        direction = :desc
+      end
+
+      if column_names.include?(name)
+        order name => direction
       else
         recents
       end

@@ -30,7 +30,7 @@ describe Subscriber, type: :model do
 
   it 'validate uniqueness email per account' do
     expect_any_instance_of(AccessKeysValidator).to receive(:validate)
-      .at_least(2)
+      .at_least(:once)
       .and_return(true)
 
     account = Fabricate.create :account

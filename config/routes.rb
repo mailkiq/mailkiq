@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   resources :domains, only: [:create, :destroy]
   resources :subscribers
   resources :campaigns do
-    resource :delivery, except: [:edit, :update]
+    resource :delivery, only: [:show, :new, :create]
     resource :preview, only: :show
   end
 

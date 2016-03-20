@@ -5,6 +5,8 @@ class DomainIdentity
   end
 
   def verify!
+    return false unless @domain.valid?
+
     @domain.transaction do
       @domain.status = Domain.statuses[:pending]
       @domain.verification_token = verification_token

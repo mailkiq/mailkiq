@@ -2,6 +2,9 @@ class DeliveriesController < ApplicationController
   before_action :require_login
   before_action :find_campaign
 
+  def show
+  end
+
   def new
     @delivery = Delivery.new account: current_user
   end

@@ -23,17 +23,6 @@ describe Account, type: :model do
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
 
-  context 'invalid credentials', vcr: { cassette_name: :invalid_client_token_id } do
-    it 'append error message to AWS Access key ID attribute' do
-      account = Fabricate.build(:account)
-      error_message = I18n.t('activerecord.errors.models.account.invalid_token')
-      expect(account).not_to be_valid
-      expect(account.errors.keys).to eq([:aws_access_key_id])
-      expect(account.errors.messages[:aws_access_key_id])
-        .to include(error_message)
-    end
-  end
-
   describe '#credentials' do
     it 'return options to initialize Fog::AWS services' do
       credentials = subject.credentials

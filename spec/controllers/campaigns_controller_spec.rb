@@ -3,6 +3,7 @@ require 'rails_helper'
 describe CampaignsController, type: :controller do
   context 'when logged in' do
     let(:account) { Fabricate.build :account }
+    let(:campaign) { Fabricate.build :campaign, id: 1 }
 
     before { sign_in_as account }
 
@@ -19,6 +20,7 @@ describe CampaignsController, type: :controller do
 
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :index }
 
       it { is_expected.to have_scope :sort }
       it { is_expected.to have_scope :page }
@@ -32,6 +34,7 @@ describe CampaignsController, type: :controller do
 
       it { is_expected.to use_before_action :require_login }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :new }
     end
 
     describe 'POST /campaigns' do
@@ -57,8 +60,6 @@ describe CampaignsController, type: :controller do
     end
 
     describe 'GET /campaigns/:id/edit' do
-      let(:campaign) { Fabricate.build :campaign, id: 1 }
-
       before do
         expect(account).to receive_message_chain(:campaigns, :find)
           .with(campaign.id.to_s)
@@ -68,11 +69,12 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :edit }
     end
 
     describe 'PATCH /campaigns/:id' do
-      let(:campaign) { Fabricate.build :campaign, id: 1 }
       let(:params) { Fabricate.attributes_for(:freeletics_campaign) }
 
       before do
@@ -82,6 +84,7 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
@@ -94,8 +97,6 @@ describe CampaignsController, type: :controller do
     end
 
     describe 'DELETE /campaigns/:id' do
-      let(:campaign) { Fabricate.build :campaign, id: 1 }
-
       before do
         mock!
 
@@ -109,9 +110,23 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
+    end
+
+    describe 'GET /campaigns/:id/preview' do
+      before do
+        mock!
+        get :preview, id: campaign.id
+      end
+
+      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :find_campaign }
+      it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :preview }
+      it { is_expected.to_not render_with_layout }
     end
   end
 

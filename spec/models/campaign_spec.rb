@@ -46,10 +46,37 @@ describe Campaign, type: :model do
     end
   end
 
+  describe '#from?' do
+    it 'verifies presence of from name and from email columns' do
+      campaign = Fabricate.build :campaign
+
+      expect(campaign).to_not be_blank
+      expect(campaign).to_not be_blank
+      expect(campaign).to be_from
+
+      campaign.from_name = nil
+      expect(campaign).not_to be_from
+    end
+  end
+
   describe '#queue_name' do
     it 'sidekiq queue name' do
       campaign = Fabricate.build(:campaign, id: 1)
       expect(campaign.queue_name).to eq('campaign-1')
+    end
+  end
+
+  describe '#duplicate' do
+    it 'duplicates current record' do
+      campaign = Fabricate.build(:campaign)
+      cloned_campaign = campaign.duplicate
+
+      expect(cloned_campaign).not_to be_persisted
+      expect(cloned_campaign.name).to end_with(' copy')
+      expect(cloned_campaign.sent_at).to be_nil
+      expect(cloned_campaign.recipients_count).to be_zero
+      expect(cloned_campaign.unique_opens_count).to be_zero
+      expect(cloned_campaign.unique_clicks_count).to be_zero
     end
   end
 

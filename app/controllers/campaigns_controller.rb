@@ -1,5 +1,7 @@
 class CampaignsController < ApplicationController
   before_action :require_login
+  before_action :find_campaign, except: [:index, :new, :create]
+
   has_scope :page, default: 1
   has_scope :sort
 
@@ -18,23 +20,36 @@ class CampaignsController < ApplicationController
   end
 
   def edit
-    @campaign = current_user.campaigns.find params[:id]
   end
 
   def update
-    @campaign = current_user.campaigns.find params[:id]
     @campaign.update campaign_params
     respond_with @campaign, location: campaigns_path
   end
 
   def destroy
-    @campaign = current_user.campaigns.find params[:id]
     @campaign.destroy
     Sidekiq::Queue.new(@campaign.queue_name).clear
     respond_with @campaign, location: campaigns_path
   end
 
+  def preview
+    render layout: false
+  end
+
+  def duplicate
+    @new_campaign = @campaign.duplicate
+    @new_campaign.save
+    respond_with @new_campaign, flash_now: false do |format|
+      format.html { redirect_to campaigns_path }
+    end
+  end
+
   private
+
+  def find_campaign
+    @campaign = current_user.campaigns.find params[:id]
+  end
 
   def campaign_params
     params.require(:campaign).permit :name, :subject, :from_name, :from_email,

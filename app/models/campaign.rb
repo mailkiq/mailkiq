@@ -17,15 +17,25 @@ class Campaign < ActiveRecord::Base
     "#{from_name} <#{from_email}>"
   end
 
+  def from?
+    from_name? && from_email?
+  end
+
   def queue_name
     "campaign-#{id}"
   end
 
-  private
-
-  def from?
-    from_name? && from_email?
+  def duplicate
+    dup.tap do |campaign|
+      campaign.assign_attributes name: "#{name} copy",
+                                 sent_at: nil,
+                                 recipients_count: 0,
+                                 unique_opens_count: 0,
+                                 unique_clicks_count: 0
+    end
   end
+
+  private
 
   def validate_from_field
     Mail::FromField.new(from)

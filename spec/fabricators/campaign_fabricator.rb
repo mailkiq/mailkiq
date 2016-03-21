@@ -10,6 +10,13 @@ Fabricator(:campaign) do
   EOF
 end
 
+Fabricator(:sent_campaign, from: :campaign) do
+  sent_at Time.now
+  recipients_count 10
+  unique_opens_count 10
+  unique_clicks_count 10
+end
+
 Fabricator(:campaign_with_account, from: :campaign) do
   account
 end

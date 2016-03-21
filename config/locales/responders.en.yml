@@ -10,6 +10,10 @@ en:
       destroy:
         notice: '%{resource_name} was successfully destroyed.'
         alert: '%{resource_name} could not be destroyed.'
+    campaigns:
+      duplicate:
+        notice: '%{resource_name} was successfully duplicated.'
+        alert: '%{resource_name} could not be duplicated.'
     settings:
       profile:
         notice: 'Profile updated successfully'

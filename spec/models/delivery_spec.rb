@@ -1,14 +1,10 @@
 require 'rails_helper'
 
 describe Delivery, type: :model do
-  it { is_expected.to respond_to :account }
-  it { is_expected.to respond_to :account= }
-  it { is_expected.to respond_to :campaign }
-  it { is_expected.to respond_to :campaign= }
-  it { is_expected.to respond_to :tagged_with }
-  it { is_expected.to respond_to :tagged_with= }
-  it { is_expected.to respond_to :not_tagged_with }
-  it { is_expected.to respond_to :not_tagged_with= }
+  it { is_expected.to have_attr_accessor :account }
+  it { is_expected.to have_attr_accessor :campaign }
+  it { is_expected.to have_attr_accessor :tagged_with }
+  it { is_expected.to have_attr_accessor :not_tagged_with  }
 
   it { expect(described_class.ancestors).to include ActiveModel::Model }
 

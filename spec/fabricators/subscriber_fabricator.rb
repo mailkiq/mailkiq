@@ -1,6 +1,6 @@
 Fabricator(:subscriber) do
   name 'Rainer Borene'
-  email 'rainer@thoughtplane.com'
+  email 'rainer@mailkiq.com'
   state 'active'
 end
 

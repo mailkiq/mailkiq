@@ -2,7 +2,7 @@ Fabricator(:campaign) do
   name 'The Truth About Wheat'
   subject 'The Truth About Wheat'
   from_name 'Rainer Borene'
-  from_email 'rainer@thoughtplane.com'
+  from_email 'rainer@mailkiq.com'
   html_text <<-EOF.dedent
     Hello World!
 

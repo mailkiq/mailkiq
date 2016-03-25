@@ -1,12 +1,13 @@
 ---
 en:
   actions:
-    edit: 'Edit'
-    delete: 'Delete'
+    pen: 'Edit the record'
+    trash: 'Delete the record'
     back: 'Back'
     confirm: 'Are you sure?'
-    preview: 'Preview'
+    view: 'Preview'
     send: 'Send'
+    addfile: 'Duplicate'
   nav:
     links:
       dashboard: 'Dashboard'
@@ -15,7 +16,7 @@ en:
       sign_out: 'Sign Out'
       subscribers: 'Subscribers'
       your_profile: 'Your Profile'
-      amazon: 'Amazon Web Services'
+      aws_integration: 'AWS Integration'
   marketing:
     index:
       login: 'Login'

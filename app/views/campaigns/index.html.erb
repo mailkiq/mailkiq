@@ -1,7 +1,6 @@
 <h2>
   <%= page_title %>
   <%= link_to t('.new_campaign'), new_campaign_path, class: 'btn' %>
-  <span class="count"><%= page_entries_info @campaigns %></span>
 </h2>
 
 <table class="table">
@@ -36,11 +35,11 @@
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
         <td class="actions">
-          <%= icon_link_to :view, preview_campaign_path(campaign), title: 'Preview' %>
-          <%= icon_link_to :send, new_campaign_delivery_path(campaign), title: 'Send' %>
-          <%= icon_link_to :addfile, duplicate_campaign_path(campaign), title: 'Duplicate', method: :post %>
-          <%= icon_link_to :pen, edit_campaign_path(campaign), title: 'Edit the record' %>
-          <%= icon_link_to :trash, campaign_path(campaign), title: 'Delete the record', delete: true %>
+          <%= icon_link_to :view, preview_campaign_path(campaign) %>
+          <%= icon_link_to :send, new_campaign_delivery_path(campaign) %>
+          <%= icon_link_to :addfile, duplicate_campaign_path(campaign), method: :post %>
+          <%= icon_link_to :pen, edit_campaign_path(campaign) %>
+          <%= icon_link_to :trash, campaign_path(campaign), delete: true %>
         </td>
       </tr>
     <% end %>

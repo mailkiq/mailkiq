@@ -49,7 +49,7 @@ class App.Common
     @selects = $(@chosenSelector)
 
   initializeEvents: ->
-    @selects.chosen()
+    @selects.chosen(placeholder_text_multiple: ' ')
     @flashCloseButton.click @closeClick
     @dropdownToggleButton.click @toggleDropdown
     $(document.body).click @bodyClick

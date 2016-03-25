@@ -1,9 +1,9 @@
 <h2><%= page_title %></h2>
 
 <%= simple_form_for @subscriber, html: { class: 'subscriber-form' } do |f| %>
-  <%= f.input :state, collection: Subscriber.states.symbolize_keys.keys, include_blank: false %>
   <%= f.input :name %>
   <%= f.input :email, as: :string %>
+  <%= f.input :state, collection: Subscriber.states.symbolize_keys.keys, include_blank: false %>
   <%= f.association :tags, input_html: { style: 'width: 100%' } %>
 
   <div class="actions">

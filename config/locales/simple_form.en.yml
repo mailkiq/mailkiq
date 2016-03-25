@@ -14,7 +14,7 @@ en:
       account:
         aws_access_key_id: 'Access Key ID'
         aws_secret_access_key: 'Secret Access Key'
-        aws_region: 'Your Amazon SES region'
+        aws_region: 'Amazon SES Region'
         language: 'Select your language'
         time_zone: 'Select your time zone'
         aws:

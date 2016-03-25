@@ -33,17 +33,14 @@ module ApplicationHelper
   end
 
   def icon_link_to(icon, path, options = {})
-    options[:data] ||= {}
     options[:class] = 'icon'
+    options[:data] ||= {}
+    options[:data][:balloon] = t("actions.#{icon}")
+    options[:data]['balloon-pos'] = 'up'
 
     if options.delete(:delete)
       options[:method] = :delete
       options[:data][:confirm] = t('actions.confirm')
-    end
-
-    if options.key?(:title)
-      options[:data][:balloon] = options.delete(:title)
-      options[:data]['balloon-pos'] = 'up'
     end
 
     link_to content_tag(:span, nil, class: "ss-#{icon}"), path, options

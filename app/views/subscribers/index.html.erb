@@ -1,7 +1,6 @@
 <h2>
   <%= link_to t('.new_subscriber'), new_subscriber_path, class: 'btn' %>
   <%= page_title %>
-  <span class="count"><%= page_entries_info @subscribers %></span>
 </h2>
 
 <table class="table">
@@ -20,8 +19,8 @@
         <td><%= subscriber.email %></td>
         <td><%= state_tag subscriber.state %></td>
         <td class="actions">
-          <%= icon_link_to :pen, edit_subscriber_path(subscriber), title: 'Edit the record' %>
-          <%= icon_link_to :trash, subscriber_path(subscriber), delete: true, title: 'Delete the record' %>
+          <%= icon_link_to :pen, edit_subscriber_path(subscriber) %>
+          <%= icon_link_to :trash, subscriber_path(subscriber), delete: true %>
         </td>
       </tr>
     <% end %>
@@ -36,7 +35,7 @@
   <% if @subscribers.any? %>
     <tfoot>
       <tr>
-        <td colspan="4"><%= paginate @subscribers, first: nil %></td>
+        <td colspan="4"><%= paginate @subscribers %></td>
       </tr>
     </tfoot>
   <% end %>

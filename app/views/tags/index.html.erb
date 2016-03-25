@@ -1,7 +1,6 @@
 <h2>
   <%= link_to t('.new_tag'), new_tag_path, class: 'btn' %>
   <%= page_title %>
-  <span class="count"><%= page_entries_info @tags, entry_name: 'tags' %></span>
 </h2>
 
 <table class="table">
@@ -18,8 +17,8 @@
         <td><%= tag.name %></td>
         <td><%= tag.subscribers_count %></td>
         <td class="actions">
-          <%= icon_link_to :pen, edit_tag_path(tag), title: 'Edit the record' %>
-          <%= icon_link_to :trash, tag_path(tag), delete: true, title: 'Delete the record' %>
+          <%= icon_link_to :pen, edit_tag_path(tag) %>
+          <%= icon_link_to :trash, tag_path(tag), delete: true %>
         </td>
       </tr>
     <% end %>
@@ -34,7 +33,7 @@
   <% if @tags.any? %>
     <tfoot>
       <tr>
-        <td colspan="3"><%= paginate @tags, first: nil %></td>
+        <td colspan="3"><%= paginate @tags %></td>
       </tr>
     </tfoot>
   <% end %>

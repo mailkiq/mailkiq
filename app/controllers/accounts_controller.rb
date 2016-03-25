@@ -1,14 +1,14 @@
 class AccountsController < Clearance::UsersController
   def new
-    @account = user_from_params
+    @user = Account.new plan_id: params[:plan_id]
   end
 
   def create
-    @account = user_from_params
+    @user = user_from_params
 
-    if @account.valid?
-      session[:user_params] = @account.attributes
-      redirect_to paypal_checkout_path(plan_id: @account.plan_id)
+    if @user.valid?
+      session[:user_params] = @user.attributes
+      redirect_to paypal_checkout_path(plan_id: @user.plan_id)
     else
       render :new
     end
@@ -25,10 +25,8 @@ class AccountsController < Clearance::UsersController
   end
 
   def user_params
-    params.fetch(:account, {}).permit :name, :email, :time_zone, :password,
-                                      :password_confirmation,
-                                      :paypal_customer_token,
-                                      :paypal_payment_token,
-                                      :plan_id
+    params.require(:account).permit :name, :email, :plan_id,
+                                    :password_confirmation,
+                                    :password
   end
 end

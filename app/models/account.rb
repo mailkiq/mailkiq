@@ -2,10 +2,10 @@ class Account < ActiveRecord::Base
   include Clearance::User
   include Person
 
-  LANGUAGES = %w(en pt-BR)
-  REGIONS = %w(us-east-1 us-west-2 eu-west-1)
+  LANGUAGES = %w(en pt-BR).freeze
+  REGIONS = %w(us-east-1 us-west-2 eu-west-1).freeze
 
-  validates_presence_of :name, :aws_access_key_id, :aws_secret_access_key
+  validates_presence_of :name, :aws_access_key_id, :aws_secret_access_key, :plan
   validates_inclusion_of :language, in: LANGUAGES, allow_blank: true
   validates_inclusion_of :aws_region, in: REGIONS, allow_blank: true
   validates :time_zone, time_zone: true, if: :time_zone?
@@ -38,7 +38,7 @@ class Account < ActiveRecord::Base
 
   def credentials
     fog_options = slice :aws_access_key_id, :aws_secret_access_key
-    fog_options.merge! region: aws_region || 'us-east-1'
+    fog_options[:region] = aws_region || 'us-east-1'
     fog_options.with_indifferent_access
   end
 

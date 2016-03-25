@@ -1,7 +1,15 @@
 <div class="wrapper">
-  <%= debug @account.errors.messages %>
+  <%= simple_form_for @user do |f| %>
+    <% if @user.plan_id? %>
+      <h1>Signing up for <%= @user.plan.name %> plan</h1>
+      <p>
+        Includes <strong><%= number_to_human @user.plan.credits %> e-mails</strong>
+        for only <strong><%= number_to_currency @user.plan.price %></strong> per month!
+      </p>
+    <% else %>
+      <p><%= link_to 'Go back', root_path %> and select a plan!</p>
+    <% end %>
 
-  <%= simple_form_for @account do |f| %>
     <%= f.input :name %>
     <%= f.input :email, as: :email %>
     <%= f.input :password %>

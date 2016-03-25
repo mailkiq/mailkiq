@@ -56,6 +56,9 @@ Rails.application.routes.draw do
   resource :unsubscribe, only: :show
 
   get 'paypal/checkout', to: 'paypal#checkout'
+  get 'paypal/thank_you', to: 'paypal#thank_you'
+  get 'paypal/canceled', to: 'paypal#canceled'
+  get 'paypal/ipn', to: 'paypal#ipn'
 
   # ux improvements
   get '/session', to: redirect('/sign_in')

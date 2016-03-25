@@ -25,9 +25,6 @@ module Mailkiq
     config.middleware.delete Rack::ETag
     config.middleware.delete ActionDispatch::ParamsParser
 
-    config.action_dispatch.cookies_serializer = :json
-    config.session_store :cookie_store, key: '_mailkiq_session'
-
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller
   end

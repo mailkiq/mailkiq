@@ -6,18 +6,24 @@ ActionMailer::Base.default_url_options[:host] = 'mailkiq.com'
 Domain.delete_all
 Subscriber.destroy_all
 Account.destroy_all
+Plan.destroy_all
+
+Plan.create! name: 'Basic', price: 199, credits: 100_000
+Plan.create! name: 'Pro', price: 599, credits: 300_000
+Plan.create! name: 'Premium', price: 999, credits: 500_000
 
 account = Account.find_or_create_by!(email: 'rainerborene@gmail.com') do |a|
   a.name = 'Rainer Borene'
   a.email = 'rainerborene@gmail.com'
   a.password = 'teste'
+  a.plan = Plan.find_basic
   a.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
   a.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
 end
 
 SetupNotification.new(account).up
 
-domain = Domain.new(name: 'thoughtplane.com', account: account)
+domain = Domain.new(name: 'mailkiq.com', account: account)
 domain.identity_verify!
 domain.update_column :status, Domain.statuses[:success]
 
@@ -25,7 +31,7 @@ campaign = Campaign.create!(
   name: 'O seu Informe de Rendimentos já está disponível',
   subject: 'O seu Informe de Rendimentos já está disponível',
   from_name: 'Rainer',
-  from_email: 'rainer@thoughtplane.com',
+  from_email: 'rainer@mailkiq.com',
   html_text: 'It works',
   account_id: account.id
 )

@@ -10,6 +10,7 @@ class Account < ActiveRecord::Base
   validates_inclusion_of :aws_region, in: REGIONS, allow_blank: true
   validates :time_zone, time_zone: true, if: :time_zone?
   validates_with AccessKeysValidator, if: :validate_access_keys?
+  validates_confirmation_of :password, allow_blank: true
 
   belongs_to :plan
   has_many :campaigns, dependent: :destroy

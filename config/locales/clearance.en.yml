@@ -48,7 +48,6 @@ en:
       forgot_password: Forgot password?
   accounts:
     new:
-      description: Send newsletters, 100x cheaper.
       access_keys: |
         Access keys consist of an access key ID and secret access key, which are
         used to sign programmatic requests that you make to AWS. If you don't

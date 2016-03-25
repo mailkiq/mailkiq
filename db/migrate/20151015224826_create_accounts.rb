@@ -3,9 +3,9 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.string :name, null: false
       t.citext :email, null: false
-      t.string :encrypted_password, limit: 128
+      t.string :encrypted_password, limit: 128, null: false
       t.string :confirmation_token, limit: 128
-      t.string :remember_token, limit: 128
+      t.string :remember_token, limit: 128, null: false
       t.string :language
       t.string :time_zone, default: 'UTC'
       t.uuid :api_key, null: false, default: 'uuid_generate_v4()'
@@ -19,7 +19,7 @@ class CreateAccounts < ActiveRecord::Migration
       # payment
       t.string :paypal_customer_token
       t.string :paypal_recurring_profile_token
-      t.belongs_to :plan
+      t.belongs_to :plan, null: false, foreign_key: true
 
       t.timestamps null: false
       t.index :remember_token

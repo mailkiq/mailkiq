@@ -40,6 +40,7 @@
   }
 }
 
+// paragraph on sessions#new view
 .signup {
   font-size: 12px;
   margin-top: 30px;
@@ -49,6 +50,17 @@
   a {
     color: $dark-gray;
     font-weight: bold;
+  }
+}
+
+.new_account {
+  .input input {
+    margin-bottom: 30px;
+  }
+
+  .btn-pay {
+    text-align: center;
+    width: calc(100% - 30px);
   }
 }
 

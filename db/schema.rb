@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226005238) do
+ActiveRecord::Schema.define(version: 20160222132702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 20160226005238) do
   create_table "accounts", force: :cascade do |t|
     t.string   "name",                                                                      null: false
     t.citext   "email",                                                                     null: false
-    t.string   "encrypted_password",             limit: 128
+    t.string   "encrypted_password",             limit: 128,                                null: false
     t.string   "confirmation_token",             limit: 128
-    t.string   "remember_token",                 limit: 128
+    t.string   "remember_token",                 limit: 128,                                null: false
     t.string   "language"
     t.string   "time_zone",                                  default: "UTC"
     t.uuid     "api_key",                                    default: "uuid_generate_v4()"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
     t.string   "aws_topic_arn"
     t.string   "paypal_customer_token"
     t.string   "paypal_recurring_profile_token"
-    t.integer  "plan_id"
+    t.integer  "plan_id",                                                                   null: false
     t.datetime "created_at",                                                                null: false
     t.datetime "updated_at",                                                                null: false
   end
@@ -102,11 +102,14 @@ ActiveRecord::Schema.define(version: 20160226005238) do
   add_index "notifications", ["message_id"], name: "index_notifications_on_message_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
-    t.string   "name",       null: false
+    t.citext   "name",       null: false
     t.decimal  "price",      null: false
+    t.integer  "credits",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "plans", ["name"], name: "index_plans_on_name", unique: true, using: :btree
 
   create_table "subscribers", force: :cascade do |t|
     t.string   "name",                       null: false
@@ -142,6 +145,7 @@ ActiveRecord::Schema.define(version: 20160226005238) do
   add_index "tags", ["account_id"], name: "index_tags_on_account_id", using: :btree
   add_index "tags", ["slug", "account_id"], name: "index_tags_on_slug_and_account_id", unique: true, using: :btree
 
+  add_foreign_key "accounts", "plans"
   add_foreign_key "campaigns", "accounts"
   add_foreign_key "domains", "accounts"
   add_foreign_key "messages", "campaigns"

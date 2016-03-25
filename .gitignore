@@ -16,4 +16,5 @@
 spec/examples.txt
 
 # Ignore sensitive data
+.env
 .env.test

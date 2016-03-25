@@ -1,34 +1,32 @@
 class AccountsController < Clearance::UsersController
   def new
     @account = user_from_params
-
-    if params[:PayerID]
-      @account.plan_id = params[:plan_id]
-      @account.paypal_customer_token = params[:PayerID]
-      @account.paypal_payment_token = params[:token]
-      @account.email = @account.paypal.checkout_details.email
-    end
-
-    render template: 'accounts/new'
   end
 
   def create
     @account = user_from_params
 
-    if @account.save_with_payment
-      sign_in @account
-      redirect_back_or url_after_create
+    if @account.valid?
+      session[:user_params] = @account.attributes
+      redirect_to paypal_checkout_path(plan_id: @account.plan_id)
     else
-      render template: 'accounts/new'
+      render :new
     end
   end
 
   private
 
+  def user_from_params
+    super.tap do |resource|
+      resource.plan_id ||= params[:plan_id]
+      resource.aws_access_key_id = ENV['MAILKIQ_ACCESS_KEY_ID']
+      resource.aws_secret_access_key = ENV['MAILKIQ_SECRET_ACCESS_KEY']
+    end
+  end
+
   def user_params
     params.fetch(:account, {}).permit :name, :email, :time_zone, :password,
-                                      :aws_access_key_id,
-                                      :aws_secret_access_key,
+                                      :password_confirmation,
                                       :paypal_customer_token,
                                       :paypal_payment_token,
                                       :plan_id

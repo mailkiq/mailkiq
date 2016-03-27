@@ -1,0 +1,25 @@
+<h2 class="page-title"><%= page_title %></h2>
+
+<div class="forms">
+  <div class="profile">
+    <%= simple_form_for current_user, url: account_settings_path, html: { method: :put } do |f| %>
+      <%= f.input :name %>
+      <%= f.input :email, as: :email %>
+      <%= f.input :time_zone %>
+      <%= f.button :submit, 'Save changes' %>
+    <% end %>
+
+    <%= simple_form_for current_user, url: account_settings_path, html: { method: :put } do |f| %>
+      <%= f.input :current_password %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+      <%= f.button :submit, 'Update Password' %>
+    <% end %>
+  </div>
+
+  <div class="details">
+    <%= label_tag :api_key %>
+    <p><%= current_user.api_key %></p>
+  </div>
+</div>
+

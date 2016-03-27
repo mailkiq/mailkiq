@@ -12,6 +12,11 @@ class Account < ActiveRecord::Base
   validates_with AccessKeysValidator, if: :validate_access_keys?
   validates_confirmation_of :password, allow_blank: true
 
+  with_options on: :update, if: :validate_password? do
+    validates_presence_of :password
+    validate :current_password_is_correct
+  end
+
   belongs_to :plan
   has_many :campaigns, dependent: :destroy
   has_many :subscribers, dependent: :delete_all
@@ -20,10 +25,16 @@ class Account < ActiveRecord::Base
 
   delegate :domain_names, to: :domains
 
+  attr_accessor :current_password
   attr_accessor :paypal_payment_token
 
   def paypal
     Payment.new(self)
+  end
+
+  def tied_to_mailkiq?
+    aws_access_key_id == ENV['MAILKIQ_ACCESS_KEY_ID'] &&
+      aws_secret_access_key == ENV['MAILKIQ_SECRET_ACCESS_KEY']
   end
 
   def save_with_payment
@@ -62,6 +73,22 @@ class Account < ActiveRecord::Base
   end
 
   def validate_access_keys?
-    send(new_record? ? :aws_keys? : :aws_keys_changed?)
+    if tied_to_mailkiq?
+      false
+    elsif new_record?
+      aws_keys?
+    else
+      aws_keys_changed?
+    end
+  end
+
+  def current_password_is_correct
+    unless BCrypt::Password.new(encrypted_password_was) == current_password
+      errors.add(:current_password, :incorrect)
+    end
+  end
+
+  def validate_password?
+    !password.nil?
   end
 end

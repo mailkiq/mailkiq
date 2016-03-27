@@ -35,7 +35,7 @@ describe AccountsController, type: :controller do
         .and_return(paypal)
 
       expect_any_instance_of(AccessKeysValidator)
-        .to receive(:validate)
+        .not_to receive(:validate)
         .at_least(:once)
 
       post :create, account: account_params

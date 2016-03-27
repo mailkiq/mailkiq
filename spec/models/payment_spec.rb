@@ -5,19 +5,9 @@ describe Payment, type: :model do
 
   subject { described_class.new account }
 
-  matcher :process do |*args|
-    match do |actual|
-      response = double
-      allow(response).to receive(:checkout_url)
-      expect(actual).to receive(:process)
-        .with(*args)
-        .and_return(response)
-    end
-  end
-
   describe '#checkout_url' do
     it 'generates checkout url' do
-      is_expected.to process(:checkout, {})
+      expect_process(:checkout, {})
       subject.checkout_url({})
     end
   end
@@ -26,12 +16,11 @@ describe Payment, type: :model do
     it 'requests payment and create recurring profile' do
       now = Time.zone.now
 
-      expect(Time).to receive(:now).and_return(now)
+      expect(Time).to receive(:now).at_least(:once).and_return(now)
 
-      is_expected.to process(:request_payment)
-      is_expected.to process(:create_recurring_profile, period: :monthly,
-                                                        frequency: 1,
-                                                        start_at: now)
+      expect_process(:request_payment)
+      expect_process(:create_recurring_profile, period: :monthly, frequency: 1,
+                                                start_at: now)
 
       subject.make_recurring
     end
@@ -39,8 +28,16 @@ describe Payment, type: :model do
 
   describe '#checkout_details' do
     it 'fetches checkout details' do
-      is_expected.to receive(:checkout_details)
+      expect_process(:checkout_details)
       subject.checkout_details
     end
+  end
+
+  def expect_process(*args)
+    response = double
+    allow(response).to receive(:checkout_url)
+    expect(subject).to receive(:process)
+      .with(*args)
+      .and_return(response)
   end
 end

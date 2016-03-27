@@ -13,15 +13,9 @@
   }
 }
 
-.profile-form {
-  width: 490px;
-
-  input {
+.edit_account {
+  .input input {
     margin-bottom: 30px;
-  }
-
-  select {
-    margin-bottom: 0;
   }
 
   .field-with-hint input {
@@ -34,22 +28,30 @@
   }
 }
 
+.profile > form:last-child {
+  border-top: 1px solid #ececec;
+  margin: 50px 0;
+  padding-top: 50px;
+}
+
+.forms {
+  @include display(flex);
+  @include justify-content(space-between);
+
+  > div:first-child {
+    @include flex-basis(500px);
+  }
+
+  > div:nth-child(2n) {
+    @include flex-basis(410px);
+  }
+}
+
 .amazon {
-  float: left;
-  width: 475px;
-
-  .input input {
-    margin-bottom: 30px;
-  }
-
-  .input select {
-    margin-bottom: 0;
-  }
-
   .hint {
     float: left;
     line-height: 14px;
-    width: 320px;
+    width: 360px;
   }
 
   .actions {
@@ -63,9 +65,6 @@
 }
 
 .domains {
-  float: right;
-  width: 400px;
-
   th {
     padding-top: 0;
   }

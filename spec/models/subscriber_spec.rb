@@ -22,25 +22,13 @@ describe Subscriber, type: :model do
       .of_type(:jsonb).with_options(null: false, default: {})
   end
 
-  it { expect(described_class).to respond_to(:recents) }
-  it { expect(described_class).to respond_to(:actived) }
-  it { expect(described_class).to respond_to(:sort).with(1).argument }
+  context 'scopes' do
+    it { expect(described_class).to respond_to(:recents) }
+    it { expect(described_class).to respond_to(:actived) }
+    it { expect(described_class).to respond_to(:sort).with(1).argument }
+  end
 
   it { expect(described_class.ancestors).to include Person }
-
-  it 'validate uniqueness email per account' do
-    expect_any_instance_of(AccessKeysValidator).to receive(:validate)
-      .at_least(:once)
-      .and_return(true)
-
-    account = Fabricate.create :account
-
-    Fabricate.create :subscriber, account: account
-
-    is_expected.to validate_uniqueness_of(:email)
-      .case_insensitive
-      .scoped_to(:account_id)
-  end
 
   describe '#subscription_token' do
     it 'generates an unsubscription token' do

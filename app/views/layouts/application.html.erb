@@ -21,8 +21,8 @@
           <a href="#" class="dropdown-toggle ss-settings"></a>
 
           <ul class="dropdown animated">
-            <li><%= link_to t('nav.links.your_profile'), profile_settings_path, class: 'ss-user right' %></li>
-            <li><%= link_to t('nav.links.aws_integration'), amazon_settings_path, class: 'ss-layers right' %></li>
+            <li><%= link_to t('nav.links.my_account'), account_settings_path, class: 'ss-user right' %></li>
+            <li><%= link_to t('nav.links.domains'), domains_settings_path, class: 'ss-mail right' %></li>
             <li><%= link_to t('nav.links.sign_out'), sign_out_path, method: :delete, class: 'ss-logout right' %></li>
           </ul>
         </div>

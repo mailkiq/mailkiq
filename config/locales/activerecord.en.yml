@@ -5,6 +5,7 @@ en:
       models:
         account:
           invalid_token: 'AWS access key ID provided does not exist'
+          incorrect: 'is incorrect'
         campaign:
           unverified_email_address: 'is not verified'
           unverified_domain: 'domain is not verified'

@@ -15,8 +15,8 @@ en:
       settings: 'Settings'
       sign_out: 'Sign Out'
       subscribers: 'Subscribers'
-      your_profile: 'Your Profile'
-      aws_integration: 'AWS Integration'
+      my_account: 'My Account'
+      domains: 'Domains'
   marketing:
     index:
       login: 'Login'
@@ -45,7 +45,7 @@ en:
       email: 'Email'
       state: 'State'
   settings:
-    amazon:
+    domains:
       authentication: 'Authentication'
       domains: 'Domains'
       domain: 'Domain'

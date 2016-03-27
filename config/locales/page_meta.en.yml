@@ -2,8 +2,8 @@ en:
   page_meta:
     titles:
       settings:
-        profile: Your Profile
-        amazon: Amazon Web Services
+        account: Account Settings
+        domains: Amazon Simple Email Service
       subscribers:
         index: Subscribers
         new: New subscriber

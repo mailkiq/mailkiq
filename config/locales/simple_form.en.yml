@@ -12,22 +12,25 @@ en:
       campaign:
         html_text: 'HTML'
       account:
+        name: 'Full Name'
         aws_access_key_id: 'Access Key ID'
         aws_secret_access_key: 'Secret Access Key'
         aws_region: 'Amazon SES Region'
         language: 'Select your language'
         time_zone: 'Select your time zone'
-        aws:
-          aws_access_key_id: 'Access key ID'
-          aws_secret_access_key: 'Secret access key'
+        account:
+          password: 'New password'
+          email: 'Email Address'
     placeholders:
       domain:
         name: 'Enter the domain name'
     hints:
       account:
         aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."
-        profile:
-          password: "Leave password blank if don't want to change it."
+        account:
+          current_password: 'To change your password, enter your current password'
+          password: 'Enter your new password'
+          password_confirmation: 'Confirm your new password'
     options:
       domain:
         status:

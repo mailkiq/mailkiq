@@ -32,8 +32,8 @@ Rails.application.routes.draw do
   end
 
   scope via: [:get, :put] do
-    match '/settings/profile', to: 'settings#profile', as: :profile_settings
-    match '/settings/amazon', to: 'settings#amazon', as: :amazon_settings
+    match '/settings/account', to: 'settings#account', as: :account_settings
+    match '/settings/domains', to: 'settings#domains', as: :domains_settings
   end
 
   resources :tags, except: [:show]
@@ -58,10 +58,4 @@ Rails.application.routes.draw do
   get 'paypal/thank_you', to: 'paypal#thank_you'
   get 'paypal/canceled', to: 'paypal#canceled'
   get 'paypal/ipn', to: 'paypal#ipn'
-
-  # ux improvements
-  get '/session', to: redirect('/sign_in')
-  get '/accounts', to: redirect('/sign_up')
-  get '/passwords', to: redirect('/passwords/new')
-  get '/settings', to: redirect('/settings/profile')
 end

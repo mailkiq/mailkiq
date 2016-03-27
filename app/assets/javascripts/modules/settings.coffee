@@ -1,4 +1,4 @@
-class App.Settings.Amazon
+class App.Settings.Domains
   showRows: (ev) =>
     value = @domainSelect.find('option:selected').text()
     @domains.find('.last').removeClass('last')

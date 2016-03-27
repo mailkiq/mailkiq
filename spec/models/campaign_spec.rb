@@ -15,6 +15,7 @@ describe Campaign, type: :model do
 
   it { is_expected.to belong_to :account }
   it { is_expected.to have_db_index :account_id }
+  it { is_expected.to have_db_index([:name, :account_id]).unique }
   it { is_expected.to have_many(:messages).dependent :delete_all }
   it { is_expected.to have_db_column(:recipients_count).of_type :integer }
   it { is_expected.to have_db_column(:unique_opens_count).of_type :integer }
@@ -25,18 +26,6 @@ describe Campaign, type: :model do
 
   it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recents) }
-
-  it 'validates uniqueness of name column scoped to account_id' do
-    expect_any_instance_of(AccessKeysValidator).to receive(:validate)
-      .at_least(:once)
-      .and_return(true)
-
-    Fabricate.create :campaign_with_account
-
-    is_expected.to validate_uniqueness_of(:name)
-      .scoped_to(:account_id)
-      .case_insensitive
-  end
 
   describe '#from' do
     it 'concatenates from_name and from_email fields' do

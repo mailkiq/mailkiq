@@ -24,8 +24,22 @@ describe Account, type: :model do
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
 
+  it { is_expected.to have_attr_accessor :current_password }
+  it { is_expected.to have_attr_accessor :paypal_payment_token }
+
+  describe '#tied_to_mailkiq?' do
+    it 'verifies if account is tied to the official SES account' do
+      subject.aws_access_key_id = ENV['MAILKIQ_ACCESS_KEY_ID']
+      subject.aws_secret_access_key = ENV['MAILKIQ_SECRET_ACCESS_KEY']
+      expect(subject).to be_tied_to_mailkiq
+
+      subject.aws_access_key_id = 'blah'
+      expect(subject).not_to be_tied_to_mailkiq
+    end
+  end
+
   describe '#admin?' do
-    it 'checks if user is admin' do
+    it 'verifies if account is an administrator' do
       account = described_class.new email: 'rainerborene@gmail.com'
       expect(account).to be_admin
 
@@ -53,6 +67,25 @@ describe Account, type: :model do
       expect(properties).to have_key :$last_name
       expect(properties).to have_key :$created
       expect(properties).to have_key :$email
+    end
+  end
+
+  describe '#current_password_is_correct' do
+    it 'requires current password when changing it' do
+      subject.password = 'teste123'
+      subject.instance_variable_set :@new_record, false
+
+      expect(subject).to receive(:encrypted_password_was)
+        .at_least(:once)
+        .and_return BCrypt::Password.create('teste')
+
+      expect(subject).to_not be_valid
+      expect(subject.errors[:current_password])
+        .to include t('activerecord.errors.models.account.incorrect')
+
+      subject.current_password = 'teste'
+      expect(subject).to_not be_valid
+      expect(subject.errors[:current_password]).to be_empty
     end
   end
 end

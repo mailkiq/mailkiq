@@ -16,7 +16,7 @@ describe DomainsController, type: :controller do
 
     it { is_expected.to use_before_action :require_login }
     it { is_expected.to respond_with :redirect }
-    it { is_expected.to redirect_to amazon_settings_path }
+    it { is_expected.to redirect_to domains_settings_path }
     it { is_expected.to set_flash[:notice] }
     it do
       is_expected.to permit(:name)
@@ -46,7 +46,7 @@ describe DomainsController, type: :controller do
 
     it { is_expected.to use_before_action :require_login }
     it { is_expected.to respond_with :redirect }
-    it { is_expected.to redirect_to amazon_settings_path }
+    it { is_expected.to redirect_to domains_settings_path }
     it { is_expected.to set_flash[:notice] }
   end
 end

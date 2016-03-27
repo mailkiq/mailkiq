@@ -1,13 +1,13 @@
 class SettingsController < ApplicationController
   before_action :require_login
 
-  def profile
-    update profile_params if request.put?
+  def account
+    update account_params if request.put?
   end
 
-  def amazon
+  def domains
     DomainWorker.perform_async current_user.id
-    update amazon_params if request.put?
+    update domains_params if request.put?
   end
 
   private
@@ -17,12 +17,13 @@ class SettingsController < ApplicationController
     respond_with current_user, flash_now: true
   end
 
-  def profile_params
-    params.require(:account).permit :name, :email, :password, :language,
-                                    :time_zone
+  def account_params
+    params.require(:account).permit :name, :email, :time_zone,
+                                    :current_password, :password,
+                                    :password_confirmation
   end
 
-  def amazon_params
+  def domains_params
     params.require(:account).permit :aws_access_key_id, :aws_secret_access_key,
                                     :aws_region
   end

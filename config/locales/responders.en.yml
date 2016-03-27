@@ -15,7 +15,7 @@ en:
         notice: '%{resource_name} was successfully duplicated.'
         alert: '%{resource_name} could not be duplicated.'
     settings:
-      profile:
+      account:
         notice: 'Profile updated successfully'
-      amazon:
+      domains:
         notice: 'Access keys updated successfully'

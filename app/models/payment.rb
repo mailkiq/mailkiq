@@ -9,7 +9,8 @@ class Payment
 
   def make_recurring
     process :request_payment
-    process :create_recurring_profile, period: :monthly, frequency: 1,
+    process :create_recurring_profile, period: :monthly,
+                                       frequency: 1,
                                        start_at: Time.zone.now
   end
 
@@ -30,7 +31,7 @@ class Payment
 
     response = PayPal::Recurring.new(options).send(action)
 
-    fail response.errors.inspect if response.errors.present?
+    raise response.errors.inspect if response.errors.present?
 
     response
   end

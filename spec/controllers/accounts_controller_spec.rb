@@ -22,6 +22,18 @@ describe AccountsController, type: :controller do
     end
 
     before do
+      paypal = double
+
+      allow(paypal).to receive(:checkout_url)
+        .with(return_url: paypal_thank_you_url,
+              cancel_url: paypal_canceled_url,
+              ipn_url: paypal_ipn_url)
+        .and_return('https://www.sandbox.paypal.com/')
+
+      allow_any_instance_of(Account)
+        .to receive(:paypal)
+        .and_return(paypal)
+
       expect_any_instance_of(AccessKeysValidator)
         .to receive(:validate)
         .at_least(:once)
@@ -33,14 +45,13 @@ describe AccountsController, type: :controller do
     it { is_expected.to set_session[:user_params] }
     it do
       is_expected
-        .to redirect_to paypal_checkout_path(plan_id: account_params[:plan_id])
-    end
-
-    it do
-      is_expected
         .to permit(:name, :email, :plan_id, :password, :password_confirmation)
         .for(:create, params: { account: account_params })
         .on(:account)
+    end
+
+    it 'redirects to PayPal checkout page' do
+      expect(response.location).to start_with('https://www.sandbox.paypal.com/')
     end
 
     it 'sets default attributes' do

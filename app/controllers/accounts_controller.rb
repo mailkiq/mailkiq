@@ -8,13 +8,21 @@ class AccountsController < Clearance::UsersController
 
     if @user.valid?
       session[:user_params] = @user.attributes
-      redirect_to paypal_checkout_path(plan_id: @user.plan_id)
+      redirect_to checkout_url
     else
       render :new
     end
   end
 
   private
+
+  def checkout_url
+    @user.paypal.checkout_url(
+      return_url: paypal_thank_you_url,
+      cancel_url: paypal_canceled_url,
+      ipn_url: paypal_ipn_url
+    )
+  end
 
   def user_from_params
     super.tap do |resource|

@@ -8,8 +8,7 @@ module ApplicationHelper
   end
 
   def page_title
-    naming = PageMeta::Naming.new(controller)
-    t("page_meta.titles.#{naming.controller}.#{naming.action}")
+    page_meta.title.simple
   end
 
   def sortable(column, title)

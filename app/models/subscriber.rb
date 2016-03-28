@@ -14,7 +14,7 @@ class Subscriber < ActiveRecord::Base
 
   scope :actived, -> { where state: states[:active] }
 
-  auto_strip_attributes :name, :email
+  strip_attributes only: [:name, :email]
 
   def subscription_token
     @subscription_token ||= Token.encode(id)

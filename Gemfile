@@ -4,7 +4,6 @@ ruby '2.3.0'
 
 gem 'rails', '4.2.5.1'
 gem 'addressable', require: false
-gem 'auto_strip_attributes'
 gem 'clearance'
 gem 'dedent'
 gem 'fog-aws'
@@ -17,6 +16,7 @@ gem 'redis-rails'
 gem 'responders'
 gem 'sentry-raven'
 gem 'simple_form'
+gem 'strip_attributes'
 
 # Job scheduling
 gem 'sidekiq'
@@ -44,6 +44,7 @@ group :development do
   gem 'faker', require: false
   gem 'guard-migrate'
   gem 'guard-rspec'
+  gem 'meta_request'
   gem 'spring'
   gem 'spring-commands-rspec'
 end

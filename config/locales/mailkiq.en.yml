@@ -50,8 +50,9 @@ en:
       domains: 'Domains'
       domain: 'Domain'
       status: 'Status'
-    profile:
+    account:
       your_profile: 'Your Profile'
+      billing: 'Billing'
   tags:
     index:
       new_tag: 'New tag'

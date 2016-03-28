@@ -22,6 +22,9 @@ describe Subscriber, type: :model do
       .of_type(:jsonb).with_options(null: false, default: {})
   end
 
+  it { is_expected.to strip_attribute :name }
+  it { is_expected.to strip_attribute :email }
+
   context 'scopes' do
     it { expect(described_class).to respond_to(:recents) }
     it { expect(described_class).to respond_to(:actived) }

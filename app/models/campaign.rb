@@ -11,7 +11,7 @@ class Campaign < ActiveRecord::Base
 
   delegate :credentials, :domain_names, to: :account, prefix: true
 
-  auto_strip_attributes :name, :subject, :from_name, :from_email
+  strip_attributes only: [:name, :subject, :from_name, :from_email]
 
   def from
     "#{from_name} <#{from_email}>"

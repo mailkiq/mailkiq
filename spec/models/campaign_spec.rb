@@ -24,6 +24,11 @@ describe Campaign, type: :model do
   it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
 
+  it { is_expected.to strip_attribute :name }
+  it { is_expected.to strip_attribute :subject }
+  it { is_expected.to strip_attribute :from_name }
+  it { is_expected.to strip_attribute :from_email }
+
   it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recents) }
 

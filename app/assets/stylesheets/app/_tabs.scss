@@ -1,0 +1,36 @@
+.tabs-labels {
+  label {
+    font-weight: normal;
+    margin-right: 10px;
+  }
+
+  .active {
+    font-weight: bold;
+  }
+}
+
+.tabs {
+  &:before {
+    @include transition(margin-left .2s ease-in-out);
+    @include triangle(14px 7px, $light-gray, up);
+    content: '';
+    margin-top: -5px;
+    position: absolute;
+  }
+
+  &.first:before {
+    margin-left: 13px;
+  }
+
+  &.second:before {
+    margin-left: 69px;
+  }
+
+  .tab {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+}

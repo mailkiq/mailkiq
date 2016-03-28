@@ -5,7 +5,21 @@
   <%= f.input :subject, wrapper_html: { class: 'half' } %>
   <%= f.input :from_name, wrapper_html: { class: 'half' } %>
   <%= f.input :from_email, wrapper_html: { class: 'half' } %>
-  <%= f.input :html_text, input_html: { rows: 14 } %>
+
+  <div class="tabs-labels">
+    <%= f.label :html_text, class: 'active' %>
+    <%= f.label :plain_text %>
+  </div>
+
+  <div class="tabs first">
+    <div class="tab active" data-tab="html_text">
+      <%= f.input_field :html_text, rows: 14 %>
+    </div>
+
+    <div class="tab" data-tab="plain_text">
+      <%= f.input_field :plain_text, rows: 14 %>
+    </div>
+  </div>
 
   <div class="actions">
     <%= f.button :submit %>

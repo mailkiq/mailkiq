@@ -26,9 +26,12 @@
     color: $white;
     display: inline-block;
     font-size: 18px;
-    line-height: 36px;
-    padding-bottom: 15px;
-    text-align: center;
+    line-height: 70px;
+
+    &:before {
+      position: relative;
+      top: 2px;
+    }
 
     &:hover,
     &.active {
@@ -45,9 +48,8 @@
     color: $white;
     display: inline-block;
     font-size: 12px;
-    line-height: 30px;
+    line-height: 70px;
     margin-left: right;
-    padding-bottom: 21px;
     text-transform: uppercase;
   }
 
@@ -74,7 +76,7 @@
   display: none;
   position: absolute;
   right: -16px;
-  top: 46px;
+  top: 65px;
   width: 200px;
   z-index: 1;
 
@@ -98,10 +100,6 @@
 
     &:hover {
       background-color: shade($light-green, 20%);
-    }
-
-    &:last-child a {
-      border-bottom: 0;
     }
   }
 

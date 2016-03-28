@@ -74,6 +74,7 @@
     action_name = action_name.capitalize()
 
     new App.Common().render()
+    new App.Tabs()
 
     if App[controller_name] and App[controller_name][action_name]
       (new App[controller_name][action_name]).render()

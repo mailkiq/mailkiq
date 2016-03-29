@@ -1,6 +1,6 @@
 class App.Settings.Domains
-  showRows: (ev) =>
-    value = @domainSelect.find('option:selected').text()
+  openModal: (ev) =>
+    value = $(ev.target).parents('tr').find('td:first').text()
     @domains.find('.last').removeClass('last')
     @domains.find('tbody tr').hide()
     @domains.find('tbody tr')
@@ -9,7 +9,6 @@ class App.Settings.Domains
       .filter(':last')
       .addClass('last')
 
-  openModal: (ev) =>
     @overlay
       .css('visibility', 'visible')
       .addClass('active')
@@ -31,16 +30,13 @@ class App.Settings.Domains
         trigger.textContent
 
   initializeElements: ->
-    @dnsButton = $('.domains .btn')
+    @infoButton = $('.open-modal')
     @overlay = $('.overlay')
     @domains = $('.overlay table')
-    @domainSelect = $('.overlay select')
 
   initializeEvents: ->
-    @dnsButton.click @openModal
+    @infoButton.click @openModal
     @overlay.click @closeModal
-    @domainSelect.change @showRows
-    @domainSelect.trigger 'change'
 
   render: ->
     @initializeElements()

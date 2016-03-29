@@ -19,10 +19,7 @@
   <% end %>
 
   <div class="domains">
-    <h2 class="subtitle">
-      <%= t '.domains' %>
-      <%= link_to 'DNS Records', '#', class: 'btn btn-default' %>
-    </h2>
+    <h2 class="subtitle"><%= t '.domains' %></h2>
 
     <table class="table">
       <thead>
@@ -37,7 +34,8 @@
           <tr>
             <td><%= domain.name %></td>
             <td><%= status_tag domain.status %></td>
-            <td>
+            <td class="actions">
+              <%= icon_link_to :info, '#', class: 'open-modal icon' %>
               <%= icon_link_to :trash, domain_path(domain), delete: true %>
             </td>
           </tr>
@@ -80,9 +78,5 @@
         <% end %>
       </tbody>
     </table>
-
-    <% if current_user.domains.size > 1 %>
-      <%= collection_select :domain, :name, current_user.domains, :id, :name %>
-    <% end %>
   </div>
 </div>

@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def icon_link_to(icon, path, options = {})
-    options[:class] = 'icon'
+    options[:class] ||= 'icon'
     options[:data] ||= {}
     options[:data][:balloon] = t("actions.#{icon}")
     options[:data]['balloon-pos'] = 'up'

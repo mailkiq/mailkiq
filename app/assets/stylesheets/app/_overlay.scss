@@ -8,6 +8,7 @@
   bottom: 0;
   left: 0;
   opacity: 0;
+  overflow: hidden;
   position: absolute;
   right: 0;
   top: 0;
@@ -16,11 +17,20 @@
 
   &.active {
     opacity: 1;
+
+    .box {
+      @include animation-name(showPanel);
+      @include animation-duration(500ms);
+      @include animation-timing-function(ease);
+    }
   }
 
   .box {
     @include box-sizing(border-box);
-    background: #fff;
+    @include animation-name(hidePanel);
+    @include animation-duration(300ms);
+    @include animation-timing-function(ease);
+    background: $white;
     padding: 50px 85px;
     width: 980px;
   }

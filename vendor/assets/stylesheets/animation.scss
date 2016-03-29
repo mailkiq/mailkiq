@@ -1,3 +1,27 @@
+@keyframes showPanel {
+  0% {
+    opacity: .0;
+    transform: scale(.98) translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hidePanel {
+  0% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(.98) translate3d(0, 0, 0);
+  }
+}
+
 @keyframes fadeInDown {
   from {
     opacity: 0;

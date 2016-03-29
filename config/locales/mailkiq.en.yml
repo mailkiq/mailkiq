@@ -8,6 +8,7 @@ en:
     view: 'Preview'
     send: 'Send'
     addfile: 'Duplicate'
+    info: 'Show DNS Records'
   nav:
     links:
       dashboard: 'Dashboard'

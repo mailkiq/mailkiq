@@ -3,22 +3,26 @@ require_dependency 'url_helpers'
 class SetupNotification
   def initialize(account)
     @account = account
-    @sns = Fog::AWS::SNS.new(account.credentials)
+    @sns = Aws::SNS::Client.new(account.credentials)
   end
 
   def up
-    topic_arn = @sns.create_topic("mailkiq-#{@account.id}").body['TopicArn']
-    @sns.subscribe topic_arn, api_v1_notifications_url, :http
-    @account.update_column :aws_topic_arn, topic_arn
+    response = @sns.create_topic name: "mailkiq-#{@account.id}"
+
+    @sns.subscribe topic_arn: response.topic_arn,
+                   endpoint: api_v1_notifications_url,
+                   protocol: :http
+
+    @account.update_column :aws_topic_arn, response.topic_arn
   end
 
   def down
-    @sns.delete_topic(@account.aws_topic_arn)
+    @sns.delete_topic topic_arn: @account.aws_topic_arn
   end
 
   private
 
   def api_v1_notifications_url
-    URLHelpers.api_v1_notifications_url(api_key: @account.api_key)
+    URLHelpers.api_v1_notifications_url api_key: @account.api_key
   end
 end

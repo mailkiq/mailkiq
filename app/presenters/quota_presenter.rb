@@ -1,35 +1,31 @@
-QuotaPresenter = Struct.new(:account, :view_context) do
-  delegate :t, :pluralize, :number_with_delimiter, :content_tag,
-           to: :view_context
+class QuotaPresenter < SimpleDelegator
+  attr_reader :account
 
-  def send_quota
-    @quota ||= cache(:send_quota) { ses.get_send_quota.body }
+  def initialize(account, view_context)
+    @account = account
+    __setobj__(view_context)
+  end
+
+  delegate :max_24_hour_send, :max_send_rate, :sent_last_24_hours, to: :quota
+
+  def quota
+    @quota ||= Aws::SES::Types::GetSendQuotaResponse.new(
+      cache(:quota) { ses.get_send_quota.as_json }
+    )
   end
 
   def sandbox?
-    max_hour_send == 200
-  end
-
-  def max_send_rate
-    send_quota['MaxSendRate'].to_i
-  end
-
-  def max_hour_send
-    send_quota['Max24HourSend'].to_i
-  end
-
-  def sent_last_hours
-    send_quota['SentLast24Hours'].to_i
+    max_24_hour_send == 200
   end
 
   def human_send_rate
-    t 'dashboard.show.send_rate', rate: pluralize(max_send_rate, 'email')
+    t 'dashboard.show.send_rate', rate: pluralize(max_send_rate.to_i, 'email')
   end
 
   def human_sending_limits
     t 'dashboard.show.sending_limits',
-      count: number_with_delimiter(sent_last_hours),
-      remaining: number_with_delimiter(max_hour_send)
+      count: number_with_delimiter(sent_last_24_hours),
+      remaining: number_with_delimiter(max_24_hour_send)
   end
 
   def sandbox_badge_tag
@@ -38,17 +34,14 @@ QuotaPresenter = Struct.new(:account, :view_context) do
 
   def send_statistics
     cache :send_statistics do
-      values = ses.get_send_statistics.body['SendDataPoints'].each do |data|
-        data['Timestamp'] = Time.zone.parse(data['Timestamp']).to_date
-      end
-
-      values.group_by { |d| d['Timestamp'] }.map do |k, v|
+      values = ses.get_send_statistics.send_data_points
+      values.group_by { |data| data.timestamp.to_date }.map do |k, v|
         {
           Timestamp: k,
-          Complaints: v.map { |c| c['Complaints'].to_i }.inject(:+),
-          Rejects: v.map { |c| c['Rejects'].to_i }.inject(:+),
-          Bounces: v.map { |c| c['Bounces'].to_i }.inject(:+),
-          DeliveryAttempts: v.map { |c| c['DeliveryAttempts'].to_i }.inject(:+)
+          Complaints: v.map(&:complaints).inject(:+),
+          Rejects: v.map(&:rejects).inject(:+),
+          Bounces: v.map(&:bounces).inject(:+),
+          DeliveryAttempts: v.map(&:delivery_attempts).inject(:+)
         }
       end
     end
@@ -57,7 +50,7 @@ QuotaPresenter = Struct.new(:account, :view_context) do
   private
 
   def ses
-    @ses ||= Fog::AWS::SES.new account.credentials
+    @ses ||= Aws::SES::Client.new(account.credentials)
   end
 
   def cache(name, &block)

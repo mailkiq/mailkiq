@@ -52,8 +52,8 @@ describe Account, type: :model do
     it 'returns credentials to initialize Fog::AWS services' do
       credentials = subject.credentials
       expect(credentials).to be_instance_of HashWithIndifferentAccess
-      expect(credentials).to have_key :aws_access_key_id
-      expect(credentials).to have_key :aws_secret_access_key
+      expect(credentials).to have_key :access_key_id
+      expect(credentials).to have_key :secret_access_key
       expect(credentials).to have_key :region
       expect(credentials.size).to eq(3)
     end

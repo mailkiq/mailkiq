@@ -6,23 +6,23 @@ module API
 
       def create
         @message_body = request.body.read
-        @verifier = Fog::AWS::SNS::MessageVerifier.new
+        @verifier = Aws::SNS::MessageVerifier.new
         @verifier.authenticate! @message_body
-        @sns = Fog::AWS::SNS::Notification.new JSON.parse(@message_body)
+        @sns = Aws::SNS::Message.load @message_body
 
         if @sns.subscription_confirmation?
-          sns = Fog::AWS::SNS.new(current_account.credentials)
-          sns.confirm_subscription @sns.topic_arn, @sns.token
+          sns = Aws::SNS::Client.new(current_account.credentials)
+          sns.confirm_subscription topic_arn: @sns.topic_arn, token: @sns.token
         elsif @sns.ses?
           return validate_amazon_headers unless own_topic_arn?
 
-          message = Message.find_by! uuid: @sns.message.mail.id
-          message.notifications.create! type: @sns.message.type.downcase,
+          message = Message.find_by! uuid: @sns.mail_id
+          message.notifications.create! type: @sns.message_type.downcase,
                                         data: @sns.data.as_json
 
           current_account.subscribers
-            .where(email: @sns.emails)
-            .update_all(state: Subscriber.states[@sns.state])
+                         .where(email: @sns.emails)
+                         .update_all(state: Subscriber.states[@sns.state])
         end
 
         head :ok

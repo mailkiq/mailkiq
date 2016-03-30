@@ -9,7 +9,7 @@ describe API::V1::NotificationsController, type: :controller do
       let(:sns) { assigns :sns }
 
       before do
-        expect_any_instance_of(Fog::AWS::SNS::MessageVerifier)
+        expect_any_instance_of(Aws::SNS::MessageVerifier)
           .to receive(:authenticate!)
 
         api_sign_in(account)
@@ -26,25 +26,32 @@ describe API::V1::NotificationsController, type: :controller do
     end
 
     context 'inserts new notification' do
-      let(:bounce) { fixture :bounce }
-      let(:sns) { Fog::AWS::SNS::Notification.new bounce }
+      let(:bounce) { raw_fixture :bounce }
+      let(:sns) { Aws::SNS::Message.load bounce }
       let(:message) { Message.new id: 1 }
 
       before do
-        expect_any_instance_of(Fog::AWS::SNS::MessageVerifier)
+        expect_any_instance_of(Aws::SNS::MessageVerifier)
           .to receive(:authenticate!)
 
         api_sign_in(account)
         request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
-        request.env['RAW_POST_DATA'] = bounce.to_json
+        request.env['RAW_POST_DATA'] = bounce
 
-        expect(account)
-          .to receive_message_chain(:subscribers, :where, :update_all)
+        relation = double
+
+        expect(account).to receive(:subscribers).and_return(relation)
+
+        expect(relation).to receive(:where)
+          .with(email: sns.emails)
+          .and_return(relation)
+
+        expect(relation).to receive(:update_all)
           .with(state: Subscriber.states[:bounced])
 
         expect(Message).to receive(:find_by!).and_return(message)
         expect(message).to receive_message_chain(:notifications, :create!)
-          .with(type: sns.message.type.downcase,
+          .with(type: sns.message_type.downcase,
                 data: sns.data.as_json)
 
         post :create, format: :json, api_key: account.api_key
@@ -53,20 +60,6 @@ describe API::V1::NotificationsController, type: :controller do
       it { is_expected.to filter_param :api_key }
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :authenticate! }
-
-      it 'parse timestamp correctly' do
-        message = assigns(:sns).message
-        bounce_timestamp = message.bounce.timestamp
-        mail_timestamp = message.mail.timestamp
-
-        expect(bounce_timestamp).to be_utc
-        expect(bounce_timestamp.utc_offset).to be_zero
-        expect(bounce_timestamp.to_date).to eq '2016-02-02'.to_date
-
-        expect(mail_timestamp).to be_utc
-        expect(mail_timestamp.utc_offset).to be_zero
-        expect(mail_timestamp.to_date).to eq '2016-02-02'.to_date
-      end
     end
 
     context 'amazon headers' do

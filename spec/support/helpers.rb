@@ -10,8 +10,12 @@ module Helpers
         .and_return(account)
     end
 
+    def raw_fixture(path)
+      File.read("spec/vcr/#{path}.json")
+    end
+
     def fixture(path)
-      JSON.parse File.read("spec/vcr/#{path}.json")
+      JSON.parse raw_fixture(path)
     end
   end
 end

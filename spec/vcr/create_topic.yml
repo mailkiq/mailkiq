@@ -5,72 +5,92 @@ http_interactions:
     uri: https://sns.us-east-1.amazonaws.com/
     body:
       encoding: UTF-8
-      string: Action=CreateTopic&Name=mailkiq
+      string: Action=CreateTopic&Name=mailkiq-&Version=2010-03-31
     headers:
-      User-Agent:
-      - fog-core/1.36.0
       Content-Type:
-      - application/x-www-form-urlencoded
-      x-amz-date:
-      - 20160313T213251Z
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160329T221153Z
+      Host:
+      - sns.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - 7ae1fe6d335c7c2ebcb6d9cb7864e6bc9b52b598da0e87f55cb1f7a8c6e41955
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160313/us-east-1/sns/aws4_request,
-        SignedHeaders=content-type;host;x-amz-date, Signature=dfc90789852ab78b6f8faf98a62963a777c9685a94e0a6448a90c5d576cefbd0
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/sns/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=817a3d93b4ca082a39dd2027423a5dce0a10e7bdaa8aaedc6798179fed8e7400
+      Content-Length:
+      - '51'
+      Accept:
+      - "*/*"
   response:
     status:
       code: 200
-      message: 
+      message: OK
     headers:
-      x-amzn-RequestId:
-      - d3380c40-7fe6-56bb-a006-431fa12598b9
+      X-Amzn-Requestid:
+      - 1dcd69dc-0ad0-5c2d-9af0-26a8f53ade74
       Content-Type:
       - text/xml
       Content-Length:
-      - '314'
+      - '315'
       Date:
-      - Sun, 13 Mar 2016 21:32:50 GMT
+      - Tue, 29 Mar 2016 22:11:54 GMT
     body:
       encoding: UTF-8
       string: |
         <CreateTopicResponse xmlns="http://sns.amazonaws.com/doc/2010-03-31/">
           <CreateTopicResult>
-            <TopicArn>arn:aws:sns:us-east-1:495707395447:mailkiq</TopicArn>
+            <TopicArn>arn:aws:sns:us-east-1:495707395447:mailkiq-</TopicArn>
           </CreateTopicResult>
           <ResponseMetadata>
-            <RequestId>d3380c40-7fe6-56bb-a006-431fa12598b9</RequestId>
+            <RequestId>1dcd69dc-0ad0-5c2d-9af0-26a8f53ade74</RequestId>
           </ResponseMetadata>
         </CreateTopicResponse>
     http_version: 
-  recorded_at: Sun, 13 Mar 2016 21:32:51 GMT
+  recorded_at: Tue, 29 Mar 2016 22:11:54 GMT
 - request:
     method: post
     uri: https://sns.us-east-1.amazonaws.com/
     body:
       encoding: UTF-8
-      string: Action=Subscribe&Endpoint=http%3A%2F%2Fmailkiq.com%2Fapi%2Fv1%2Fnotifications%3Fapi_key%3Dd136300a-4711-4337-aee9-fbe81f3baba2&Protocol=http&TopicArn=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq
+      string: Action=Subscribe&Endpoint=http%3A%2F%2Fmailkiq.com%2Fapi%2Fv1%2Fnotifications%3Fapi_key%3Ddddb35be-9ba2-4576-a157-6a5335cc9c8c&Protocol=http&TopicArn=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq-&Version=2010-03-31
     headers:
-      User-Agent:
-      - fog-core/1.36.0
       Content-Type:
-      - application/x-www-form-urlencoded
-      x-amz-date:
-      - 20160313T213251Z
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160329T221154Z
+      Host:
+      - sns.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - a0fcfebd91dc18f2bcb1bc3e3a7f4a7ffb2895e96acd329576d727ad9e82a5a7
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160313/us-east-1/sns/aws4_request,
-        SignedHeaders=content-type;host;x-amz-date, Signature=7dd9b49c739a7b41a9ffaba104886c2c4f40d722480dbea910e8da85e70e631c
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/sns/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=9385bf465bc6e1518dbb8faad8b50416869f2ddc4640a5ab56d142130127424d
+      Content-Length:
+      - '222'
+      Accept:
+      - "*/*"
   response:
     status:
       code: 200
-      message: 
+      message: OK
     headers:
-      x-amzn-RequestId:
-      - 1ba79895-5f8c-574b-9ad7-d7ca81482616
+      X-Amzn-Requestid:
+      - 2e58757d-3ed0-5711-8b4d-3a09c13b39af
       Content-Type:
       - text/xml
       Content-Length:
       - '298'
       Date:
-      - Sun, 13 Mar 2016 21:32:52 GMT
+      - Tue, 29 Mar 2016 22:11:55 GMT
     body:
       encoding: UTF-8
       string: |
@@ -79,9 +99,9 @@ http_interactions:
             <SubscriptionArn>pending confirmation</SubscriptionArn>
           </SubscribeResult>
           <ResponseMetadata>
-            <RequestId>1ba79895-5f8c-574b-9ad7-d7ca81482616</RequestId>
+            <RequestId>2e58757d-3ed0-5711-8b4d-3a09c13b39af</RequestId>
           </ResponseMetadata>
         </SubscribeResponse>
     http_version: 
-  recorded_at: Sun, 13 Mar 2016 21:32:53 GMT
+  recorded_at: Tue, 29 Mar 2016 22:11:56 GMT
 recorded_with: VCR 3.0.1

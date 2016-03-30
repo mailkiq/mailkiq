@@ -4,9 +4,9 @@ ruby '2.3.0'
 
 gem 'rails', '4.2.6'
 gem 'addressable', require: false
+gem 'aws-sdk', '~> 2'
 gem 'clearance'
 gem 'dedent'
-gem 'fog-aws'
 gem 'has_scope'
 gem 'jsonapi-resources'
 gem 'page_meta'
@@ -55,6 +55,7 @@ group :test do
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
   gem 'vcr'
+  gem 'webmock'
 end
 
 group :development, :test do

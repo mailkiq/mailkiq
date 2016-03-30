@@ -26,8 +26,8 @@ describe Domain, type: :model do
 
   describe '#txt_name' do
     it 'returns the TXT record name' do
-      domain = Domain.new name: 'patriotas.net'
-      expect(domain.txt_name).to eq('_amazonses.patriotas.net')
+      domain = Domain.new name: 'example.com'
+      expect(domain.txt_name).to eq('_amazonses.example.com')
     end
   end
 
@@ -42,7 +42,7 @@ describe Domain, type: :model do
     it 'generates fully-formed DNS records for use with DKIM' do
       domain = Fabricate.build :domain
       record = Domain::CNAME.new(
-        'a._domainkey.patriotas.net',
+        'a._domainkey.example.com',
         'a.dkim.amazonses.com'
       )
 

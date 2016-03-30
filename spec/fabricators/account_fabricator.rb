@@ -13,7 +13,7 @@ end
 Fabricator(:valid_account, from: :account) do
   aws_access_key_id ENV['AWS_ACCESS_KEY_ID']
   aws_secret_access_key ENV['AWS_SECRET_ACCESS_KEY']
-  aws_topic_arn 'arn:aws:sns:us-east-1:390722072336:ses-bounces-topic'
+  aws_topic_arn 'arn:aws:sns:us-east-1:495707395447:mailkiq-'
   paypal_customer_token '8LYFRSE963NP6'
   paypal_payment_token 'EC-24H44431DX200021P'
   paypal_recurring_profile_token 'I-27DBWXKB2XGP'

@@ -19,6 +19,7 @@ describe SetupNotification, type: :model do
       expect(account).to receive(:update_column) do |name, value|
         account.assign_attributes name => value
       end
+
       subject.up
       expect(account.aws_topic_arn).not_to be_nil
 
@@ -29,8 +30,7 @@ describe SetupNotification, type: :model do
   describe '#down', vcr: { cassette_name: :delete_topic } do
     it 'deletes a topic and all its subscriptions' do
       account.aws_topic_arn = 'arn:aws:sns:us-east-1:495707395447:mailkiq'
-      response = subject.down
-      expect(response.status).to eq(200)
+      expect(subject.down).to be_successful
     end
   end
 end

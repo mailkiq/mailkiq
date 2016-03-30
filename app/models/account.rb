@@ -48,9 +48,11 @@ class Account < ActiveRecord::Base
   end
 
   def credentials
-    fog_options = slice :aws_access_key_id, :aws_secret_access_key
-    fog_options[:region] = aws_region || 'us-east-1'
-    fog_options.with_indifferent_access
+    options = ActiveSupport::HashWithIndifferentAccess.new
+    options[:region] = aws_region || 'us-east-1'
+    options[:access_key_id] = aws_access_key_id
+    options[:secret_access_key] = aws_secret_access_key
+    options
   end
 
   def mixpanel_properties

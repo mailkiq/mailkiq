@@ -11,8 +11,8 @@ describe DomainWorker, type: :worker do
     expect(account).to receive(:domains).and_return([domain])
     expect(Account).to receive(:find).with(1).and_return(account)
     expect(domain).to receive(:update_columns).with(
-      status: Domain.statuses[:success],
-      verification_token: 'oPld11CtXSBGVTVgv6DFtRe2EdmM5I6R6OfADMQ++kQ='
+      status: Domain.statuses[:pending],
+      verification_token: 'G8qYlxUb5fkAus3eY/tp83XPKI0RvChrEfjYl4aEn7s='
     )
 
     subject.perform(1)

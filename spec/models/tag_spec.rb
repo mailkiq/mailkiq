@@ -8,9 +8,9 @@ describe Tag, type: :model do
   it { is_expected.to have_db_index([:slug, :account_id]).unique }
 
   describe '#set_slug' do
-    it 'parameterize name before validation' do
+    it 'sets slug with parameterized name' do
       tag = described_class.new name: 'Comprou eBook'
-      tag.valid?
+      tag.send(:set_slug)
       expect(tag.slug).to eq('comprou-ebook')
     end
   end

@@ -1,6 +1,6 @@
 class Message < ActiveRecord::Base
   belongs_to :subscriber
-  belongs_to :campaign
+  belongs_to :campaign, counter_cache: true
   has_many :notifications, dependent: :delete_all
 
   scope :opened, -> { where.not opened_at: nil }

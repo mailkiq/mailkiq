@@ -1,5 +1,6 @@
 class Account < ActiveRecord::Base
   include Clearance::User
+  include Redis::Objects
   include Person
 
   LANGUAGES = %w(en pt-BR).freeze
@@ -24,12 +25,19 @@ class Account < ActiveRecord::Base
   has_many :domains, dependent: :destroy
 
   delegate :domain_names, to: :domains
+  delegate :credits, to: :plan, prefix: true
 
   attr_accessor :current_password
   attr_accessor :paypal_payment_token
 
+  counter :used_credits
+
   def paypal
     Payment.new(self)
+  end
+
+  def exceed_credits?(value)
+    plan_credits - used_credits.value < value
   end
 
   def tied_to_mailkiq?
@@ -37,7 +45,7 @@ class Account < ActiveRecord::Base
       aws_secret_access_key == ENV['MAILKIQ_SECRET_ACCESS_KEY']
   end
 
-  def save_with_payment
+  def save_with_payment!
     response = paypal.make_recurring
     self.paypal_recurring_profile_token = response.profile_id
     save!

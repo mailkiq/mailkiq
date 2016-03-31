@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(version: 20160222132702) do
     t.integer  "recipients_count",    default: 0, null: false
     t.integer  "unique_opens_count",  default: 0, null: false
     t.integer  "unique_clicks_count", default: 0, null: false
+    t.integer  "rejects_count",       default: 0, null: false
+    t.integer  "bounces_count",       default: 0, null: false
+    t.integer  "complaints_count",    default: 0, null: false
     t.integer  "account_id",                      null: false
     t.datetime "sent_at"
     t.datetime "created_at",                      null: false

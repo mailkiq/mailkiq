@@ -3,25 +3,25 @@ module Aws
     class Message
       attr_reader :attributes
 
-      def initialize(attributes)
-        @attributes = attributes
-        @attributes['Message'] = JSON.parse(@attributes['Message']) rescue nil
-      end
-
       def self.load(json)
         new JSON.parse(json)
       end
 
+      def initialize(attributes)
+        @attributes = attributes
+        parse_message!
+      end
+
       def subscription_confirmation?
-        @attributes['Type'] == 'SubscriptionConfirmation'
+        attributes['Type'] == 'SubscriptionConfirmation'
       end
 
       def topic_arn
-        @attributes['TopicArn']
+        attributes['TopicArn']
       end
 
       def token
-        @attributes['Token']
+        attributes['Token']
       end
 
       def mail_id
@@ -63,6 +63,12 @@ module Aws
       end
 
       private
+
+      def parse_message!
+        attributes['Message'] = JSON.parse attributes['Message']
+      rescue JSON::ParserError
+        nil
+      end
 
       def search(path)
         JMESPath.search(path, attributes)

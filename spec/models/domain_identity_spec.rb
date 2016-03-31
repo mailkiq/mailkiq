@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 describe DomainIdentity, type: :model do
-  subject { described_class.new domain }
-
   let(:domain) { Fabricate.build :domain }
-  let(:ses) { subject.instance_variable_get :@ses }
+
+  subject { described_class.new domain }
 
   describe '#verify!', vcr: { cassette_name: :verify_domain } do
     before do
@@ -22,19 +21,19 @@ describe DomainIdentity, type: :model do
     end
 
     it 'sets identity notification topics' do
-      expect(ses).to receive(:set_identity_notification_topic)
+      expect(subject.ses).to receive(:set_identity_notification_topic)
         .with(notification_topic_options_for(:Bounce))
         .and_call_original
 
-      expect(ses).to receive(:set_identity_notification_topic)
+      expect(subject.ses).to receive(:set_identity_notification_topic)
         .with(notification_topic_options_for(:Complaint))
         .and_call_original
 
-      expect(ses).to receive(:set_identity_notification_topic)
+      expect(subject.ses).to receive(:set_identity_notification_topic)
         .with(notification_topic_options_for(:Delivery))
         .and_call_original
 
-      expect(ses).to receive(:set_identity_feedback_forwarding_enabled)
+      expect(subject.ses).to receive(:set_identity_feedback_forwarding_enabled)
         .with(identity: domain.name, forwarding_enabled: false)
         .and_call_original
 
@@ -47,7 +46,7 @@ describe DomainIdentity, type: :model do
       expect(domain).to receive(:transaction).and_yield
       expect(domain).to receive(:destroy)
 
-      expect(ses).to receive(:delete_identity)
+      expect(subject.ses).to receive(:delete_identity)
         .with(identity: domain.name)
         .and_call_original
 
@@ -58,7 +57,7 @@ describe DomainIdentity, type: :model do
   def notification_topic_options_for(type)
     {
       identity: domain.name,
-      sns_topic: domain.account.aws_topic_arn,
+      sns_topic: domain.account_aws_topic_arn,
       notification_type: type
     }
   end

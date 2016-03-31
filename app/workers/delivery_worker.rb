@@ -9,19 +9,12 @@ class DeliveryWorker
                           tagged_with: tagged_with,
                           not_tagged_with: not_tagged_with
 
-    queue = Sidekiq::Queue[campaign.queue_name]
-    queue.pause
+    campaign.queue.pause
 
     jobs = segment.jobs_for(campaign_id: campaign_id)
 
-    Sidekiq::Client.push_bulk(
-      'queue' => campaign.queue_name,
-      'class' => CampaignWorker,
-      'args'  => jobs
-    )
-
+    campaign.queue.push_bulk(jobs)
     campaign.update_columns recipients_count: jobs.size, sent_at: Time.now
-
-    queue.unpause
+    campaign.queue.unpause
   end
 end

@@ -4,7 +4,7 @@ module Helpers
       @request.headers['Content-Type'] = JSONAPI::MEDIA_TYPE
     end
 
-    def api_sign_in(account)
+    def expect_sign_in_as(account)
       expect(Account).to receive(:find_by)
         .with(api_key: account.api_key)
         .and_return(account)

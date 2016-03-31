@@ -6,7 +6,7 @@ describe API::V1::SubscribersController, type: :controller do
 
     before do
       set_content_type_header!
-      api_sign_in account
+      expect_sign_in_as account
 
       expect_any_instance_of(Subscriber)
         .to receive_message_chain(:account, :tags, :where, :pluck)

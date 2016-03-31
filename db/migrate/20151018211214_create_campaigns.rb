@@ -13,6 +13,9 @@ class CreateCampaigns < ActiveRecord::Migration
       t.integer :recipients_count, null: false, default: 0
       t.integer :unique_opens_count, null: false, default: 0
       t.integer :unique_clicks_count, null: false, default: 0
+      t.integer :rejects_count, null: false, default: 0
+      t.integer :bounces_count, null: false, default: 0
+      t.integer :complaints_count, null: false, default: 0
 
       t.belongs_to :account, null: false, index: true, foreign_key: true
 

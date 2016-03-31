@@ -1,4 +1,5 @@
 class Campaign < ActiveRecord::Base
+  include Redis::Objects
   include Sortable
 
   validates :from_email, presence: true, email: true, domain: true
@@ -13,16 +14,23 @@ class Campaign < ActiveRecord::Base
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
 
+  counter :messages_count # aka delivery
+  counter :unique_opens_count
+  counter :unique_clicks_count
+  counter :rejects_count
+  counter :bounces_count
+  counter :complaints_count
+
+  def queue
+    @queue ||= CampaignQueue.new(self)
+  end
+
   def from
     "#{from_name} <#{from_email}>"
   end
 
   def from?
     from_name? && from_email?
-  end
-
-  def queue_name
-    "campaign-#{id}"
   end
 
   def duplicate

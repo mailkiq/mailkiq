@@ -4,7 +4,7 @@ class PaypalController < ApplicationController
     @account.paypal_customer_token = params[:PayerID]
     @account.paypal_payment_token = params[:token]
 
-    if @account.save_with_payment
+    if @account.save_with_payment!
       session.clear
       sign_in @account
       redirect_to signed_in_root_path

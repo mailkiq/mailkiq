@@ -7,6 +7,7 @@ class Domain < ActiveRecord::Base
   alias_attribute :txt_value, :verification_token
 
   delegate :verify!, :delete!, to: :identity, prefix: true
+  delegate :credentials, :aws_topic_arn, to: :account, prefix: true
 
   scope :succeed, -> { where status: statuses[:success] }
 

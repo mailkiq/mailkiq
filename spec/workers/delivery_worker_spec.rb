@@ -5,7 +5,7 @@ describe DeliveryWorker, type: :worker do
   it { is_expected.to save_backtrace }
   it { is_expected.to be_retryable 0 }
 
-  it 'pipeline mail jobs to Redis' do
+  it 'pushes jobs to redis' do
     campaign = Fabricate.build(:campaign, id: 1)
     now = Time.now
 
@@ -19,10 +19,8 @@ describe DeliveryWorker, type: :worker do
       .with(campaign_id: campaign.id)
       .and_return([[1, 1], [1, 2]])
 
-    expect_any_instance_of(Sidekiq::Queue).to receive(:pause)
-    expect_any_instance_of(Sidekiq::Queue).to receive(:unpause)
-
-    expect(Sidekiq::Client).to receive(:push_bulk).and_call_original
+    expect(campaign.queue).to receive(:pause)
+    expect(campaign.queue).to receive(:unpause)
 
     subject.perform(1, nil, nil)
 

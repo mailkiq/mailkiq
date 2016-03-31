@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe Message, type: :model do
   it { is_expected.to belong_to :subscriber }
-  it { is_expected.to belong_to :campaign }
+  it { is_expected.to belong_to(:campaign).counter_cache true }
   it { is_expected.to have_many(:notifications).dependent :delete_all }
 
   describe '#unopened?' do
-    it 'tests opened_at column presence' do
+    it 'verifies presence of opened_at column' do
       subject.opened_at = nil
       expect(subject).to be_unopened
 
@@ -16,7 +16,7 @@ describe Message, type: :model do
   end
 
   describe '#unclicked?' do
-    it 'tests clicked_at column presence' do
+    it 'verifies presence of clicked_at column' do
       subject.clicked_at = nil
       expect(subject).to be_unclicked
 

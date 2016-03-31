@@ -29,7 +29,7 @@ class CampaignsController < ApplicationController
 
   def destroy
     @campaign.destroy
-    Sidekiq::Queue.new(@campaign.queue_name).clear
+    @campaign.queue.clear
     respond_with @campaign, location: campaigns_path
   end
 

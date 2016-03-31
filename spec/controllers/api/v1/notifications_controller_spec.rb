@@ -12,7 +12,7 @@ describe API::V1::NotificationsController, type: :controller do
         expect_any_instance_of(Aws::SNS::MessageVerifier)
           .to receive(:authenticate!)
 
-        api_sign_in(account)
+        expect_sign_in_as(account)
         request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
         request.env['RAW_POST_DATA'] = subscription_confirmation.to_json
 
@@ -34,7 +34,7 @@ describe API::V1::NotificationsController, type: :controller do
         expect_any_instance_of(Aws::SNS::MessageVerifier)
           .to receive(:authenticate!)
 
-        api_sign_in(account)
+        expect_sign_in_as(account)
         request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
         request.env['RAW_POST_DATA'] = bounce
 

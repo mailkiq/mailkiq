@@ -36,8 +36,12 @@ class Account < ActiveRecord::Base
     Payment.new(self)
   end
 
+  def remaining_credits
+    plan_credits - used_credits.value
+  end
+
   def exceed_credits?(value)
-    plan_credits - used_credits.value < value
+    remaining_credits < value
   end
 
   def tied_to_mailkiq?

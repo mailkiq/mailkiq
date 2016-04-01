@@ -19,6 +19,8 @@ class Segment
     subscriber_ids.map! { |subscriber_id| [campaign_id, subscriber_id] }
   end
 
+  delegate :count, to: :chain_queries
+
   private
 
   def chain_queries

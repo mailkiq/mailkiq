@@ -10,6 +10,8 @@ class Campaign < ActiveRecord::Base
   has_many :messages, dependent: :delete_all
   belongs_to :account
 
+  scope :sent, -> { where.not sent_at: nil }
+
   delegate :credentials, :domain_names, to: :account, prefix: true
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
@@ -20,6 +22,10 @@ class Campaign < ActiveRecord::Base
   counter :rejects_count
   counter :bounces_count
   counter :complaints_count
+
+  def self.opened_campaign_names
+    sent.pluck(:name).map { |name| "Opened #{name}" }
+  end
 
   def queue
     @queue ||= CampaignQueue.new(self)

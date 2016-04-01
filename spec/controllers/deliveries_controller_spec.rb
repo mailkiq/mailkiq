@@ -5,6 +5,7 @@ describe DeliveriesController, type: :controller do
   let(:campaign) { Fabricate.build :campaign, account: account, id: 10 }
 
   before do
+    allow_any_instance_of(Delivery).to receive(:validate_enough_credits)
     allow(account).to receive_message_chain(:campaigns, :find)
       .and_return(campaign)
 
@@ -32,7 +33,8 @@ describe DeliveriesController, type: :controller do
   describe 'POST /campaigns/:campaign_id/delivery' do
     let(:params) do
       {
-        campaign_id: campaign.id, delivery: {
+        campaign_id: campaign.id,
+        delivery: {
           tagged_with: ['das'],
           not_tagged_with: ['dsa']
         }

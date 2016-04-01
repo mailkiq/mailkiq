@@ -30,6 +30,15 @@ describe Account, type: :model do
 
   it { is_expected.to have_counter :used_credits }
 
+  describe '#remaining_credits' do
+    it 'returns remaining credits' do
+      allow(subject).to receive_message_chain(:used_credits, :value)
+        .and_return(5)
+      expect(subject).to receive(:plan_credits).at_least(:once).and_return(10)
+      expect(subject.remaining_credits).to eq(5)
+    end
+  end
+
   describe '#exceed_credits?' do
     it 'checks if account has enough credits with the given value' do
       allow(subject).to receive_message_chain(:used_credits, :value)

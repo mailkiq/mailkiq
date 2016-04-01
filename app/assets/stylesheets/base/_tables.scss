@@ -16,10 +16,6 @@ th {
 td {
   border-bottom: 1px solid #969696;
   padding: $table-spacing 0;
-
-  &.actions {
-    text-align: right;
-  }
 }
 
 tr,
@@ -56,4 +52,17 @@ th a {
 
 tfoot td {
   border-bottom: 0;
+}
+
+td.actions {
+  text-align: right;
+
+  a {
+    color: $light-gray;
+
+    &:hover,
+    &:focus {
+      color: $dark-gray;
+    }
+  }
 }

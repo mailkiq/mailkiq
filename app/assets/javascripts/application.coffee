@@ -4,6 +4,7 @@
 #= require chosen/select-parser
 #= require chosen.jquery
 #= require clipboard
+#= require dropdown
 #= require_self
 #= require_tree ./modules
 

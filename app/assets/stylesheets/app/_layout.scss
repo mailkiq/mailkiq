@@ -28,7 +28,6 @@ h2 {
 }
 
 .icon {
-  color: $light-gray;
   display: inline-block;
   font-size: 14px;
   height: 18px;
@@ -36,10 +35,6 @@ h2 {
 
   &:first-child {
     margin-left: 0;
-  }
-
-  &:hover {
-    color: $dark-gray;
   }
 
   span:before {

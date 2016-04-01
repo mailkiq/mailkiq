@@ -1,8 +1,8 @@
 ---
 en:
   actions:
-    pen: 'Edit the record'
-    trash: 'Delete the record'
+    pen: 'Edit'
+    trash: 'Delete'
     back: 'Back'
     confirm: 'Are you sure?'
     view: 'Preview'

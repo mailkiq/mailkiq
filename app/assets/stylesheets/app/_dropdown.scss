@@ -1,0 +1,50 @@
+.dropdown {
+  position: relative;
+
+  &.open .dropdown-menu {
+    animation-name: fadeInDown;
+    display: block;
+  }
+}
+
+.dropdown-menu {
+  animation-name: fadeOutUp;
+  display: none;
+  position: absolute;
+  text-align: left;
+  z-index: 1;
+
+  a:after {
+    position: relative;
+    float: right;
+    top: 2px;
+  }
+}
+
+.simple-dropdown-menu {
+  background: #e5e5e5;
+  min-width: 155px;
+  padding: 5px 0;
+  right: 0;
+  top: 27px;
+
+  li a {
+    color: $dark-gray;
+    display: block;
+    font-size: 12px;
+    line-height: 21px;
+    padding: 0 18px;
+
+    &:after {
+      color: $light-gray;
+    }
+
+    &:hover {
+      background-color: shade(#e5e5e5, 20%);
+    }
+
+    &:hover:after {
+      color: $dark-gray;
+    }
+  }
+}

@@ -7,24 +7,17 @@
   <thead>
     <tr>
       <th width="400"><%= sortable 'name', t('.campaign') %></th>
-      <th><%= sortable 'sent_at', t('.sent_at') %></th>
       <th><%= sortable 'recipients_count', t('.recipients') %></th>
       <th><%= sortable 'unique_opens_count', t('.unique_opens') %></th>
       <th><%= sortable 'unique_clicks_count', t('.unique_clicks') %></th>
-      <th width="150"></th>
+      <th><%= sortable 'sent_at', t('.sent_at') %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @campaigns.each do |campaign| %>
       <tr>
-        <td><%= content_tag :span, truncate(campaign.name, length: 52), title: campaign.name %></td>
-        <td>
-          <% if campaign.sent_at? %>
-            <%= time_tag campaign.sent_at, format: '%d/%m/%Y' %>
-          <% else %>
-            -
-          <% end %>
-        </td>
+        <td><%= content_tag :span, truncate(campaign.name, length: 50), title: campaign.name %></td>
         <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
           <%= number_with_delimiter campaign.messages.opened.count %>
@@ -34,12 +27,25 @@
           <%= number_with_delimiter campaign.messages.clicked.count %>
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
+        <td>
+          <% if campaign.sent_at? %>
+            <%= time_tag campaign.sent_at, format: '%d/%m/%Y' %>
+          <% else %>
+            -
+          <% end %>
+        </td>
         <td class="actions">
-          <%= icon_link_to :view, preview_campaign_path(campaign) %>
-          <%= icon_link_to :send, new_campaign_delivery_path(campaign) %>
-          <%= icon_link_to :addfile, duplicate_campaign_path(campaign), method: :post %>
-          <%= icon_link_to :pen, edit_campaign_path(campaign) %>
-          <%= icon_link_to :trash, campaign_path(campaign), delete: true %>
+          <div class="dropdown">
+            <a href="#" data-toggle="dropdown">•••</a>
+
+            <ul class="dropdown-menu simple-dropdown-menu animated">
+              <%= action_link_to :view, preview_campaign_path(campaign) %>
+              <%= action_link_to :send, new_campaign_delivery_path(campaign) %>
+              <%= action_link_to :addfile, duplicate_campaign_path(campaign), method: :post %>
+              <%= action_link_to :pen, edit_campaign_path(campaign) %>
+              <%= action_link_to :trash, campaign_path(campaign), method: :delete %>
+            </ul>
+          </div>
         </td>
       </tr>
     <% end %>

@@ -22,7 +22,7 @@
     width: 121px;
   }
 
-  .dropdown-toggle {
+  .ss-settings {
     color: $white;
     display: inline-block;
     font-size: 18px;
@@ -41,8 +41,6 @@
 }
 
 .nav {
-  @include align-self(flex-end);
-
   a {
     box-shadow: none;
     color: $white;
@@ -67,22 +65,12 @@
   }
 }
 
-.dropdown-wrapper {
-  @include align-self(flex-end);
-  position: relative;
-}
-
-.dropdown {
-  display: none;
-  position: absolute;
+.header-dropdown-menu {
   right: -16px;
   top: 65px;
   width: 200px;
-  z-index: 1;
-
-  &.active {
-    display: block;
-  }
+  padding: 5px 0;
+  background-color: $light-green;
 
   &:before {
     @include triangle(16px 8px, $light-green, up);
@@ -94,7 +82,6 @@
   }
 
   li {
-    background-color: $light-green;
     padding-left: 20px;
     padding-right: 16px;
 
@@ -107,11 +94,5 @@
     color: $dark-gray;
     display: block;
     line-height: 51px;
-  }
-
-  .right:after {
-    float: right;
-    line-height: 21px;
-    margin-top: 17px;
   }
 }

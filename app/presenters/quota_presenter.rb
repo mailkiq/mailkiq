@@ -3,7 +3,7 @@ class QuotaPresenter < SimpleDelegator
 
   def initialize(account, view_context)
     @account = account
-    __setobj__(view_context)
+    __setobj__ view_context
   end
 
   delegate :max_24_hour_send, :max_send_rate, :sent_last_24_hours, to: :quota
@@ -54,6 +54,6 @@ class QuotaPresenter < SimpleDelegator
   end
 
   def cache(name, &block)
-    Rails.cache.fetch("#{account.cache_key}/#{name}", &block)
+    Rails.cache.fetch("#{account.cache_key}/#{name}", expires_in: 1.day, &block)
   end
 end

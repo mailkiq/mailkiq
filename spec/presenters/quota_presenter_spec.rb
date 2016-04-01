@@ -11,6 +11,14 @@ describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
   it { is_expected.to delegate_method(:sent_last_24_hours).to(:quota) }
   it { is_expected.to delegate_method(:max_send_rate).to(:quota) }
 
+  describe '#quota' do
+    it 'caches send quota numbers from SES' do
+      expect(subject).to receive(:cache).with(:quota).and_call_original
+      expect(subject.quota)
+        .to be_instance_of Aws::SES::Types::GetSendQuotaResponse
+    end
+  end
+
   describe '#sandbox?' do
     it 'sending quota is equal to 50000' do
       expect(subject.max_24_hour_send).to eq(50_000)
@@ -51,7 +59,11 @@ describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
 
   describe '#send_statistics', vcr: { cassette_name: :get_send_statistics } do
     it 'groups data points by day' do
+      expect(subject).to receive(:cache).with(:send_statistics)
+        .and_call_original
+
       values = subject.send_statistics
+
       expect(values.sample[:Timestamp]).to be_instance_of Date
     end
   end

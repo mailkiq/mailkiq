@@ -1,5 +1,4 @@
 class Account < ActiveRecord::Base
-  include Clearance::User
   include Redis::Objects
   include Person
 
@@ -13,11 +12,6 @@ class Account < ActiveRecord::Base
   validates_with AccessKeysValidator, if: :validate_access_keys?
   validates_confirmation_of :password, allow_blank: true
 
-  with_options on: :update, if: :validate_password? do
-    validates_presence_of :password
-    validate :current_password_is_correct
-  end
-
   belongs_to :plan
   has_many :campaigns, dependent: :destroy
   has_many :subscribers, dependent: :delete_all
@@ -27,13 +21,28 @@ class Account < ActiveRecord::Base
   delegate :domain_names, to: :domains
   delegate :credits, to: :plan, prefix: true
 
-  attr_accessor :current_password
+  attr_accessor :force_password_validation
   attr_accessor :paypal_payment_token
 
   counter :used_credits
 
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable
+
+  def password_required?
+    @force_password_validation || super
+  end
+
+  def remember_me
+    true
+  end
+
   def paypal
     Payment.new(self)
+  end
+
+  def paypal?
+    paypal_payment_token.present? && paypal_customer_token?
   end
 
   def remaining_credits
@@ -94,15 +103,5 @@ class Account < ActiveRecord::Base
     else
       aws_keys_changed?
     end
-  end
-
-  def current_password_is_correct
-    unless BCrypt::Password.new(encrypted_password_was) == current_password
-      errors.add(:current_password, :incorrect)
-    end
-  end
-
-  def validate_password?
-    !password.nil?
   end
 end

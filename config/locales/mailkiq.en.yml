@@ -51,12 +51,21 @@ en:
       domains: 'Domains'
       domain: 'Domain'
       status: 'Status'
-    account:
-      your_profile: 'Your Profile'
-      billing: 'Billing'
   tags:
     index:
       new_tag: 'New tag'
       name: 'Name'
       subscribers: 'Subscribers'
       no_tags: 'No tags found.'
+  devise:
+    sessions:
+      new:
+        forgot_password: 'Forgot password?'
+    passwords:
+      new:
+        description: To be emailed a link to reset your password, please enter
+          your email address.
+    registrations:
+      edit:
+        your_profile: 'Your Profile'
+        billing: 'Billing'

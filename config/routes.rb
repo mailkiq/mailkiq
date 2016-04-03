@@ -8,28 +8,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :passwords, controller: 'clearance/passwords', only: [:create, :new]
-  resource :session, controller: 'clearance/sessions', only: [:create]
-  resources :accounts, controller: 'accounts', only: [:create] do
-    resource :password, controller: 'clearance/passwords',
-                        only: [:create, :edit, :update]
-  end
+  devise_for :accounts, controllers: { registrations: 'accounts/registrations' }
 
-  get '/sign_up' => 'accounts#new', as: :sign_up
-  get '/sign_in' => 'clearance/sessions#new', as: :sign_in
-  delete '/sign_out' => 'clearance/sessions#destroy', as: :sign_out
-
-  constraints Clearance::Constraints::SignedIn.new(&:admin?) do
+  authenticated :account, lambda { |account| account.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  constraints Clearance::Constraints::SignedIn.new do
+  authenticated :account do
     root to: 'dashboard#show', as: :signed_in_root
   end
 
-  constraints Clearance::Constraints::SignedOut.new do
-    root to: 'marketing#index'
-  end
+  root to: 'marketing#index'
 
   scope via: [:get, :put] do
     match '/settings/account', to: 'settings#account', as: :account_settings

@@ -4,7 +4,7 @@ describe SubscribersController, type: :controller do
   context 'when logged in' do
     let(:account) { Fabricate.build :account }
 
-    before { sign_in_as account }
+    before { sign_in account }
 
     describe 'GET /subscribers' do
       before do
@@ -17,7 +17,7 @@ describe SubscribersController, type: :controller do
         get :index
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
       it { is_expected.to have_scope :page }
       it { is_expected.to have_scope :sort }
@@ -29,7 +29,7 @@ describe SubscribersController, type: :controller do
         get :new
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
     end
 
@@ -43,7 +43,7 @@ describe SubscribersController, type: :controller do
         post :create, subscriber: params
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to subscribers_path }
       it { is_expected.to set_flash[:notice] }
@@ -65,7 +65,7 @@ describe SubscribersController, type: :controller do
         get :edit, id: subscriber.id
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
     end
 
@@ -79,7 +79,7 @@ describe SubscribersController, type: :controller do
         patch :update, id: subscriber.id, subscriber: params
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to subscribers_path }
       it { is_expected.to set_flash[:notice] }
@@ -99,7 +99,7 @@ describe SubscribersController, type: :controller do
         delete :destroy, id: subscriber.id
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to subscribers_path }
       it { is_expected.to set_flash[:notice] }

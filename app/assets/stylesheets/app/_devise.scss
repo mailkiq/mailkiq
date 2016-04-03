@@ -1,4 +1,4 @@
-.clearance {
+.devise {
   body {
     background-color: $light-gray;
   }
@@ -22,6 +22,16 @@
   .simple-form {
     background: $white;
     padding: 50px 85px;
+
+    .input {
+      text-align: left;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      margin-bottom: 30px;
+    }
   }
 
   .btn {
@@ -40,8 +50,7 @@
   }
 }
 
-// paragraph on sessions#new view
-.signup {
+.call-registrations {
   font-size: 12px;
   margin-top: 30px;
   text-align: center;
@@ -53,28 +62,9 @@
   }
 }
 
-.new_account {
-  .input input {
-    margin-bottom: 30px;
-  }
-
-  .btn-pay {
-    text-align: center;
-    width: calc(100% - 30px);
-  }
-}
-
-.simple-form.session {
+.simple-form.login {
   padding-bottom: 40px;
   text-align: center;
-
-  .input {
-    text-align: left;
-
-    input {
-      margin-bottom: 30px;
-    }
-  }
 
   .btn {
     margin-bottom: 10px;
@@ -89,19 +79,6 @@
   }
 }
 
-.simple-form.password,
-.simple-form.password_reset {
-  padding-top: 45px;
-
-  .input input {
-    margin-bottom: 0;
-  }
-
-  .btn {
-    margin-top: 25px;
-  }
-}
-
-.simple-form.password_reset h2 {
+.simple-form.passwords h2 {
   margin-bottom: 50px;
 }

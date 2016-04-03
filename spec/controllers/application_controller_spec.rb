@@ -15,7 +15,7 @@ describe ApplicationController, type: :controller do
   context 'when logged in' do
     describe '#set_time_zone' do
       it 'use current user time zone' do
-        sign_in_as account
+        sign_in account
         expect(Time).to receive(:use_zone).with account.time_zone
         get :index
       end
@@ -23,7 +23,7 @@ describe ApplicationController, type: :controller do
 
     describe '#set_raven_context' do
       it 'provide a bit of additional context to Raven' do
-        sign_in_as account
+        sign_in account
 
         expect(Raven).to receive(:user_context)
           .with account.slice(:id, :name, :email)

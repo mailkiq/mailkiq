@@ -12,6 +12,5 @@ Rails.application.configure do
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
   config.action_view.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.middleware.use Clearance::BackDoor
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

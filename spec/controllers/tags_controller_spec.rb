@@ -6,14 +6,14 @@ describe TagsController, type: :controller do
     let(:tag) { Tag.new }
 
     before do
-      sign_in_as account
+      sign_in account
     end
 
     describe 'GET /tags' do
       before { get :index }
 
       it { is_expected.to respond_with :success }
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to render_template :index }
       it { is_expected.to have_scope(:page) }
     end
@@ -24,7 +24,7 @@ describe TagsController, type: :controller do
       before { get :new }
 
       it { is_expected.to respond_with :success }
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to render_template :new }
       it { expect(tag).to be_new_record }
     end
@@ -40,7 +40,7 @@ describe TagsController, type: :controller do
       end
 
       it { is_expected.to respond_with :redirect }
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to redirect_to tags_path }
       it { is_expected.to permit(:name).for(:create, params: params).on(:tag) }
       it { is_expected.to set_flash[:notice] }
@@ -53,7 +53,7 @@ describe TagsController, type: :controller do
       end
 
       it { is_expected.to respond_with :success }
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to render_template :edit }
     end
 
@@ -68,7 +68,7 @@ describe TagsController, type: :controller do
       end
 
       it { is_expected.to respond_with :redirect }
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to redirect_to tags_path }
       it { is_expected.to permit(:name).for(:update, params: params).on(:tag) }
       it { is_expected.to set_flash[:notice] }
@@ -81,7 +81,7 @@ describe TagsController, type: :controller do
       end
 
       it { is_expected.to respond_with :redirect }
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to redirect_to tags_path }
       it { is_expected.to set_flash[:notice] }
     end

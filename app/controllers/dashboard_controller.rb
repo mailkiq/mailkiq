@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_account!
 
   def show
-    @quota = QuotaPresenter.new(current_user, view_context)
+    @quota = QuotaPresenter.new(current_account, view_context)
   end
 end

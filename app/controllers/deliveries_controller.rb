@@ -1,12 +1,12 @@
 class DeliveriesController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_account!
   before_action :find_campaign
 
   def show
   end
 
   def new
-    @delivery = Delivery.new account: current_user
+    @delivery = Delivery.new account: current_account
   end
 
   def create
@@ -23,6 +23,6 @@ class DeliveriesController < ApplicationController
   end
 
   def find_campaign
-    @campaign = current_user.campaigns.find params[:campaign_id]
+    @campaign = current_account.campaigns.find params[:campaign_id]
   end
 end

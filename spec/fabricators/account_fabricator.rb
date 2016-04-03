@@ -1,7 +1,7 @@
 Fabricator(:account) do
   name 'Jonh Doe'
   email { sequence(:email) { |i| "account#{i}@example.com" } }
-  password 'jonhdoe'
+  password 'testando'
   time_zone 'America/Sao_Paulo'
   aws_access_key_id 'anything'
   aws_secret_access_key 'anything'

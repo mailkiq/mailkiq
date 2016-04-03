@@ -12,8 +12,8 @@ mixpanel.init('30cfb1aa3e9a5253a479242388d15667');
     'url' : window.location.pathname
   });
 
-  <% if signed_in? -%>
-    mixpanel.identify(<%= current_user.id %>);
-    mixpanel.people.set(<%= raw current_user.mixpanel_properties.to_json %>);
+  <% if account_signed_in? -%>
+    mixpanel.identify(<%= current_account.id %>);
+    mixpanel.people.set(<%= raw current_account.mixpanel_properties.to_json %>);
   <% end -%>
 <% end %>

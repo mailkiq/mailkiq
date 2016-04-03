@@ -1,8 +1,6 @@
 class PaypalController < ApplicationController
   def thank_you
     @account = Account.new session[:user_params]
-    @account.paypal_customer_token = params[:PayerID]
-    @account.paypal_payment_token = params[:token]
 
     if @account.save_with_payment!
       session.clear

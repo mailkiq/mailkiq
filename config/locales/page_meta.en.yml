@@ -2,7 +2,6 @@ en:
   page_meta:
     titles:
       settings:
-        account: Account Settings
         domains: Amazon Simple Email Service
       subscribers:
         index: Subscribers
@@ -22,7 +21,10 @@ en:
         index: Tags
         new: New tag
         edit: Edit tag
-      clearance:
+      accounts:
+        registrations:
+          edit: Account Settings
+      devise:
         sessions:
           new: Login to Mailkiq
         passwords:

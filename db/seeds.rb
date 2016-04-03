@@ -15,7 +15,7 @@ Plan.create! name: 'Premium', price: 999, credits: 500_000
 account = Account.find_or_create_by!(email: 'rainerborene@gmail.com') do |a|
   a.name = 'Rainer Borene'
   a.email = 'rainerborene@gmail.com'
-  a.password = 'teste'
+  a.password = 'testando'
   a.plan = Plan.find_basic
   a.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
   a.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']

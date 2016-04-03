@@ -1,21 +1,21 @@
 class CampaignsController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_account!
   before_action :find_campaign, except: [:index, :new, :create]
 
   has_scope :page, default: 1
   has_scope :sort
 
   def index
-    @campaigns = apply_scopes current_user.campaigns
+    @campaigns = apply_scopes current_account.campaigns
     @campaigns = @campaigns.recents unless current_scopes.key?(:sort)
   end
 
   def new
-    @campaign = current_user.campaigns.new
+    @campaign = current_account.campaigns.new
   end
 
   def create
-    @campaign = current_user.campaigns.create campaign_params
+    @campaign = current_account.campaigns.create campaign_params
     respond_with @campaign, location: campaigns_path
   end
 
@@ -48,7 +48,7 @@ class CampaignsController < ApplicationController
   private
 
   def find_campaign
-    @campaign = current_user.campaigns.find params[:id]
+    @campaign = current_account.campaigns.find params[:id]
   end
 
   def campaign_params

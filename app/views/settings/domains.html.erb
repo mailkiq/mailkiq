@@ -1,9 +1,9 @@
 <h2 class="page-title"><%= page_title %></h2>
 
 <div class="forms">
-  <% unless current_user.tied_to_mailkiq? %>
+  <% unless current_account.tied_to_mailkiq? %>
     <div class="amazon">
-      <%= simple_form_for current_user, url: domains_settings_path, html: { method: :put } do |f| %>
+      <%= simple_form_for current_account, url: domains_settings_path, html: { method: :put } do |f| %>
         <h2 class="subtitle"><%= t '.authentication' %></h2>
 
         <%= f.input :aws_access_key_id %>
@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <% current_user.domains.each do |domain| %>
+        <% current_account.domains.each do |domain| %>
           <tr>
             <td><%= domain.name %></td>
             <td><%= status_tag domain.status %></td>
@@ -62,7 +62,7 @@
         </tr>
       </thead>
       <tbody>
-        <% current_user.domains.each do |domain| %>
+        <% current_account.domains.each do |domain| %>
           <%= content_tag :tr, data: { name: domain.name } do %>
             <td>TXT</td>
             <td><%= domain.txt_name %></td>

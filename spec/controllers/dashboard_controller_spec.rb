@@ -5,11 +5,11 @@ describe DashboardController, type: :controller do
     describe 'GET /' do
       before do
         account = Fabricate.build(:account)
-        sign_in_as account
+        sign_in account
         get :show
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
     end
   end

@@ -21,9 +21,9 @@
           <a href="#" data-toggle="dropdown" class="ss-settings"></a>
 
           <ul class="dropdown-menu header-dropdown-menu animated">
-            <%= nav_link_to :my_account, account_settings_path, class: 'ss-user right' %>
+            <%= nav_link_to :my_account, edit_account_registration_path, class: 'ss-user right' %>
             <%= nav_link_to :domains, domains_settings_path, class: 'ss-mail right' %>
-            <%= nav_link_to :sign_out, sign_out_path, method: :delete, class: 'ss-logout right' %>
+            <%= nav_link_to :sign_out, destroy_account_session_path, method: :delete, class: 'ss-logout right' %>
           </ul>
         </div>
       </div>

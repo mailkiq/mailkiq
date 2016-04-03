@@ -19,28 +19,34 @@ ActiveRecord::Schema.define(version: 20160222132702) do
   enable_extension "uuid-ossp"
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "name",                                                                      null: false
-    t.citext   "email",                                                                     null: false
-    t.string   "encrypted_password",             limit: 128,                                null: false
-    t.string   "confirmation_token",             limit: 128
-    t.string   "remember_token",                 limit: 128,                                null: false
+    t.string   "name",                                                          null: false
+    t.citext   "email",                                                         null: false
+    t.string   "encrypted_password",                                            null: false
     t.string   "language"
-    t.string   "time_zone",                                  default: "UTC"
-    t.uuid     "api_key",                                    default: "uuid_generate_v4()"
+    t.string   "time_zone",                      default: "UTC"
+    t.uuid     "api_key",                        default: "uuid_generate_v4()"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                  default: 0,                    null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
     t.string   "aws_access_key_id"
     t.string   "aws_secret_access_key"
     t.string   "aws_region"
     t.string   "aws_topic_arn"
     t.string   "paypal_customer_token"
     t.string   "paypal_recurring_profile_token"
-    t.integer  "plan_id",                                                                   null: false
-    t.datetime "created_at",                                                                null: false
-    t.datetime "updated_at",                                                                null: false
+    t.integer  "plan_id",                                                       null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
   end
 
   add_index "accounts", ["api_key"], name: "index_accounts_on_api_key", unique: true, using: :btree
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
-  add_index "accounts", ["remember_token"], name: "index_accounts_on_remember_token", using: :btree
+  add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.citext   "name",                            null: false

@@ -9,12 +9,12 @@ module API
         { current_account: current_account }
       end
 
-      def signed_in?
+      def account_signed_in?
         current_account.present?
       end
 
       def authenticate!
-        if signed_in?
+        if account_signed_in?
           Raven.user_context current_account.slice(:id, :name, :email)
         else
           render json: { message: 'Bad credentials' }, status: :unauthorized

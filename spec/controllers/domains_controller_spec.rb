@@ -5,7 +5,7 @@ describe DomainsController, type: :controller do
     let(:account) { Fabricate.build :valid_account }
 
     before do
-      sign_in_as account
+      sign_in account
     end
 
     describe 'POST /domains' do
@@ -14,7 +14,7 @@ describe DomainsController, type: :controller do
         post :create, domain: { name: 'example.com' }
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to domains_settings_path }
       it { is_expected.to set_flash[:notice] }
@@ -31,7 +31,7 @@ describe DomainsController, type: :controller do
         delete :destroy, id: 1
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to domains_settings_path }
       it { is_expected.to set_flash[:notice] }

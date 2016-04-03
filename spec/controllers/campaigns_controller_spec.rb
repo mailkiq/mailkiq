@@ -5,7 +5,7 @@ describe CampaignsController, type: :controller do
     let(:account) { Fabricate.build :account }
     let(:campaign) { Fabricate.build :campaign, id: 1 }
 
-    before { sign_in_as account }
+    before { sign_in account }
 
     describe 'GET /campaigns' do
       before do
@@ -18,7 +18,7 @@ describe CampaignsController, type: :controller do
         get :index
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :index }
 
@@ -32,7 +32,7 @@ describe CampaignsController, type: :controller do
         get :new
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :new }
     end
@@ -47,7 +47,7 @@ describe CampaignsController, type: :controller do
         post :create, campaign: params
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
@@ -68,7 +68,7 @@ describe CampaignsController, type: :controller do
         get :edit, id: campaign.id
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :edit }
@@ -83,7 +83,7 @@ describe CampaignsController, type: :controller do
         patch :update, id: campaign.id, campaign: params
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to campaigns_path }
@@ -104,7 +104,7 @@ describe CampaignsController, type: :controller do
         delete :destroy, id: campaign.id
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to campaigns_path }
@@ -117,7 +117,7 @@ describe CampaignsController, type: :controller do
         get :preview, id: campaign.id
       end
 
-      it { is_expected.to use_before_action :require_login }
+      it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :preview }

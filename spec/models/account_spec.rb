@@ -25,7 +25,7 @@ describe Account, type: :model do
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
   it { is_expected.to delegate_method(:credits).to(:plan).with_prefix }
 
-  it { is_expected.to have_attr_accessor :current_password }
+  it { is_expected.to have_attr_accessor :force_password_validation }
   it { is_expected.to have_attr_accessor :paypal_payment_token }
 
   it { is_expected.to have_counter :used_credits }
@@ -89,25 +89,6 @@ describe Account, type: :model do
       expect(properties).to have_key :$last_name
       expect(properties).to have_key :$created
       expect(properties).to have_key :$email
-    end
-  end
-
-  describe '#current_password_is_correct' do
-    it 'requires current password when changing it' do
-      subject.password = 'teste123'
-      subject.instance_variable_set :@new_record, false
-
-      expect(subject).to receive(:encrypted_password_was)
-        .at_least(:once)
-        .and_return BCrypt::Password.create('teste')
-
-      expect(subject).to_not be_valid
-      expect(subject.errors[:current_password])
-        .to include t('activerecord.errors.models.account.incorrect')
-
-      subject.current_password = 'teste'
-      expect(subject).to_not be_valid
-      expect(subject.errors[:current_password]).to be_empty
     end
   end
 end

@@ -8,9 +8,9 @@ Subscriber.destroy_all
 Account.destroy_all
 Plan.destroy_all
 
-Plan.create! name: 'Basic', price: 199, credits: 100_000
-Plan.create! name: 'Pro', price: 599, credits: 300_000
-Plan.create! name: 'Premium', price: 999, credits: 500_000
+Plan.create! name: 'Mailkiq Monthly Subscription - Basic', price: 199, credits: 100_000
+Plan.create! name: 'Mailkiq Monthly Subscription - Pro', price: 599, credits: 300_000
+Plan.create! name: 'Mailkiq Monthly Subscription - Premium', price: 999, credits: 500_000
 
 account = Account.find_or_create_by!(email: 'rainerborene@gmail.com') do |a|
   a.name = 'Rainer Borene'

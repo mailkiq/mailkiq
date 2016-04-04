@@ -24,30 +24,13 @@ describe Account, type: :model do
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
   it { is_expected.to delegate_method(:credits).to(:plan).with_prefix }
+  it { is_expected.to delegate_method(:remaining).to(:credits) }
+  it { is_expected.to delegate_method(:exceed?).to(:credits) }
 
   it { is_expected.to have_attr_accessor :force_password_validation }
   it { is_expected.to have_attr_accessor :paypal_payment_token }
 
   it { is_expected.to have_counter :used_credits }
-
-  describe '#remaining_credits' do
-    it 'returns remaining credits' do
-      allow(subject).to receive_message_chain(:used_credits, :value)
-        .and_return(5)
-      expect(subject).to receive(:plan_credits).at_least(:once).and_return(10)
-      expect(subject.remaining_credits).to eq(5)
-    end
-  end
-
-  describe '#exceed_credits?' do
-    it 'checks if account has enough credits with the given value' do
-      allow(subject).to receive_message_chain(:used_credits, :value)
-        .and_return(5)
-      expect(subject).to receive(:plan_credits).at_least(:once).and_return(10)
-      expect(subject).to be_exceed_credits(6)
-      expect(subject).not_to be_exceed_credits(5)
-    end
-  end
 
   describe '#tied_to_mailkiq?' do
     it 'verifies if account is tied to the official SES account' do

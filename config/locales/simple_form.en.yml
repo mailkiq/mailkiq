@@ -19,7 +19,7 @@ en:
         aws_region: 'Amazon SES Region'
         language: 'Select your language'
         time_zone: 'Select your time zone'
-        account:
+        edit:
           password: 'New password'
           email: 'Email Address'
     placeholders:
@@ -28,7 +28,7 @@ en:
     hints:
       account:
         aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."
-        account:
+        edit:
           current_password: 'To change your password, enter your current password'
           password: 'Enter your new password'
           password_confirmation: 'Confirm your new password'

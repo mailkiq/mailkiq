@@ -4,3 +4,5 @@
   - [deliveries, 20]
   - [platform, 15]
   - [default, 10]
+production:
+  :concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 25 %>

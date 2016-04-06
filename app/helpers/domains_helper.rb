@@ -7,7 +7,7 @@ module DomainsHelper
     not_started: :default
   }
 
-  def status_tag(status)
+  def domain_status_tag(status)
     variation = COLORS[status.to_sym]
     text = t("simple_form.options.domain.status.#{status}")
     content_tag :span, text, class: "label-#{variation}"

@@ -33,7 +33,7 @@
         <% current_account.domains.each do |domain| %>
           <tr>
             <td><%= domain.name %></td>
-            <td><%= status_tag domain.status %></td>
+            <td><%= domain_status_tag domain.status %></td>
             <td class="actions">
               <%= icon_link_to :info, '#', class: 'open-modal icon' %>
               <%= icon_link_to :trash, domain_path(domain), delete: true %>
@@ -68,6 +68,7 @@
             <td><%= domain.txt_name %></td>
             <td><%= domain.txt_value %></td>
           <% end %>
+
           <% domain.cname_records.each do |cname| %>
             <%= content_tag :tr, data: { name: domain.name } do %>
               <td>CNAME</td>

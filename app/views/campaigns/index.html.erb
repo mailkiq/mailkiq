@@ -17,14 +17,14 @@
   <tbody>
     <% @campaigns.each do |campaign| %>
       <tr>
-        <td><%= content_tag :span, truncate(campaign.name, length: 50), title: campaign.name %></td>
+        <td><%= link_to truncate(campaign.name, length: 50), campaign_path(campaign), title: campaign.name %></td>
         <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
-          <%= number_with_delimiter campaign.messages.opened.count %>
+          <%= number_with_delimiter campaign.unique_opens_count %>
           <%= percentage_badge_tag campaign.unique_opens_count, campaign.recipients_count %>
         </td>
         <td>
-          <%= number_with_delimiter campaign.messages.clicked.count %>
+          <%= number_with_delimiter campaign.unique_clicks_count %>
           <%= percentage_badge_tag campaign.unique_clicks_count, campaign.recipients_count %>
         </td>
         <td>

@@ -17,7 +17,7 @@
       <tr>
         <td><%= subscriber.name %></td>
         <td><%= subscriber.email %></td>
-        <td><%= state_tag subscriber.state %></td>
+        <td><%= subscriber_state_tag subscriber.state %></td>
         <td class="actions">
           <%= icon_link_to :pen, edit_subscriber_path(subscriber) %>
           <%= icon_link_to :trash, subscriber_path(subscriber), delete: true %>

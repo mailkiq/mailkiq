@@ -5,4 +5,8 @@ module CampaignsHelper
     percentage = number_to_percentage(value, precision: precision)
     content_tag :span, percentage, class: 'label-percentage'
   end
+
+  def campaign_progress_tag(campaign)
+    ProgressPresenter.new(campaign, self).render
+  end
 end

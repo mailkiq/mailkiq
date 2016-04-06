@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :domains, only: [:create, :destroy]
   resources :subscribers
   resources :campaigns do
-    resource :delivery, only: [:show, :new, :create]
+    resource :delivery, only: [:new, :create]
 
     member do
       get :preview

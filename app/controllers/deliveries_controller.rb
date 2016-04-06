@@ -2,9 +2,6 @@ class DeliveriesController < ApplicationController
   before_action :authenticate_account!
   before_action :find_campaign
 
-  def show
-  end
-
   def new
     @delivery = Delivery.new account: current_account
   end
@@ -13,7 +10,7 @@ class DeliveriesController < ApplicationController
     @deliver = Delivery.new deliver_params
     @deliver.campaign = @campaign
     @deliver.save
-    respond_with @deliver, location: campaign_delivery_path(@campaign)
+    respond_with @deliver, location: campaign_path(@campaign)
   end
 
   private

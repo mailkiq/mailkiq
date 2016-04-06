@@ -1,9 +1,9 @@
+.table td:first-child a {
+  color: $dark-gray;
+}
+
 .campaign-form {
   @include clearfix;
-
-  .btn-danger {
-    margin-left: 40px;
-  }
 
   textarea {
     background: $medium-gray;
@@ -19,4 +19,80 @@
 .campaign_name,
 .campaign_from_name {
   margin-right: 20px;
+}
+
+.metrics {
+  @include display(flex);
+  margin-bottom: 10px;
+  margin-top: 70px;
+
+  > div {
+    @include flex(1);
+  }
+
+  h3 {
+    float: left;
+    font-size: 34px;
+    font-weight: normal;
+  }
+
+  span {
+    display: block;
+    font-size: 15px;
+    font-weight: normal;
+  }
+
+  .totals {
+    @include flex(1 1 50px);
+
+    h3 {
+      font-weight: bold;
+    }
+  }
+
+  .box {
+    background-color: $light-gray;
+    float: left;
+    height: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 20px;
+  }
+
+  .delivered .box {
+    background-color: $action-color;
+  }
+
+  .bounces .box {
+    background-color: $light-red;
+  }
+}
+
+.progress {
+  @include clearfix;
+
+  span {
+    float: left;
+    height: 4px;
+
+    &:first-child {
+      border-bottom-left-radius: 2px;
+      border-top-left-radius: 2px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+  }
+
+  .delivered {
+    background-color: $action-color;
+    width: 100px;
+  }
+
+  .unsent {
+    background-color: $light-gray;
+    width: 200px;
+  }
 }

@@ -10,6 +10,10 @@ class CampaignsController < ApplicationController
     @campaigns = @campaigns.recents unless current_scopes.key?(:sort)
   end
 
+  def show
+    @metrics = MetricsPresenter.new @campaign, view_context
+  end
+
   def new
     @campaign = current_account.campaigns.new
   end

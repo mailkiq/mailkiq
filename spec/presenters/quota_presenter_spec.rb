@@ -13,9 +13,11 @@ describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
 
   describe '#quota' do
     it 'caches send quota numbers from SES' do
-      expect(subject).to receive(:cache).with(:quota).and_call_original
-      expect(subject.quota)
-        .to be_instance_of Aws::SES::Types::GetSendQuotaResponse
+      expect(subject).to receive(:cache)
+        .with(:quota, serializer: Aws::SES::Types::GetSendQuotaResponse)
+        .and_call_original
+
+      expect(subject.quota).to be_instance_of Aws::SES::Types::GetSendQuotaResponse
     end
   end
 

@@ -58,10 +58,7 @@ describe SubscribersController, type: :controller do
       let(:subscriber) { Fabricate.build :subscriber, id: 1 }
 
       before do
-        expect(account).to receive_message_chain(:subscribers, :find)
-          .with(subscriber.id.to_s)
-          .and_return(subscriber)
-
+        mock!
         get :edit, id: subscriber.id
       end
 

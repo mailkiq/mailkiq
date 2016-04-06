@@ -12,15 +12,6 @@ describe DeliveriesController, type: :controller do
     sign_in account
   end
 
-  describe 'GET /campaigns/:campaign_id/delivery' do
-    before { get :show, campaign_id: campaign.id }
-
-    it { is_expected.to respond_with :success }
-    it { is_expected.to use_before_action :authenticate_account! }
-    it { is_expected.to use_before_action :find_campaign }
-    it { is_expected.to render_template :show }
-  end
-
   describe 'GET /campaigns/:campaign_id/delivery/new' do
     before { get :new, campaign_id: campaign.id }
 
@@ -46,7 +37,7 @@ describe DeliveriesController, type: :controller do
     it { is_expected.to use_before_action :authenticate_account! }
     it { is_expected.to use_before_action :find_campaign }
     it { is_expected.to respond_with :redirect }
-    it { is_expected.to redirect_to campaign_delivery_path(campaign) }
+    it { is_expected.to redirect_to campaign_path(campaign) }
     it { is_expected.to set_flash[:notice] }
     it do
       is_expected.to permit(tagged_with: [], not_tagged_with: [])

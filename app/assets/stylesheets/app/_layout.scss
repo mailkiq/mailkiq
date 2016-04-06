@@ -5,15 +5,15 @@ h2 {
     float: right;
   }
 
-  .count {
-    color: $medium-gray;
-    display: block;
-    font-size: 12px;
-    font-weight: normal;
-  }
-
   + form {
     margin-top: 60px;
+  }
+
+  small {
+    color: $medium-gray;
+    display: block;
+    font-size: 15px;
+    font-weight: normal;
   }
 }
 

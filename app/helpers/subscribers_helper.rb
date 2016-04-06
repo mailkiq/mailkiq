@@ -8,7 +8,7 @@ module SubscribersHelper
     deleted: :danger
   }
 
-  def state_tag(state)
+  def subscriber_state_tag(state)
     variation = COLORS[state.to_sym]
     content_tag :span, state.capitalize, class: "label-#{variation}"
   end

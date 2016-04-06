@@ -31,6 +31,10 @@ class Campaign < ActiveRecord::Base
     @queue ||= CampaignQueue.new(self)
   end
 
+  def unsent_count
+    recipients_count - messages_count.value
+  end
+
   def from
     "#{from_name} <#{from_email}>"
   end

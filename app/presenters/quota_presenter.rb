@@ -1,17 +1,12 @@
-class QuotaPresenter < SimpleDelegator
-  attr_reader :account
-
-  def initialize(account, view_context)
-    @account = account
-    __setobj__ view_context
-  end
+class QuotaPresenter < BasePresenter
+  alias account record
 
   delegate :max_24_hour_send, :max_send_rate, :sent_last_24_hours, to: :quota
 
   def quota
-    @quota ||= Aws::SES::Types::GetSendQuotaResponse.new(
-      cache(:quota) { ses.get_send_quota.as_json }
-    )
+    cache :quota, serializer: Aws::SES::Types::GetSendQuotaResponse do
+      ses.get_send_quota.as_json
+    end
   end
 
   def sandbox?
@@ -53,7 +48,9 @@ class QuotaPresenter < SimpleDelegator
     @ses ||= Aws::SES::Client.new(account.credentials)
   end
 
-  def cache(name, &block)
-    Rails.cache.fetch("#{account.cache_key}/#{name}", expires_in: 1.day, &block)
+  def cache(name, serializer: nil, &block)
+    cache_key = "#{account.cache_key}/#{name}"
+    value = Rails.cache.fetch(cache_key, expires_in: 1.day, &block)
+    serializer ? serializer.new(value) : value
   end
 end

@@ -26,6 +26,17 @@ describe CampaignsController, type: :controller do
       it { is_expected.to have_scope :page }
     end
 
+    describe 'GET /campaigns/:id' do
+      before do
+        mock!
+        get :show, id: campaign.id
+      end
+
+      it { is_expected.to use_before_action :authenticate_account! }
+      it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :show }
+    end
+
     describe 'GET /campaigns/new' do
       before do
         expect(account).to receive_message_chain(:campaigns, :new)
@@ -61,10 +72,7 @@ describe CampaignsController, type: :controller do
 
     describe 'GET /campaigns/:id/edit' do
       before do
-        expect(account).to receive_message_chain(:campaigns, :find)
-          .with(campaign.id.to_s)
-          .and_return(campaign)
-
+        mock!
         get :edit, id: campaign.id
       end
 

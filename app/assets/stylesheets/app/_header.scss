@@ -1,6 +1,6 @@
 .header {
-  @include box-sizing(border-box);
   background: $header-background-color;
+  box-sizing: border-box;
 
   a {
     @include transition(all .2s ease-in-out);

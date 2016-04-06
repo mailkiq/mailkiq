@@ -26,11 +26,11 @@
   }
 
   .box {
-    @include box-sizing(border-box);
-    @include animation-name(hidePanel);
     @include animation-duration(300ms);
+    @include animation-name(hidePanel);
     @include animation-timing-function(ease);
     background: $white;
+    box-sizing: border-box;
     padding: 50px 85px;
     width: 980px;
   }

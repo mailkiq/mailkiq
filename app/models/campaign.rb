@@ -3,7 +3,10 @@ class Campaign < ActiveRecord::Base
   include Sortable
 
   validates :from_email, presence: true, email: true, domain: true
-  validates_presence_of :name, :subject, :from_name, :html_text
+  validates_presence_of :name, :subject, :from_name
+  validates_presence_of :html_text, unless: :plain_text?
+  validates_presence_of :plain_text, unless: :html_text?
+
   validates_uniqueness_of :name, scope: :account_id
   validate :validate_from_field, if: :from?
 

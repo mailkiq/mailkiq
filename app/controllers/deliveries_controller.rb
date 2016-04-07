@@ -3,14 +3,14 @@ class DeliveriesController < ApplicationController
   before_action :find_campaign
 
   def new
-    @delivery = Delivery.new account: current_account
+    @delivery = Delivery.new campaign: @campaign
   end
 
   def create
-    @deliver = Delivery.new deliver_params
-    @deliver.campaign = @campaign
-    @deliver.save
-    respond_with @deliver, location: campaign_path(@campaign)
+    @delivery = Delivery.new deliver_params
+    @delivery.campaign = @campaign
+    @delivery.save
+    respond_with @delivery, location: campaign_path(@campaign)
   end
 
   private

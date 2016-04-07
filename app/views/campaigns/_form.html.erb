@@ -14,10 +14,12 @@
   <div class="tabs first">
     <div class="tab active" data-tab="html_text">
       <%= f.input_field :html_text, rows: 14 %>
+      <%= f.error :html_text %>
     </div>
 
     <div class="tab" data-tab="plain_text">
       <%= f.input_field :plain_text, rows: 14 %>
+      <%= f.error :plain_text %>
     </div>
   </div>
 

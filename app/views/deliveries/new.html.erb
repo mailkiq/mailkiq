@@ -1,6 +1,8 @@
 <h2><%= page_title %></h2>
 
 <%= simple_form_for @delivery, url: campaign_delivery_path(@campaign) do |f| %>
+  <%= f.error :base %>
+
   <%= f.input :tagged_with, as: :select, collection: @delivery.tags,
                             input_html: { multiple: true, style: 'width: 100%' } %>
 

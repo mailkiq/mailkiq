@@ -77,7 +77,6 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :authenticate_account! }
-      it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :edit }
     end
@@ -92,7 +91,6 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :authenticate_account! }
-      it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
@@ -113,7 +111,6 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :authenticate_account! }
-      it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :redirect }
       it { is_expected.to redirect_to campaigns_path }
       it { is_expected.to set_flash[:notice] }
@@ -126,7 +123,6 @@ describe CampaignsController, type: :controller do
       end
 
       it { is_expected.to use_before_action :authenticate_account! }
-      it { is_expected.to use_before_action :find_campaign }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :preview }
       it { is_expected.to_not render_with_layout }
@@ -134,8 +130,11 @@ describe CampaignsController, type: :controller do
   end
 
   def mock!
-    allow(account).to receive_message_chain(:campaigns, :find)
-      .with(campaign.id.to_s)
+    relation = double
+
+    allow(relation).to receive(:find).with(campaign.id.to_s).and_return(campaign)
+    allow(relation).to receive_message_chain(:unsent, :find).with(campaign.id.to_s)
       .and_return(campaign)
+    allow(account).to receive_message_chain(:campaigns).and_return(relation)
   end
 end

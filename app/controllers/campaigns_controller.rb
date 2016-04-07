@@ -1,6 +1,5 @@
 class CampaignsController < ApplicationController
   before_action :authenticate_account!
-  before_action :find_campaign, except: [:index, :new, :create]
 
   has_scope :page, default: 1
   has_scope :sort
@@ -11,6 +10,7 @@ class CampaignsController < ApplicationController
   end
 
   def show
+    @campaign = current_account.campaigns.find params[:id]
     @metrics = MetricsPresenter.new @campaign, view_context
   end
 
@@ -24,24 +24,29 @@ class CampaignsController < ApplicationController
   end
 
   def edit
+    @campaign = current_account.campaigns.unsent.find params[:id]
   end
 
   def update
+    @campaign = current_account.campaigns.unsent.find params[:id]
     @campaign.update campaign_params
     respond_with @campaign, location: campaigns_path
   end
 
   def destroy
+    @campaign = current_account.campaigns.find params[:id]
     @campaign.destroy
     @campaign.queue.clear
     respond_with @campaign, location: campaigns_path
   end
 
   def preview
+    @campaign = current_account.campaigns.find params[:id]
     render layout: false
   end
 
   def duplicate
+    @campaign = current_account.campaigns.find params[:id]
     @new_campaign = @campaign.duplicate
     @new_campaign.save
     respond_with @new_campaign, flash_now: false do |format|
@@ -50,10 +55,6 @@ class CampaignsController < ApplicationController
   end
 
   private
-
-  def find_campaign
-    @campaign = current_account.campaigns.find params[:id]
-  end
 
   def campaign_params
     params.require(:campaign).permit :name, :subject, :from_name, :from_email,

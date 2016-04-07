@@ -17,7 +17,13 @@
   <tbody>
     <% @campaigns.each do |campaign| %>
       <tr>
-        <td><%= link_to truncate(campaign.name, length: 50), campaign_path(campaign), title: campaign.name %></td>
+        <td>
+          <% if campaign.sent_at? %>
+            <%= link_to truncate(campaign.name, length: 50), campaign_path(campaign), title: campaign.name %>
+          <% else %>
+            <%= truncate campaign.name, length: 50 %>
+          <% end %>
+        </td>
         <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
           <%= number_with_delimiter campaign.unique_opens_count %>
@@ -29,7 +35,7 @@
         </td>
         <td>
           <% if campaign.sent_at? %>
-            <%= time_tag campaign.sent_at, format: '%d/%m/%Y' %>
+            <%= time_tag campaign.sent_at, format: :short %>
           <% else %>
             -
           <% end %>
@@ -40,9 +46,9 @@
 
             <ul class="dropdown-menu simple-dropdown-menu animated">
               <%= action_link_to :view, preview_campaign_path(campaign) %>
-              <%= action_link_to :send, new_campaign_delivery_path(campaign) %>
+              <%= action_link_to :send, new_campaign_delivery_path(campaign) unless campaign.sent_at? %>
               <%= action_link_to :addfile, duplicate_campaign_path(campaign), method: :post %>
-              <%= action_link_to :pen, edit_campaign_path(campaign) %>
+              <%= action_link_to :pen, edit_campaign_path(campaign) unless campaign.sent_at? %>
               <%= action_link_to :trash, campaign_path(campaign), method: :delete %>
             </ul>
           </div>

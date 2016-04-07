@@ -20,7 +20,7 @@ class ProgressPresenter < BasePresenter
     count = campaign.send("#{counter_name}_count")
     count = count.value if count.respond_to? :value
 
-    count / total
+    count / total * 100
   end
 
   def bar(counter_name, value: nil)

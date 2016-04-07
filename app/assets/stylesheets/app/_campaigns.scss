@@ -1,5 +1,6 @@
 .table td:first-child a {
   color: $dark-gray;
+  text-decoration: underline;
 }
 
 .campaign-form {
@@ -70,20 +71,12 @@
 
 .progress {
   @include clearfix;
+  border-radius: 3px;
+  overflow: hidden;
 
   span {
     float: left;
     height: 4px;
-
-    &:first-child {
-      border-bottom-left-radius: 2px;
-      border-top-left-radius: 2px;
-    }
-
-    &:last-child {
-      border-bottom-right-radius: 2px;
-      border-top-right-radius: 2px;
-    }
   }
 
   .delivered {

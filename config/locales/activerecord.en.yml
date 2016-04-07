@@ -10,3 +10,10 @@ en:
           unverified_email_address: 'is not verified'
           unverified_domain: 'domain is not verified'
           unstructured_from: 'has forbidden characters'
+  activemodel:
+    errors:
+      models:
+        delivery:
+          attributes:
+            base:
+              credits_exceeded: 'Credits exceeded.'

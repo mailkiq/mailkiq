@@ -14,6 +14,7 @@ class Campaign < ActiveRecord::Base
   belongs_to :account
 
   scope :sent, -> { where.not sent_at: nil }
+  scope :unsent, -> { where sent_at: nil }
 
   delegate :credentials, :domain_names, to: :account, prefix: true
 

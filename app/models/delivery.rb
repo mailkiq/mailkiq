@@ -1,8 +1,8 @@
 class Delivery
   include ActiveModel::Model
 
-  attr_accessor :account, :campaign, :tagged_with, :not_tagged_with
-
+  attr_accessor :campaign, :tagged_with, :not_tagged_with
+  delegate :account, to: :campaign
   validate :validate_enough_credits
 
   def save
@@ -17,14 +17,12 @@ class Delivery
   private
 
   def validate_enough_credits
-    segment = Segment.new(
-      account: campaign.account,
-      tagged_with: tagged_with,
-      not_tagged_with: not_tagged_with
-    )
+    segment = Segment.new account: account,
+                          tagged_with: tagged_with,
+                          not_tagged_with: not_tagged_with
 
-    unless account.exceeded_credits?(segment.count)
-      record.errors.add :base, :exceeded_credits
+    if account.credits_exceed?(segment.count)
+      errors.add :base, :credits_exceeded
     end
   end
 end

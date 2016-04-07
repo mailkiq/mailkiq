@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Delivery, type: :model do
-  it { is_expected.to have_attr_accessor :account }
   it { is_expected.to have_attr_accessor :campaign }
   it { is_expected.to have_attr_accessor :tagged_with }
   it { is_expected.to have_attr_accessor :not_tagged_with  }

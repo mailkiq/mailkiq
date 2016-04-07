@@ -49,7 +49,7 @@ http_interactions:
                 <key>example.com</key>
                 <value>
                   <VerificationToken>G8qYlxUb5fkAus3eY/tp83XPKI0RvChrEfjYl4aEn7s=</VerificationToken>
-                  <VerificationStatus>Pending</VerificationStatus>
+                  <VerificationStatus>Success</VerificationStatus>
                 </value>
               </entry>
             </VerificationAttributes>

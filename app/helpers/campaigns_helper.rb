@@ -1,9 +1,11 @@
 module CampaignsHelper
-  def percentage_badge_tag(number, total)
-    value = number.to_f * 100 / (total.zero? ? 1 : total)
-    precision = value.zero? ? 0 : 1
-    percentage = number_to_percentage(value, precision: precision)
-    content_tag :span, percentage, class: 'label-percentage'
+  def campaign_percentage_tag(campaign, counter_name)
+    count = campaign.send(counter_name).to_f
+    total = (campaign.recipients_count.zero? ? 1 : campaign.recipients_count)
+    value = count * 100 / total
+    percentage = number_to_percentage(value, precision: value.zero? ? 0 : 1)
+
+    content_tag :span, percentage, class: 'campaign-percentage'
   end
 
   def campaign_progress_tag(campaign)

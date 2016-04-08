@@ -3,6 +3,22 @@
   text-decoration: underline;
 }
 
+.campaign-percentage {
+  background: $yellow;
+  border-radius: 25px;
+  color: $dark-gray;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  height: 45px;
+  line-height: 45px;
+  margin-left: 5px;
+  margin-top: -11px;
+  position: absolute;
+  text-align: center;
+  width: 45px;
+}
+
 .campaign-form {
   @include clearfix;
 
@@ -21,6 +37,7 @@
 .campaign_from_name {
   margin-right: 20px;
 }
+
 
 .metrics {
   @include display(flex);

@@ -21,7 +21,6 @@ SimpleForm.setup do |config|
   config.button_class = 'btn'
   config.error_notification_tag = :div
   config.error_notification_class = 'error_notification'
-  config.form_class = 'simple-form'
   config.browser_validations = false
   config.boolean_label_class = 'checkbox'
 end

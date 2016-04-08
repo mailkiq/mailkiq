@@ -1,7 +1,14 @@
-#subscriber_state {
-  width: 100%;
-}
+.subscriber-form {
+  input,
+  select {
+    margin-bottom: 35px;
+  }
 
-.subscriber-form > .input {
-  width: 50%;
+  select {
+    width: 100%;
+  }
+
+  .input {
+    width: 50%;
+  }
 }

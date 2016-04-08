@@ -2,10 +2,6 @@
   color: $success-color;
 }
 
-.label-default {
-  color: shade($light-gray, 20%);
-}
-
 .label-warning {
   color: $warning-color;
 }
@@ -14,17 +10,6 @@
   color: $danger-color;
 }
 
-.label-percentage {
-  background: $yellow;
-  border-radius: 25px;
-  color: $dark-gray;
-  display: inline-block;
-  font-size: 12px;
-  height: 45px;
-  line-height: 45px;
-  margin-left: 5px;
-  margin-top: -11px;
-  position: absolute;
-  text-align: center;
-  width: 45px;
+.label-default {
+  color: shade($light-gray, 20%);
 }

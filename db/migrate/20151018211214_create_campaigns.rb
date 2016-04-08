@@ -17,10 +17,11 @@ class CreateCampaigns < ActiveRecord::Migration
       t.integer :bounces_count, null: false, default: 0
       t.integer :complaints_count, null: false, default: 0
 
-      t.belongs_to :account, null: false, index: true, foreign_key: true
+      t.belongs_to :account, null: false, index: true
 
       t.datetime :sent_at
       t.timestamps null: false
+      t.foreign_key :accounts, on_delete: :cascade
       t.index [:name, :account_id], unique: true
     end
   end

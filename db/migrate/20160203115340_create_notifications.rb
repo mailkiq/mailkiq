@@ -3,7 +3,8 @@ class CreateNotifications < ActiveRecord::Migration
     create_table :notifications do |t|
       t.integer :type, null: false
       t.jsonb :data, null: false
-      t.belongs_to :message, null: false, index: true, foreign_key: true
+      t.belongs_to :message, null: false, index: true
+      t.foreign_key :messages, on_delete: :cascade
     end
   end
 end

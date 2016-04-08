@@ -15,12 +15,12 @@ describe Account, type: :model do
     is_expected.to validate_inclusion_of(:aws_region).in_array Account::REGIONS
   end
 
+  it { is_expected.to belong_to :plan }
   it { is_expected.to have_db_index(:email).unique }
-  it { is_expected.to have_many(:campaigns).dependent :destroy }
-  it { is_expected.to have_many(:subscribers).dependent :delete_all }
-  it { is_expected.to have_many(:tags).dependent :delete_all }
+  it { is_expected.to have_many :campaigns }
+  it { is_expected.to have_many :subscribers }
+  it { is_expected.to have_many :tags }
   it { is_expected.to have_many(:domains).dependent :destroy }
-  it { is_expected.to belong_to(:plan) }
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
   it { is_expected.to delegate_method(:credits).to(:plan).with_prefix }

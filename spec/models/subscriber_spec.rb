@@ -14,8 +14,8 @@ describe Subscriber, type: :model do
   it { is_expected.to have_db_index :custom_fields }
   it { is_expected.to have_db_index([:account_id, :email]).unique }
   it { is_expected.to belong_to :account }
-  it { is_expected.to have_many(:messages).dependent :delete_all }
-  it { is_expected.to have_many(:taggings).dependent :delete_all }
+  it { is_expected.to have_many :messages }
+  it { is_expected.to have_many :taggings }
   it { is_expected.to have_many(:tags).through :taggings }
   it do
     is_expected.to have_db_column(:custom_fields)

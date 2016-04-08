@@ -5,8 +5,9 @@ class CreateSubscribers < ActiveRecord::Migration
       t.citext :email, null: false
       t.integer :state, null: false
       t.jsonb :custom_fields, null: false, default: {}
-      t.belongs_to :account, null: false, index: true, foreign_key: true
+      t.belongs_to :account, null: false, index: true
       t.timestamps null: false
+      t.foreign_key :accounts, on_delete: :cascade
       t.index [:account_id, :email], unique: true
       t.index :custom_fields, using: :gin
     end

@@ -12,9 +12,9 @@ class Account < ActiveRecord::Base
   validates_with AccessKeysValidator, if: :validate_access_keys?
 
   belongs_to :plan
-  has_many :campaigns, dependent: :destroy
-  has_many :subscribers, dependent: :delete_all
-  has_many :tags, dependent: :delete_all
+  has_many :campaigns
+  has_many :subscribers
+  has_many :tags
   has_many :domains, dependent: :destroy
 
   delegate :domain_names, to: :domains

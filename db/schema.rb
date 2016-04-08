@@ -155,13 +155,13 @@ ActiveRecord::Schema.define(version: 20160222132702) do
   add_index "tags", ["slug", "account_id"], name: "index_tags_on_slug_and_account_id", unique: true, using: :btree
 
   add_foreign_key "accounts", "plans"
-  add_foreign_key "campaigns", "accounts"
+  add_foreign_key "campaigns", "accounts", on_delete: :cascade
   add_foreign_key "domains", "accounts"
-  add_foreign_key "messages", "campaigns"
-  add_foreign_key "messages", "subscribers"
-  add_foreign_key "notifications", "messages"
-  add_foreign_key "subscribers", "accounts"
+  add_foreign_key "messages", "campaigns", on_delete: :cascade
+  add_foreign_key "messages", "subscribers", on_delete: :cascade
+  add_foreign_key "notifications", "messages", on_delete: :cascade
+  add_foreign_key "subscribers", "accounts", on_delete: :cascade
   add_foreign_key "taggings", "subscribers"
   add_foreign_key "taggings", "tags"
-  add_foreign_key "tags", "accounts"
+  add_foreign_key "tags", "accounts", on_delete: :cascade
 end

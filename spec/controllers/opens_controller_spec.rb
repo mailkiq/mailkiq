@@ -10,8 +10,11 @@ describe OpensController, type: :controller do
 
       expect(message).to receive(:see!).and_call_original
       expect(message).to receive(:save!)
+
       expect(Message).to receive(:find_by).with(token: 'value')
         .and_return(message)
+      expect(Campaign).to receive(:increment_counter)
+        .with(:unique_opens_count, message.id)
 
       expect(controller).to receive(:send_data)
         .with(pixel, type: 'image/gif', disposition: :inline)

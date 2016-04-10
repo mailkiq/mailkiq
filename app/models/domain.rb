@@ -19,7 +19,9 @@ class Domain < ActiveRecord::Base
   delegate :verify!, :update!, :delete!, to: :identity, prefix: true
   delegate :credentials, :aws_topic_arn, to: :account, prefix: true
 
-  scope :succeed, -> { where verification_status: STATUS.index(:success) }
+  def self.succeed
+    where verification_status: verification_statuses[:success]
+  end
 
   def self.domain_names
     succeed.pluck(:name)

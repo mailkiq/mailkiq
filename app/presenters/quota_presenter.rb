@@ -30,7 +30,7 @@ class QuotaPresenter < BasePresenter
   def send_statistics
     cache :send_statistics do
       values = ses.get_send_statistics.send_data_points
-      values.group_by { |data| data.timestamp.to_date }.map do |k, v|
+      values = values.group_by { |data| data.timestamp.to_date }.map do |k, v|
         {
           Timestamp: k,
           Complaints: v.map(&:complaints).inject(:+),
@@ -39,6 +39,7 @@ class QuotaPresenter < BasePresenter
           DeliveryAttempts: v.map(&:delivery_attempts).inject(:+)
         }
       end
+      values.sort_by! { |hash| hash[:Timestamp] }
     end
   end
 

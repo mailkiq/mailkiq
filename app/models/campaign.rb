@@ -53,7 +53,10 @@ class Campaign < ActiveRecord::Base
                                  sent_at: nil,
                                  recipients_count: 0,
                                  unique_opens_count: 0,
-                                 unique_clicks_count: 0
+                                 unique_clicks_count: 0,
+                                 rejects_count: 0,
+                                 bounces_count: 0,
+                                 complaints_count: 0
     end
   end
 

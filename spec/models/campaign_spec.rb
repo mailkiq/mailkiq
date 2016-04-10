@@ -75,14 +75,20 @@ describe Campaign, type: :model do
   describe '#duplicate' do
     it 'duplicates current record' do
       campaign = Fabricate.build(:campaign)
+
+      expect_any_instance_of(Campaign).to receive(:assign_attributes)
+        .with(name: 'The Truth About Wheat copy',
+              sent_at: nil,
+              recipients_count: 0,
+              unique_opens_count: 0,
+              unique_clicks_count: 0,
+              rejects_count: 0,
+              bounces_count: 0,
+              complaints_count: 0)
+
       cloned_campaign = campaign.duplicate
 
       expect(cloned_campaign).not_to be_persisted
-      expect(cloned_campaign.name).to end_with(' copy')
-      expect(cloned_campaign.sent_at).to be_nil
-      expect(cloned_campaign[:recipients_count]).to be_zero
-      expect(cloned_campaign[:unique_opens_count]).to be_zero
-      expect(cloned_campaign[:unique_clicks_count]).to be_zero
     end
   end
 

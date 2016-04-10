@@ -1,34 +1,54 @@
-<h2><%= @campaign.name %> <small><%= l Time.now, format: :long %></small></h2>
+<h2><%= @campaign.name %> <small><%= l @campaign.sent_at, format: :long %></small></h2>
 
 <div class="metrics">
   <div class="totals">
-    <h3><%= @campaign.recipients_count %> <span>emails sent</span></h3>
+    <h3><%= @campaign.recipients_count %> <span><%= t '.emails_sent' %></span></h3>
   </div>
 
   <div class="delivered">
     <div class="box"></div>
-    <h3><%= @metrics.delivered %> <span>delivered</span></h3>
+    <h3><%= @metrics.delivered %> <span><%= t '.delivered' %></span></h3>
   </div>
 
   <div class="bounces">
     <div class="box"></div>
-    <h3><%= @metrics.bounces %> <span>bounces</span></h3>
+    <h3><%= @metrics.bounces %> <span><%= t '.bounces' %></span></h3>
   </div>
 
   <div class="complaints">
     <div class="box"></div>
-    <h3><%= @metrics.complaints %> <span>complaints</span></h3>
+    <h3><%= @metrics.complaints %> <span><%= t '.complaints' %></span></h3>
   </div>
 
   <div class="rejects">
     <div class="box"></div>
-    <h3><%= @metrics.rejects %> <span>rejects</span></h3>
+    <h3><%= @metrics.rejects %> <span><%= t '.rejects' %></span></h3>
   </div>
 
   <div class="unsent">
     <div class="box"></div>
-    <h3><%= @metrics.unsent %> <span>unsent</span></h3>
+    <h3><%= @metrics.unsent %> <span><%= t '.unsent' %></span></h3>
   </div>
 </div>
 
 <%= campaign_progress_tag @campaign %>
+
+<div class="rates">
+  <div class="opens">
+    <h3>
+      <%= t '.open_rate' %>
+      <%= campaign_percentage_tag @campaign, :unique_opens_count, css_class: 'percentage' %>
+    </h3>
+
+    <%= campaign_meter_tag @campaign, :unique_opens_count %>
+  </div>
+
+  <div class="clicks">
+    <h3>
+      <%= t '.click_rate' %>
+      <%= campaign_percentage_tag @campaign, :unique_clicks_count, css_class: 'percentage' %>
+    </h3>
+
+    <%= campaign_meter_tag @campaign, :unique_clicks_count %>
+  </div>
+</div>

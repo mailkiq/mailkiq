@@ -38,7 +38,6 @@
   margin-right: 20px;
 }
 
-
 .metrics {
   @include display(flex);
   margin-bottom: 10px;
@@ -86,14 +85,23 @@
   }
 }
 
-.progress {
-  @include clearfix;
+.meter {
   border-radius: 3px;
+  height: 4px;
   overflow: hidden;
 
   span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+  }
+}
+
+.progress {
+  @include clearfix;
+
+  span {
     float: left;
-    height: 4px;
   }
 
   .messages {
@@ -104,5 +112,38 @@
   .unsent {
     background-color: $light-gray;
     width: 200px;
+  }
+}
+
+.rates {
+  @include display(flex);
+  margin-top: 80px;
+
+  > div {
+    @include flex(1);
+    border-top: 2px solid #e4e4e4;
+    padding-top: 20px;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 35px;
+
+    span {
+      float: right;
+    }
+  }
+
+  .meter {
+    background: $light-gray;
+
+    span {
+      background-color: $action-color;
+    }
+  }
+
+  .clicks {
+    margin-left: 190px;
   }
 }

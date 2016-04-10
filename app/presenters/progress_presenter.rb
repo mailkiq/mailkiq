@@ -2,7 +2,7 @@ class ProgressPresenter < BasePresenter
   alias campaign record
 
   def render
-    content_tag :div, class: :progress do
+    content_tag :div, class: 'meter progress' do
       bar :messages
       bar :bounces
       bar :complaints
@@ -24,7 +24,7 @@ class ProgressPresenter < BasePresenter
   end
 
   def bar(counter_name, value: nil)
-    width = (value.nil? ? percentage_for(counter_name) : value) * 980 / 100
-    concat content_tag(:span, nil, style: "width: #{width}px", class: counter_name)
+    width = value || percentage_for(counter_name)
+    concat content_tag(:span, nil, style: "width: #{width}%", class: counter_name)
   end
 end

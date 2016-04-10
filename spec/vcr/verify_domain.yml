@@ -12,16 +12,16 @@ http_interactions:
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
       X-Amz-Date:
-      - 20160329T221314Z
+      - 20160410T143759Z
       Host:
       - email.us-east-1.amazonaws.com
       X-Amz-Content-Sha256:
       - 781e8c1098864fb82ac6a41101a732b4eb717748253eda782553b5a6592887e0
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/ses/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=c7ef875135eaef4e874917468c8c16184423d33dc0de2303ee22358a92aceac1
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=99822f7055f9b5880099f4af5ab16b82e0de72821dd86343b6936ffab032b55f
       Content-Length:
       - '65'
       Accept:
@@ -32,13 +32,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 6f399806-f5fb-11e5-bec8-59e3a97e09e6
+      - d329770b-ff29-11e5-ba10-7b144616532d
       Content-Type:
       - text/xml
       Content-Length:
       - '370'
       Date:
-      - Tue, 29 Mar 2016 22:13:14 GMT
+      - Sun, 10 Apr 2016 14:38:00 GMT
     body:
       encoding: UTF-8
       string: |
@@ -47,11 +47,11 @@ http_interactions:
             <VerificationToken>G8qYlxUb5fkAus3eY/tp83XPKI0RvChrEfjYl4aEn7s=</VerificationToken>
           </VerifyDomainIdentityResult>
           <ResponseMetadata>
-            <RequestId>6f399806-f5fb-11e5-bec8-59e3a97e09e6</RequestId>
+            <RequestId>d329770b-ff29-11e5-ba10-7b144616532d</RequestId>
           </ResponseMetadata>
         </VerifyDomainIdentityResponse>
     http_version: 
-  recorded_at: Tue, 29 Mar 2016 22:13:15 GMT
+  recorded_at: Sun, 10 Apr 2016 14:38:00 GMT
 - request:
     method: post
     uri: https://email.us-east-1.amazonaws.com/
@@ -64,16 +64,16 @@ http_interactions:
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
       X-Amz-Date:
-      - 20160329T221315Z
+      - 20160410T143800Z
       Host:
       - email.us-east-1.amazonaws.com
       X-Amz-Content-Sha256:
       - 77cdc053dca36d4746fc28264ab1bd1017138500e518bf32c8c8a3d8b8134697
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/ses/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=ad0fd8d50dba2f2adc8fd3ecded0bb10fd9f25a98fe100d15e895380da1214ff
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=c8dff92bc404dd4066ec3428ff50d1e9007672c5898a4696affb5c629c22c49a
       Content-Length:
       - '61'
       Accept:
@@ -84,13 +84,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 6f9c794e-f5fb-11e5-8dd9-153aeef4d228
+      - d38c56e8-ff29-11e5-81a1-874926822c4d
       Content-Type:
       - text/xml
       Content-Length:
       - '469'
       Date:
-      - Tue, 29 Mar 2016 22:13:15 GMT
+      - Sun, 10 Apr 2016 14:38:01 GMT
     body:
       encoding: UTF-8
       string: |
@@ -103,35 +103,35 @@ http_interactions:
             </DkimTokens>
           </VerifyDomainDkimResult>
           <ResponseMetadata>
-            <RequestId>6f9c794e-f5fb-11e5-8dd9-153aeef4d228</RequestId>
+            <RequestId>d38c56e8-ff29-11e5-81a1-874926822c4d</RequestId>
           </ResponseMetadata>
         </VerifyDomainDkimResponse>
     http_version: 
-  recorded_at: Tue, 29 Mar 2016 22:13:16 GMT
+  recorded_at: Sun, 10 Apr 2016 14:38:01 GMT
 - request:
     method: post
     uri: https://email.us-east-1.amazonaws.com/
     body:
       encoding: UTF-8
-      string: Action=SetIdentityNotificationTopic&Identity=example.com&NotificationType=Bounce&SnsTopic=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq-&Version=2010-12-01
+      string: Action=SetIdentityNotificationTopic&Identity=example.com&NotificationType=Bounce&SnsTopic=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq-2&Version=2010-12-01
     headers:
       Content-Type:
       - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
       X-Amz-Date:
-      - 20160329T221316Z
+      - 20160410T143801Z
       Host:
       - email.us-east-1.amazonaws.com
       X-Amz-Content-Sha256:
-      - 7489877e3d7f06281ae60bca309f3706d83cbdf568c3c07ba4584f2cd086bc90
+      - f23ea74d4d9e6bfe53d20f71809e1819432582caaa436d7d42aa01621841388f
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/ses/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=c34061efb16b710fb7d937c97ec71e1993caab9090d2cefc02134a745a4fab66
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=fd8a373480ec706819a83e6102034b4036c38645c5f9a7f680115acb3a29f69c
       Content-Length:
-      - '162'
+      - '163'
       Accept:
       - "*/*"
   response:
@@ -140,46 +140,96 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 6fffce7f-f5fb-11e5-a6cd-1f0e647e2a08
+      - d3ff63e4-ff29-11e5-a499-091fbab3fd5d
       Content-Type:
       - text/xml
       Content-Length:
       - '275'
       Date:
-      - Tue, 29 Mar 2016 22:13:16 GMT
+      - Sun, 10 Apr 2016 14:38:01 GMT
     body:
       encoding: UTF-8
       string: |
         <SetIdentityNotificationTopicResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
           <SetIdentityNotificationTopicResult/>
           <ResponseMetadata>
-            <RequestId>6fffce7f-f5fb-11e5-a6cd-1f0e647e2a08</RequestId>
+            <RequestId>d3ff63e4-ff29-11e5-a499-091fbab3fd5d</RequestId>
           </ResponseMetadata>
         </SetIdentityNotificationTopicResponse>
     http_version: 
-  recorded_at: Tue, 29 Mar 2016 22:13:17 GMT
+  recorded_at: Sun, 10 Apr 2016 14:38:02 GMT
 - request:
     method: post
     uri: https://email.us-east-1.amazonaws.com/
     body:
       encoding: UTF-8
-      string: Action=SetIdentityNotificationTopic&Identity=example.com&NotificationType=Complaint&SnsTopic=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq-&Version=2010-12-01
+      string: Action=SetIdentityNotificationTopic&Identity=example.com&NotificationType=Complaint&SnsTopic=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq-2&Version=2010-12-01
     headers:
       Content-Type:
       - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
       X-Amz-Date:
-      - 20160329T221317Z
+      - 20160410T143802Z
       Host:
       - email.us-east-1.amazonaws.com
       X-Amz-Content-Sha256:
-      - 39fb6ed6fdca34598ed022dee567d232dbd9f8de913daeecfbc59066e34ea573
+      - 7cdf4eca24a9c2ac559b441d91f66c54d314c806170226339ccf21718bbb2e82
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/ses/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=cd4f28ebafb9f2beb400356f91799fadf533eb7d1f6cea0f412aede247db6046
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=3fd3f81e84ddeb45bdc82c31b10847d71dfa17b518be1220e14d10845214ed86
+      Content-Length:
+      - '166'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - d46af73d-ff29-11e5-9a91-ab95c53088bb
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '275'
+      Date:
+      - Sun, 10 Apr 2016 14:38:02 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SetIdentityNotificationTopicResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SetIdentityNotificationTopicResult/>
+          <ResponseMetadata>
+            <RequestId>d46af73d-ff29-11e5-9a91-ab95c53088bb</RequestId>
+          </ResponseMetadata>
+        </SetIdentityNotificationTopicResponse>
+    http_version: 
+  recorded_at: Sun, 10 Apr 2016 14:38:02 GMT
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SetIdentityNotificationTopic&Identity=example.com&NotificationType=Delivery&SnsTopic=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq-2&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160410T143802Z
+      Host:
+      - email.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - 37d1c67b3812435360e52ed2f77d56cd69ff202f2ba3f5253d8d22a35b0c911e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=ab3360f4676f789b38a6a978771ddc91bfef1946ebc0bb72a05cc5a8be221838
       Content-Length:
       - '165'
       Accept:
@@ -190,74 +240,24 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 7066a6e4-f5fb-11e5-bef0-6929d5f58890
+      - d4c72198-ff29-11e5-8d09-3b74e72123a5
       Content-Type:
       - text/xml
       Content-Length:
       - '275'
       Date:
-      - Tue, 29 Mar 2016 22:13:17 GMT
+      - Sun, 10 Apr 2016 14:38:02 GMT
     body:
       encoding: UTF-8
       string: |
         <SetIdentityNotificationTopicResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
           <SetIdentityNotificationTopicResult/>
           <ResponseMetadata>
-            <RequestId>7066a6e4-f5fb-11e5-bef0-6929d5f58890</RequestId>
+            <RequestId>d4c72198-ff29-11e5-8d09-3b74e72123a5</RequestId>
           </ResponseMetadata>
         </SetIdentityNotificationTopicResponse>
     http_version: 
-  recorded_at: Tue, 29 Mar 2016 22:13:17 GMT
-- request:
-    method: post
-    uri: https://email.us-east-1.amazonaws.com/
-    body:
-      encoding: UTF-8
-      string: Action=SetIdentityNotificationTopic&Identity=example.com&NotificationType=Delivery&SnsTopic=arn%3Aaws%3Asns%3Aus-east-1%3A495707395447%3Amailkiq-&Version=2010-12-01
-    headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
-      Accept-Encoding:
-      - ''
-      User-Agent:
-      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
-      X-Amz-Date:
-      - 20160329T221317Z
-      Host:
-      - email.us-east-1.amazonaws.com
-      X-Amz-Content-Sha256:
-      - 147e8ca564146956b366300a67831d607c1e00a3c5921ebcaf48c7766a136156
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/ses/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=39ba16979b2478bf4cf495931047051d42bcffb0c72bf84c5d57ea51b1c84c4b
-      Content-Length:
-      - '164'
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      X-Amzn-Requestid:
-      - 70c42fba-f5fb-11e5-b3b4-3b385908747d
-      Content-Type:
-      - text/xml
-      Content-Length:
-      - '275'
-      Date:
-      - Tue, 29 Mar 2016 22:13:18 GMT
-    body:
-      encoding: UTF-8
-      string: |
-        <SetIdentityNotificationTopicResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
-          <SetIdentityNotificationTopicResult/>
-          <ResponseMetadata>
-            <RequestId>70c42fba-f5fb-11e5-b3b4-3b385908747d</RequestId>
-          </ResponseMetadata>
-        </SetIdentityNotificationTopicResponse>
-    http_version: 
-  recorded_at: Tue, 29 Mar 2016 22:13:18 GMT
+  recorded_at: Sun, 10 Apr 2016 14:38:03 GMT
 - request:
     method: post
     uri: https://email.us-east-1.amazonaws.com/
@@ -270,16 +270,16 @@ http_interactions:
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby2/2.2.30 ruby/2.3.0 x86_64-darwin15
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
       X-Amz-Date:
-      - 20160329T221318Z
+      - 20160410T143803Z
       Host:
       - email.us-east-1.amazonaws.com
       X-Amz-Content-Sha256:
       - 897bb85960a7a818159ea6b36e1bbb5fd2f6f7391a039c737c218b8e205742aa
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160329/us-east-1/ses/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=5e7993ed2510dc6912b2adc058c500396c969e9873cc2aa093187699820cc405
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=345a938635ecd026e56236ab06c090496841d61fb0bd2a388dbbc44927c7db45
       Content-Length:
       - '107'
       Accept:
@@ -290,22 +290,72 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 71240324-f5fb-11e5-a22a-4b21b4cc7acd
+      - d526cdb6-ff29-11e5-98c1-59323f8aba7a
       Content-Type:
       - text/xml
       Content-Length:
       - '299'
       Date:
-      - Tue, 29 Mar 2016 22:13:18 GMT
+      - Sun, 10 Apr 2016 14:38:03 GMT
     body:
       encoding: UTF-8
       string: |
         <SetIdentityFeedbackForwardingEnabledResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
           <SetIdentityFeedbackForwardingEnabledResult/>
           <ResponseMetadata>
-            <RequestId>71240324-f5fb-11e5-a22a-4b21b4cc7acd</RequestId>
+            <RequestId>d526cdb6-ff29-11e5-98c1-59323f8aba7a</RequestId>
           </ResponseMetadata>
         </SetIdentityFeedbackForwardingEnabledResponse>
     http_version: 
-  recorded_at: Tue, 29 Mar 2016 22:13:19 GMT
+  recorded_at: Sun, 10 Apr 2016 14:38:04 GMT
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SetIdentityMailFromDomain&BehaviorOnMXFailure=UseDefaultValue&Identity=example.com&MailFromDomain=bounce.example.com&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160410T143804Z
+      Host:
+      - email.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - 68ac92209f49bb635ac0f9e98760b37db29ff5c0afedfe57d2c03fae15b5b2ee
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=499e29be2ea3575c3363b9b462fd92e02d0dce915e8e62f6f205dc61be4fa853
+      Content-Length:
+      - '142'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - d579338c-ff29-11e5-ab3b-49ff5316f15c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '266'
+      Date:
+      - Sun, 10 Apr 2016 14:38:04 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SetIdentityMailFromDomainResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SetIdentityMailFromDomainResult/>
+          <ResponseMetadata>
+            <RequestId>d579338c-ff29-11e5-ab3b-49ff5316f15c</RequestId>
+          </ResponseMetadata>
+        </SetIdentityMailFromDomainResponse>
+    http_version: 
+  recorded_at: Sun, 10 Apr 2016 14:38:04 GMT
 recorded_with: VCR 3.0.1

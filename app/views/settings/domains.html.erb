@@ -21,27 +21,31 @@
   <div class="domains">
     <h2 class="subtitle"><%= t '.domains' %></h2>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th><%= t '.domain' %></th>
-          <th><%= t '.status' %></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% current_account.domains.each do |domain| %>
+    <% if current_account.domains.any? %>
+      <table class="table">
+        <thead>
           <tr>
-            <td><%= domain.name %></td>
-            <td><%= domain_status_tag domain.status %></td>
-            <td class="actions">
-              <%= icon_link_to :info, '#', class: 'open-modal icon' %>
-              <%= icon_link_to :trash, domain_path(domain), delete: true %>
-            </td>
+            <th><%= t '.domain' %></th>
+            <th><%= t '.status' %></th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% current_account.domains.each do |domain| %>
+            <tr>
+              <td><%= domain.name %></td>
+              <td><%= domain_status_tag domain.verification_status %></td>
+              <td class="actions">
+                <%= icon_link_to :info, '#', class: 'open-modal icon' %>
+                <%= icon_link_to :trash, domain_path(domain), delete: true %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>You must create a new domain to start sending e-mails, and we will give you the instructions to configure the DNS records.</p>
+    <% end %>
 
     <%= simple_form_for :domain, url: domains_path do |f| %>
       <%= f.input :name, label: false %>
@@ -65,16 +69,28 @@
         <% current_account.domains.each do |domain| %>
           <%= content_tag :tr, data: { name: domain.name } do %>
             <td>TXT</td>
-            <td><%= domain.txt_name %></td>
-            <td><%= domain.txt_value %></td>
+            <td><%= domain.records.txt_name %></td>
+            <td><%= domain.records.txt_value %></td>
           <% end %>
 
-          <% domain.cname_records.each do |cname| %>
+          <% domain.records.cnames.each do |cname| %>
             <%= content_tag :tr, data: { name: domain.name } do %>
               <td>CNAME</td>
               <td><span><%= cname.name %></span></td>
               <td><%= cname.value %></td>
             <% end %>
+          <% end %>
+
+          <%= content_tag :tr, data: { name: domain.name } do %>
+            <td>MX</td>
+            <td><%= domain.records.mx_name %></td>
+            <td><%= domain.records.mx_value %></td>
+          <% end %>
+
+          <%= content_tag :tr, data: { name: domain.name } do %>
+            <td>TXT</td>
+            <td><%= domain.records.spf_name %></td>
+            <td><%= domain.records.spf_value %></td>
           <% end %>
         <% end %>
       </tbody>

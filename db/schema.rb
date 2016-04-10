@@ -72,13 +72,15 @@ ActiveRecord::Schema.define(version: 20160222132702) do
   add_index "campaigns", ["name", "account_id"], name: "index_campaigns_on_name_and_account_id", unique: true, using: :btree
 
   create_table "domains", force: :cascade do |t|
-    t.citext   "name",               null: false
-    t.string   "verification_token", null: false
-    t.integer  "status",             null: false
-    t.text     "dkim_tokens",        null: false, array: true
-    t.integer  "account_id",         null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.citext   "name",                     null: false
+    t.string   "verification_token",       null: false
+    t.integer  "verification_status",      null: false
+    t.text     "dkim_tokens",              null: false, array: true
+    t.integer  "dkim_verification_status", null: false
+    t.integer  "mail_from_domain_status",  null: false
+    t.integer  "account_id",               null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "domains", ["account_id"], name: "index_domains_on_account_id", using: :btree

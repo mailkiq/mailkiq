@@ -1,31 +1,35 @@
 class Domain < ActiveRecord::Base
-  CNAME = Struct.new(:name, :value)
-
   validates :name, presence: true, uniqueness: true
   belongs_to :account
-  enum status: [:pending, :success, :failed, :temporary_failure, :not_started]
-  alias_attribute :txt_value, :verification_token
 
-  delegate :verify!, :delete!, to: :identity, prefix: true
+  enum verification_status: [
+    :pending, :success, :failed, :temporary_failure, :not_started
+  ]
+
+  enum dkim_verification_status: [
+    :dkim_pending, :dkim_success, :dkim_failed, :dkim_temporary_failure,
+    :dkim_not_started
+  ]
+
+  enum mail_from_domain_status: [
+    :mail_from_pending, :mail_from_success, :mail_from_failed,
+    :mail_from_temporary_failure
+  ]
+
+  delegate :verify!, :update!, :delete!, to: :identity, prefix: true
   delegate :credentials, :aws_topic_arn, to: :account, prefix: true
 
-  scope :succeed, -> { where status: statuses[:success] }
+  scope :succeed, -> { where verification_status: STATUS.index(:success) }
 
   def self.domain_names
     succeed.pluck(:name)
   end
 
   def identity
-    DomainIdentity.new(self)
+    @identity ||= DomainIdentity.new(self)
   end
 
-  def txt_name
-    "_amazonses.#{name}"
-  end
-
-  def cname_records
-    dkim_tokens.map do |token|
-      CNAME.new("#{token}._domainkey.#{name}", "#{token}.dkim.amazonses.com")
-    end
+  def records
+    @records ||= DomainRecords.new(self)
   end
 end

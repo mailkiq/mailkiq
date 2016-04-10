@@ -1,0 +1,249 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=GetIdentityVerificationAttributes&Identities.member.1=example.com&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160410T144739Z
+      Host:
+      - email.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - 286fbb5a9547bc9226193a9a6be0dc6aeeeb729c24aef7138f9cb36f7f650404
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=7caf329261f9ba3f14459565a9f1de81224c7bf404a3df6c2937fa4a835c54db
+      Content-Length:
+      - '91'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2cb2f3cf-ff2b-11e5-8e01-03958f81406a
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '639'
+      Date:
+      - Sun, 10 Apr 2016 14:47:39 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <GetIdentityVerificationAttributesResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <GetIdentityVerificationAttributesResult>
+            <VerificationAttributes>
+              <entry>
+                <key>example.com</key>
+                <value>
+                  <VerificationToken>G8qYlxUb5fkAus3eY/tp83XPKI0RvChrEfjYl4aEn7s=</VerificationToken>
+                  <VerificationStatus>Pending</VerificationStatus>
+                </value>
+              </entry>
+            </VerificationAttributes>
+          </GetIdentityVerificationAttributesResult>
+          <ResponseMetadata>
+            <RequestId>2cb2f3cf-ff2b-11e5-8e01-03958f81406a</RequestId>
+          </ResponseMetadata>
+        </GetIdentityVerificationAttributesResponse>
+    http_version: 
+  recorded_at: Sun, 10 Apr 2016 14:47:40 GMT
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=GetIdentityDkimAttributes&Identities.member.1=example.com&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160410T144740Z
+      Host:
+      - email.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - 0251a329d99c32bb71e7c9acf37ecd26bd5a87b5be64fdbe24372ec8e84db9b2
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=1c410fd71741a6e063e935207a5718a11c926d464bf10144e15bb0cabf440b43
+      Content-Length:
+      - '83'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2cffdb4d-ff2b-11e5-85c6-e396d4c07c03
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '781'
+      Date:
+      - Sun, 10 Apr 2016 14:47:40 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <GetIdentityDkimAttributesResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <GetIdentityDkimAttributesResult>
+            <DkimAttributes>
+              <entry>
+                <key>example.com</key>
+                <value>
+                  <DkimVerificationStatus>Pending</DkimVerificationStatus>
+                  <DkimEnabled>false</DkimEnabled>
+                  <DkimTokens>
+                    <member>todq4lvd66ptvcfkpgtxo26nx53fkuce</member>
+                    <member>g3jkkqxckrfukxvmyvz43annasly3ccq</member>
+                    <member>vfk7s2mxgg27m7vu5npsh7opco6x66rw</member>
+                  </DkimTokens>
+                </value>
+              </entry>
+            </DkimAttributes>
+          </GetIdentityDkimAttributesResult>
+          <ResponseMetadata>
+            <RequestId>2cffdb4d-ff2b-11e5-85c6-e396d4c07c03</RequestId>
+          </ResponseMetadata>
+        </GetIdentityDkimAttributesResponse>
+    http_version: 
+  recorded_at: Sun, 10 Apr 2016 14:47:40 GMT
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=GetIdentityMailFromDomainAttributes&Identities.member.1=example.com&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160410T144857Z
+      Host:
+      - email.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - 6e355470c26d925363b0f90beab60e93c58aa5ec22a59bd5a68f65a156659402
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=8237664c69c641b7d5f180ad80b264bd80c567c57811a7f07fc0334b5975bb53
+      Content-Length:
+      - '93'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5b07c354-ff2b-11e5-bc9d-0b9325827dc9
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '692'
+      Date:
+      - Sun, 10 Apr 2016 14:48:57 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <GetIdentityMailFromDomainAttributesResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <GetIdentityMailFromDomainAttributesResult>
+            <MailFromDomainAttributes>
+              <entry>
+                <key>example.com</key>
+                <value>
+                  <MailFromDomain>bounce.example.com</MailFromDomain>
+                  <MailFromDomainStatus>Pending</MailFromDomainStatus>
+                  <BehaviorOnMXFailure>UseDefaultValue</BehaviorOnMXFailure>
+                </value>
+              </entry>
+            </MailFromDomainAttributes>
+          </GetIdentityMailFromDomainAttributesResult>
+          <ResponseMetadata>
+            <RequestId>5b07c354-ff2b-11e5-bc9d-0b9325827dc9</RequestId>
+          </ResponseMetadata>
+        </GetIdentityMailFromDomainAttributesResponse>
+    http_version: 
+  recorded_at: Sun, 10 Apr 2016 14:48:58 GMT
+- request:
+    method: post
+    uri: https://email.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=GetIdentityVerificationAttributes&Identities.member.1=example.com&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.33 ruby/2.3.0 x86_64-darwin15
+      X-Amz-Date:
+      - 20160410T144858Z
+      Host:
+      - email.us-east-1.amazonaws.com
+      X-Amz-Content-Sha256:
+      - 286fbb5a9547bc9226193a9a6be0dc6aeeeb729c24aef7138f9cb36f7f650404
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIOT5SABFNLCZ5QTQ/20160410/us-east-1/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=a6c3ede99e70241523ea92f1ebe7395fcca80a37a864190026b92a250f780aac
+      Content-Length:
+      - '91'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5b5260c7-ff2b-11e5-81a1-874926822c4d
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '639'
+      Date:
+      - Sun, 10 Apr 2016 14:48:58 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <GetIdentityVerificationAttributesResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <GetIdentityVerificationAttributesResult>
+            <VerificationAttributes>
+              <entry>
+                <key>example.com</key>
+                <value>
+                  <VerificationToken>G8qYlxUb5fkAus3eY/tp83XPKI0RvChrEfjYl4aEn7s=</VerificationToken>
+                  <VerificationStatus>Pending</VerificationStatus>
+                </value>
+              </entry>
+            </VerificationAttributes>
+          </GetIdentityVerificationAttributesResult>
+          <ResponseMetadata>
+            <RequestId>5b5260c7-ff2b-11e5-81a1-874926822c4d</RequestId>
+          </ResponseMetadata>
+        </GetIdentityVerificationAttributesResponse>
+    http_version: 
+  recorded_at: Sun, 10 Apr 2016 14:48:58 GMT
+recorded_with: VCR 3.0.1

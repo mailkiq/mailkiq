@@ -17,6 +17,9 @@ class Account < ActiveRecord::Base
   has_many :tags
   has_many :domains, dependent: :destroy
 
+  after_commit :create_topic, on: :create
+  after_commit :delete_topic, on: :destroy
+
   delegate :domain_names, to: :domains
   delegate :credits, to: :plan, prefix: true
   delegate :remaining, :exceed?, to: :credits, prefix: true
@@ -29,12 +32,12 @@ class Account < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable
 
-  def password_required?
-    @force_password_validation || super
-  end
-
   def remember_me
     true
+  end
+
+  def password_required?
+    @force_password_validation || super
   end
 
   def credits
@@ -83,21 +86,21 @@ class Account < ActiveRecord::Base
 
   private
 
-  def aws_keys?
-    aws_access_key_id? && aws_secret_access_key?
+  def create_topic
+    TopicWorker.perform_async id, :up
   end
 
-  def aws_keys_changed?
-    aws_access_key_id_changed? || aws_secret_access_key_changed?
+  def delete_topic
+    TopicWorker.perform_async id, :down
   end
 
   def validate_access_keys?
     if tied_to_mailkiq?
       false
     elsif new_record?
-      aws_keys?
+      aws_access_key_id? && aws_secret_access_key?
     else
-      aws_keys_changed?
+      aws_access_key_id_changed? || aws_secret_access_key_changed?
     end
   end
 end

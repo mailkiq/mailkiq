@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SetupNotification, type: :model do
+describe AccountTopic, type: :model do
   let(:account) { Fabricate.build :valid_account }
 
   subject { described_class.new account }

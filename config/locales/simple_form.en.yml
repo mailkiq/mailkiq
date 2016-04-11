@@ -24,7 +24,7 @@ en:
           email: 'Email Address'
     placeholders:
       domain:
-        name: 'Enter the domain name'
+        name: 'example.com'
     hints:
       account:
         aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."

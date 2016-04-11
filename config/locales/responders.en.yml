@@ -19,3 +19,6 @@ en:
         notice: 'Profile updated successfully'
       domains:
         notice: 'Access keys updated successfully'
+    leads:
+      create:
+        notice: 'Sua inscrição foi confirmada. Em breve você receberá mais novidades deste incrível lançamento.'

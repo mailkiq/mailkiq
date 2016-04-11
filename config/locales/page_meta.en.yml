@@ -1,6 +1,8 @@
 en:
   page_meta:
     titles:
+      marketing:
+        index: Mailkiq
       settings:
         domains: Amazon Simple Email Service
       subscribers:

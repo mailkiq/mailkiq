@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   devise_for :accounts, controllers: { registrations: 'accounts/registrations' }
 
-  authenticated :account, lambda { |account| account.admin? } do
+  authenticated :account, -> (account) { account.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   end
 
   root to: 'marketing#index'
+
+  resources :leads, only: :create
 
   scope via: [:get, :put] do
     match '/settings/account', to: 'settings#account', as: :account_settings

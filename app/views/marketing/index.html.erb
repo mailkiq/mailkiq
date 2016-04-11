@@ -10,19 +10,41 @@
     <%= render 'shared/mixpanel' %>
   </head>
   <body>
-    <div class="container">
+    <div class="item">
       <h1 class="logo">Maikiq - Reinventing mail platform</h1>
-      <h2 class="tagline">Send newsletters, 100x cheaper</h2>
-
-      <%= simple_form_for :newsletter do |f| %>
-        <%= f.input :email, required: false, label: 'Sign up for news!' %>
-      <% end %>
-
-      <footer class="footer">
-        <a class="badge" href="https://mixpanel.com/f/partner" rel="nofollow" class="">
-          <img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" width="114" height="36" alt="Mobile Analytics">
-        </a>
-      </footer>
     </div>
+
+    <div class="features">
+      <div class="item">
+        O Mailkiq é uma plataforma de e-mail marketing que traz todo o poder da infraestrutura do Amazon SES para sua empresa. <strong>Menos custo para o seu bolso.</strong>
+      </div>
+      <div class="item">
+        Conecte sua base de assinantes, crie campanhas e acompanhe suas métricas em uma única ferramenta integrada.
+        <strong>Pare de reinventar a roda.</strong>
+      </div>
+      <div class="item">
+        Monitore todos os aspectos do ciclo de envio de emails pelos logs de comunicação entre os servidores SMTP.
+        <strong>Transparência é nosso mantra.</strong>
+      </div>
+    </div>
+
+    <div class="form">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% else %>
+        <%= simple_form_for :lead, url: leads_path do |f| %>
+          <%= f.text_field :email, placeholder: 'Informe seu email para ser avisado do lançamento' %>
+          <%= f.button :button do %>
+            <span class="ss-icon ss-send"></span> Enviar
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <footer class="footer">
+      <a href="https://mixpanel.com/f/partner" rel="nofollow">
+        <img src="//cdn.mxpnl.com/site_media/images/partner/badge_blue.png" alt="Mobile Analytics" />
+      </a>
+    </footer>
   </body>
 </html>

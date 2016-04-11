@@ -1,54 +1,107 @@
 @import 'bourbon';
 @import 'normalize';
+@import 'app/icons';
 @import 'base/variables';
 @import 'base/forms';
 
 body {
   @include display(flex);
-  @include justify-content(center);
+  @include flex-direction(column);
+  @include justify-content(flex-end);
   @include align-items(center);
   background: image-url('cover.jpg') no-repeat left top;
-  color: $dark-gray;
+  background-size: cover;
+  color: #fff;
   font-family: $montserrat;
   height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
   text-align: center;
+  width: 480px;
 }
 
 .logo {
+  @include align-self(center);
   @include hide-text;
   background: image-url('logo-splash.png') no-repeat left top;
   display: inline-block;
-  height: 80px;
+  height: 69px;
   margin: 0;
   width: 264px;
 }
 
-.tagline {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 21px;
-  font-weight: normal;
-  letter-spacing: 1px;
-  margin-bottom: 100px;
-  margin-top: 50px;
-  text-transform: uppercase;
+.features {
+  @include display(flex);
+  @include justify-content(space-between);
+  font-size: 14px;
+  line-height: 26px;
+  margin-top: 130px;
+  width: 1000px;
+
+  .item {
+    @include flex(0 1 320px);
+    border-top: 1px solid #fff;
+    box-sizing: border-box;
+    padding-right: 33px;
+    padding-top: 33px;
+  }
+}
+
+.form {
+  margin: 150px 0 50px;
+  text-align: right;
+  width: 530px;
+  height: 48px;
+}
+
+.lead {
+  input {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    color: $dark-gray;
+    float: left;
+    margin-bottom: 0;
+    width: 410px;
+
+    &,
+    &:hover {
+      border-color: $action-color;
+    }
+  }
+
+  .btn {
+    background-color: $action-color;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    border: none;
+    color: $dark-gray;
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    height: 46px;
+    line-height: 41px;
+    text-transform: uppercase;
+    width: 120px;
+  }
+
+  .ss-icon {
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}
+
+.notice {
+  color: $action-color;
+  font-weight: bold;
+  line-height: 24px;
+  margin: 0;
+  text-align: center;
 }
 
 .footer {
-  @include clearfix;
-  line-height: 36px;
-  margin-top: 145px;
-}
-
-.newsletter {
-  @include clearfix;
-  margin: 0 auto;
-  text-align: left;
-  width: 480px;
-
-  input {
-    margin-bottom: 0;
-  }
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }

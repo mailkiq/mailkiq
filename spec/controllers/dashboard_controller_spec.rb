@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe DashboardController, type: :controller do
   context 'when logged in' do
-    describe 'GET /' do
+    describe '#index' do
       before do
         account = Fabricate.build(:account)
         sign_in account

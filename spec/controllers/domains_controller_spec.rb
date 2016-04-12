@@ -8,7 +8,7 @@ describe DomainsController, type: :controller do
       sign_in account
     end
 
-    describe 'POST /domains' do
+    describe '#create' do
       before do
         expect_any_instance_of(Domain).to receive(:identity_verify!)
         post :create, domain: { name: 'example.com' }
@@ -20,7 +20,7 @@ describe DomainsController, type: :controller do
       it { is_expected.to set_flash[:notice] }
     end
 
-    describe 'DELETE /domains/:id' do
+    describe '#destroy' do
       before do
         domain = Domain.new name: 'example.com', account: account
 

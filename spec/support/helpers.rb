@@ -21,5 +21,5 @@ module Helpers
 end
 
 RSpec.configure do |config|
-  config.include Helpers::API, :api
+  config.include Helpers::API, type: :controller
 end

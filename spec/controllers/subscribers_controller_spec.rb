@@ -6,7 +6,7 @@ describe SubscribersController, type: :controller do
 
     before { sign_in account }
 
-    describe 'GET /subscribers' do
+    describe '#index' do
       before do
         relation = double
         expect(relation).to receive(:recents)
@@ -23,7 +23,7 @@ describe SubscribersController, type: :controller do
       it { is_expected.to have_scope :sort }
     end
 
-    describe 'GET /subscribers/new' do
+    describe '#new' do
       before do
         expect(account).to receive_message_chain(:subscribers, :new)
         get :new
@@ -33,7 +33,7 @@ describe SubscribersController, type: :controller do
       it { is_expected.to respond_with :success }
     end
 
-    describe 'POST /subscribers' do
+    describe '#create' do
       let(:params) { Fabricate.attributes_for(:subscriber) }
 
       before do
@@ -54,7 +54,7 @@ describe SubscribersController, type: :controller do
       end
     end
 
-    describe 'GET /subscribers/:id/edit' do
+    describe '#edit' do
       let(:subscriber) { Fabricate.build :subscriber, id: 1 }
 
       before do
@@ -66,7 +66,7 @@ describe SubscribersController, type: :controller do
       it { is_expected.to respond_with :success }
     end
 
-    describe 'PATCH /subscribers/:id' do
+    describe '#update' do
       let(:subscriber) { Fabricate.build :subscriber, id: 1 }
       let(:params) { Fabricate.attributes_for(:maria_doe) }
 
@@ -87,7 +87,7 @@ describe SubscribersController, type: :controller do
       end
     end
 
-    describe 'DELETE /subscribers/:id' do
+    describe '#destroy' do
       let(:subscriber) { Fabricate.build :subscriber, id: 1 }
 
       before do

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe API::V1::NotificationsController, type: :controller do
-  describe 'POST /api/v1/notifications', :api do
+  describe '#create' do
     let(:account) { Fabricate.build :valid_account }
 
     context 'confirmation', vcr: { cassette_name: :confirm_subscription } do

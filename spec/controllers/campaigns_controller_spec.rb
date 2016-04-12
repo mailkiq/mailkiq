@@ -7,7 +7,7 @@ describe CampaignsController, type: :controller do
 
     before { sign_in account }
 
-    describe 'GET /campaigns' do
+    describe '#index' do
       before do
         relation = double
         expect(relation).to receive(:recents)
@@ -26,7 +26,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to have_scope :page }
     end
 
-    describe 'GET /campaigns/:id' do
+    describe '#show' do
       before do
         mock!
         get :show, id: campaign.id
@@ -37,7 +37,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to render_template :show }
     end
 
-    describe 'GET /campaigns/new' do
+    describe '#new' do
       before do
         expect(account).to receive_message_chain(:campaigns, :new)
         get :new
@@ -48,7 +48,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to render_template :new }
     end
 
-    describe 'POST /campaigns' do
+    describe '#create' do
       let(:params) { Fabricate.attributes_for(:campaign) }
 
       before do
@@ -70,7 +70,7 @@ describe CampaignsController, type: :controller do
       end
     end
 
-    describe 'GET /campaigns/:id/edit' do
+    describe '#edit' do
       before do
         mock!
         get :edit, id: campaign.id
@@ -81,7 +81,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to render_template :edit }
     end
 
-    describe 'PATCH /campaigns/:id' do
+    describe '#update' do
       let(:params) { Fabricate.attributes_for(:freeletics_campaign) }
 
       before do
@@ -102,7 +102,7 @@ describe CampaignsController, type: :controller do
       end
     end
 
-    describe 'DELETE /campaigns/:id' do
+    describe '#destroy' do
       before do
         mock!
         expect(campaign.queue).to receive(:clear)
@@ -116,7 +116,7 @@ describe CampaignsController, type: :controller do
       it { is_expected.to set_flash[:notice] }
     end
 
-    describe 'GET /campaigns/:id/preview' do
+    describe '#preview' do
       before do
         mock!
         get :preview, id: campaign.id
@@ -132,9 +132,13 @@ describe CampaignsController, type: :controller do
   def mock!
     relation = double
 
-    allow(relation).to receive(:find).with(campaign.id.to_s).and_return(campaign)
-    allow(relation).to receive_message_chain(:unsent, :find).with(campaign.id.to_s)
+    allow(relation).to receive(:find).with(campaign.id.to_s)
       .and_return(campaign)
+
+    allow(relation).to receive_message_chain(:unsent, :find)
+      .with(campaign.id.to_s)
+      .and_return(campaign)
+
     allow(account).to receive_message_chain(:campaigns).and_return(relation)
   end
 end

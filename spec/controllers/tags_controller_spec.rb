@@ -9,7 +9,7 @@ describe TagsController, type: :controller do
       sign_in account
     end
 
-    describe 'GET /tags' do
+    describe '#index' do
       before { get :index }
 
       it { is_expected.to respond_with :success }
@@ -18,7 +18,7 @@ describe TagsController, type: :controller do
       it { is_expected.to have_scope(:page) }
     end
 
-    describe 'GET /tags/new' do
+    describe '#new' do
       let(:tag) { assigns(:tag) }
 
       before { get :new }
@@ -29,7 +29,7 @@ describe TagsController, type: :controller do
       it { expect(tag).to be_new_record }
     end
 
-    describe 'POST /tags' do
+    describe '#create' do
       let(:params) do
         { tag: { name: 'teste' } }
       end
@@ -46,7 +46,7 @@ describe TagsController, type: :controller do
       it { is_expected.to set_flash[:notice] }
     end
 
-    describe 'GET /tags/:id' do
+    describe '#edit' do
       before do
         mock!
         get :edit, id: '1'
@@ -57,7 +57,7 @@ describe TagsController, type: :controller do
       it { is_expected.to render_template :edit }
     end
 
-    describe 'PATCH /tags/:id' do
+    describe '#update' do
       let(:params) do
         { tag: { name: 'another name' }, id: '1' }
       end
@@ -74,7 +74,7 @@ describe TagsController, type: :controller do
       it { is_expected.to set_flash[:notice] }
     end
 
-    describe 'DELETE /tags/:id' do
+    describe '#destroy' do
       before do
         mock! :destroy
         delete :destroy, id: '1'

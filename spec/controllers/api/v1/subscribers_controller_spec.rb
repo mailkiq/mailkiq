@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe API::V1::SubscribersController, type: :controller do
-  describe 'POST /api/v1/subscribers', :api do
+  describe '#create' do
     let(:account) { Fabricate.build :valid_account }
 
     before do

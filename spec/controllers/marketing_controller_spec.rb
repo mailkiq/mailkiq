@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe MarketingController, type: :controller do
-  describe 'GET /' do
+  describe '#index' do
     before { get :index }
 
     it { is_expected.to respond_with :success }

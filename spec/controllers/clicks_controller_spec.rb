@@ -4,7 +4,7 @@ describe ClicksController, type: :controller do
   let(:message) { Message.new }
   let(:google_url) { 'http://www.google.com.br' }
 
-  describe 'GET /track/clicks/:id' do
+  describe '#show' do
     before do
       expect(message).to receive(:click!).and_call_original
       expect(message).to receive(:save!)

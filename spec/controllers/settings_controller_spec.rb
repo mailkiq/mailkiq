@@ -12,7 +12,7 @@ describe SettingsController, type: :controller do
       sign_in account
     end
 
-    describe 'PUT /settings/domains' do
+    describe '#domains' do
       before do
         expect(DomainWorker).to receive(:perform_async).at_least(:once)
         put :domains, params

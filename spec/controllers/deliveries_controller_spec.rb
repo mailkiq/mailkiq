@@ -12,7 +12,7 @@ describe DeliveriesController, type: :controller do
     sign_in account
   end
 
-  describe 'GET /campaigns/:campaign_id/delivery/new' do
+  describe '#new' do
     before { get :new, campaign_id: campaign.id }
 
     it { is_expected.to respond_with :success }
@@ -21,7 +21,7 @@ describe DeliveriesController, type: :controller do
     it { is_expected.to render_template :new }
   end
 
-  describe 'POST /campaigns/:campaign_id/delivery' do
+  describe '#create' do
     let(:params) do
       {
         campaign_id: campaign.id,

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UnsubscribesController, type: :controller do
-  describe 'GET /unsubscribe' do
+  describe '#show' do
     before do
       subscriber = Fabricate.build :subscriber, id: 1
 
@@ -13,7 +13,8 @@ describe UnsubscribesController, type: :controller do
       get :show, token: subscriber.subscription_token
     end
 
-    it { is_expected.to render_template :show }
     it { is_expected.to respond_with :success }
+    it { is_expected.to render_template :show }
+    it { is_expected.to_not render_with_layout }
   end
 end

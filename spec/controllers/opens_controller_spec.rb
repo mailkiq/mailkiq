@@ -4,7 +4,7 @@ describe OpensController, type: :controller do
   let(:message) { Message.new }
   let(:google_url) { 'http://www.google.com.br' }
 
-  describe 'GET /track/opens/:id' do
+  describe '#show' do
     before do
       pixel = Base64.decode64(OpensController::PIXEL)
 

@@ -24,7 +24,7 @@ class MetricsPresenter < BasePresenter
   private
 
   def recipients_count
-    value = campaign.recipients_count
+    value = campaign.recipients_count.to_f
     value.zero? ? 1 : value
   end
 

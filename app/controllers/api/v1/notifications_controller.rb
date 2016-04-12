@@ -5,10 +5,7 @@ module API
       before_action :authenticate!
 
       def create
-        @message_body = request.body.read
-        @verifier = Aws::SNS::MessageVerifier.new
-        @verifier.authenticate! @message_body
-        @sns = Aws::SNS::Message.load @message_body
+        @sns = Aws::SNS::Message.load request.body.read
 
         if @sns.subscription_confirmation?
           sns = Aws::SNS::Client.new(current_account.credentials)

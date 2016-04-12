@@ -9,9 +9,6 @@ describe API::V1::NotificationsController, type: :controller do
       let(:sns) { assigns :sns }
 
       before do
-        expect_any_instance_of(Aws::SNS::MessageVerifier)
-          .to receive(:authenticate!)
-
         expect_sign_in_as(account)
         request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
         request.env['RAW_POST_DATA'] = subscription_confirmation.to_json
@@ -31,9 +28,6 @@ describe API::V1::NotificationsController, type: :controller do
       let(:message) { Message.new id: 1 }
 
       before do
-        expect_any_instance_of(Aws::SNS::MessageVerifier)
-          .to receive(:authenticate!)
-
         expect_sign_in_as(account)
         request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
         request.env['RAW_POST_DATA'] = bounce

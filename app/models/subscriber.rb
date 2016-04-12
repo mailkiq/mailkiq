@@ -20,6 +20,10 @@ class Subscriber < ActiveRecord::Base
     @subscription_token ||= Token.encode(id)
   end
 
+  def guess_name!
+    self.name = email.split('@').first
+  end
+
   def interpolations
     {
       first_name: first_name,

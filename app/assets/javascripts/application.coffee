@@ -37,16 +37,12 @@
           padding: '17px 20px'
       plotOptions:
         line:
+          lineWidth: 1
+          zIndex: 10
           marker:
             enabled: true
-      series: [{
-        type: 'line'
-        lineWidth: 2
-        zIndex: 10
-        marker:
-          lineWidth: 2
-          radius: 5
-      }]
+            lineWidth: 2
+            radius: 5
       yAxis:
         title:
           text: null

@@ -9,10 +9,10 @@ class App.Dashboard.Show
 
     $.each @el.data('metrics'), (_, item) =>
       timestamp = Date.parse(item.Timestamp)
-      @deliveries.push [timestamp, item.DeliveryAttempts || null]
-      @bounces.push [timestamp, item.Bounces || null]
-      @complaints.push [timestamp, item.Complaints || null]
-      @rejects.push [timestamp, item.Rejects || null]
+      @deliveries.push [timestamp, item.DeliveryAttempts]
+      @bounces.push [timestamp, item.Bounces]
+      @complaints.push [timestamp, item.Complaints]
+      @rejects.push [timestamp, item.Rejects]
 
   render: ->
     @el.highcharts

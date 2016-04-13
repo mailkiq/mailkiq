@@ -66,3 +66,8 @@ td.actions {
     }
   }
 }
+
+tbody td:first-child a {
+  color: $dark-gray;
+  text-decoration: underline;
+}

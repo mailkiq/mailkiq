@@ -7,14 +7,14 @@
 body {
   @include display(flex);
   @include flex-direction(column);
-  @include justify-content(flex-end);
+  @include justify-content(center);
   @include align-items(center);
-  background: image-url('cover.jpg') no-repeat left top;
+  background: #2d2d2d image-url('cover.jpg') no-repeat left top;
   background-size: cover;
   color: #fff;
   font-family: $montserrat;
-  height: 100vh;
   -webkit-font-smoothing: antialiased;
+  height: 100vh;
 }
 
 .container {
@@ -37,7 +37,6 @@ body {
   @include justify-content(space-between);
   font-size: 14px;
   line-height: 26px;
-  margin-top: 130px;
   width: 1000px;
 
   .item {
@@ -50,10 +49,10 @@ body {
 }
 
 .form {
-  margin: 150px 0 50px;
+  height: 48px;
+  margin: 100px 0 130px;
   text-align: right;
   width: 530px;
-  height: 48px;
 }
 
 .lead {
@@ -73,9 +72,9 @@ body {
 
   .btn {
     background-color: $action-color;
+    border: 0;
     border-bottom-right-radius: 3px;
     border-top-right-radius: 3px;
-    border: none;
     color: $dark-gray;
     float: right;
     font-size: 12px;

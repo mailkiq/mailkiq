@@ -11,7 +11,20 @@
   </head>
   <body>
     <div class="item">
-      <h1 class="logo">Maikiq - Reinventing mail platform</h1>
+      <h1 class="logo">Maikiq</h1>
+    </div>
+
+    <div class="form">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% else %>
+        <%= simple_form_for :lead, url: leads_path do |f| %>
+          <%= f.text_field :email, placeholder: 'Interessado? Informe seu melhor email.' %>
+          <%= f.button :button do %>
+            <span class="ss-icon ss-send"></span> Enviar
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
 
     <div class="features">
@@ -26,19 +39,6 @@
         Monitore todos os aspectos do ciclo de envio de emails pelos logs de comunicação entre os servidores SMTP.
         <strong>Transparência é nosso mantra.</strong>
       </div>
-    </div>
-
-    <div class="form">
-      <% if notice %>
-        <p class="notice"><%= notice %></p>
-      <% else %>
-        <%= simple_form_for :lead, url: leads_path do |f| %>
-          <%= f.text_field :email, placeholder: 'Informe seu email para ser avisado do lançamento' %>
-          <%= f.button :button do %>
-            <span class="ss-icon ss-send"></span> Enviar
-          <% end %>
-        <% end %>
-      <% end %>
     </div>
 
     <footer class="footer">

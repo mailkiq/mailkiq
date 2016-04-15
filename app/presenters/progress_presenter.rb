@@ -16,15 +16,13 @@ class ProgressPresenter < BasePresenter
   def percentage_for(counter_name)
     total = campaign.recipients_count
     total = 1 if total.zero?
-
     count = campaign.send("#{counter_name}_count")
     count = count.value if count.respond_to? :value
-
-    count / total * 100
+    count / total.to_f * 100
   end
 
-  def bar(counter_name, value: nil)
-    width = value || percentage_for(counter_name)
-    concat content_tag(:span, nil, style: "width: #{width}%", class: counter_name)
+  def bar(counter_name)
+    style = "width: #{percentage_for(counter_name).round}%"
+    concat content_tag(:span, nil, style: style, class: counter_name)
   end
 end

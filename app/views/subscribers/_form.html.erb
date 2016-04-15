@@ -1,10 +1,15 @@
 <h2><%= page_title %></h2>
 
 <%= simple_form_for @subscriber, html: { class: 'subscriber-form' } do |f| %>
+  <% if @subscriber.persisted? %>
+    <%= f.label :email %>
+    <p class="email"><%= @subscriber.email %></p>
+  <% end %>
+
+  <%= f.input :email, as: :string unless @subscriber.persisted? %>
   <%= f.input :name %>
-  <%= f.input :email, as: :string %>
   <%= f.input :state, collection: Subscriber.states.symbolize_keys.keys, include_blank: false %>
-  <%= f.association :tags, input_html: { style: 'width: 100%' } %>
+  <%= f.association :tags %>
 
   <div class="actions">
     <%= f.button :submit %>

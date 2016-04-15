@@ -1,11 +1,12 @@
 .subscriber-form {
-  input,
-  select {
-    margin-bottom: 35px;
-  }
-
   select {
     width: 100%;
+  }
+
+  input,
+  select,
+  .email {
+    margin-bottom: 35px;
   }
 
   .input {

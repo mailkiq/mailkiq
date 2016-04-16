@@ -15,7 +15,7 @@ module CampaignsHelper
     end
   end
 
-  def campaign_progress_tag(campaign)
+  def render_progress(campaign)
     ProgressPresenter.new(campaign, self).render
   end
 end

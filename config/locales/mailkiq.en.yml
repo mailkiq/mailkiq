@@ -45,8 +45,8 @@ en:
       complaints: 'complaints'
       rejects: 'rejects'
       unsent: 'unsent'
-      open_rate: 'Taxa de abertura'
-      click_rate: 'Taxa de clique'
+      open_rate: 'Open rate'
+      click_rate: 'Click rate'
   subscribers:
     index:
       new_subscriber: 'New subscriber'

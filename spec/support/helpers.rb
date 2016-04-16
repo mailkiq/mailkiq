@@ -11,7 +11,7 @@ module Helpers
     end
 
     def raw_fixture(path)
-      File.read("spec/vcr/#{path}.json")
+      File.read("spec/fixtures/#{path}.json")
     end
 
     def fixture(path)

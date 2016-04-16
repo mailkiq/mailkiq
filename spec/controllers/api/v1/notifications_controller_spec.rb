@@ -22,7 +22,7 @@ describe API::V1::NotificationsController, type: :controller do
       it { expect(sns).to be_subscription_confirmation }
     end
 
-    context 'inserts new notification' do
+    context 'bounce notification' do
       let(:bounce) { raw_fixture :bounce }
       let(:sns) { Aws::SNS::Message.load bounce }
       let(:message) { Message.new id: 1 }
@@ -56,7 +56,7 @@ describe API::V1::NotificationsController, type: :controller do
       it { is_expected.to use_before_action :authenticate! }
     end
 
-    context 'amazon headers' do
+    context 'headers validation' do
       before do
         expect(Account).to receive(:find_by).and_return(nil)
         post :create, format: :json

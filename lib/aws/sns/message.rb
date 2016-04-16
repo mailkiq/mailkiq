@@ -1,27 +1,29 @@
+# frozen_string_literal: true
+
 module Aws
   module SNS
     class Message
       attr_reader :attributes
 
       def self.load(json)
-        new JSON.parse(json)
+        new JSON.parse(json, symbolize_names: true)
       end
 
       def initialize(attributes)
         @attributes = attributes
-        parse_message!
+        parse_message! if attributes[:Message].is_a?(String)
       end
 
       def subscription_confirmation?
-        attributes['Type'] == 'SubscriptionConfirmation'
+        attributes[:Type] == 'SubscriptionConfirmation'
       end
 
       def topic_arn
-        attributes['TopicArn']
+        attributes[:TopicArn]
       end
 
       def token
-        attributes['Token']
+        attributes[:Token]
       end
 
       def mail_id
@@ -29,7 +31,7 @@ module Aws
       end
 
       def message_type
-        search('Message.notificationType')
+        search 'Message.notificationType'
       end
 
       def state
@@ -44,28 +46,27 @@ module Aws
 
       def emails
         if message_type == 'Bounce'
-          search('Message.bounce.bouncedRecipients[*].emailAddress')
+          search 'Message.bounce.bouncedRecipients[*].emailAddress'
         elsif message_type == 'Complaint'
-          search('Message.complaint.complainedRecipients[*].emailAddress')
+          search 'Message.complaint.complainedRecipients[*].emailAddress'
         elsif message_type == 'Delivery'
-          search('Message.delivery.recipients')
+          search 'Message.delivery.recipients'
         end
+      end
+
+      def data
+        search 'Message.bounce || Message.complaint || Message.delivery'
       end
 
       def ses?
         data.present?
       end
 
-      def data
-        search('Message.bounce') ||
-          search('Message.complaint') ||
-          search('Message.delivery')
-      end
-
       private
 
       def parse_message!
-        attributes['Message'] = JSON.parse attributes['Message']
+        attributes[:Message] =
+          JSON.parse(attributes[:Message], symbolize_names: true)
       rescue JSON::ParserError
         nil
       end

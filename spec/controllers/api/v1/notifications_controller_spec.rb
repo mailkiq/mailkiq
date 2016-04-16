@@ -5,13 +5,12 @@ describe API::V1::NotificationsController, type: :controller do
     let(:account) { Fabricate.build :valid_account }
 
     context 'confirmation', vcr: { cassette_name: :confirm_subscription } do
-      let(:subscription_confirmation) { fixture :subscription_confirmation }
-      let(:sns) { assigns :sns }
-
       before do
         expect_sign_in_as(account)
+        expect_any_instance_of(NotificationManager).to receive(:confirm)
+
         request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
-        request.env['RAW_POST_DATA'] = subscription_confirmation.to_json
+        request.env['RAW_POST_DATA'] = fixture(:subscription_confirmation)
 
         post :create, format: :json, api_key: account.api_key
       end
@@ -19,34 +18,16 @@ describe API::V1::NotificationsController, type: :controller do
       it { is_expected.to filter_param :api_key }
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :authenticate! }
-      it { expect(sns).to be_subscription_confirmation }
+      it { is_expected.to use_before_action :validate_amazon_headers }
     end
 
-    context 'bounce notification' do
-      let(:bounce) { raw_fixture :bounce }
-      let(:sns) { Aws::SNS::Message.load bounce }
-      let(:message) { Message.new id: 1 }
-
+    context 'bounce' do
       before do
         expect_sign_in_as(account)
+        expect_any_instance_of(NotificationManager).to receive(:create!)
+
         request.headers['X-Amz-Sns-Topic-Arn'] = account.aws_topic_arn
-        request.env['RAW_POST_DATA'] = bounce
-
-        relation = double
-
-        expect(account).to receive(:subscribers).and_return(relation)
-
-        expect(relation).to receive(:where)
-          .with(email: sns.emails)
-          .and_return(relation)
-
-        expect(relation).to receive(:update_all)
-          .with(state: Subscriber.states[:bounced])
-
-        expect(Message).to receive(:find_by!).and_return(message)
-        expect(message).to receive_message_chain(:notifications, :create!)
-          .with(type: sns.message_type.downcase,
-                data: sns.data.as_json)
+        request.env['RAW_POST_DATA'] = fixture(:bounce)
 
         post :create, format: :json, api_key: account.api_key
       end
@@ -54,15 +35,19 @@ describe API::V1::NotificationsController, type: :controller do
       it { is_expected.to filter_param :api_key }
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :authenticate! }
+      it { is_expected.to use_before_action :validate_amazon_headers }
     end
 
     context 'headers validation' do
       before do
-        expect(Account).to receive(:find_by).and_return(nil)
+        expect(controller).to receive(:current_account).and_return(nil)
         post :create, format: :json
       end
 
+      it { is_expected.to use_before_action :authenticate! }
+      it { is_expected.to use_before_action :validate_amazon_headers }
       it { is_expected.to respond_with :unauthorized }
+      it { expect(response.content_type).to eq Mime::JSON }
     end
   end
 end

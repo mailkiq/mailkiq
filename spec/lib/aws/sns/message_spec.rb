@@ -1,11 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Aws::SNS::Message do
-  let(:bounce) { described_class.load read(:bounce) }
-  let(:complaint) { described_class.load read(:complaint) }
-  let(:delivery) { described_class.load read(:delivery) }
+  let(:bounce) { described_class.load fixture(:bounce) }
+  let(:complaint) { described_class.load fixture(:complaint) }
+  let(:delivery) { described_class.load fixture(:delivery) }
   let(:subscription) do
-    described_class.load read(:subscription_confirmation)
+    described_class.load fixture(:subscription_confirmation)
   end
 
   describe '.load' do
@@ -20,6 +20,7 @@ describe Aws::SNS::Message do
 
   describe '#subscription_confirmation?' do
     it 'compares notification type' do
+      expect(subscription.attributes[:Type]).to eq('SubscriptionConfirmation')
       expect(subscription).to be_subscription_confirmation
     end
   end
@@ -88,9 +89,5 @@ describe Aws::SNS::Message do
       expect(complaint).to be_ses
       expect(delivery).to be_ses
     end
-  end
-
-  def read(filename)
-    File.read("spec/fixtures/#{filename}.json")
   end
 end

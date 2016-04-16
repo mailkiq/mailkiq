@@ -44,7 +44,6 @@ group :development do
   gem 'faker', require: false
   gem 'guard-migrate'
   gem 'guard-rspec'
-  gem 'meta_request'
   gem 'spring'
   gem 'spring-commands-rspec'
 end
@@ -52,6 +51,7 @@ end
 group :test do
   gem 'database_rewinder'
   gem 'fabrication'
+  gem 'mutant-rspec'
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
   gem 'vcr'

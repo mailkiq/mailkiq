@@ -3,23 +3,15 @@ module API
     class NotificationsController < BaseController
       skip_before_action :ensure_correct_media_type
       before_action :authenticate!
+      before_action :validate_amazon_headers
 
       def create
-        @sns = Aws::SNS::Message.load request.body.read
+        @manager = NotificationManager.new current_account, request.body.read
 
-        if @sns.subscription_confirmation?
-          sns = Aws::SNS::Client.new(current_account.credentials)
-          sns.confirm_subscription topic_arn: @sns.topic_arn, token: @sns.token
-        elsif @sns.ses?
-          return validate_amazon_headers unless own_topic_arn?
-
-          message = Message.find_by! uuid: @sns.mail_id
-          message.notifications.create! type: @sns.message_type.downcase,
-                                        data: @sns.data.as_json
-
-          current_account.subscribers
-                         .where(email: @sns.emails)
-                         .update_all(state: Subscriber.states[@sns.state])
+        if @manager.subscription_confirmation?
+          @manager.confirm
+        elsif @manager.ses?
+          @manager.create!
         end
 
         head :ok
@@ -32,7 +24,8 @@ module API
       end
 
       def validate_amazon_headers
-        render json: { message: 'Something wrong with SNS subscription' }, status: :unauthorized
+        render json: { message: 'Something wrong with SNS subscription' },
+               status: :unauthorized unless own_topic_arn?
       end
     end
   end

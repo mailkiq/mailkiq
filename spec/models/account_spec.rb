@@ -32,6 +32,23 @@ describe Account, type: :model do
 
   it { is_expected.to have_counter :used_credits }
 
+  describe '#remember_me' do
+    it 'always remember the user' do
+      expect(subject.remember_me).to be_truthy
+    end
+  end
+
+  describe '#password_required?' do
+    it 'requires password presence when needed' do
+      subject.force_password_validation = true
+      expect(subject).to be_password_required
+
+      subject.force_password_validation = false
+      expect(subject).to receive(:persisted?).and_return(true)
+      expect(subject).not_to be_password_required
+    end
+  end
+
   describe '#tied_to_mailkiq?' do
     it 'verifies if account is tied to the official SES account' do
       subject.aws_access_key_id = ENV['MAILKIQ_ACCESS_KEY_ID']

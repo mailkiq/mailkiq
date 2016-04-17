@@ -12,6 +12,7 @@ class CampaignsController < ApplicationController
   def show
     @campaign = current_account.campaigns.find params[:id]
     @metrics = MetricsPresenter.new @campaign, view_context
+    page_meta[:name] = @campaign.name
   end
 
   def new

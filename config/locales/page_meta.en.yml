@@ -2,33 +2,34 @@ en:
   page_meta:
     titles:
       marketing:
-        index: Mailkiq
+        index: "Mailkiq"
       settings:
-        domains: Amazon Simple Email Service
+        domains: "Amazon Simple Email Service"
       subscribers:
-        index: Subscribers
-        new: New subscriber
-        edit: Edit subscriber
+        index: "Subscribers"
+        new: "New subscriber"
+        edit: "Edit subscriber"
       dashboard:
-        show: Sending Statistics
+        show: "Sending Statistics"
       campaigns:
-        new: New campaign
-        edit: Edit campaign
-        index: Campaigns
+        new: "New campaign"
+        edit: "Edit campaign"
+        index: "Campaigns"
+        show: "%{name}"
       accounts:
-        new: Join Mailkiq
+        new: "Join Mailkiq"
       deliveries:
-        new: Send campaign
+        new: "Send campaign"
       tags:
-        index: Tags
-        new: New tag
-        edit: Edit tag
+        index: "Tags"
+        new: "New tag"
+        edit: "Edit tag"
       accounts:
         registrations:
-          edit: Account Settings
+          edit: "Account Settings"
       devise:
         sessions:
-          new: Login to Mailkiq
+          new: "Login to Mailkiq"
         passwords:
-          new: Reset Password
-          edit: Change Password
+          new: "Reset Password"
+          edit: "Change Password"

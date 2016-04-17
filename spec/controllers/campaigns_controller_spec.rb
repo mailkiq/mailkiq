@@ -35,6 +35,10 @@ describe CampaignsController, type: :controller do
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :show }
+
+      it 'sets page title to the campaign name' do
+        expect(controller.page_meta[:name]).to eq(campaign.name)
+      end
     end
 
     describe '#new' do

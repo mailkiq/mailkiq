@@ -14,18 +14,16 @@ describe ProgressPresenter do
         .at_least(:once)
         .and_return(646_100)
 
-      expect(campaign).to receive(:messages_count).and_return(200_000)
+      expect(campaign).to receive(:deliveries_count).and_return(200_000)
       expect(campaign).to receive(:bounces_count).and_return(10)
       expect(campaign).to receive(:complaints_count).and_return(5_000)
-      expect(campaign).to receive(:rejects_count).and_return(0)
       expect(campaign).to receive(:unsent_count).and_return(446_100)
 
       html = Nokogiri::HTML(subject.render)
 
-      expect(html.at_css('.messages')[:style]).to end_with '31%'
+      expect(html.at_css('.deliveries')[:style]).to end_with '31%'
       expect(html.at_css('.bounces')[:style]).to end_with '0%'
       expect(html.at_css('.complaints')[:style]).to end_with '1%'
-      expect(html.at_css('.rejects')[:style]).to end_with '0%'
       expect(html.at_css('.unsent')[:style]).to end_with '69%'
     end
   end

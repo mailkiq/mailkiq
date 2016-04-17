@@ -13,10 +13,6 @@ class MetricsPresenter < BasePresenter
     percentage_for :complaints_count
   end
 
-  def rejects
-    percentage_for :rejects_count
-  end
-
   def unsent
     percentage_for :unsent_count
   end
@@ -31,6 +27,7 @@ class MetricsPresenter < BasePresenter
   def percentage_for(counter_name)
     counter = campaign.send(counter_name)
     counter = counter.value if counter.respond_to?(:value)
-    number_to_percentage(counter / recipients_count * 100, precision: 0)
+    value = counter / recipients_count * 100
+    number_to_percentage(value, precision: value < 1 && !value.zero? ? 2 : 0)
   end
 end

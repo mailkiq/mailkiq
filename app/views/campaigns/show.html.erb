@@ -2,7 +2,10 @@
 
 <div class="metrics">
   <div class="totals">
-    <h3><%= @campaign.recipients_count %> <span><%= t '.emails_sent' %></span></h3>
+    <h3>
+      <%= number_with_delimiter @campaign.recipients_count %>
+      <span><%= t '.emails_sent' %></span>
+    </h3>
   </div>
 
   <div class="delivered">
@@ -18,11 +21,6 @@
   <div class="complaints">
     <div class="box"></div>
     <h3><%= @metrics.complaints %> <span><%= t '.complaints' %></span></h3>
-  </div>
-
-  <div class="rejects">
-    <div class="box"></div>
-    <h3><%= @metrics.rejects %> <span><%= t '.rejects' %></span></h3>
   </div>
 
   <div class="unsent">

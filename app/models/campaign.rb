@@ -23,7 +23,6 @@ class Campaign < ActiveRecord::Base
   counter :messages_count # aka delivery
   counter :unique_opens_count
   counter :unique_clicks_count
-  counter :rejects_count
   counter :bounces_count
   counter :complaints_count
 
@@ -35,8 +34,12 @@ class Campaign < ActiveRecord::Base
     @queue ||= CampaignQueue.new(self)
   end
 
+  def deliveries_count
+    [recipients_count, messages_count.value].min
+  end
+
   def unsent_count
-    recipients_count - messages_count.value
+    [0, recipients_count - messages_count.value].max
   end
 
   def from
@@ -54,7 +57,6 @@ class Campaign < ActiveRecord::Base
                                  recipients_count: 0,
                                  unique_opens_count: 0,
                                  unique_clicks_count: 0,
-                                 rejects_count: 0,
                                  bounces_count: 0,
                                  complaints_count: 0
     end

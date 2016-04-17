@@ -43,7 +43,6 @@ en:
       delivered: 'delivered'
       bounces: 'bounces'
       complaints: 'complaints'
-      rejects: 'rejects'
       unsent: 'unsent'
       open_rate: 'Open rate'
       click_rate: 'Click rate'

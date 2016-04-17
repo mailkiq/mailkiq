@@ -21,7 +21,6 @@ describe Campaign, type: :model do
   it { is_expected.to have_db_column(:recipients_count).of_type :integer }
   it { is_expected.to have_db_column(:unique_opens_count).of_type :integer }
   it { is_expected.to have_db_column(:unique_clicks_count).of_type :integer }
-  it { is_expected.to have_db_column(:rejects_count).of_type :integer }
   it { is_expected.to have_db_column(:bounces_count).of_type :integer }
   it { is_expected.to have_db_column(:complaints_count).of_type :integer }
 
@@ -39,7 +38,6 @@ describe Campaign, type: :model do
   it { is_expected.to have_counter :messages_count }
   it { is_expected.to have_counter :unique_opens_count }
   it { is_expected.to have_counter :unique_clicks_count }
-  it { is_expected.to have_counter :rejects_count }
   it { is_expected.to have_counter :bounces_count }
   it { is_expected.to have_counter :complaints_count }
 
@@ -48,6 +46,24 @@ describe Campaign, type: :model do
       queue = subject.queue
       expect(subject.queue).to eq(queue)
       expect(subject.queue).to be_instance_of CampaignQueue
+    end
+  end
+
+  describe '#deliveries_count' do
+    it 'calculates current deliveries count' do
+      expect(subject).to receive(:recipients_count).and_return(1_000)
+      expect(subject).to receive_message_chain(:messages_count, :value)
+        .and_return(2_000)
+      expect(subject.deliveries_count).to eq(1_000)
+    end
+  end
+
+  describe '#unsent_count' do
+    it 'calculates remaining messages to be sent' do
+      expect(subject).to receive(:recipients_count).and_return(1_000)
+      expect(subject).to receive_message_chain(:messages_count, :value)
+        .and_return(1_100)
+      expect(subject.unsent_count).to be_zero
     end
   end
 
@@ -82,7 +98,6 @@ describe Campaign, type: :model do
               recipients_count: 0,
               unique_opens_count: 0,
               unique_clicks_count: 0,
-              rejects_count: 0,
               bounces_count: 0,
               complaints_count: 0)
 

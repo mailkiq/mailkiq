@@ -64,6 +64,7 @@
 
   .box {
     background-color: $light-gray;
+    border-radius: 10px;
     float: left;
     height: 20px;
     margin-right: 20px;
@@ -77,6 +78,10 @@
 
   .bounces .box {
     background-color: $light-red;
+  }
+
+  .complaints .box {
+    background-color: #ffd785;
   }
 }
 
@@ -99,14 +104,16 @@
     float: left;
   }
 
-  .messages {
+  .deliveries {
     background-color: $action-color;
-    width: 100px;
+  }
+
+  .complaints {
+    background-color: #ffd785;
   }
 
   .unsent {
     background-color: $light-gray;
-    width: 200px;
   }
 }
 

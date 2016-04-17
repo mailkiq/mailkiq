@@ -1,7 +1,7 @@
 class Segment
-  include ActiveModel::Model
+  QUERIES = [OpenedScope, TagScope].freeze
 
-  QUERIES = [OpenedQuery, TagQuery]
+  include ActiveModel::Model
 
   attr_accessor :account
   attr_reader :tagged_with, :not_tagged_with

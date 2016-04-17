@@ -3,10 +3,9 @@ class ProgressPresenter < BasePresenter
 
   def render
     content_tag :div, class: 'meter progress' do
-      bar :messages
+      bar :deliveries
       bar :bounces
       bar :complaints
-      bar :rejects
       bar :unsent
     end
   end

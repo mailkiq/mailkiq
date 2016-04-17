@@ -34,13 +34,6 @@ describe MetricsPresenter do
     end
   end
 
-  describe '#rejects' do
-    it 'calculates percentage of rejected emails' do
-      is_expected.to receive(:percentage_for).with(:rejects_count)
-      subject.rejects
-    end
-  end
-
   describe '#unsent' do
     it 'calculates percentage of unsent emails' do
       is_expected.to receive(:percentage_for).with(:unsent_count)

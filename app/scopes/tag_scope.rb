@@ -1,15 +1,15 @@
-class TagQuery < Query
+class TagScope < Scope
   def call
     with_tags = pluck_tag_ids @tagged_with
     without_tags = pluck_tag_ids @not_tagged_with
     return if with_tags.blank? && without_tags.blank?
 
-    taggings_subscribers = Subscriber.arel_table
-                           .join(Tagging.arel_table, Arel::Nodes::OuterJoin)
-                           .on(Tagging[:subscriber_id].eq(Subscriber[:id]))
-                           .join_sources
+    join_sources = Subscriber.arel_table
+                             .join(Tagging.arel_table, Arel::Nodes::OuterJoin)
+                             .on(Tagging[:subscriber_id].eq(Subscriber[:id]))
+                             .join_sources
 
-    @relation.joins! taggings_subscribers
+    @relation.joins! join_sources
     @relation.where! Tagging[:tag_id].in(with_tags) if with_tags.present?
     @relation.where! Arel::Nodes::Grouping.new(
       Tagging[:tag_id].not_in(without_tags).or(Tagging[:tag_id].eq(nil))

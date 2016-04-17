@@ -10,7 +10,7 @@ describe Segment, type: :model do
   it { is_expected.to have_attr_accessor :not_tagged_with }
 
   it { expect(described_class.ancestors).to include ActiveModel::Model }
-  it { expect(Segment::QUERIES).to eq([OpenedQuery, TagQuery]) }
+  it { expect(Segment::QUERIES).to eq([OpenedScope, TagScope]) }
 
   describe '#initialize' do
     it 'coerses string to array' do

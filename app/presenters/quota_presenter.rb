@@ -34,8 +34,7 @@ class QuotaPresenter < BasePresenter
         {
           Timestamp: k,
           Complaints: v.map(&:complaints).inject(:+),
-          Rejects: v.map(&:rejects).inject(:+),
-          Bounces: v.map(&:bounces).inject(:+),
+          Bounces: v.map(&:bounces).inject(:+) + v.map(&:rejects).inject(:+),
           DeliveryAttempts: v.map(&:delivery_attempts).inject(:+)
         }
       end

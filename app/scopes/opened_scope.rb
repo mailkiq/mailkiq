@@ -1,4 +1,4 @@
-class OpenedQuery < Query
+class OpenedScope < Scope
   def call
     tagged_campaigns = pluck_campaigns @tagged_with
     untagged_campaigns = pluck_campaigns @not_tagged_with
@@ -6,9 +6,9 @@ class OpenedQuery < Query
     return if tagged_campaigns.blank? && untagged_campaigns.blank?
 
     join_sources = Subscriber.arel_table
-                   .join(Message.arel_table, Arel::Nodes::OuterJoin)
-                   .on(Message[:subscriber_id].eq(Subscriber[:id]))
-                   .join_sources
+                             .join(Message.arel_table, Arel::Nodes::OuterJoin)
+                             .on(Message[:subscriber_id].eq(Subscriber[:id]))
+                             .join_sources
 
     @relation = @relation.distinct.joins(join_sources)
     @relation.where! tagged_node(tagged_campaigns) if tagged_campaigns

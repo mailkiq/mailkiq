@@ -1,24 +1,19 @@
 require 'rails_helper'
 
 describe NotificationManager do
-  let(:bounce_json) { File.read('spec/fixtures/bounce.json') }
-  let(:subscription_json) do
-    File.read('spec/fixtures/subscription_confirmation.json')
-  end
-
   let(:account) { Fabricate.build :valid_account }
   let(:message) { Message.new campaign_id: 1 }
   let(:notification) { Notification.new message: message }
 
   describe '#confirm', vcr: { cassette_name: :confirm_subscription } do
     it 'confirms intent to receive messages' do
-      response = described_class.new(account, subscription_json).confirm
-      expect(response).to be_successful
+      manager = described_class.new account, fixture(:subscription_confirmation)
+      expect(manager.confirm).to be_successful
     end
   end
 
   describe '#create!' do
-    subject { described_class.new account, bounce_json }
+    subject { described_class.new account, fixture(:bounce) }
 
     before do
       relation = double
@@ -58,7 +53,7 @@ describe NotificationManager do
 
   describe '#attributes' do
     it 'slices message type and data object attributes' do
-      manager = described_class.new(account, bounce_json)
+      manager = described_class.new account, fixture(:bounce)
       attributes = manager.attributes
       expect(attributes[:type]).to eq(manager.message.message_type.downcase)
       expect(attributes[:data]).to eq(manager.message.data.as_json)

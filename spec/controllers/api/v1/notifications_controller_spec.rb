@@ -4,7 +4,7 @@ describe API::V1::NotificationsController, type: :controller do
   describe '#create' do
     let(:account) { Fabricate.build :valid_account }
 
-    context 'confirmation', vcr: { cassette_name: :confirm_subscription } do
+    context 'subscription confirmation' do
       before do
         expect_sign_in_as(account)
         expect_any_instance_of(NotificationManager).to receive(:confirm)
@@ -21,7 +21,7 @@ describe API::V1::NotificationsController, type: :controller do
       it { is_expected.to use_before_action :validate_amazon_headers }
     end
 
-    context 'bounce' do
+    context 'bounce notification' do
       before do
         expect_sign_in_as(account)
         expect_any_instance_of(NotificationManager).to receive(:create!)
@@ -38,7 +38,7 @@ describe API::V1::NotificationsController, type: :controller do
       it { is_expected.to use_before_action :validate_amazon_headers }
     end
 
-    context 'headers validation' do
+    context 'invalid headers' do
       before do
         expect(controller).to receive(:current_account).and_return(nil)
         post :create, format: :json

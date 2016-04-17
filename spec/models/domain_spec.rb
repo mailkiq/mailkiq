@@ -28,7 +28,7 @@ describe Domain, type: :model do
   it { is_expected.to delegate_method(:aws_topic_arn).to(:account).with_prefix }
 
   context 'scopes' do
-    it { expect(described_class).to respond_to(:succeed).with(0).arguments }
+    it { expect(described_class).to respond_to :succeed }
   end
 
   describe '#identity' do

@@ -5,6 +5,11 @@ describe Message, type: :model do
   it { is_expected.to belong_to(:campaign).counter_cache true }
   it { is_expected.to have_many :notifications }
 
+  context 'scopes' do
+    it { expect(described_class).to respond_to :opened }
+    it { expect(described_class).to respond_to :clicked }
+  end
+
   describe '#unopened?' do
     it 'verifies presence of opened_at column' do
       subject.opened_at = nil

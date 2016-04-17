@@ -5,12 +5,6 @@ describe AccountTopic, type: :model do
 
   subject { described_class.new account }
 
-  describe '#initialize' do
-    it 'sets account and the SNS API service variables' do
-      expect(subject.instance_variables).to eq([:@account, :@sns])
-    end
-  end
-
   describe '#up', vcr: { cassette_name: :create_topic } do
     it 'creates a topic which SES notifications can be published' do
       default_url_options = ActionMailer::Base.default_url_options.dup

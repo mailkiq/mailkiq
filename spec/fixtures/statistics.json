@@ -1,0 +1,32 @@
+{
+  "send_data_points": [
+    {
+      "timestamp": "2016-04-17T14:18:00.000Z",
+      "delivery_attempts": 5,
+      "bounces": 0,
+      "complaints": 0,
+      "rejects": 0
+    },
+    {
+      "timestamp": "2016-04-05T09:48:00.000Z",
+      "delivery_attempts": 2,
+      "bounces": 0,
+      "complaints": 0,
+      "rejects": 0
+    },
+    {
+      "timestamp": "2016-04-18T18:18:00.000Z",
+      "delivery_attempts": 19,
+      "bounces": 0,
+      "complaints": 0,
+      "rejects": 0
+    },
+    {
+      "timestamp": "2016-04-07T17:48:00.000Z",
+      "delivery_attempts": 1,
+      "bounces": 0,
+      "complaints": 0,
+      "rejects": 0
+    }
+  ]
+}

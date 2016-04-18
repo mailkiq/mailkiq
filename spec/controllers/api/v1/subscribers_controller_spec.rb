@@ -12,6 +12,7 @@ describe API::V1::SubscribersController, type: :controller do
         .to receive_message_chain(:account, :tags, :where, :pluck)
         .and_return([])
 
+      allow(ActiveRecord::Base).to receive(:transaction).and_yield
       expect_any_instance_of(Subscriber).to receive(:valid?).and_return(true)
       expect_any_instance_of(Subscriber).to receive(:save) do |resource|
         resource

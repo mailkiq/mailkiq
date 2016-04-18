@@ -9,7 +9,7 @@ class NotificationManager
   end
 
   def confirm
-    sns = Aws::SNS::Client.new account.credentials
+    sns = Aws::SNS::Client.new account.aws_options
     sns.confirm_subscription topic_arn: message.topic_arn, token: message.token
   end
 

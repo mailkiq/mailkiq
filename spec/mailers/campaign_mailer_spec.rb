@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 describe CampaignMailer, type: :mailer do
-  describe '#campaign', vcr: { cassette_name: :send_raw_email } do
+  describe '#campaign' do
     let(:account) { Fabricate.build :valid_account }
     let(:campaign) { Fabricate.build :campaign, id: rand(10), account: account }
     let(:subscriber) { Fabricate.build :subscriber, id: rand(10) }
 
-    before do
+    it 'delivers campaign to the subscriber' do
       now = Time.now
+
       expect(Time).to receive(:now).at_least(:once).and_return(now)
 
       message = Fabricate.build :message
@@ -15,8 +16,7 @@ describe CampaignMailer, type: :mailer do
                                 subscriber_id: subscriber.id,
                                 sent_at: now
 
-      expect(Campaign).to receive(:find).with(campaign.id)
-        .and_return(campaign)
+      expect(Campaign).to receive(:find).with(campaign.id).and_return(campaign)
       expect(Subscriber).to receive(:find).with(subscriber.id)
         .and_return(subscriber)
 
@@ -31,10 +31,9 @@ describe CampaignMailer, type: :mailer do
           subscriber_id: message.subscriber_id,
           sent_at: message.sent_at
         ).and_return(message)
-    end
 
-    it 'delivers campaign to the subscriber' do
       message = CampaignMailer.campaign(campaign.id, subscriber.id).deliver_now
+
       list_unsubscribe_url =
         unsubscribe_url(token: subscriber.subscription_token)
 
@@ -45,7 +44,7 @@ describe CampaignMailer, type: :mailer do
       expect(message.to).to include(subscriber.email)
       expect(message.subject).to eq(campaign.subject)
       expect(message.delivery_method).to be_instance_of Aws::Rails::Mailer
-      expect(message.delivery_method.settings).to eq(account.credentials)
+      expect(message.delivery_method.settings).to eq(account.aws_options)
       expect(message.body.raw_source).to include(list_unsubscribe_url)
     end
   end

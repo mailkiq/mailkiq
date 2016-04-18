@@ -5,9 +5,16 @@ describe NotificationManager do
   let(:message) { Message.new campaign_id: 1 }
   let(:notification) { Notification.new message: message }
 
-  describe '#confirm', vcr: { cassette_name: :confirm_subscription } do
+  describe '#confirm' do
     it 'confirms intent to receive messages' do
       manager = described_class.new account, fixture(:subscription_confirmation)
+
+      expect_any_instance_of(Aws::SNS::Client)
+        .to receive(:confirm_subscription)
+        .with(topic_arn: manager.message.topic_arn,
+              token: manager.message.token)
+        .and_call_original
+
       expect(manager.confirm).to be_successful
     end
   end

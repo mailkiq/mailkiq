@@ -54,8 +54,6 @@ group :test do
   gem 'mutant-rspec'
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
-  gem 'vcr'
-  gem 'webmock'
 end
 
 group :development, :test do

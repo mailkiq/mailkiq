@@ -42,11 +42,11 @@ class QuotaPresenter < BasePresenter
     end
   end
 
-  private
-
   def ses
-    @ses ||= Aws::SES::Client.new(account.credentials)
+    @ses ||= Aws::SES::Client.new(account.aws_options)
   end
+
+  private
 
   def cache(name, serializer: nil, &block)
     cache_key = "#{account.cache_key}/#{name}"

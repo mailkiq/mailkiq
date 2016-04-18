@@ -1,13 +1,13 @@
 module ControllerHelpers
-  def sign_in(user = double('user'))
-    if user.nil?
+  def sign_in(account = double('account'))
+    if account.nil?
       allow(request.env['warden']).to receive(:authenticate!)
-        .and_throw(:warden, { scope: :user })
+        .and_throw(:warden, scope: :account)
 
       allow(controller).to receive(:current_account).and_return(nil)
     else
-      allow(request.env['warden']).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_account).and_return(user)
+      allow(request.env['warden']).to receive(:authenticate!).and_return(account)
+      allow(controller).to receive(:current_account).and_return(account)
     end
   end
 end

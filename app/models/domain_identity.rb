@@ -3,7 +3,7 @@ class DomainIdentity
 
   def initialize(domain)
     @domain = domain
-    @ses = Aws::SES::Client.new(domain.account_credentials)
+    @ses = Aws::SES::Client.new(domain.account_aws_options)
   end
 
   def verify!
@@ -71,7 +71,7 @@ class DomainIdentity
   end
 
   def verification_status
-    resp = ses.get_identity_verification_attributes(identities: [domain.name])
+    resp = ses.get_identity_verification_attributes identities: [domain.name]
     attributes = resp.verification_attributes[domain.name]
     status = attributes.verification_status.underscore
     Domain.verification_statuses[status]

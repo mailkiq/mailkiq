@@ -2,19 +2,16 @@ require 'rails_helper'
 
 describe SettingsController, type: :controller do
   context 'when logged in' do
-    let(:params) do
-      { account: Fabricate.attributes_for(:jane_doe) }
-    end
-
-    before do
-      account = Fabricate.build(:account)
-      expect(account).to receive(:update).at_most(:twice)
-      sign_in account
-    end
-
     describe '#domains' do
+      let(:params) do
+        { account: Fabricate.attributes_for(:jane_doe) }
+      end
+
       before do
+        account = Fabricate.build(:account)
+        expect(account).to receive(:update).at_least(:once)
         expect(DomainWorker).to receive(:perform_async).at_least(:once)
+        sign_in account
         put :domains, params
       end
 

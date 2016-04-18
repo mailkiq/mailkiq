@@ -1,10 +1,16 @@
 require 'rails_helper'
 
-describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
+describe QuotaPresenter do
   subject do
     account = Fabricate.build(:valid_account)
     view = ActionController::Base.new.view_context
     described_class.new account, view
+  end
+
+  before do
+    subject.ses.stub_responses :get_send_quota, max_24_hour_send: 50_000.0,
+                                                max_send_rate: 14.0,
+                                                sent_last_24_hours: 0.0
   end
 
   it { is_expected.to delegate_method(:max_24_hour_send).to(:quota) }
@@ -17,7 +23,8 @@ describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
         .with(:quota, serializer: Aws::SES::Types::GetSendQuotaResponse)
         .and_call_original
 
-      expect(subject.quota).to be_instance_of Aws::SES::Types::GetSendQuotaResponse
+      expect(subject.quota)
+        .to be_instance_of Aws::SES::Types::GetSendQuotaResponse
     end
   end
 
@@ -59,8 +66,16 @@ describe QuotaPresenter, vcr: { cassette_name: :get_send_quota } do
     end
   end
 
-  describe '#send_statistics', vcr: { cassette_name: :get_send_statistics } do
+  describe '#send_statistics' do
     it 'groups data points by day' do
+      send_statistics = fixture(:statistics, json: true)
+      send_statistics[:send_data_points].map! do |n|
+        n[:timestamp] = Time.parse(n[:timestamp])
+        n
+      end
+
+      subject.ses.stub_responses :get_send_statistics, send_statistics
+
       expect(subject).to receive(:cache).with(:send_statistics)
         .and_call_original
 

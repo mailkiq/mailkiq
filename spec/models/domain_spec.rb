@@ -24,7 +24,7 @@ describe Domain, type: :model do
   it { is_expected.to delegate_method(:verify!).to(:identity).with_prefix }
   it { is_expected.to delegate_method(:update!).to(:identity).with_prefix }
   it { is_expected.to delegate_method(:delete!).to(:identity).with_prefix }
-  it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
+  it { is_expected.to delegate_method(:aws_options).to(:account).with_prefix }
   it { is_expected.to delegate_method(:aws_topic_arn).to(:account).with_prefix }
 
   context 'scopes' do

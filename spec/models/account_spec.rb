@@ -70,14 +70,15 @@ describe Account, type: :model do
     end
   end
 
-  describe '#credentials' do
-    it 'returns credentials to initialize Fog::AWS services' do
-      credentials = subject.credentials
-      expect(credentials).to be_instance_of HashWithIndifferentAccess
-      expect(credentials).to have_key :access_key_id
-      expect(credentials).to have_key :secret_access_key
-      expect(credentials).to have_key :region
-      expect(credentials.size).to eq(3)
+  describe '#aws_options' do
+    it 'returns options to initialize Aws services' do
+      options = subject.aws_options
+      expect(options).to be_instance_of HashWithIndifferentAccess
+      expect(options).to have_key :access_key_id
+      expect(options).to have_key :secret_access_key
+      expect(options).to have_key :region
+      expect(options).to have_key :stub_responses
+      expect(options.size).to eq(4)
     end
   end
 

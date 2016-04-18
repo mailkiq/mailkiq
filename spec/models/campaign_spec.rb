@@ -24,7 +24,7 @@ describe Campaign, type: :model do
   it { is_expected.to have_db_column(:bounces_count).of_type :integer }
   it { is_expected.to have_db_column(:complaints_count).of_type :integer }
 
-  it { is_expected.to delegate_method(:credentials).to(:account).with_prefix }
+  it { is_expected.to delegate_method(:aws_options).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
 
   it { is_expected.to strip_attribute :name }

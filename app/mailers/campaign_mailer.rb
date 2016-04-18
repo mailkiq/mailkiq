@@ -18,7 +18,7 @@ class CampaignMailer < ActionMailer::Base
       from: @campaign.from,
       subject: @campaign.subject.render!(@subscriber.interpolations),
       delivery_method: :ses,
-      delivery_method_options: @campaign.account_credentials
+      delivery_method_options: @campaign.account_aws_options
     }
 
     mail(options) do |format|

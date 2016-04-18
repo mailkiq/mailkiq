@@ -16,7 +16,7 @@ class Campaign < ActiveRecord::Base
   scope :sent, -> { where.not sent_at: nil }
   scope :unsent, -> { where sent_at: nil }
 
-  delegate :credentials, :domain_names, to: :account, prefix: true
+  delegate :aws_options, :domain_names, to: :account, prefix: true
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
 

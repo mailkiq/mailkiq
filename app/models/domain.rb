@@ -17,7 +17,7 @@ class Domain < ActiveRecord::Base
   ]
 
   delegate :verify!, :update!, :delete!, to: :identity, prefix: true
-  delegate :credentials, :aws_topic_arn, to: :account, prefix: true
+  delegate :aws_options, :aws_topic_arn, to: :account, prefix: true
 
   def self.succeed
     where verification_status: verification_statuses[:success]

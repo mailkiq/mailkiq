@@ -1,7 +1,6 @@
 WITH interactions AS (
   SELECT
     campaign_id,
-    COUNT(*) AS recipients_count,
     COUNT(NULLIF(opened_at IS null, true)) AS unique_opens_count,
     COUNT(NULLIF(clicked_at IS null, true)) AS unique_clicks_count
   FROM messages
@@ -16,7 +15,6 @@ WITH interactions AS (
   GROUP BY campaign_id
 )
 UPDATE campaigns SET
-  recipients_count = interactions.recipients_count,
   unique_opens_count = interactions.unique_opens_count,
   unique_clicks_count = interactions.unique_clicks_count,
   bounces_count = deliveries.bounces_count,

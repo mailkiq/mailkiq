@@ -17,7 +17,7 @@ class NotificationManager
     notification = create_notification!
 
     account.subscribers.where(email: message.emails)
-           .update_all(state: Subscriber.states.fetch(message.state))
+           .update_all(state: Subscriber.states[message.state])
 
     increment_counter(notification) unless notification.delivery?
   end

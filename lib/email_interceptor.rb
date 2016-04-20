@@ -47,7 +47,7 @@ class EmailInterceptor
   def track_links
     return unless html_part?
 
-    doc = Nokogiri::HTML(raw_source)
+    doc = Nokogiri::HTML.fragment(raw_source)
     doc.css('a[href]').each do |link|
       uri = parse_uri link['href']
       next unless trackable? uri

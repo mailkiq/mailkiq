@@ -11,7 +11,7 @@ class CampaignMailer < ActionMailer::Base
     @subscriber = Subscriber.find subscriber_id
     @list_unsubscribe_url = unsubscribe_url(token: @subscriber.subscription_token)
 
-    headers['List-Unsubscribe'] = "<#{@list_unsubscribe_url}>"
+    headers['List-Unsubscribe'] = @list_unsubscribe_url
 
     options = {
       to: @subscriber.email,

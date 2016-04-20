@@ -38,7 +38,7 @@ describe CampaignMailer, type: :mailer do
         unsubscribe_url(token: subscriber.subscription_token)
 
       expect(message.header['List-Unsubscribe'].value)
-        .to eq("<#{list_unsubscribe_url}>")
+        .to eq(list_unsubscribe_url)
 
       expect(message.from).to include(campaign.from_email)
       expect(message.to).to include(subscriber.email)

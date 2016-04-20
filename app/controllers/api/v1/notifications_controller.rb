@@ -6,12 +6,12 @@ module API
       before_action :validate_amazon_headers
 
       def create
-        @manager = NotificationManager.new current_account, request.body.read
+        manager = NotificationManager.new current_account, request.body.read
 
-        if @manager.subscription_confirmation?
-          @manager.confirm
-        elsif @manager.ses?
-          @manager.create!
+        if manager.subscription_confirmation?
+          manager.confirm
+        elsif manager.ses?
+          manager.create!
         end
 
         head :ok

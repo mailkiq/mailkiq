@@ -29,7 +29,7 @@ module Accounts
 
     def build_resource(hash=nil)
       super.tap do |account|
-        data = (session[:account_data] || {}).reject { |_, v| v.blank? }
+        data = (session[:account_data] || {}).reject { |k,v| v.blank? }
 
         payment_token = data[:paypal_payment_token]
         payment_token ||= params.dig :account, :paypal_payment_token
@@ -56,15 +56,14 @@ module Accounts
     end
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up) do |account_params|
-        account_params.permit :name, :email, :plan_id, :password,
-                              :password_confirmation, :paypal_customer_token,
-                              :paypal_payment_token
+      devise_parameter_sanitizer.for(:sign_up) do |u|
+        u.permit :name, :email, :plan_id, :password, :password_confirmation,
+                 :paypal_customer_token, :paypal_payment_token
       end
 
-      devise_parameter_sanitizer.permit(:account_update) do |account_params|
-        account_params.permit :name, :email, :time_zone, :current_password,
-                              :password, :password_confirmation
+      devise_parameter_sanitizer.for(:account_update) do |u|
+        u.permit :name, :email, :time_zone, :current_password, :password,
+                 :password_confirmation
       end
     end
 

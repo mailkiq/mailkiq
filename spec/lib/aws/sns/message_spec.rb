@@ -11,7 +11,7 @@ describe Aws::SNS::Message do
   describe '.load' do
     it 'parses JSON string and instantiate message' do
       expect(described_class).to receive(:new)
-        .with(hash_including(Type: 'SubscriptionConfirmation'))
+        .with(hash_including('Type' => 'SubscriptionConfirmation'))
         .and_call_original
 
       subscription
@@ -20,20 +20,20 @@ describe Aws::SNS::Message do
 
   describe '#subscription_confirmation?' do
     it 'compares notification type' do
-      expect(subscription.attributes[:Type]).to eq('SubscriptionConfirmation')
+      expect(subscription.attributes['Type']).to eq('SubscriptionConfirmation')
       expect(subscription).to be_subscription_confirmation
     end
   end
 
   describe '#topic_arn' do
     it 'returns topic ARN attribute' do
-      expect(subscription.topic_arn).to eq(subscription.attributes[:TopicArn])
+      expect(subscription.topic_arn).to eq(subscription.attributes['TopicArn'])
     end
   end
 
   describe '#token' do
     it 'returns token attribute' do
-      expect(subscription.token).to eq(subscription.attributes[:Token])
+      expect(subscription.token).to eq(subscription.attributes['Token'])
     end
   end
 
@@ -42,7 +42,7 @@ describe Aws::SNS::Message do
       expect(subscription.mail_id).to be_nil
       expect(bounce.mail_id).to_not be_nil
       expect(bounce.mail_id)
-        .to eq(bounce.attributes[:Message][:mail][:messageId])
+        .to eq(bounce.attributes['Message']['mail']['messageId'])
     end
   end
 
@@ -74,11 +74,10 @@ describe Aws::SNS::Message do
 
   describe '#data' do
     it 'returns notification contents for Amazon SES' do
-      expect(bounce).to receive(:search)
-        .with('Message.bounce || Message.complaint || Message.delivery')
+      expect(bounce).to receive(:search).with('Message.bounce')
         .and_call_original
 
-      expect(bounce.data).to eq(bounce.attributes[:Message][:bounce])
+      expect(bounce.data).to eq(bounce.attributes['Message']['bounce'])
     end
   end
 

@@ -1,14 +1,11 @@
 require 'rails_helper'
 
-describe CampaignWorker, type: :worker do
-  it { is_expected.to save_backtrace }
-  it { is_expected.to be_retryable 0 }
-
+describe CampaignWorker do
   describe '#perform' do
     it 'delivers campaign to the subscriber' do
       expect(ActiveRecord::Base).to receive(:transaction).and_yield
       expect(CampaignMailer).to receive_message_chain(:campaign, :deliver_now)
-      subject.perform(1, 1)
+      described_class.perform(1, 1)
     end
 
     it 'changes state to unconfirmed when email address is invalid' do
@@ -19,7 +16,7 @@ describe CampaignWorker, type: :worker do
       expect(Subscriber).to receive_message_chain(:where, :update_all)
         .with(state: Subscriber.states[:unconfirmed])
 
-      expect { subject.perform 1, 1 }.not_to raise_exception
+      expect { described_class.perform 1, 1 }.not_to raise_exception
     end
   end
 end

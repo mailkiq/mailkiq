@@ -26,10 +26,6 @@ class Campaign < ActiveRecord::Base
   counter :bounces_count
   counter :complaints_count
 
-  def self.opened_campaign_names
-    sent.pluck(:name).map { |name| "Opened #{name}" }
-  end
-
   def queue
     @queue ||= CampaignQueue.new(self)
   end

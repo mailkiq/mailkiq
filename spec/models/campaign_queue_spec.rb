@@ -5,33 +5,31 @@ describe CampaignQueue, type: :model do
 
   subject { described_class.new campaign }
 
-  it { is_expected.to delegate_method(:pause).to(:queue) }
-  it { is_expected.to delegate_method(:unpause).to(:queue) }
-  it { is_expected.to delegate_method(:clear).to(:queue) }
-
   describe '#name' do
-    it 'generates an queue name' do
+    it 'generates queue name' do
       expect(subject.name).to eq('campaign-1')
-    end
-  end
-
-  describe '#queue' do
-    it 'initializes a Sidekiq::Queue object' do
-      expect(subject.queue).to be_instance_of Sidekiq::Queue
     end
   end
 
   describe '#push_bulk' do
     it 'pushes a large number of jobs to the queue' do
-      jobs = [[1, 1], [1, 2]]
+      queue_name = "queue:#{subject.name}"
 
-      expect(Sidekiq::Client).to receive(:push_bulk)
-        .with('queue' => subject.name,
-              'class' => CampaignWorker,
-              'args'  => jobs)
-        .and_call_original
+      subject.push_bulk [[1, 1], [1, 2]]
 
-      subject.push_bulk(jobs)
+      expect(Resque.redis.exists(queue_name)).to be_truthy
+      expect(Resque.redis.sismember('queues', subject.name)).to be_truthy
+      expect(Resque.redis.llen(queue_name)).to eq(2)
+    end
+  end
+
+  describe '#clear' do
+    it 'unwatches queue and remove all pending jobs' do
+      expect(Resque).to receive(:remove_queue).with(subject.name)
+      expect(Resque).to receive_message_chain(:redis, :del)
+        .with("queue:#{subject.name}")
+
+      subject.clear
     end
   end
 end

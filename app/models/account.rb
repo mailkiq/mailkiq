@@ -88,11 +88,11 @@ class Account < ActiveRecord::Base
   private
 
   def create_topic
-    TopicWorker.perform_async id, :up
+    Resque.enqueue TopicWorker, id, :up
   end
 
   def delete_topic
-    TopicWorker.perform_async id, :down
+    Resque.enqueue TopicWorker, id, :down
   end
 
   def validate_access_keys?

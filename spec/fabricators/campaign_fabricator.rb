@@ -3,7 +3,7 @@ Fabricator(:campaign) do
   subject 'The Truth About Wheat'
   from_name 'Rainer Borene'
   from_email 'rainer@mailkiq.com'
-  html_text <<-EOF.dedent
+  html_text <<-EOF
     Hello World!
 
     %unsubscribe_url%

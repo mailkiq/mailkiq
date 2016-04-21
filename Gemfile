@@ -5,7 +5,6 @@ ruby '2.3.0'
 gem 'rails', '4.2.6'
 gem 'addressable', require: false
 gem 'aws-sdk', '~> 2'
-gem 'dedent'
 gem 'devise'
 gem 'has_scope'
 gem 'jsonapi-resources'
@@ -19,9 +18,7 @@ gem 'simple_form'
 gem 'strip_attributes'
 
 # Job scheduling
-gem 'sidekiq'
-gem 'sidekiq-limit_fetch'
-gem 'sidekiq-unique-jobs'
+gem 'resque'
 gem 'sinatra', require: false
 
 # DB
@@ -50,7 +47,7 @@ end
 group :test do
   gem 'database_rewinder'
   gem 'fabrication'
-  gem 'rspec-sidekiq'
+  gem 'fakeredis', require: 'fakeredis/rspec'
   gem 'shoulda-matchers'
 end
 

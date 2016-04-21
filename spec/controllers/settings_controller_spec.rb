@@ -3,15 +3,19 @@ require 'rails_helper'
 describe SettingsController, type: :controller do
   context 'when logged in' do
     describe '#domains' do
+      let(:account) { Fabricate.build :account }
       let(:params) do
         { account: Fabricate.attributes_for(:jane_doe) }
       end
 
       before do
-        account = Fabricate.build(:account)
         expect(account).to receive(:update).at_least(:once)
-        expect(DomainWorker).to receive(:perform_async).at_least(:once)
+        expect(Resque).to receive(:enqueue)
+          .with(DomainWorker, account.id)
+          .at_least(:once)
+
         sign_in account
+
         put :domains, params
       end
 

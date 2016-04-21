@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
   before_action :authenticate_account!
 
   def domains
-    DomainWorker.perform_async current_account.id
+    Resque.enqueue DomainWorker, current_account.id
 
     if request.put?
       current_account.update account_params

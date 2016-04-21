@@ -1,9 +1,5 @@
 class CampaignWorker
-  include Sidekiq::Worker
-
-  sidekiq_options backtrace: true, retry: 0
-
-  def perform(campaign_id, subscriber_id)
+  def self.perform(campaign_id, subscriber_id)
     ActiveRecord::Base.transaction do
       CampaignMailer.campaign(campaign_id, subscriber_id).deliver_now
     end

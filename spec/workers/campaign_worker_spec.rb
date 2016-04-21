@@ -10,5 +10,16 @@ describe CampaignWorker, type: :worker do
       expect(CampaignMailer).to receive_message_chain(:campaign, :deliver_now)
       subject.perform(1, 1)
     end
+
+    it 'changes state to unconfirmed when email address is invalid' do
+      expect(ActiveRecord::Base).to receive(:transaction)
+        .and_raise Aws::SES::Errors::InvalidParameterValue.new(nil, nil)
+
+      expect(Raven).to receive(:capture_exception)
+      expect(Subscriber).to receive_message_chain(:where, :update_all)
+        .with(state: Subscriber.states[:unconfirmed])
+
+      expect { subject.perform 1, 1 }.not_to raise_exception
+    end
   end
 end

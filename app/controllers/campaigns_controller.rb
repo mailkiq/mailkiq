@@ -37,7 +37,7 @@ class CampaignsController < ApplicationController
   def destroy
     @campaign = current_account.campaigns.find params[:id]
     @campaign.destroy
-    @campaign.queue.clear
+    @campaign.queue.remove
     respond_with @campaign, location: campaigns_path
   end
 

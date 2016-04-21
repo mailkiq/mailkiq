@@ -23,13 +23,23 @@ describe CampaignQueue, type: :model do
     end
   end
 
-  describe '#clear' do
-    it 'unwatches queue and remove all pending jobs' do
+  describe '#remove' do
+    it 'completely deletes the queue' do
       expect(Resque).to receive(:remove_queue).with(subject.name)
-      expect(Resque).to receive_message_chain(:redis, :del)
-        .with("queue:#{subject.name}")
+      subject.remove
+    end
+  end
 
-      subject.clear
+  describe '.remove_dead_queues' do
+    it 'removes dead queues' do
+      queues = %w(campaign-1 blah)
+
+      expect(Resque).to receive(:queues).and_return(queues)
+      expect(Resque).to receive(:remove_queue).with(queues.first)
+      expect(Resque).not_to receive(:remove_queue).with(queues.last)
+      expect(Resque).to receive(:size).with(queues.first).and_return(0)
+
+      described_class.remove_dead_queues
     end
   end
 end

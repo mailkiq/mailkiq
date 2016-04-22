@@ -1,10 +1,20 @@
 class Delivery
+  QUERIES = [OpenedScope, TagScope].freeze
+
   include ActiveModel::Model
 
   attr_accessor :campaign, :tagged_with, :not_tagged_with
   delegate :account, to: :campaign
-  delegate :credits_exceeded?, to: :account
+  delegate :credits_exceed?, to: :account
   validate :validate_enough_credits
+
+  def tagged_with=(value)
+    @tagged_with = Array(value)
+  end
+
+  def not_tagged_with=(value)
+    @not_tagged_with = Array(value)
+  end
 
   def save
     return false unless valid?
@@ -20,17 +30,21 @@ class Delivery
   end
 
   def jobs
-    segment.jobs_for campaign.id
+    chain_queries.pluck(:id).map! { |id| [campaign.id, id] }
   end
 
   private
 
-  def segment
-    Segment.new account: account, tagged_with: tagged_with,
-                not_tagged_with: not_tagged_with
+  def chain_queries
+    relation = Subscriber.where(account_id: account.id).actived
+    QUERIES.each do |klass|
+      new_relation = klass.new(relation, tagged_with, not_tagged_with).call
+      relation = new_relation if new_relation
+    end
+    relation
   end
 
   def validate_enough_credits
-    errors.add :base, :credits_exceeded if credits_exceed?(segment.count)
+    errors.add :base, :credits_exceeded if credits_exceed?(chain_queries.count)
   end
 end

@@ -1,6 +1,12 @@
 class MetricsPresenter < BasePresenter
   alias campaign record
 
+  def estimated_time
+    send_quota = campaign.account.quota.cached(:send_quota)
+    time = campaign.recipients_count / send_quota.max_send_rate
+    distance_of_time_in_words(campaign.sent_at, campaign.sent_at + time)
+  end
+
   def delivered
     percentage_for :messages_count
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe CampaignQueue, type: :model do
-  let(:campaign) { Fabricate.build(:campaign, id: 1) }
+  let(:campaign) { Fabricate.build :campaign, id: 1 }
 
   subject { described_class.new campaign }
 

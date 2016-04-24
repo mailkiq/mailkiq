@@ -1,4 +1,13 @@
-<h2><%= @campaign.name %> <small><%= l @campaign.sent_at, format: :long %></small></h2>
+<h2>
+  <%= @campaign.name %>
+
+  <small>
+    <% if @campaign.sent_at? %>
+      Sent at <%= l @campaign.sent_at, format: :long %> •
+    <% end %>
+    takes <%= @metrics.estimated_time %> to send it.
+  </small>
+</h2>
 
 <div class="metrics">
   <div class="totals">

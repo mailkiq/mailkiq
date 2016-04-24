@@ -24,18 +24,10 @@ class QuotaPresenter < BasePresenter
   end
 
   def send_quota
-    cache(:send_quota) { account.quota.send_quota }
+    account.quota.cached(:send_quota)
   end
 
   def send_statistics
-    cache(:send_statistics) { account.quota.send_statistics }
-  end
-
-  private
-
-  def cache(name, &block)
-    cache_key = "#{account.cache_key}/#{name}"
-    value = Rails.cache.fetch(cache_key, expires_in: 1.day, &block)
-    value.is_a?(Hash) ? OpenStruct.new(value) : value
+    account.quota.cached(:send_statistics)
   end
 end

@@ -19,6 +19,8 @@ end
 
 Fabricator(:campaign_with_account, from: :campaign) do
   account
+  sent_at Time.now
+  recipients_count 600_000
 end
 
 Fabricator(:freeletics_campaign, from: :campaign) do

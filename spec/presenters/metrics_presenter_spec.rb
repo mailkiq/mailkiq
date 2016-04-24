@@ -1,11 +1,19 @@
 require 'rails_helper'
 
 describe MetricsPresenter do
-  let(:campaign) { Fabricate.build :campaign }
+  let(:campaign) { Fabricate.build :campaign_with_account }
 
   subject do
     view = ActionController::Base.new.view_context
     described_class.new campaign, view
+  end
+
+  describe '#estimated_time' do
+    it 'calculates the estimated time to send all recipients' do
+      ses = campaign.account.quota.ses
+      ses.stub_responses :get_send_quota, max_send_rate: 14.0
+      expect(subject.estimated_time).to eq('about 12 hours')
+    end
   end
 
   describe '#delivered' do

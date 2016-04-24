@@ -20,14 +20,25 @@ class Quota
 
   def send_statistics
     values = ses.get_send_statistics.send_data_points
-    values = values.group_by { |data| data.timestamp.to_date }.map do |k, v|
-      {
-        Timestamp: k,
-        Complaints: v.map(&:complaints).inject(:+),
-        Bounces: v.map(&:bounces).inject(:+) + v.map(&:rejects).inject(:+),
-        DeliveryAttempts: v.map(&:delivery_attempts).inject(:+)
-      }
-    end
+    values = values.group_by { |data| data.timestamp.to_date }
+    values = values.map { |k, v| build_data_point k, v }
     values.sort_by! { |hash| hash[:Timestamp] }
+  end
+
+  def cached(method_name)
+    cache_key = "#{account.cache_key}/#{method_name}"
+    value = Rails.cache.fetch(cache_key, expires_in: 1.day) { send method_name }
+    value.is_a?(Hash) ? OpenStruct.new(value) : value
+  end
+
+  private
+
+  def build_data_point(k, v)
+    {
+      Timestamp: k,
+      Complaints: v.map(&:complaints).inject(:+),
+      Bounces: v.map(&:bounces).inject(:+) + v.map(&:rejects).inject(:+),
+      DeliveryAttempts: v.map(&:delivery_attempts).inject(:+)
+    }
   end
 end

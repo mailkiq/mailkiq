@@ -1,10 +1,12 @@
 class CampaignQueue
+  attr_reader :campaign
+
   def initialize(campaign)
     @campaign = campaign
   end
 
   def name
-    "campaign-#{@campaign.id}"
+    "campaign-#{campaign.id}"
   end
 
   def push_bulk(jobs)

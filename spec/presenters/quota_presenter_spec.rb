@@ -59,17 +59,15 @@ describe QuotaPresenter do
 
   describe '#send_quota' do
     it 'caches send quota numbers from SES' do
-      expect(subject.record.quota).to receive(:send_quota).and_call_original
-      expect(subject).to receive(:cache).with(:send_quota).and_call_original
+      expect(subject.record.quota).to receive(:cached).with(:send_quota)
+        .and_call_original
       expect(subject.send_quota).to be_instance_of OpenStruct
     end
   end
 
   describe '#send_statistics' do
     it 'caches send statistics metrics' do
-      expect(subject.record.quota).to receive(:send_statistics)
-        .and_call_original
-      expect(subject).to receive(:cache).with(:send_statistics)
+      expect(subject.record.quota).to receive(:cached).with(:send_statistics)
         .and_call_original
       expect(subject.send_statistics).to be_instance_of Array
     end

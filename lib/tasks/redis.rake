@@ -1,13 +1,11 @@
-require 'query'
-
-namespace :counter_cache do
-  desc 'Update campaigns counter cache columns'
-  task update: :environment do
-    Query.execute :update_opens_and_clicks
+namespace :redis do
+  desc 'Remove dead queues on Resque'
+  task remove_dead_queues: :environment do
+    CampaignQueue.remove_dead_queues
   end
 
   desc 'Rebuild redis database from scratch'
-  task redis: :environment do
+  task rebuild: :environment do
     notifications = Query.select_all :campaign_notifications
     notifications.each do |row|
       counter_name = case row['type']

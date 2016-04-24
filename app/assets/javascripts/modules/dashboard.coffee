@@ -7,10 +7,10 @@ class App.Dashboard.Show
     @complaints = []
 
     $.each @el.data('metrics'), (_, item) =>
-      timestamp = Date.parse(item.Timestamp)
-      @deliveries.push [timestamp, item.DeliveryAttempts]
-      @bounces.push [timestamp, item.Bounces]
-      @complaints.push [timestamp, item.Complaints]
+      timestamp = Date.parse(item.timestamp)
+      @deliveries.push [timestamp, item.delivery_attempts]
+      @bounces.push [timestamp, item.bounces]
+      @complaints.push [timestamp, item.complaints]
 
   render: ->
     @el.highcharts
@@ -21,7 +21,7 @@ class App.Dashboard.Show
         data: @deliveries
         color: '#85c0ff'
       }, {
-        name: 'Bounces'
+        name: 'Hard Bounces'
         data: @bounces
         color: '#ffbbbb'
       }, {

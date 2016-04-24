@@ -22,7 +22,7 @@ class Quota
     values = ses.get_send_statistics.send_data_points
     values = values.group_by { |data| data.timestamp.to_date }
     values = values.map { |k, v| build_data_point k, v }
-    values.sort_by! { |hash| hash[:Timestamp] }
+    values.sort_by! { |hash| hash[:timestamp] }
   end
 
   def cached(method_name)
@@ -33,12 +33,13 @@ class Quota
 
   private
 
-  def build_data_point(k, v)
+  def build_data_point(timestamp, values)
     {
-      Timestamp: k,
-      Complaints: v.map(&:complaints).inject(:+),
-      Bounces: v.map(&:bounces).inject(:+) + v.map(&:rejects).inject(:+),
-      DeliveryAttempts: v.map(&:delivery_attempts).inject(:+)
+      timestamp: timestamp,
+      complaints: values.map(&:complaints).inject(:+),
+      bounces: values.map(&:bounces).inject(:+),
+      delivery_attempts: values.map(&:delivery_attempts).inject(:+),
+      rejects: values.map(&:rejects).inject(:+)
     }
   end
 end

@@ -16,4 +16,4 @@ en:
         delivery:
           attributes:
             base:
-              credits_exceeded: 'Credits exceeded.'
+              quota_exceeded: 'Quota exceeded.'

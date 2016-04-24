@@ -1,13 +1,9 @@
 class QuotaPresenter < BasePresenter
   alias account record
 
-  delegate :max_24_hour_send, :max_send_rate, :sent_last_24_hours, to: :quota
-
-  def quota
-    cache :quota, serializer: Aws::SES::Types::GetSendQuotaResponse do
-      ses.get_send_quota.as_json
-    end
-  end
+  delegate :max_24_hour_send, to: :send_quota
+  delegate :sent_last_24_hours, to: :send_quota
+  delegate :max_send_rate, to: :send_quota
 
   def sandbox?
     max_24_hour_send == 200
@@ -27,30 +23,19 @@ class QuotaPresenter < BasePresenter
     content_tag :span, t('dashboard.show.sandbox'), class: 'label label-default'
   end
 
-  def send_statistics
-    cache :send_statistics do
-      values = ses.get_send_statistics.send_data_points
-      values = values.group_by { |data| data.timestamp.to_date }.map do |k, v|
-        {
-          Timestamp: k,
-          Complaints: v.map(&:complaints).inject(:+),
-          Bounces: v.map(&:bounces).inject(:+) + v.map(&:rejects).inject(:+),
-          DeliveryAttempts: v.map(&:delivery_attempts).inject(:+)
-        }
-      end
-      values.sort_by! { |hash| hash[:Timestamp] }
-    end
+  def send_quota
+    cache(:send_quota) { account.quota.send_quota }
   end
 
-  def ses
-    @ses ||= Aws::SES::Client.new(account.aws_options)
+  def send_statistics
+    cache(:send_statistics) { account.quota.send_statistics }
   end
 
   private
 
-  def cache(name, serializer: nil, &block)
+  def cache(name, &block)
     cache_key = "#{account.cache_key}/#{name}"
     value = Rails.cache.fetch(cache_key, expires_in: 1.day, &block)
-    serializer ? serializer.new(value) : value
+    value.is_a?(Hash) ? OpenStruct.new(value) : value
   end
 end

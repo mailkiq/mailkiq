@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Credit, type: :model do
+describe Quota, type: :model do
   let(:account) { Fabricate.build :account }
 
   subject { described_class.new account }
@@ -20,6 +20,26 @@ describe Credit, type: :model do
     it 'checks if account has enough credits with the given value' do
       expect(subject).to be_exceed(6)
       expect(subject).not_to be_exceed(5)
+    end
+  end
+
+  describe '#send_quota' do
+    it 'fetches send quota data' do
+      expect(subject.send_quota).to be_instance_of Hash
+    end
+  end
+
+  describe '#send_statistics' do
+    it 'groups data points by day' do
+      send_statistics = fixture(:statistics, json: true)
+      send_statistics[:send_data_points].map! do |n|
+        n[:timestamp] = Time.parse(n[:timestamp])
+        n
+      end
+
+      subject.ses.stub_responses :get_send_statistics, send_statistics
+
+      expect(subject.send_statistics.sample[:Timestamp]).to be_instance_of Date
     end
   end
 end

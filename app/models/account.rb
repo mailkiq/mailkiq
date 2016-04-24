@@ -22,7 +22,7 @@ class Account < ActiveRecord::Base
 
   delegate :domain_names, to: :domains
   delegate :credits, to: :plan, prefix: true
-  delegate :remaining, :exceed?, to: :credits, prefix: true
+  delegate :remaining, :exceed?, to: :quota, prefix: true
 
   attr_accessor :force_password_validation
   attr_accessor :paypal_payment_token
@@ -40,8 +40,8 @@ class Account < ActiveRecord::Base
     @force_password_validation || super
   end
 
-  def credits
-    @credits ||= Credit.new(self)
+  def quota
+    @quota ||= Quota.new(self)
   end
 
   def paypal

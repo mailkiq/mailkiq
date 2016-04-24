@@ -6,7 +6,7 @@ describe Delivery, type: :model do
   it { is_expected.to have_attr_accessor :not_tagged_with }
 
   it { is_expected.to delegate_method(:account).to(:campaign) }
-  it { is_expected.to delegate_method(:credits_exceed?).to(:account) }
+  it { is_expected.to delegate_method(:quota_exceed?).to(:account) }
 
   it { expect(described_class.ancestors).to include ActiveModel::Model }
   it { expect(Delivery::QUERIES).to eq([OpenedScope, TagScope]) }

@@ -24,8 +24,8 @@ describe Account, type: :model do
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
   it { is_expected.to delegate_method(:credits).to(:plan).with_prefix }
-  it { is_expected.to delegate_method(:remaining).to(:credits).with_prefix }
-  it { is_expected.to delegate_method(:exceed?).to(:credits).with_prefix }
+  it { is_expected.to delegate_method(:remaining).to(:quota).with_prefix }
+  it { is_expected.to delegate_method(:exceed?).to(:quota).with_prefix }
 
   it { is_expected.to have_attr_accessor :force_password_validation }
   it { is_expected.to have_attr_accessor :paypal_payment_token }

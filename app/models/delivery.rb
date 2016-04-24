@@ -5,7 +5,7 @@ class Delivery
 
   attr_accessor :campaign, :tagged_with, :not_tagged_with
   delegate :account, to: :campaign
-  delegate :credits_exceed?, to: :account
+  delegate :quota_exceed?, to: :account
   validate :validate_enough_credits
 
   def tagged_with=(value)
@@ -45,6 +45,6 @@ class Delivery
   end
 
   def validate_enough_credits
-    errors.add :base, :credits_exceeded if credits_exceed?(chain_queries.count)
+    errors.add :base, :quota_exceeded if quota_exceed?(chain_queries.count)
   end
 end

@@ -2,31 +2,22 @@ require 'rails_helper'
 
 describe QuotaPresenter do
   subject do
-    account = Fabricate.build(:valid_account)
     view = ActionController::Base.new.view_context
+    account = Fabricate.build :valid_account
     described_class.new account, view
   end
 
   before do
-    subject.ses.stub_responses :get_send_quota, max_24_hour_send: 50_000.0,
-                                                max_send_rate: 14.0,
-                                                sent_last_24_hours: 0.0
+    ses = subject.record.quota.ses
+    ses.stub_responses :get_send_quota,
+                       max_24_hour_send: 50_000.0,
+                       max_send_rate: 14.0,
+                       sent_last_24_hours: 0.0
   end
 
-  it { is_expected.to delegate_method(:max_24_hour_send).to(:quota) }
-  it { is_expected.to delegate_method(:sent_last_24_hours).to(:quota) }
-  it { is_expected.to delegate_method(:max_send_rate).to(:quota) }
-
-  describe '#quota' do
-    it 'caches send quota numbers from SES' do
-      expect(subject).to receive(:cache)
-        .with(:quota, serializer: Aws::SES::Types::GetSendQuotaResponse)
-        .and_call_original
-
-      expect(subject.quota)
-        .to be_instance_of Aws::SES::Types::GetSendQuotaResponse
-    end
-  end
+  it { is_expected.to delegate_method(:max_24_hour_send).to :send_quota }
+  it { is_expected.to delegate_method(:sent_last_24_hours).to :send_quota }
+  it { is_expected.to delegate_method(:max_send_rate).to :send_quota }
 
   describe '#sandbox?' do
     it 'sending quota is equal to 50000' do
@@ -66,22 +57,21 @@ describe QuotaPresenter do
     end
   end
 
+  describe '#send_quota' do
+    it 'caches send quota numbers from SES' do
+      expect(subject.record.quota).to receive(:send_quota).and_call_original
+      expect(subject).to receive(:cache).with(:send_quota).and_call_original
+      expect(subject.send_quota).to be_instance_of OpenStruct
+    end
+  end
+
   describe '#send_statistics' do
-    it 'groups data points by day' do
-      send_statistics = fixture(:statistics, json: true)
-      send_statistics[:send_data_points].map! do |n|
-        n[:timestamp] = Time.parse(n[:timestamp])
-        n
-      end
-
-      subject.ses.stub_responses :get_send_statistics, send_statistics
-
+    it 'caches send statistics metrics' do
+      expect(subject.record.quota).to receive(:send_statistics)
+        .and_call_original
       expect(subject).to receive(:cache).with(:send_statistics)
         .and_call_original
-
-      values = subject.send_statistics
-
-      expect(values.sample[:Timestamp]).to be_instance_of Date
+      expect(subject.send_statistics).to be_instance_of Array
     end
   end
 end

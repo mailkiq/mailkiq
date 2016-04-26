@@ -29,7 +29,8 @@ module Accounts
 
     def build_resource(hash=nil)
       super.tap do |account|
-        data = (session[:account_data] || {}).reject { |k,v| v.blank? }
+        data = (session[:account_data] || {}).reject { |_, v| v.blank? }
+        secrets = Rails.application.secrets
 
         payment_token = data[:paypal_payment_token]
         payment_token ||= params.dig :account, :paypal_payment_token
@@ -46,8 +47,8 @@ module Accounts
         account.password_confirmation ||= data[:password_confirmation]
         account.paypal_payment_token = payment_token
         account.paypal_customer_token = customer_token
-        account.aws_access_key_id = ENV['MAILKIQ_ACCESS_KEY_ID']
-        account.aws_secret_access_key = ENV['MAILKIQ_SECRET_ACCESS_KEY']
+        account.aws_access_key_id = secrets[:mailkiq_access_key_id]
+        account.aws_secret_access_key = secrets[:mailkiq_secret_access_key]
       end
     end
 

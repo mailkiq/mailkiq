@@ -52,7 +52,6 @@ group :test do
 end
 
 group :development, :test do
-  gem 'dotenv-rails'
   gem 'pry-remote'
   gem 'rspec-rails'
 end

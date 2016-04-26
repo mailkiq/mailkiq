@@ -53,8 +53,9 @@ class Account < ActiveRecord::Base
   end
 
   def tied_to_mailkiq?
-    aws_access_key_id == ENV['MAILKIQ_ACCESS_KEY_ID'] &&
-      aws_secret_access_key == ENV['MAILKIQ_SECRET_ACCESS_KEY']
+    secrets = Rails.application.secrets
+    aws_access_key_id == secrets[:mailkiq_access_key_id] &&
+      aws_secret_access_key == secrets[:mailkiq_secret_access_key]
   end
 
   def save_with_payment!

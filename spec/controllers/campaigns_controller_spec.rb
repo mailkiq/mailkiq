@@ -21,7 +21,6 @@ describe CampaignsController, type: :controller do
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :index }
-
       it { is_expected.to have_scope :sort }
       it { is_expected.to have_scope :page }
     end

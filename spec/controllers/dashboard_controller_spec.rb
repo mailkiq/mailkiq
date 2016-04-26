@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe DashboardController, type: :controller do
   context 'when logged in' do
-    describe '#index' do
+    describe '#show' do
       before do
         account = Fabricate.build(:account)
         sign_in account
@@ -11,6 +11,7 @@ describe DashboardController, type: :controller do
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :show }
     end
   end
 end

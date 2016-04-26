@@ -21,6 +21,7 @@ describe SettingsController, type: :controller do
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :domains }
       it { is_expected.to set_flash.now[:notice] }
       it do
         is_expected

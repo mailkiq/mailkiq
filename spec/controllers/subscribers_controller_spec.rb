@@ -19,6 +19,7 @@ describe SubscribersController, type: :controller do
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :index }
       it { is_expected.to have_scope :page }
       it { is_expected.to have_scope :sort }
     end
@@ -31,6 +32,7 @@ describe SubscribersController, type: :controller do
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :new }
     end
 
     describe '#create' do
@@ -64,6 +66,7 @@ describe SubscribersController, type: :controller do
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
+      it { is_expected.to render_template :edit }
     end
 
     describe '#update' do

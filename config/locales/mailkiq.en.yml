@@ -48,6 +48,7 @@ en:
       click_rate: 'Click rate'
   subscribers:
     index:
+      import: 'Import CSV'
       new_subscriber: 'New subscriber'
       no_subscribers: 'No subscribers found.'
       name: 'Name'

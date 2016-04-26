@@ -20,6 +20,8 @@ en:
         new: "Join Mailkiq"
       deliveries:
         new: "Send campaign"
+      imports:
+        new: "Import from CSV file"
       tags:
         index: "Tags"
         new: "New tag"

@@ -9,6 +9,8 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
     labels:
+      import:
+        file: 'Upload file'
       campaign:
         html_text: 'HTML'
         plain_text: 'Text'
@@ -26,6 +28,8 @@ en:
       domain:
         name: 'example.com'
     hints:
+      import:
+        file: 'Acceptable file types: CSV or tab-delimited text files.'
       account:
         aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."
         edit:

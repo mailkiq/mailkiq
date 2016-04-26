@@ -3,8 +3,8 @@ require 'resque/server'
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1, constraints: { format: :json } do
-      resources :notifications, only: [:create]
-      jsonapi_resources :subscribers, only: [:create]
+      resources :notifications, only: :create
+      jsonapi_resources :subscribers, only: :create
     end
   end
 
@@ -27,7 +27,8 @@ Rails.application.routes.draw do
     match '/settings/domains', to: 'settings#domains', as: :domains_settings
   end
 
-  resources :tags, except: [:show]
+  resources :tags, except: :show
+  resources :imports, only: [:new, :create]
   resources :domains, only: [:create, :destroy]
   resources :subscribers
   resources :campaigns do

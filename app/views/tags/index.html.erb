@@ -15,7 +15,7 @@
     <% @tags.each do |tag| %>
       <tr>
         <td><%= tag.name %></td>
-        <td><%= tag.subscribers_count %></td>
+        <td><%= number_with_delimiter tag.subscribers_count %></td>
         <td class="actions">
           <%= icon_link_to :pen, edit_tag_path(tag) %>
           <%= icon_link_to :trash, tag_path(tag), delete: true %>

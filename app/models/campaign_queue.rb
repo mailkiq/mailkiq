@@ -1,8 +1,11 @@
 class CampaignQueue
-  attr_reader :campaign
+  attr_reader :campaign, :queue
+
+  delegate :clear, to: :queue
 
   def initialize(campaign)
     @campaign = campaign
+    @queue = Sidekiq::Queue.new(name)
   end
 
   def name
@@ -10,23 +13,9 @@ class CampaignQueue
   end
 
   def push_bulk(jobs)
-    Resque.redis.pipelined do
-      jobs.each do |args|
-        item = Resque.encode(class: 'CampaignWorker', args: args)
-        Resque.redis.rpush("queue:#{name}", item)
-      end
-
-      Resque.watch_queue name
-    end
-  end
-
-  def remove
-    Resque.remove_queue name
-  end
-
-  def self.remove_dead_queues
-    Resque.queues.grep(/campaign/).each do |name|
-      Resque.remove_queue(name) if Resque.size(name).zero?
-    end
+    Sidekiq::Client.push_bulk \
+      'queue'    => name,
+      'class'    => CampaignWorker,
+      'args'     => jobs
   end
 end

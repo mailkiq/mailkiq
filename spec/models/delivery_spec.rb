@@ -28,9 +28,8 @@ describe Delivery, type: :model do
 
   describe '#save' do
     it 'enqueues delivery job' do
-      expect(Resque).to receive(:enqueue)
-        .with(DeliveryWorker, subject.campaign.id, subject.tagged_with,
-              subject.not_tagged_with)
+      expect(DeliveryWorker).to receive(:perform_async)
+        .with(subject.campaign.id, subject.tagged_with, subject.not_tagged_with)
 
       subject.save
     end

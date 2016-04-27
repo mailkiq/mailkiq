@@ -18,7 +18,7 @@ class Delivery
 
   def save
     return false unless valid?
-    Resque.enqueue DeliveryWorker, campaign.id, tagged_with, not_tagged_with
+    DeliveryWorker.perform_async campaign.id, tagged_with, not_tagged_with
   end
 
   def opened_campaign_names

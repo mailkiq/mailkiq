@@ -1,9 +1,4 @@
 namespace :redis do
-  desc 'Remove dead queues on Resque'
-  task remove_dead_queues: :environment do
-    CampaignQueue.remove_dead_queues
-  end
-
   desc 'Rebuild redis database from scratch'
   task rebuild: :environment do
     notifications = Query.select_all :campaign_notifications

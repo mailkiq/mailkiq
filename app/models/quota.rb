@@ -26,8 +26,8 @@ class Quota
   end
 
   def cached(method_name)
-    cache_key = "#{account.cache_key}/#{method_name}"
-    value = Rails.cache.fetch(cache_key, expires_in: 1.day) { send method_name }
+    key = "#{account.aws_cache_key}/#{method_name}"
+    value = Rails.cache.fetch(key, expires_in: 2.hours) { send method_name }
     value.is_a?(Hash) ? OpenStruct.new(value) : value
   end
 

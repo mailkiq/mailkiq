@@ -108,7 +108,7 @@ describe CampaignsController, type: :controller do
     describe '#destroy' do
       before do
         mock!
-        expect(campaign.queue).to receive(:remove)
+        expect(campaign.queue).to receive(:clear)
         expect(campaign).to receive(:destroy)
         delete :destroy, id: campaign.id
       end

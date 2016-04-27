@@ -18,11 +18,10 @@ gem 'simple_form'
 gem 'strip_attributes'
 
 # Job scheduling
-gem 'resque'
+gem 'sidekiq'
 gem 'sinatra', require: false
 
 # DB
-gem 'groupdate'
 gem 'kaminari'
 gem 'pg'
 
@@ -47,7 +46,7 @@ end
 group :test do
   gem 'database_rewinder'
   gem 'fabrication'
-  gem 'fakeredis', require: 'fakeredis/rspec'
+  gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
 end
 

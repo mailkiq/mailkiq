@@ -1,6 +1,10 @@
 require 'rails_helper'
 
-describe DeliveryWorker do
+describe DeliveryWorker, type: :worker do
+  it { is_expected.to be_processed_in :deliveries }
+  it { is_expected.to save_backtrace }
+  it { is_expected.to be_retryable 0 }
+
   describe '#perform' do
     it 'pushes jobs to Redis queue' do
       campaign = Fabricate.build(:campaign, id: 1)
@@ -14,7 +18,10 @@ describe DeliveryWorker do
       expect_any_instance_of(Delivery).to receive(:jobs)
         .and_return([[1, 1], [1, 2]])
 
-      described_class.perform(1, nil, nil)
+      subject.perform(1, nil, nil)
+
+      expect(CampaignWorker).to have_enqueued_job(1, 1)
+      expect(CampaignWorker).to have_enqueued_job(1, 2)
     end
   end
 end

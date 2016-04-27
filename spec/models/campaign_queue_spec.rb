@@ -1,45 +1,35 @@
 require 'rails_helper'
 
 describe CampaignQueue, type: :model do
-  let(:campaign) { Fabricate.build :campaign, id: 1 }
+  let(:campaign) { Fabricate.build(:campaign, id: 1) }
 
   subject { described_class.new campaign }
 
+  it { is_expected.to delegate_method(:clear).to(:queue) }
+
   describe '#name' do
-    it 'generates queue name' do
+    it 'generates an queue name' do
       expect(subject.name).to eq('campaign-1')
+    end
+  end
+
+  describe '#queue' do
+    it 'initializes a Sidekiq::Queue object' do
+      expect(subject.queue).to be_instance_of Sidekiq::Queue
     end
   end
 
   describe '#push_bulk' do
     it 'pushes a large number of jobs to the queue' do
-      queue_name = "queue:#{subject.name}"
+      jobs = [[1, 1], [1, 2]]
 
-      subject.push_bulk [[1, 1], [1, 2]]
+      expect(Sidekiq::Client).to receive(:push_bulk)
+        .with('queue' => subject.name,
+              'class' => CampaignWorker,
+              'args'  => jobs)
+        .and_call_original
 
-      expect(Resque.redis.exists(queue_name)).to be_truthy
-      expect(Resque.redis.sismember('queues', subject.name)).to be_truthy
-      expect(Resque.redis.llen(queue_name)).to eq(2)
-    end
-  end
-
-  describe '#remove' do
-    it 'completely deletes the queue' do
-      expect(Resque).to receive(:remove_queue).with(subject.name)
-      subject.remove
-    end
-  end
-
-  describe '.remove_dead_queues' do
-    it 'removes dead queues' do
-      queues = %w(campaign-1 blah)
-
-      expect(Resque).to receive(:queues).and_return(queues)
-      expect(Resque).to receive(:remove_queue).with(queues.first)
-      expect(Resque).not_to receive(:remove_queue).with(queues.last)
-      expect(Resque).to receive(:size).with(queues.first).and_return(0)
-
-      described_class.remove_dead_queues
+      subject.push_bulk(jobs)
     end
   end
 end

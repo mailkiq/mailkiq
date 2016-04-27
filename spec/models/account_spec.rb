@@ -61,16 +61,6 @@ describe Account, type: :model do
     end
   end
 
-  describe '#admin?' do
-    it 'verifies if account is an administrator' do
-      account = described_class.new email: 'rainerborene@gmail.com'
-      expect(account).to be_admin
-
-      account.email = 'blah@blah.com'
-      expect(account).to_not be_admin
-    end
-  end
-
   describe '#aws_options' do
     it 'returns options to initialize Aws services' do
       options = subject.aws_options

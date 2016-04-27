@@ -64,10 +64,6 @@ class Account < ActiveRecord::Base
     save!
   end
 
-  def admin?
-    email == 'rainerborene@gmail.com'
-  end
-
   def aws_options
     options = ActiveSupport::HashWithIndifferentAccess.new
     options[:region] = aws_region || 'us-east-1'
@@ -75,6 +71,10 @@ class Account < ActiveRecord::Base
     options[:secret_access_key] = aws_secret_access_key
     options[:stub_responses] = true if Rails.env.test?
     options
+  end
+
+  def aws_cache_key
+    Digest::MD5.hexdigest("#{aws_access_key_id}:#{aws_secret_access_key}")
   end
 
   def mixpanel_properties
@@ -89,11 +89,11 @@ class Account < ActiveRecord::Base
   private
 
   def create_topic
-    Resque.enqueue TopicWorker, id, :up
+    TopicWorker.perform_async id, :up
   end
 
   def delete_topic
-    Resque.enqueue TopicWorker, id, :down
+    TopicWorker.perform_async id, :down
   end
 
   def validate_access_keys?

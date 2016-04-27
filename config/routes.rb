@@ -1,4 +1,4 @@
-require 'resque/server'
+require 'sidekiq/web'
 
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
@@ -10,11 +10,9 @@ Rails.application.routes.draw do
 
   devise_for :accounts, controllers: { registrations: 'accounts/registrations' }
 
-  authenticated :account, -> (account) { account.admin? } do
-    mount Resque::Server.new, at: '/resque'
-  end
-
   authenticated :account do
+    mount Sidekiq::Web => '/sidekiq'
+
     root to: 'dashboard#show', as: :signed_in_root
   end
 

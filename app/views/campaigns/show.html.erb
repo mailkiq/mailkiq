@@ -1,12 +1,6 @@
 <h2>
   <%= @campaign.name %>
-
-  <small>
-    <% if @campaign.sent_at? %>
-      Sent at <%= l @campaign.sent_at, format: :long %> •
-    <% end %>
-    takes <%= @metrics.estimated_time %> to send it.
-  </small>
+  <%= campaign_sent_at @campaign, @metrics.estimated_time if @campaign.sent_at? %>
 </h2>
 
 <div class="metrics">

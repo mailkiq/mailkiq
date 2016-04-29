@@ -7,6 +7,13 @@ module CampaignsHelper
                 class: css_class || 'campaign-percentage'
   end
 
+  def campaign_sent_at(campaign, estimated_time)
+    text = t '.long_sent_at', time: l(campaign.sent_at, format: :long),
+                              estimated_time: estimated_time
+
+    content_tag :small, text
+  end
+
   def campaign_meter_tag(campaign, counter_name)
     width = campaign.send(counter_name).value / campaign.recipients_count.to_f * 100
     width = width.round(1)

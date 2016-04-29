@@ -46,6 +46,7 @@ en:
       unsent: 'unsent'
       open_rate: 'Open rate'
       click_rate: 'Click rate'
+      long_sent_at: 'Sent at %{time} • takes %{estimated_time} to send it.'
   subscribers:
     index:
       import: 'Import CSV'

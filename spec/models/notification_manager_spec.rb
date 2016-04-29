@@ -5,33 +5,18 @@ describe NotificationManager do
   let(:message) { Message.new campaign_id: 1 }
   let(:notification) { Notification.new message: message }
 
-  describe '#confirm' do
-    it 'confirms intent to receive messages' do
-      manager = described_class.new account, fixture(:subscription_confirmation)
-
-      expect_any_instance_of(Aws::SNS::Client)
-        .to receive(:confirm_subscription)
-        .with(topic_arn: manager.message.topic_arn,
-              token: manager.message.token)
-        .and_call_original
-
-      expect(manager.confirm).to be_successful
-    end
-  end
+  subject { described_class.new fixture(:bounce), account.id }
 
   describe '#create!' do
-    subject { described_class.new account, fixture(:bounce) }
-
     before do
       relation = double
 
-      expect(relation).to receive(:where).with(email: subject.message.emails)
+      expect(Subscriber).to receive(:where)
+        .with(email: subject.message.emails, account_id: account.id)
         .and_return(relation)
 
       expect(relation).to receive(:update_all)
         .with(state: Subscriber.states.fetch(subject.message.state))
-
-      expect(account).to receive(:subscribers).and_return(relation)
 
       expect(message).to receive_message_chain(:notifications, :create!)
         .with(subject.attributes) do |attrs|
@@ -60,10 +45,9 @@ describe NotificationManager do
 
   describe '#attributes' do
     it 'slices message type and data object attributes' do
-      manager = described_class.new account, fixture(:bounce)
-      attributes = manager.attributes
-      expect(attributes[:type]).to eq(manager.message.message_type.downcase)
-      expect(attributes[:data]).to eq(manager.message.data.as_json)
+      attributes = subject.attributes
+      expect(attributes[:type]).to eq(subject.message.message_type.downcase)
+      expect(attributes[:data]).to eq(subject.message.data.as_json)
     end
   end
 end

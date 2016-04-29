@@ -3,7 +3,6 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1, constraints: { format: :json } do
-      resources :notifications, only: :create
       jsonapi_resources :subscribers, only: :create
     end
   end

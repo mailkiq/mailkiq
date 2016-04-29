@@ -1,23 +1,18 @@
 class NotificationManager
-  attr_reader :account, :message
+  attr_reader :message, :account_id
 
-  delegate :subscription_confirmation?, :ses?, to: :message
+  delegate :ses?, to: :message
 
-  def initialize(account, message_body)
-    @account = account
-    @message = Aws::SNS::Message.load message_body
-  end
-
-  def confirm
-    sns = Aws::SNS::Client.new account.aws_options
-    sns.confirm_subscription topic_arn: message.topic_arn, token: message.token
+  def initialize(body, account_id)
+    @message = Aws::SNS::Message.load body
+    @account_id = account_id
   end
 
   def create!
     notification = create_notification!
 
-    account.subscribers.where(email: message.emails)
-           .update_all(state: Subscriber.states[message.state])
+    Subscriber.where(email: message.emails, account_id: account_id)
+              .update_all(state: Subscriber.states[message.state])
 
     increment_counter(notification) unless notification.delivery?
   end
@@ -34,7 +29,7 @@ class NotificationManager
   end
 
   def increment_counter(notification)
-    Campaign.increment_counter "#{notification.type.pluralize}_count".freeze,
-                               notification.message.campaign_id
+    counter_name = "#{notification.type.pluralize}_count".freeze
+    Campaign.increment_counter counter_name, notification.message.campaign_id
   end
 end

@@ -32,6 +32,8 @@ class Account < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable
 
+  scope :active, -> { where.not aws_queue_url: nil, aws_topic_arn: nil }
+
   def remember_me
     true
   end
@@ -54,8 +56,8 @@ class Account < ActiveRecord::Base
 
   def tied_to_mailkiq?
     secrets = Rails.application.secrets
-    aws_access_key_id == secrets[:mailkiq_access_key_id] &&
-      aws_secret_access_key == secrets[:mailkiq_secret_access_key]
+    aws_access_key_id == secrets[:aws_access_key_id] &&
+      aws_secret_access_key == secrets[:aws_secret_access_key]
   end
 
   def save_with_payment!
@@ -89,11 +91,11 @@ class Account < ActiveRecord::Base
   private
 
   def create_topic
-    TopicWorker.perform_async id, :up
+    ActivationWorker.perform_async id, :activate
   end
 
   def delete_topic
-    TopicWorker.perform_async id, :down
+    ActivationWorker.perform_async id, :deactivate
   end
 
   def validate_access_keys?

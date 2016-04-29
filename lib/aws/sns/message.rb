@@ -12,10 +12,6 @@ module Aws
         parse_message! if attributes['Message'].is_a? String
       end
 
-      def subscription_confirmation?
-        attributes['Type'] == 'SubscriptionConfirmation'
-      end
-
       def topic_arn
         attributes['TopicArn']
       end

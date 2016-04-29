@@ -47,8 +47,8 @@ module Accounts
         account.password_confirmation ||= data[:password_confirmation]
         account.paypal_payment_token = payment_token
         account.paypal_customer_token = customer_token
-        account.aws_access_key_id = secrets[:mailkiq_access_key_id]
-        account.aws_secret_access_key = secrets[:mailkiq_secret_access_key]
+        account.aws_access_key_id = secrets[:aws_access_key_id]
+        account.aws_secret_access_key = secrets[:aws_secret_access_key]
       end
     end
 

@@ -52,8 +52,8 @@ describe Account, type: :model do
   describe '#tied_to_mailkiq?' do
     it 'verifies if account is tied to the official SES account' do
       secrets = Rails.application.secrets
-      subject.aws_access_key_id = secrets[:mailkiq_access_key_id]
-      subject.aws_secret_access_key = secrets[:mailkiq_secret_access_key]
+      subject.aws_access_key_id = secrets[:aws_access_key_id]
+      subject.aws_secret_access_key = secrets[:aws_secret_access_key]
       expect(subject).to be_tied_to_mailkiq
 
       subject.aws_access_key_id = 'blah'

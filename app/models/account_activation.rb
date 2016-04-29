@@ -21,20 +21,25 @@ class AccountActivation
   def activate
     topic_arn = sns.create_topic(name: name).topic_arn
     queue_url = create_queue.queue_url
-    endpoint = queue_arn_from_url(queue_url)
+    queue_arn = queue_arn_from_url(queue_url)
+    configure_queue queue_url, queue_arn, topic_arn
 
-    sns.subscribe topic_arn: topic_arn, endpoint: endpoint, protocol: :sqs
+    sns.subscribe topic_arn: topic_arn, endpoint: queue_arn, protocol: :sqs
 
     account.update_columns aws_topic_arn: topic_arn, aws_queue_url: queue_url
   end
 
   def deactivate
-    sns.delete_topic topic_arn: account.aws_topic_arn
     sqs.delete_queue queue_url: account.aws_queue_url
+    sns.delete_topic topic_arn: account.aws_topic_arn
     account.update_columns aws_topic_arn: nil, aws_queue_url: nil
   end
 
   private
+
+  def generate_policy(queue_arn, topic_arn)
+    ERB.new(IO.read('lib/aws/sqs/policy.json.erb')).result(binding)
+  end
 
   def create_queue
     sqs.create_queue(
@@ -43,6 +48,15 @@ class AccountActivation
         'MessageRetentionPeriod' => MESSAGE_RETENTION_PERIOD,
         'ReceiveMessageWaitTimeSeconds' => RECEIVE_MESSAGE_WAIT_TIME_SECONDS,
         'VisibilityTimeout' => VISIBILITY_TIMEOUT
+      }
+    )
+  end
+
+  def configure_queue(queue_url, queue_arn, topic_arn)
+    sqs.set_queue_attributes(
+      queue_url: queue_url,
+      attributes: {
+        'Policy' => generate_policy(queue_arn, topic_arn)
       }
     )
   end

@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Sid1461966277424",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "SQS:SendMessage",
+      "Resource": "<%= queue_arn %>",
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "<%= topic_arn %>"
+        }
+      }
+    }
+  ]
+}

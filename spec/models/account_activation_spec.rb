@@ -7,9 +7,11 @@ describe AccountActivation, type: :model do
 
   describe '#activate' do
     it 'creates a topic and queue to receive SES notifications' do
+      queue = { 'QueueArn' => 'arn:aws:sqs:us-east-1:495707395447:mailkiq' }
       topic_arn = 'arn:aws:sns:us-east-1:495707395447:mailkiq'
       queue_url = 'https://sqs.us-east-1.amazonaws.com/495707395447/mailkiq'
-      queue = { 'QueueArn' => 'arn:aws:sqs:us-east-1:495707395447:mailkiq' }
+      queue_arn = queue['QueueArn']
+      policy = ERB.new(IO.read('lib/aws/sqs/policy.json.erb')).result(binding)
 
       subject.sns.stub_responses(:create_topic, topic_arn: topic_arn)
       subject.sqs.stub_responses(:create_queue, queue_url: queue_url)
@@ -32,9 +34,13 @@ describe AccountActivation, type: :model do
         .with(queue_url: queue_url, attribute_names: ['QueueArn'])
         .and_call_original
 
+      expect(subject.sqs).to receive(:set_queue_attributes)
+        .with(queue_url: queue_url, attributes: { 'Policy' => policy })
+        .and_call_original
+
       expect(subject.sns).to receive(:subscribe)
         .with(topic_arn: topic_arn,
-              endpoint: queue['QueueArn'],
+              endpoint: queue_arn,
               protocol: :sqs)
         .and_call_original
 

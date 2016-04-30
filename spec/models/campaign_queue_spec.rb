@@ -5,17 +5,16 @@ describe CampaignQueue, type: :model do
 
   subject { described_class.new campaign }
 
-  it { is_expected.to delegate_method(:clear).to(:queue) }
-
   describe '#name' do
     it 'generates an queue name' do
       expect(subject.name).to eq('campaign-1')
     end
   end
 
-  describe '#queue' do
-    it 'initializes a Sidekiq::Queue object' do
-      expect(subject.queue).to be_instance_of Sidekiq::Queue
+  describe '#clear' do
+    it 'removes queue and pending jobs' do
+      expect_any_instance_of(Sidekiq::Queue).to receive(:clear)
+      subject.clear
     end
   end
 

@@ -10,7 +10,7 @@ describe MetricsPresenter do
 
   describe '#estimated_time' do
     it 'calculates the estimated time to send all recipients' do
-      ses = campaign.account.quota.ses
+      ses = campaign.account.quota.instance_variable_get :@ses
       ses.stub_responses :get_send_quota, max_send_rate: 14.0
       expect(subject.estimated_time).to eq('about 12 hours')
     end

@@ -4,7 +4,7 @@ module Aws
       attr_reader :attributes
 
       def self.load(json)
-        new JSON.parse(json)
+        new JSON.load(json)
       end
 
       def initialize(attributes)

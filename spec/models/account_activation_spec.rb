@@ -1,9 +1,22 @@
 require 'rails_helper'
 
 describe AccountActivation, type: :model do
-  let(:account) { Fabricate.build :valid_account }
+  let(:account) { Fabricate.build :valid_account, id: 1 }
 
   subject { described_class.new account }
+
+  let(:sns) { subject.instance_variable_get :@sns }
+  let(:sqs) { subject.instance_variable_get :@sqs }
+
+  describe '#name' do
+    it 'generantes unique name for queue and topic' do
+      expect(account).to_not be_tied_to_mailkiq
+      expect(subject.name).to eq('mailkiq')
+
+      expect(account).to receive(:tied_to_mailkiq?).and_return(true)
+      expect(subject.name).to eq('mailkiq-1')
+    end
+  end
 
   describe '#activate' do
     it 'creates a topic and queue to receive SES notifications' do
@@ -13,14 +26,14 @@ describe AccountActivation, type: :model do
       queue_arn = queue['QueueArn']
       policy = ERB.new(IO.read('lib/aws/sqs/policy.json.erb')).result(binding)
 
-      subject.sns.stub_responses(:create_topic, topic_arn: topic_arn)
-      subject.sqs.stub_responses(:create_queue, queue_url: queue_url)
-      subject.sqs.stub_responses(:get_queue_attributes, attributes: queue)
+      sns.stub_responses(:create_topic, topic_arn: topic_arn)
+      sqs.stub_responses(:create_queue, queue_url: queue_url)
+      sqs.stub_responses(:get_queue_attributes, attributes: queue)
 
-      expect(subject.sns).to receive(:create_topic).with(name: subject.name)
+      expect(sns).to receive(:create_topic).with(name: subject.name)
         .and_call_original
 
-      expect(subject.sqs).to receive(:create_queue)
+      expect(sqs).to receive(:create_queue)
         .with(
           queue_name: subject.name,
           attributes: {
@@ -30,15 +43,15 @@ describe AccountActivation, type: :model do
           })
         .and_call_original
 
-      expect(subject.sqs).to receive(:get_queue_attributes)
+      expect(sqs).to receive(:get_queue_attributes)
         .with(queue_url: queue_url, attribute_names: ['QueueArn'])
         .and_call_original
 
-      expect(subject.sqs).to receive(:set_queue_attributes)
+      expect(sqs).to receive(:set_queue_attributes)
         .with(queue_url: queue_url, attributes: { 'Policy' => policy })
         .and_call_original
 
-      expect(subject.sns).to receive(:subscribe)
+      expect(sns).to receive(:subscribe)
         .with(topic_arn: topic_arn,
               endpoint: queue_arn,
               protocol: :sqs)
@@ -55,11 +68,11 @@ describe AccountActivation, type: :model do
 
   describe '#deactivate' do
     it 'deletes associated topic and queue' do
-      expect(subject.sns).to receive(:delete_topic)
+      expect(sns).to receive(:delete_topic)
         .with(topic_arn: account.aws_topic_arn)
         .and_call_original
 
-      expect(subject.sqs).to receive(:delete_queue)
+      expect(sqs).to receive(:delete_queue)
         .with(queue_url: account.aws_queue_url)
         .and_call_original
 

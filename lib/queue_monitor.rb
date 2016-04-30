@@ -26,8 +26,4 @@ class QueueMonitor
       end
     end
   end
-
-  def self.start
-    new.start
-  end
 end

@@ -73,6 +73,15 @@ describe Account, type: :model do
     end
   end
 
+  describe '#aws_cache_key' do
+    it 'returns an unique cache key' do
+      keys = subject.slice(:id, :aws_access_key_id, :aws_secret_access_key)
+
+      expect(subject.aws_cache_key)
+        .to eq Digest::MD5.hexdigest(keys.values.join(':'))
+    end
+  end
+
   describe '#mixpanel_properties' do
     it 'returns MixPanel profile properties' do
       properties = subject.mixpanel_properties

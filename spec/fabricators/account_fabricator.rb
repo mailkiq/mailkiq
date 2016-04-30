@@ -7,7 +7,6 @@ Fabricator(:account) do
   aws_secret_access_key 'anything'
   aws_region 'us-east-1'
   api_key SecureRandom.uuid
-  plan
 end
 
 Fabricator(:valid_account, from: :account) do

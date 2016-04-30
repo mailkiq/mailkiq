@@ -1,6 +1,6 @@
 class DeliveriesController < ApplicationController
   before_action :authenticate_account!
-  before_action :find_campaign
+  before_action :set_campaign
 
   def new
     @delivery = Delivery.new campaign: @campaign
@@ -19,7 +19,7 @@ class DeliveriesController < ApplicationController
     params.require(:delivery).permit tagged_with: [], not_tagged_with: []
   end
 
-  def find_campaign
+  def set_campaign
     @campaign = current_account.campaigns.find params[:campaign_id]
   end
 end

@@ -10,7 +10,7 @@ describe AccessKeysValidator do
         .and_raise Aws::SES::Errors::InvalidClientTokenId.new('boom', 'boom')
 
       expect(account).not_to be_valid
-      expect(account.errors.keys).to eq([:aws_access_key_id])
+      expect(account.errors.keys).to include(:aws_access_key_id)
       expect(account.errors.messages[:aws_access_key_id]).to include(message)
     end
   end

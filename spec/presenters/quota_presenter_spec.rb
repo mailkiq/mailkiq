@@ -8,7 +8,7 @@ describe QuotaPresenter do
   end
 
   before do
-    ses = subject.record.quota.ses
+    ses = subject.record.quota.instance_variable_get :@ses
     ses.stub_responses :get_send_quota,
                        max_24_hour_send: 50_000.0,
                        max_send_rate: 14.0,

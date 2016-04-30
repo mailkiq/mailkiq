@@ -1,23 +1,17 @@
 class DomainIdentity
-  attr_reader :domain, :ses
-
   def initialize(domain)
     @domain = domain
-    @ses = Aws::SES::Client.new(domain.account_aws_options)
+    @ses = Aws::SES::Client.new(@domain.account_aws_options)
   end
 
   def verify!
-    return false unless domain.valid?
+    return false unless @domain.valid?
 
-    domain.transaction do
-      domain.verification_status = Domain.verification_statuses[:pending]
-      domain.verification_token = verification_token
-      domain.dkim_tokens = dkim_tokens
-      domain.dkim_verification_status =
-        Domain.dkim_verification_statuses[:dkim_pending]
-      domain.mail_from_domain_status =
-        Domain.mail_from_domain_statuses[:mail_from_pending]
-      domain.save
+    @domain.transaction do
+      @domain.verification_token = verification_token
+      @domain.dkim_tokens = dkim_tokens
+      @domain.all_pending!
+      @domain.save
     end
 
     associate_notification_topics
@@ -25,62 +19,65 @@ class DomainIdentity
   end
 
   def update!
-    domain.transaction do
-      domain.verification_status = verification_status
-      domain.dkim_verification_status = dkim_verification_status
-      domain.mail_from_domain_status = mail_from_domain_status
-      domain.save
+    @domain.transaction do
+      @domain.verification_status = verification_status
+      @domain.dkim_verification_status = dkim_verification_status
+      @domain.mail_from_domain_status = mail_from_domain_status
+      @domain.save
     end
 
-    enable_identity_dkim if domain.dkim_success?
+    enable_identity_dkim if @domain.dkim_success?
   end
 
   def delete!
-    domain.transaction do
-      ses.delete_identity identity: domain.name
-      domain.destroy
+    @domain.transaction do
+      @ses.delete_identity identity: @domain.name
+      @domain.destroy
     end
   end
 
   private
 
   def enable_identity_dkim
-    ses.set_identity_dkim_enabled identity: domain.name, dkim_enabled: true
+    @ses.set_identity_dkim_enabled identity: @domain.name, dkim_enabled: true
   end
 
   def verification_token
-    ses.verify_domain_identity(domain: domain.name).verification_token
+    @ses.verify_domain_identity(domain: @domain.name).verification_token
   end
 
   def dkim_tokens
-    ses.verify_domain_dkim(domain: domain.name).dkim_tokens
+    @ses.verify_domain_dkim(domain: @domain.name).dkim_tokens
   end
 
   def dkim_verification_status
-    resp = ses.get_identity_dkim_attributes identities: [domain.name]
-    attributes = resp.dkim_attributes[domain.name]
+    resp = @ses.get_identity_dkim_attributes identities: [@domain.name]
+    attributes = resp.dkim_attributes[@domain.name]
     status = attributes.dkim_verification_status.underscore
     Domain.dkim_verification_statuses["dkim_#{status}"]
   end
 
   def mail_from_domain_status
-    resp = ses.get_identity_mail_from_domain_attributes identities: [domain.name]
-    attributes = resp.mail_from_domain_attributes[domain.name]
+    identities = [@domain.name]
+    resp = @ses.get_identity_mail_from_domain_attributes identities: identities
+    attributes = resp.mail_from_domain_attributes[@domain.name]
     status = attributes.mail_from_domain_status.underscore
     Domain.mail_from_domain_statuses["mail_from_#{status}"]
   end
 
   def verification_status
-    resp = ses.get_identity_verification_attributes identities: [domain.name]
-    attributes = resp.verification_attributes[domain.name]
+    resp = @ses.get_identity_verification_attributes identities: [@domain.name]
+    attributes = resp.verification_attributes[@domain.name]
     status = attributes.verification_status.underscore
     Domain.verification_statuses[status]
   end
 
   def associate_notification_topic(type)
-    ses.set_identity_notification_topic identity: domain.name,
-                                        sns_topic: domain.account_aws_topic_arn,
-                                        notification_type: type
+    @ses.set_identity_notification_topic(
+      identity: @domain.name,
+      sns_topic: @domain.account_aws_topic_arn,
+      notification_type: type
+    )
   end
 
   def associate_notification_topics
@@ -88,13 +85,15 @@ class DomainIdentity
     associate_notification_topic :Complaint
     associate_notification_topic :Delivery
 
-    ses.set_identity_feedback_forwarding_enabled identity: domain.name,
-                                                 forwarding_enabled: false
+    @ses.set_identity_feedback_forwarding_enabled identity: @domain.name,
+                                                  forwarding_enabled: false
   end
 
   def set_identity_mail_from_domain
-    ses.set_identity_mail_from_domain identity: domain.name,
-                                      mail_from_domain: "bounce.#{domain.name}",
-                                      behavior_on_mx_failure: 'UseDefaultValue'
+    @ses.set_identity_mail_from_domain(
+      identity: @domain.name,
+      mail_from_domain: "bounce.#{@domain.name}",
+      behavior_on_mx_failure: 'UseDefaultValue'
+    )
   end
 end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Quota, type: :model do
   let(:account) { Fabricate.build :account }
+  let(:ses) { subject.instance_variable_get :@ses }
 
   subject { described_class.new account }
 
@@ -37,7 +38,7 @@ describe Quota, type: :model do
         n
       end
 
-      subject.ses.stub_responses :get_send_statistics, send_statistics
+      ses.stub_responses :get_send_statistics, send_statistics
 
       expect(subject.send_statistics.sample[:timestamp]).to be_instance_of Date
     end

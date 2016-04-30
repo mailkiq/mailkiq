@@ -2,21 +2,22 @@ require 'rails_helper'
 
 describe NotificationManager do
   let(:account) { Fabricate.build :valid_account }
-  let(:message) { Message.new campaign_id: 1 }
-  let(:notification) { Notification.new message: message }
+  let(:sns) { subject.instance_variable_get :@message }
 
   subject { described_class.new fixture(:bounce), account.id }
 
   describe '#create!' do
     before do
-      relation = double
+      relation = double('relation')
+      message = Message.new campaign_id: 1
+      notification = Notification.new message: message
 
       expect(Subscriber).to receive(:where)
-        .with(email: subject.message.emails, account_id: account.id)
+        .with(email: sns.emails, account_id: account.id)
         .and_return(relation)
 
       expect(relation).to receive(:update_all)
-        .with(state: Subscriber.states.fetch(subject.message.state))
+        .with(state: Subscriber.states.fetch(sns.state))
 
       expect(message).to receive_message_chain(:notifications, :create!)
         .with(subject.attributes) do |attrs|
@@ -24,7 +25,7 @@ describe NotificationManager do
           notification
         end
 
-      expect(Message).to receive(:find_by!).with(uuid: subject.message.mail_id)
+      expect(Message).to receive(:find_by!).with(uuid: sns.mail_id)
         .and_return(message)
     end
 
@@ -46,8 +47,8 @@ describe NotificationManager do
   describe '#attributes' do
     it 'slices message type and data object attributes' do
       attributes = subject.attributes
-      expect(attributes[:type]).to eq(subject.message.message_type.downcase)
-      expect(attributes[:data]).to eq(subject.message.data.as_json)
+      expect(attributes[:type]).to eq(sns.message_type.downcase)
+      expect(attributes[:data]).to eq(sns.data.as_json)
     end
   end
 end

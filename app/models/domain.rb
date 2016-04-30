@@ -34,4 +34,10 @@ class Domain < ActiveRecord::Base
   def records
     @records ||= DomainRecords.new(self)
   end
+
+  def all_pending!
+    self.verification_status = :pending
+    self.dkim_verification_status = :dkim_pending
+    self.mail_from_domain_status = :mail_from_pending
+  end
 end

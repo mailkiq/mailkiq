@@ -5,6 +5,7 @@ Sidekiq.options[:fetch] = DynamicFetch
 
 Sidekiq.configure_server do |config|
   config.on(:startup) do
-    QueueMonitor.start
+    monitor = QueueMonitor.new
+    monitor.start
   end
 end

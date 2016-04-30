@@ -32,9 +32,27 @@ describe Domain, type: :model do
   end
 
   describe '#identity' do
-    it 'creates a sort of proxy object between SES API and current model' do
+    it 'creates a domain identity object' do
       expect(DomainIdentity).to receive(:new).with(subject)
       subject.identity
+    end
+  end
+
+  describe '#records' do
+    it 'creates a object that represents DNS records' do
+      expect(DomainRecords).to receive(:new).with(subject)
+      subject.records
+    end
+  end
+
+  describe '#all_pending!' do
+    it 'makes all statuses pending' do
+      expect(subject).to receive(:verification_status=).with(:pending)
+      expect(subject).to receive(:dkim_verification_status=).with(:dkim_pending)
+      expect(subject).to receive(:mail_from_domain_status=)
+        .with(:mail_from_pending)
+
+      subject.all_pending!
     end
   end
 end

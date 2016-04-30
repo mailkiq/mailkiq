@@ -1,6 +1,6 @@
 # mailkiq
 
-Mailkiq is a e-mail marketing platform highly integrated with Amazon SES.
+Mailkiq is an email marketing platform highly integrated with Amazon SES.
 
 ## Throttling
 

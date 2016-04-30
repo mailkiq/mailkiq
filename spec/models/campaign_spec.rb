@@ -41,11 +41,10 @@ describe Campaign, type: :model do
   it { is_expected.to have_counter :bounces_count }
   it { is_expected.to have_counter :complaints_count }
 
-  describe '#queue' do
-    it 'memoizes CampaignQueue object' do
-      queue = subject.queue
-      expect(subject.queue).to eq(queue)
-      expect(subject.queue).to be_instance_of CampaignQueue
+  describe '#queue_name' do
+    it 'generates queue name' do
+      subject.id = 1
+      expect(subject.queue_name).to eq('campaign-1')
     end
   end
 

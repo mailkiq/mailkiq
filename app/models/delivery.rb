@@ -16,11 +16,6 @@ class Delivery
     @not_tagged_with = Array(value)
   end
 
-  def save
-    return false unless valid?
-    DeliveryWorker.perform_async campaign.id, tagged_with, not_tagged_with
-  end
-
   def opened_campaign_names
     account.campaigns.sent.pluck(:name).map { |name| "Opened #{name}" }
   end
@@ -29,8 +24,20 @@ class Delivery
     account.tags.map(&:name) + opened_campaign_names
   end
 
-  def jobs
-    chain_queries.pluck(:id).map! { |id| [campaign.id, id] }
+  def deliver!
+    jobs = chain_queries.pluck(:id).map! { |id| [campaign.id, id] }
+
+    Sidekiq::Client.push_bulk \
+      'queue'    => campaign.queue_name,
+      'class'    => CampaignWorker,
+      'args'     => jobs
+
+    campaign.update_columns recipients_count: jobs.size, sent_at: Time.now
+  end
+
+  def save
+    return false unless valid?
+    DeliveryWorker.perform_async campaign.id, tagged_with, not_tagged_with
   end
 
   private

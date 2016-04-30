@@ -26,8 +26,8 @@ class Campaign < ActiveRecord::Base
   counter :bounces_count
   counter :complaints_count
 
-  def queue
-    @queue ||= CampaignQueue.new(self)
+  def queue_name
+    "campaign-#{id}"
   end
 
   def deliveries_count

@@ -35,12 +35,24 @@ describe Delivery, type: :model do
     end
   end
 
-  describe '#jobs' do
+  describe '#deliver!' do
     it 'generates arguments for bulk processing' do
-      subject.campaign.id = 1
+      now = Time.now
+
+      expect(Time).to receive(:now).at_least(:once).and_return(now)
       expect(subject).to receive_message_chain(:chain_queries, :pluck)
         .and_return([2, 3, 4])
-      expect(subject.jobs).to eq([[1, 2], [1, 3], [1, 4]])
+
+      expect(Sidekiq::Client).to receive(:push_bulk)
+        .with('queue' => subject.campaign.queue_name,
+              'class' => CampaignWorker,
+              'args'  => [[1, 2], [1, 3], [1, 4]])
+        .and_call_original
+
+      expect(subject.campaign).to receive(:update_columns)
+        .with(recipients_count: 3, sent_at: now)
+
+      subject.deliver!
     end
   end
 

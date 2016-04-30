@@ -4,11 +4,6 @@ class TagScope < Scope
     without_tags = pluck_tag_ids @not_tagged_with
     return if with_tags.blank? && without_tags.blank?
 
-    join_sources = Subscriber.arel_table
-                             .join(Tagging.arel_table, Arel::Nodes::OuterJoin)
-                             .on(Tagging[:subscriber_id].eq(Subscriber[:id]))
-                             .join_sources
-
     @relation.joins! join_sources
     @relation.where! Tagging[:tag_id].in(with_tags) if with_tags.present?
     @relation.where! Arel::Nodes::Grouping.new(
@@ -20,11 +15,15 @@ class TagScope < Scope
 
   private
 
-  def account_id
-    @relation.where_values_hash['account_id']
+  def join_sources
+    Subscriber.arel_table
+              .join(Tagging.arel_table, Arel::Nodes::OuterJoin)
+              .on(Tagging[:subscriber_id].eq(Subscriber[:id]))
+              .join_sources
   end
 
   def pluck_tag_ids(tags)
+    account_id = @relation.where_values_hash['account_id']
     names = tags.reject { |tag_name| tag_name.start_with? 'Opened' }
     Tag.where(account_id: account_id, name: names).pluck(:id) if names.any?
   end

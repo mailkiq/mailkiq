@@ -18,6 +18,7 @@ Fabricator(:sent_campaign, from: :campaign) do
 end
 
 Fabricator(:campaign_with_account, from: :campaign) do
+  id 1
   account
   sent_at Time.now
   recipients_count 600_000

@@ -2,7 +2,6 @@ class Subscriber < ActiveRecord::Base
   include Sortable
   include Person
 
-  validates_presence_of :name
   validates_uniqueness_of :email, scope: :account_id
   validates :email, presence: true, email: true
   belongs_to :account

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Subscriber, type: :model do
-  it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to allow_value('jonh@doe.com').for :email }
   it { is_expected.not_to allow_value('asdf.com').for :email }
@@ -41,7 +40,7 @@ describe Subscriber, type: :model do
   end
 
   describe '#interpolations' do
-    it 'attributes for mailer' do
+    it 'generates a custom attributes hash' do
       interpolations = Fabricate.build(:subscriber).interpolations
       expect(interpolations).to have_key :first_name
       expect(interpolations).to have_key :last_name
@@ -49,7 +48,7 @@ describe Subscriber, type: :model do
       expect(interpolations.size).to eq(3)
     end
 
-    it 'no failing with empty name' do
+    it 'returns nil given an empty name' do
       subscriber = Fabricate.build(:subscriber, name: '')
       expect(subscriber.first_name).to be_nil
       expect(subscriber.last_name).to be_nil

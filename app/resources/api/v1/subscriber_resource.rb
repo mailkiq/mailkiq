@@ -3,9 +3,9 @@ module API
     class SubscriberResource < JSONAPI::Resource
       attributes :name, :email, :tags
 
-      def self.records(options = {})
-        context = options[:context]
-        context[:current_account].subscribers
+      before_save do
+        @model.state = :active if @model.new_record?
+        @model.account_id = context[:current_account].id
       end
 
       def tags
@@ -13,7 +13,8 @@ module API
       end
 
       def tags=(new_tags)
-        tag_ids = @model.account.tags.where(name: new_tags).pluck(:id)
+        account_id = context[:current_account].id
+        tag_ids = Tag.where(name: new_tags, account_id: account_id).pluck(:id)
         @model.tag_ids = @model.tag_ids | tag_ids
       end
     end

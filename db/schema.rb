@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428181200) do
+ActiveRecord::Schema.define(version: 20160501172858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20160428181200) do
   add_index "plans", ["name"], name: "index_plans_on_name", unique: true, using: :btree
 
   create_table "subscribers", force: :cascade do |t|
-    t.string   "name",                       null: false
+    t.string   "name"
     t.citext   "email",                      null: false
     t.integer  "state",                      null: false
     t.jsonb    "custom_fields", default: {}, null: false

@@ -3,10 +3,22 @@ require 'rails_helper'
 describe API::V1::SubscribersController, type: :controller do
   context 'when logged in' do
     describe '#create' do
-      let(:account) { Fabricate.build :valid_account }
+      let(:account) { Fabricate.build :valid_account, id: 10 }
+      let(:params) do
+        {
+          api_key: account.api_key,
+          data: {
+            type: 'subscribers',
+            attributes: {
+              name: 'Jonh Doe',
+              email: 'jonh@doe.com',
+              tags: ['teste']
+            }
+          }
+        }
+      end
 
       before do
-        set_content_type_header!
         expect_sign_in_as account
 
         expect_any_instance_of(Subscriber)
@@ -18,20 +30,23 @@ describe API::V1::SubscribersController, type: :controller do
         expect_any_instance_of(Subscriber).to receive(:save) do |resource|
           resource
         end
-
-        post :create, api_key: account.api_key, data: {
-          type: 'subscribers',
-          attributes: {
-            name: 'Jonh Doe',
-            email: 'jonh@doe.com',
-            tags: ['teste']
-          }
-        }
       end
 
-      it { is_expected.to use_before_action :authenticate! }
-      it { is_expected.to respond_with :created }
-      it { expect(response.content_type).to eq Mime::JSON }
+      describe 'json response' do
+        before { post :create, params }
+
+        it { is_expected.to use_before_action :authenticate! }
+        it { is_expected.to respond_with :created }
+        it { expect(response.content_type).to eq Mime::JSON }
+      end
+
+      describe 'redirect to specified page' do
+        before { post :create, params.merge(redirect_to: 'http://google.com') }
+
+        it { is_expected.to use_before_action :authenticate! }
+        it { is_expected.to respond_with :redirect }
+        it { is_expected.to redirect_to 'http://google.com' }
+      end
     end
   end
 end

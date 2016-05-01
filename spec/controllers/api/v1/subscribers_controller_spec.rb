@@ -19,17 +19,19 @@ describe API::V1::SubscribersController, type: :controller do
       end
 
       before do
-        expect_sign_in_as account
+        relation = double
 
-        expect_any_instance_of(Subscriber)
-          .to receive_message_chain(:account, :tags, :where, :pluck)
-          .and_return([])
+        expect(relation).to receive(:pluck).with(:id).and_return([])
+        expect(Tag).to receive(:where).with(name: ['teste'], account_id: 10)
+          .and_return(relation)
 
         allow(ActiveRecord::Base).to receive(:transaction).and_yield
         expect_any_instance_of(Subscriber).to receive(:valid?).and_return(true)
         expect_any_instance_of(Subscriber).to receive(:save) do |resource|
           resource
         end
+
+        expect_sign_in_as account
       end
 
       describe 'json response' do
@@ -40,7 +42,7 @@ describe API::V1::SubscribersController, type: :controller do
         it { expect(response.content_type).to eq Mime::JSON }
       end
 
-      describe 'redirect to specified page' do
+      describe 'redirection' do
         before { post :create, params.merge(redirect_to: 'http://google.com') }
 
         it { is_expected.to use_before_action :authenticate! }

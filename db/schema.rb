@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20160501172858) do
   add_foreign_key "messages", "subscribers", on_delete: :cascade
   add_foreign_key "notifications", "messages", on_delete: :cascade
   add_foreign_key "subscribers", "accounts", on_delete: :cascade
-  add_foreign_key "taggings", "subscribers"
-  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "subscribers", on_delete: :cascade
+  add_foreign_key "taggings", "tags", on_delete: :cascade
   add_foreign_key "tags", "accounts", on_delete: :cascade
 end

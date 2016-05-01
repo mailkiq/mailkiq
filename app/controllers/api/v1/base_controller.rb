@@ -1,6 +1,10 @@
 module API
   module V1
     class BaseController < JSONAPI::ResourceController
+      on_server_error do |error|
+        Raven.capture_exception(error)
+      end
+
       def current_account
         @current_account ||= Account.find_by(api_key: params[:api_key])
       end

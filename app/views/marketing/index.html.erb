@@ -19,7 +19,7 @@
         <p class="notice"><%= notice %></p>
       <% else %>
         <%= simple_form_for :lead, url: leads_path do |f| %>
-          <%= f.text_field :email, placeholder: 'Interessado? Informe seu melhor email.' %>
+          <%= f.text_field :email, placeholder: 'Interessado? Digite seu melhor e-mail.' %>
           <%= f.button :button do %>
             <span class="ss-icon ss-send"></span> Enviar
           <% end %>

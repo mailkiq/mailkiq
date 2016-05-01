@@ -49,7 +49,7 @@ en:
       long_sent_at: 'Sent at %{time} • takes %{estimated_time} to send it.'
   subscribers:
     index:
-      import: 'Import CSV'
+      import: 'Import'
       new_subscriber: 'New subscriber'
       no_subscribers: 'No subscribers found.'
       name: 'Name'

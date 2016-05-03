@@ -15,6 +15,7 @@ module Mailkiq
     config.i18n.default_locale = :en
     config.active_record.raise_in_transactional_callbacks = true
     config.filter_parameters += [:password, :api_key]
+    config.cache_store = :redis_store
     config.generators do |g|
       g.helper false
       g.stylesheets false

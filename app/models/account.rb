@@ -75,10 +75,6 @@ class Account < ActiveRecord::Base
     options
   end
 
-  def aws_cache_key
-    Digest::MD5.hexdigest("#{id}:#{aws_access_key_id}:#{aws_secret_access_key}")
-  end
-
   def mixpanel_properties
     {
       :$first_name => first_name,

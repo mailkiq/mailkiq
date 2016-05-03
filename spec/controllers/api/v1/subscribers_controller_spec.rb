@@ -35,11 +35,14 @@ describe API::V1::SubscribersController, type: :controller do
       end
 
       describe 'json response' do
-        before { post :create, params }
+        before do
+          set_content_type_header!
+          post :create, params
+        end
 
         it { is_expected.to use_before_action :authenticate! }
         it { is_expected.to respond_with :created }
-        it { expect(response.content_type).to eq Mime::JSON }
+        it { expect(response.content_type).to eq JSONAPI::MEDIA_TYPE }
       end
 
       describe 'redirection' do

@@ -1,6 +1,6 @@
 module Helpers
   def set_content_type_header!
-    @request.headers['Content-Type'] = JSONAPI::MEDIA_TYPE
+    @request.headers['Accept'] = JSONAPI::MEDIA_TYPE
   end
 
   def expect_sign_in_as(account)

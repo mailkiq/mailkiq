@@ -17,6 +17,17 @@ module API
         tag_ids = Tag.where(name: new_tags, account_id: account_id).pluck(:id)
         @model.tag_ids = @model.tag_ids | tag_ids
       end
+
+      def replace_fields(data)
+        redefine_model data.dig(:attributes, :email) if @model.new_record?
+        super(data)
+      end
+
+      private
+
+      def redefine_model(email)
+        @model = Subscriber.find_or_initialize_by email: email
+      end
     end
   end
 end

@@ -7,8 +7,8 @@ describe CampaignWorker, type: :worker do
   describe '#perform' do
     it 'delivers campaign to the subscriber' do
       expect(ActiveRecord::Base).to receive(:transaction).and_yield
-      expect(CampaignMailer).to receive_message_chain :campaign, :deliver_now
-      subject.perform(1, 1)
+      expect(Email).to receive_message_chain :new, :deliver!
+      subject.perform 1, 1
     end
 
     it 'changes state to unconfirmed when email address is invalid' do
@@ -22,7 +22,7 @@ describe CampaignWorker, type: :worker do
     end
 
     it 'requeues job when rate exceeded' do
-      exception = Aws::SES::Errors::Throttling.new(nil, nil)
+      exception = Aws::SES::Errors::Throttling.new nil, nil
 
       expect(ActiveRecord::Base).to receive(:transaction).and_raise exception
       expect(CampaignWorker).to receive(:perform_async).with 1, 1

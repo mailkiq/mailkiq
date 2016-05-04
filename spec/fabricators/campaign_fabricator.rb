@@ -3,6 +3,7 @@ Fabricator(:campaign) do
   subject 'The Truth About Wheat'
   from_name 'Rainer Borene'
   from_email 'rainer@mailkiq.com'
+  plain_text 'it works'
   html_text <<-EOF
     Hello World!
 

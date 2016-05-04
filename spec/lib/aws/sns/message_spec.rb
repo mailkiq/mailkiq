@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'aws/sns/message'
 
 describe Aws::SNS::Message do
   let(:bounce) { described_class.load fixture(:bounce) }

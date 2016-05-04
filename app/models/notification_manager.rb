@@ -1,3 +1,5 @@
+require_dependency 'aws/sns/message'
+
 class NotificationManager
   def initialize(body, account_id)
     @message = Aws::SNS::Message.load body

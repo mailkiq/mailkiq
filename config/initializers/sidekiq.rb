@@ -1,6 +1,7 @@
 require 'dynamic_fetch'
 require 'queue_monitor'
 
+Sidekiq.options[:strict] = false
 Sidekiq.options[:fetch] = DynamicFetch
 
 Sidekiq.configure_server do |config|

@@ -18,6 +18,8 @@ en:
       subscribers: 'Subscribers'
       my_account: 'My Account'
       domains: 'Domains'
+      import: 'Import'
+      tags: 'Manage Tags'
   marketing:
     index:
       login: 'Login'
@@ -49,7 +51,6 @@ en:
       long_sent_at: 'Sent at %{time} • takes %{estimated_time} to send it.'
   subscribers:
     index:
-      import: 'Import'
       new_subscriber: 'New subscriber'
       no_subscribers: 'No subscribers found.'
       name: 'Name'

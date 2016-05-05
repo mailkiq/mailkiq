@@ -28,6 +28,16 @@ h2 {
   margin-top: 55px;
 }
 
+.context {
+  h2 {
+    float: left;
+  }
+
+  .actions {
+    float: right;
+  }
+}
+
 .icon {
   display: inline-block;
   font-size: 14px;

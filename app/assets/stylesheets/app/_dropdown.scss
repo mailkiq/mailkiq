@@ -15,9 +15,39 @@
   z-index: 1;
 
   a:after {
-    position: relative;
     float: right;
+    position: relative;
     top: 2px;
+  }
+}
+
+.large-dropdown-menu {
+  background-color: $light-green;
+  padding: 5px 0;
+  width: 200px;
+
+  &:before {
+    @include triangle(16px 8px, $light-green, up);
+    content: '';
+    display: block;
+    position: absolute;
+    right: 17px;
+    top: -8px;
+  }
+
+  li {
+    padding-left: 20px;
+    padding-right: 16px;
+
+    &:hover {
+      background-color: shade($light-green, 20%);
+    }
+  }
+
+  a {
+    color: $dark-gray;
+    display: block;
+    line-height: 51px;
   }
 }
 

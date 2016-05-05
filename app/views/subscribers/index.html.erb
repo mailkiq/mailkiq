@@ -1,8 +1,18 @@
-<h2>
-  <%= link_to t('.new_subscriber'), new_subscriber_path, class: 'btn' %>
-  <%= link_to t('.import'), new_import_path, class: 'btn' %>
-  <%= page_title %>
-</h2>
+<div class="context">
+  <h2><%= page_title %></h2>
+  <div class="actions">
+    <span class="dropdown">
+      <%= link_to '•••', '#', class: 'btn', data: { toggle: 'dropdown' } %>
+
+      <ul class="dropdown-menu large-dropdown-menu animated">
+        <%= nav_link_to :import, new_import_path %>
+        <%= nav_link_to :tags, tags_path %>
+      </ul>
+    </span>
+
+    <%= link_to t('.new_subscriber'), new_subscriber_path, class: 'btn' %>
+  </div>
+</div>
 
 <table class="table">
   <thead>

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       jsonapi_resources :subscribers, only: :create
+      scope path: :clickfunnels do
+        jsonapi_resources :contacts, only: :create
+      end
     end
   end
 

@@ -1,5 +1,5 @@
 module Helpers
-  def set_content_type_header!
+  def set_accept_header!
     @request.headers['Accept'] = JSONAPI::MEDIA_TYPE
   end
 

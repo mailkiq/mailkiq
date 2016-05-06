@@ -24,7 +24,6 @@ module Mailkiq
 
     config.middleware.delete Rack::Lock
     config.middleware.delete Rack::ETag
-    config.middleware.delete ActionDispatch::ParamsParser
 
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller

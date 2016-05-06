@@ -19,27 +19,28 @@ describe API::V1::SubscribersController, type: :controller do
       end
 
       before do
-        relation = double
+        relation = double('relation')
 
         expect(relation).to receive(:pluck).with(:id).and_return([])
-        expect(Tag).to receive(:where).with(name: ['teste'], account_id: 10)
+        expect(Tag).to receive(:where)
+          .with(name: ['teste'], account_id: account.id)
           .and_return(relation)
 
         allow(ActiveRecord::Base).to receive(:transaction).and_yield
-        expect_any_instance_of(Subscriber).to receive(:valid?).and_return(true)
-        expect_any_instance_of(Subscriber).to receive(:save) do |resource|
-          resource
-        end
-
         expect_sign_in_as account
+        expect_any_instance_of(Subscriber).to receive(:valid?).and_return(true)
+        expect_any_instance_of(Subscriber).to receive(:save) { |model| model }
+        expect_any_instance_of(API::V1::SubscriberResource)
+          .to receive(:redefine_model)
       end
 
       describe 'json response' do
         before do
-          set_content_type_header!
+          set_accept_header!
           post :create, params
         end
 
+        it { is_expected.not_to use_before_action :ensure_correct_media_type! }
         it { is_expected.to use_before_action :authenticate! }
         it { is_expected.to respond_with :created }
         it { expect(response.content_type).to eq JSONAPI::MEDIA_TYPE }
@@ -48,6 +49,7 @@ describe API::V1::SubscribersController, type: :controller do
       describe 'redirection' do
         before { post :create, params.merge(redirect_to: 'http://google.com') }
 
+        it { is_expected.not_to use_before_action :ensure_correct_media_type! }
         it { is_expected.to use_before_action :authenticate! }
         it { is_expected.to respond_with :redirect }
         it { is_expected.to redirect_to 'http://google.com' }

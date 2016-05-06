@@ -2,11 +2,12 @@ class SubscribersController < ApplicationController
   before_action :authenticate_account!
 
   has_scope :page, default: 1
-  has_scope :sort
+  has_scope :sort, default: nil, allow_blank: true do |_, scope, value|
+    value.blank? ? scope.recent : scope.sort(value)
+  end
 
   def index
     @subscribers = apply_scopes current_account.subscribers
-    @subscribers = @subscribers.recents unless current_scopes.key?(:sort)
   end
 
   def new

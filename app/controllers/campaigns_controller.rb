@@ -2,11 +2,12 @@ class CampaignsController < ApplicationController
   before_action :authenticate_account!
 
   has_scope :page, default: 1
-  has_scope :sort
+  has_scope :sort, default: nil, allow_blank: true do |_, scope, value|
+    value.blank? ? scope.recent : scope.sort(value)
+  end
 
   def index
     @campaigns = apply_scopes current_account.campaigns
-    @campaigns = @campaigns.recents unless current_scopes.key?(:sort)
   end
 
   def show

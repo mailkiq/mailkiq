@@ -25,7 +25,7 @@ describe Subscriber, type: :model do
   it { is_expected.to strip_attribute :email }
 
   context 'scopes' do
-    it { expect(described_class).to respond_to(:recents) }
+    it { expect(described_class).to respond_to(:recent) }
     it { expect(described_class).to respond_to(:actived) }
     it { expect(described_class).to respond_to(:sort).with(1).argument }
   end

@@ -9,11 +9,12 @@ describe CampaignsController, type: :controller do
 
     describe '#index' do
       before do
-        relation = double
-        expect(relation).to receive(:recents)
-        expect(controller).to receive(:apply_scopes)
-          .with(account.campaigns)
-          .and_return(relation)
+        scope = double('scope')
+        expect(scope).to receive(:recent).with(no_args)
+        expect(scope).to receive(:page).with(1).and_return(scope)
+        expect(account).to receive(:campaigns).and_return(scope)
+        expect(controller).to receive(:apply_scopes).with(scope)
+          .and_call_original
 
         get :index
       end
@@ -133,7 +134,7 @@ describe CampaignsController, type: :controller do
   end
 
   def mock!
-    relation = double
+    relation = double('relation')
 
     allow(relation).to receive(:find).with(campaign.id.to_s)
       .and_return(campaign)

@@ -8,11 +8,12 @@ describe SubscribersController, type: :controller do
 
     describe '#index' do
       before do
-        relation = double
-        expect(relation).to receive(:recents)
-        expect(controller).to receive(:apply_scopes)
-          .with(account.subscribers)
-          .and_return(relation)
+        scope = double('scope')
+        expect(scope).to receive(:recent).with(no_args)
+        expect(scope).to receive(:page).with(1).and_return(scope)
+        expect(account).to receive(:subscribers).and_return(scope)
+        expect(controller).to receive(:apply_scopes).with(scope)
+          .and_call_original
 
         get :index
       end

@@ -22,16 +22,16 @@ describe API::V1::SubscribersController, type: :controller do
         relation = double('relation')
 
         expect(relation).to receive(:pluck).with(:id).and_return([])
-        expect(Tag).to receive(:where)
-          .with(name: ['teste'], account_id: account.id)
+        expect(account.tags).to receive(:where).with(name: ['teste'])
           .and_return(relation)
 
         allow(ActiveRecord::Base).to receive(:transaction).and_yield
         expect_sign_in_as account
         expect_any_instance_of(Subscriber).to receive(:valid?).and_return(true)
         expect_any_instance_of(Subscriber).to receive(:save) { |model| model }
-        expect_any_instance_of(API::V1::SubscriberResource)
-          .to receive(:redefine_model)
+        expect(account.subscribers).to receive(:find_or_initialize_by)
+          .with(email: params.dig(:data, :attributes, :email))
+          .and_return(account.subscribers.build)
       end
 
       describe 'json response' do

@@ -1,25 +1,23 @@
 module Sortable
-  extend ActiveSupport::Concern
+  def decide_direction(column)
+    name = column
+    direction = :asc
 
-  included do
-    scope :recents, -> { order created_at: :desc }
+    if column.start_with? '-'
+      name = column.tr('-', '')
+      direction = :desc
+    end
+
+    [name, direction]
   end
 
-  class_methods do
-    def sort(column)
-      name = column
-      direction = :asc
+  def sort(column)
+    name, direction = decide_direction(column)
 
-      if column.start_with? '-'
-        name = column.tr('-', '')
-        direction = :desc
-      end
-
-      if column_names.include?(name)
-        order name => direction
-      else
-        recents
-      end
+    if column_names.include?(name)
+      order name => direction
+    else
+      all
     end
   end
 end

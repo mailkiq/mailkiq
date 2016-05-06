@@ -15,7 +15,7 @@ module Accounts
         )
       elsif resource.valid?
         session[:account_data] = nil
-        resource.save_with_payment!
+        resource.paypal.save!
       end
 
       if resource.persisted?

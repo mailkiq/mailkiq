@@ -18,6 +18,7 @@ describe LeadsController, type: :controller do
       post :create, params
     end
 
+    it { is_expected.to use_before_action :set_account }
     it { is_expected.to respond_with :redirect }
     it { is_expected.to redirect_to root_path }
     it { is_expected.to set_flash[:notice] }
@@ -25,8 +26,9 @@ describe LeadsController, type: :controller do
 
     it 'sets subscriber attributes' do
       subscriber = assigns(:subscriber)
+      subscriber.run_callbacks :create
       expect(subscriber).to be_active
-      expect(subscriber.name).to eq('maria')
+      expect(subscriber.name).to be_nil
       expect(subscriber.account).to eq(account)
     end
   end

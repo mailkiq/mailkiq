@@ -1,11 +1,10 @@
 module API
   module V1
-    class SubscriberResource < JSONAPI::Resource
+    class SubscriberResource < BaseResource
       attributes :name, :email, :tags
 
       before_save do
-        @model.state = :active if @model.new_record?
-        @model.account_id = context[:current_account].id
+        @model.account_id = current_account.id
       end
 
       def tags
@@ -13,8 +12,7 @@ module API
       end
 
       def tags=(new_tags)
-        account_id = context[:current_account].id
-        tag_ids = Tag.where(name: new_tags, account_id: account_id).pluck(:id)
+        tag_ids = current_account.tags.where(name: new_tags).pluck(:id)
         @model.tag_ids = @model.tag_ids | tag_ids
       end
 
@@ -26,7 +24,7 @@ module API
       private
 
       def redefine_model(email)
-        @model = Subscriber.find_or_initialize_by email: email
+        @model = current_account.subscribers.find_or_initialize_by email: email
       end
     end
   end

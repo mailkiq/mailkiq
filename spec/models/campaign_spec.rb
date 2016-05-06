@@ -33,7 +33,7 @@ describe Campaign, type: :model do
   it { is_expected.to strip_attribute :from_email }
 
   it { expect(described_class).to respond_to(:sort).with(1).argument }
-  it { expect(described_class).to respond_to(:recents) }
+  it { expect(described_class).to respond_to(:recent) }
 
   it { is_expected.to have_counter :messages_count }
   it { is_expected.to have_counter :unique_opens_count }

@@ -1,6 +1,6 @@
 class Campaign < ActiveRecord::Base
   include Redis::Objects
-  include Sortable
+  extend Sortable
 
   validates :from_email, presence: true, email: true, domain: true
   validates_presence_of :name, :subject, :from_name
@@ -15,6 +15,7 @@ class Campaign < ActiveRecord::Base
 
   scope :sent, -> { where.not sent_at: nil }
   scope :unsent, -> { where sent_at: nil }
+  scope :recent, -> { order created_at: :desc }
 
   delegate :aws_options, :domain_names, to: :account, prefix: true
 

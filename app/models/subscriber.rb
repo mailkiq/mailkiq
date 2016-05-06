@@ -1,5 +1,5 @@
 class Subscriber < ActiveRecord::Base
-  include Sortable
+  extend Sortable
   include Person
 
   validates_uniqueness_of :email, scope: :account_id
@@ -12,15 +12,14 @@ class Subscriber < ActiveRecord::Base
   paginates_per 10
 
   scope :actived, -> { where state: states[:active] }
+  scope :recent, -> { order created_at: :desc }
 
   strip_attributes only: [:name, :email]
 
+  before_create :set_default_state
+
   def subscription_token
     @subscription_token ||= Token.encode(id)
-  end
-
-  def guess_name!
-    self.name = email.split('@').first
   end
 
   def interpolations
@@ -29,5 +28,11 @@ class Subscriber < ActiveRecord::Base
       last_name: last_name,
       full_name: name
     }
+  end
+
+  protected
+
+  def set_default_state
+    self.state ||= self.class.states[:active]
   end
 end

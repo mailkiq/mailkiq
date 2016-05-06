@@ -60,12 +60,6 @@ class Account < ActiveRecord::Base
       aws_secret_access_key == secrets[:aws_secret_access_key]
   end
 
-  def save_with_payment!
-    response = paypal.make_recurring
-    self.paypal_recurring_profile_token = response.profile_id
-    save!
-  end
-
   def aws_options
     options = ActiveSupport::HashWithIndifferentAccess.new
     options[:region] = aws_region || 'us-east-1'

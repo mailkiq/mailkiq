@@ -18,6 +18,11 @@ class Payment
     process :checkout_details
   end
 
+  def save!
+    account.paypal_recurring_profile_token = make_recurring.profile_id
+    account.save!
+  end
+
   private
 
   def process(action, options = {})

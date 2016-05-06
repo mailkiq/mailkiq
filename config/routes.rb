@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     match '/settings/domains', to: 'settings#domains', as: :domains_settings
   end
 
+  post '/funnel_webhooks/test', to: proc { [200, {}, ['']] }
+
   resources :tags, except: :show
   resources :imports, only: [:new, :create]
   resources :domains, only: [:create, :destroy]

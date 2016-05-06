@@ -33,13 +33,13 @@ class EmailProcessor
 
   def click_url(params = {})
     params.merge! ActionMailer::Base.default_url_options
-    params[:controller] = :clicks
-    params[:action] = :show
+    params[:controller] = :tracks
+    params[:action] = :click
     Rails.application.routes.url_for(params)
   end
 
   def open_url
-    params = { controller: :opens, action: :show, id: token, format: :gif }
+    params = { controller: :tracks, action: :open, id: token, format: :gif }
     params.merge! ActionMailer::Base.default_url_options
     Rails.application.routes.url_for(params)
   end

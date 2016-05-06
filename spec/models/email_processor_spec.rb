@@ -26,7 +26,7 @@ describe EmailProcessor, type: :model do
     it 'tracks open' do
       image = doc.at('img')
 
-      expect(image[:src]).to eq('http://localhost:3000/track/opens/token.gif')
+      expect(image[:src]).to eq('http://localhost:3000/track/open/token.gif')
       expect(image[:width]).to eq('1')
       expect(image[:height]).to eq('1')
       expect(image[:alt]).to be_empty
@@ -35,7 +35,7 @@ describe EmailProcessor, type: :model do
     it 'tracks links' do
       link = Addressable::URI.parse doc.at('a').get_attribute(:href)
 
-      expect(link.path).to eq('/track/clicks/token')
+      expect(link.path).to eq('/track/click/token')
       expect(link.query_values['signature'].size).to eq(40)
       expect(link.query_values['url'])
         .to eq('http://www.google.com?utm_source=email')

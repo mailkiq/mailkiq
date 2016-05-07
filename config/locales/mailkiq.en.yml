@@ -66,6 +66,7 @@ en:
     index:
       new_tag: 'New tag'
       name: 'Name'
+      slug: 'Slug'
       subscribers: 'Subscribers'
       no_tags: 'No tags found.'
   devise:

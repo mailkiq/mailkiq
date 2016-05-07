@@ -7,6 +7,7 @@
   <thead>
     <tr>
       <th><%= sortable 'name', t('.name') %></th>
+      <th><%= sortable 'slug', t('.slug') %></th>
       <th><%= sortable 'subscribers', t('.subscribers') %></th>
       <th></th>
     </tr>
@@ -15,6 +16,7 @@
     <% @tags.each do |tag| %>
       <tr>
         <td><%= tag.name %></td>
+        <td><%= tag.slug %></td>
         <td><%= number_with_delimiter tag.subscribers_count %></td>
         <td class="actions">
           <%= icon_link_to :pen, edit_tag_path(tag) %>

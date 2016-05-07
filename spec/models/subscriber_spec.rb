@@ -25,12 +25,16 @@ describe Subscriber, type: :model do
   it { is_expected.to strip_attribute :email }
 
   context 'scopes' do
-    it { expect(described_class).to respond_to(:recent) }
-    it { expect(described_class).to respond_to(:actived) }
+    it { expect(described_class).to respond_to(:recent).with(0).arguments }
+    it { expect(described_class).to respond_to(:actived).with(0).arguments }
     it { expect(described_class).to respond_to(:sort).with(1).argument }
   end
 
   it { expect(described_class.ancestors).to include Person }
+
+  it 'paginates 10 records per page' do
+    expect(described_class.default_per_page).to eq(10)
+  end
 
   describe '#subscription_token' do
     it 'generates an unsubscription token' do

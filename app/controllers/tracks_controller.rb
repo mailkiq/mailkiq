@@ -1,32 +1,21 @@
 class TracksController < ApplicationController
-  PIXEL = 'R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='.freeze
+  before_action :set_message
 
   def open
-    @message = Message.find_by token: params[:id]
-
-    if @message && @message.unopened?
-      @message.see! request
-      Campaign.increment_counter :unique_opens_count, @message.campaign_id
-    end
-
-    send_data Base64.decode64(PIXEL), type: 'image/gif', disposition: :inline
+    @message_event = MessageEvent.new @message, request
+    @message_event.open!
+    send_data DECODED_PIXEL, type: 'image/gif', disposition: :inline
   end
 
   def click
+    @message_event = MessageEvent.new @message, request
+    @message_event.click!
+    redirect_to @message_event.redirect_url
+  end
+
+  private
+
+  def set_message
     @message = Message.find_by token: params[:id]
-
-    if @message && @message.unclicked?
-      @message.click! request
-      Campaign.increment_counter :unique_clicks_count, @message.campaign_id
-    end
-
-    url = params[:url].to_s
-    signature = Signature.hexdigest(url)
-
-    if Signature.secure_compare(params[:signature], signature)
-      redirect_to url
-    else
-      redirect_to root_url
-    end
   end
 end

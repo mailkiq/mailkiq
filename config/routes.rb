@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       jsonapi_resources :subscribers, only: :create
-      scope :clickfunnels do
+      scope path: '/clickfunnels/:api_key' do
         jsonapi_resources :contacts, only: :create
       end
     end

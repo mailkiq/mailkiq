@@ -5,14 +5,14 @@ describe API::V1::ContactsController, type: :controller do
     describe '#create' do
       let(:account) { Fabricate.build :valid_account, id: 10 }
       let(:params) do
-        data = fixture :clickfunnels, json: true
+        data = fixture(:clickfunnels, json: true)
         data[:api_key] = account.api_key
         data
       end
 
       let(:digest) do
         url = api_v1_contacts_url(params)
-        Digest::MD5.hexdigest("#{url}#{params.to_query}")
+        Digest::MD5.hexdigest("#{url}#{params.except(:api_key).to_query}")
       end
 
       before do

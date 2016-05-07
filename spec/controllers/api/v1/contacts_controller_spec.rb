@@ -32,6 +32,11 @@ describe API::V1::ContactsController, type: :controller do
       it { is_expected.to use_before_action :validate_webhook }
       it { is_expected.to respond_with :created }
       it { expect(response.content_type).to eq Mime::JSON }
+
+      it 'keeps id attribute unchanged' do
+        json_response = JSON.parse(response.body)
+        expect(json_response['data']['id']).to be_nil
+      end
     end
   end
 end

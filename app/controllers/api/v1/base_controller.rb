@@ -6,11 +6,11 @@ module API
       end
 
       def current_account
-        @current_account ||= Account.find_by(api_key: params[:api_key])
+        @current_account ||= Account.find_by api_key: params[:api_key]
       end
 
       def context
-        { current_account: current_account }
+        { current_account: current_account, tag: params[:tag] }
       end
 
       def account_signed_in?

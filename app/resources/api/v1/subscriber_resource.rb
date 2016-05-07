@@ -7,6 +7,11 @@ module API
         @model.account_id = current_account.id
       end
 
+      # modifying internal ID isn't allowed.
+      def id=(_value)
+        nil
+      end
+
       def tags
         @model.tags.pluck(:name)
       end

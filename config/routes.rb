@@ -1,11 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  namespace :api do
+  namespace :api, format: false do
     namespace :v1 do
-      jsonapi_resources :subscribers, only: :create
-      scope path: '/clickfunnels/:api_key' do
-        jsonapi_resources :contacts, only: :create
+      scope only: :create do
+        resources :subscribers
+        resources :contacts, path: '/clickfunnels/:api_key/contacts(/:tag)'
       end
     end
   end
@@ -40,9 +40,9 @@ Rails.application.routes.draw do
   end
 
   post '/funnel_webhooks/test', to: proc { [200, {}, ['']] }
-  get '/track/click/:id' => 'tracks#click'
-  get '/track/clicks/:id' => 'tracks#click'
-  get '/track/open/:id' => 'tracks#open'
-  get '/track/opens/:id' => 'tracks#open'
-  get '/unsubscribe' => 'subscriptions#unsubscribe'
+  get '/track/click/:id', to: 'tracks#click'
+  get '/track/clicks/:id', to: 'tracks#click'
+  get '/track/open/:id', to: 'tracks#open'
+  get '/track/opens/:id', to: 'tracks#open'
+  get '/unsubscribe', to: 'subscriptions#unsubscribe'
 end

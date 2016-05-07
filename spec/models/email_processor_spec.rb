@@ -40,5 +40,13 @@ describe EmailProcessor, type: :model do
       expect(link.query_values['url'])
         .to eq('http://www.google.com?utm_source=email')
     end
+
+    it 'expands template variables' do
+      node = doc.at('a:nth-child(2)')
+      link = Addressable::URI.parse node.get_attribute(:href)
+
+      expect(link.path).to eq('/unsubscribe')
+      expect(link.query_values['token']).to eq('token')
+    end
   end
 end

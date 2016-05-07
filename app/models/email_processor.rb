@@ -9,6 +9,7 @@ class EmailProcessor
 
   def transform!
     return unless html_part?
+    expand_variables
     track_links
     track_open
   end
@@ -31,17 +32,23 @@ class EmailProcessor
     ActionController::Base.helpers
   end
 
-  def click_url(params = {})
+  def url_for(params = {})
     params.merge! ActionMailer::Base.default_url_options
-    params[:controller] = :tracks
-    params[:action] = :click
     Rails.application.routes.url_for(params)
   end
 
+  def click_url(params = {})
+    params[:controller] = :tracks
+    params[:action] = :click
+    url_for params
+  end
+
   def open_url
-    params = { controller: :tracks, action: :open, id: token, format: :gif }
-    params.merge! ActionMailer::Base.default_url_options
-    Rails.application.routes.url_for(params)
+    url_for controller: :tracks, action: :open, id: token, format: :gif
+  end
+
+  def unsubscribe_url
+    url_for controller: :subscriptions, action: :unsubscribe, token: token
   end
 
   def track(href)
@@ -83,6 +90,13 @@ class EmailProcessor
       raw_source.gsub!(regex, "#{pixel}\\0")
     else
       raw_source << pixel
+    end
+  end
+
+  def expand_variables
+    parts = mail.parts.any? ? mail.parts : [mail]
+    parts.each do |part|
+      part.body.raw_source.gsub!(/%unsubscribe_url%/i, unsubscribe_url)
     end
   end
 end

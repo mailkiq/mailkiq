@@ -1,7 +1,7 @@
 class MessageEvent
-  def initialize(message, request)
+  def initialize(message, params)
     @message = message
-    @request = request
+    @params = params
     @should_increment_opens_count = !@message.opened_at?
   end
 
@@ -9,9 +9,9 @@ class MessageEvent
     return false if opened?
 
     @message.opened_at = Time.zone.now
-    @message.referer = @request.referer
-    @message.ip_address = @request.remote_ip
-    @message.user_agent = @request.user_agent
+    @message.referer = @params[:referer]
+    @message.ip_address = @params[:remote_ip]
+    @message.user_agent = @params[:user_agent]
     @message.save!
 
     increment :unique_opens_count
@@ -22,9 +22,9 @@ class MessageEvent
 
     @message.clicked_at = Time.zone.now
     @message.opened_at ||= @message.clicked_at
-    @message.referer ||= @request.referer
-    @message.ip_address ||= @request.remote_ip
-    @message.user_agent ||= @request.user_agent
+    @message.referer ||= @params[:referer]
+    @message.ip_address ||= @params[:remote_ip]
+    @message.user_agent ||= @params[:user_agent]
     @message.save!
 
     increment :unique_clicks_count
@@ -32,11 +32,10 @@ class MessageEvent
   end
 
   def redirect_url
-    url = @request.params[:url].to_s
-    signature = Signature.hexdigest(url)
+    signature = Signature.hexdigest @params[:url]
 
-    if Signature.secure_compare(@request.params[:signature].to_s, signature)
-      url
+    if Signature.secure_compare(@params[:signature], signature)
+      @params[:url]
     else
       '/'
     end

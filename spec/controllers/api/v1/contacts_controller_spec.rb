@@ -5,7 +5,7 @@ describe API::V1::ContactsController, type: :controller do
     describe '#create' do
       let(:account) { Fabricate.build :valid_account, id: 10 }
       let(:params) do
-        data = fixture(:clickfunnels, json: true)
+        data = json :clickfunnels
         data[:api_key] = account.api_key
         data
       end

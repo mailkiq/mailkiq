@@ -4,7 +4,7 @@ describe NotificationManager do
   let(:account) { Fabricate.build :valid_account }
   let(:sns) { subject.instance_variable_get :@message }
 
-  subject { described_class.new fixture(:bounce), account.id }
+  subject { described_class.new fixture_file('bounce.json'), account.id }
 
   describe '#create!' do
     before do

@@ -32,7 +32,7 @@ describe Quota, type: :model do
 
   describe '#send_statistics' do
     it 'groups data points by day' do
-      send_statistics = fixture(:statistics, json: true)
+      send_statistics = json :statistics
       send_statistics[:send_data_points].map! do |n|
         n[:timestamp] = Time.parse(n[:timestamp])
         n

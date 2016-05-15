@@ -1,17 +1,18 @@
 module Helpers
-  def set_accept_header!
-    @request.headers['Accept'] = JSONAPI::MEDIA_TYPE
-  end
-
   def expect_sign_in_as(account)
     expect(Account).to receive(:find_by)
       .with(api_key: account.api_key)
       .and_return(account)
   end
 
-  def fixture(path, json: false)
-    source = File.read("spec/fixtures/#{path}.json")
-    json ? JSON.parse(source, symbolize_names: true) : source
+  def fixture_file(filename)
+    return '' if filename.blank?
+    file_path = File.expand_path(Rails.root + 'spec/fixtures/' + filename)
+    File.read(file_path)
+  end
+
+  def json(filename)
+    JSON.parse fixture_file("#{filename}.json"), symbolize_names: true
   end
 end
 

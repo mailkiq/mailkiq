@@ -36,7 +36,7 @@ describe API::V1::SubscribersController, type: :controller do
 
       describe 'json response' do
         before do
-          set_accept_header!
+          request.headers['Accept'] = JSONAPI::MEDIA_TYPE
           post :create, params
         end
 

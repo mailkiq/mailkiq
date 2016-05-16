@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :leads, only: :create
   resources :tags, except: :show
   resources :imports, only: [:new, :create]
-  resources :domains, only: [:create, :destroy]
+  resources :domains, only: [:show, :create, :destroy]
   resources :subscribers
   resources :campaigns do
     resource :delivery, only: [:new, :create]

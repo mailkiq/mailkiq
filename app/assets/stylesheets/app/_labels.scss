@@ -1,3 +1,7 @@
+span[class^='label-'] {
+  font-weight: bold;
+}
+
 .label-primary {
   color: $success-color;
 }

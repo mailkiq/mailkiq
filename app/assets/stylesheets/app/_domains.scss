@@ -1,0 +1,40 @@
+.domains-controller {
+  body {
+    padding-bottom: 80px;
+  }
+
+  .subtitle span {
+    float: right;
+    vertical-align: -3px;
+  }
+
+  .ss-check {
+    color: $dark-green;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+.verification {
+  margin-top: 100px;
+}
+
+.domain-records {
+  caption {
+    border-bottom: 1px solid #969696;
+    font-weight: bold;
+    padding-bottom: 30px;
+    text-align: left;
+    text-decoration: underline;
+  }
+
+  td:first-child {
+    font-weight: bold;
+  }
+}
+
+.mail-from .subtitle {
+  margin-bottom: 55px;
+}

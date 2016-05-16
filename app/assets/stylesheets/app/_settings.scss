@@ -5,7 +5,6 @@
   }
 
   .subtitle {
-    color: $heading-font-color;
     margin-bottom: 45px;
   }
 
@@ -71,28 +70,6 @@
   }
 
   tr:last-child td {
-    border-bottom: 0;
-  }
-}
-
-.dns-records {
-  table {
-    margin: 0;
-    table-layout: fixed;
-  }
-
-  td span {
-    @include ellipsis(90%);
-    vertical-align: -6px;
-  }
-
-  select {
-    margin-bottom: 0;
-    margin-top: 20px;
-  }
-
-  tr:last-child td,
-  .last td {
     border-bottom: 0;
   }
 }

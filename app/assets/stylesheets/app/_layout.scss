@@ -16,6 +16,14 @@ h2 {
     font-size: 15px;
     font-weight: normal;
   }
+
+  .normal {
+    font-weight: normal;
+  }
+}
+
+.subtitle {
+  color: $heading-font-color;
 }
 
 .container {

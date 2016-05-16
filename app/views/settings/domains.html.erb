@@ -33,11 +33,10 @@
         <tbody>
           <% current_account.domains.each do |domain| %>
             <tr>
-              <td><%= domain.name %></td>
+              <td><%= link_to domain.name, domain_path(domain) %></td>
               <td><%= domain_status_tag domain.verification_status %></td>
               <td class="actions">
-                <%= icon_link_to :info, '#', class: 'open-modal icon' %>
-                <%= icon_link_to :trash, domain_path(domain), delete: true %>
+                <%= icon_link_to :info, domain_path(domain) %>
               </td>
             </tr>
           <% end %>
@@ -50,50 +49,5 @@
     <%= simple_form_for :domain, url: domains_path do |f| %>
       <%= f.input :name, label: false %>
     <% end %>
-  </div>
-</div>
-
-<div class="overlay">
-  <div class="box dns-records">
-    <p>To complete verification, you must add the following records to the domain's DNS settings:</p>
-
-    <table>
-      <thead>
-        <tr>
-          <th width="90">Type</th>
-          <th width="270">Name</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% current_account.domains.each do |domain| %>
-          <%= content_tag :tr, data: { name: domain.name } do %>
-            <td>TXT</td>
-            <td><%= domain.records.txt_name %></td>
-            <td><%= domain.records.txt_value %></td>
-          <% end %>
-
-          <% domain.records.cnames.each do |cname| %>
-            <%= content_tag :tr, data: { name: domain.name } do %>
-              <td>CNAME</td>
-              <td><span><%= cname.name %></span></td>
-              <td><%= cname.value %></td>
-            <% end %>
-          <% end %>
-
-          <%= content_tag :tr, data: { name: domain.name } do %>
-            <td>MX</td>
-            <td><%= domain.records.mx_name %></td>
-            <td><%= domain.records.mx_value %></td>
-          <% end %>
-
-          <%= content_tag :tr, data: { name: domain.name } do %>
-            <td>TXT</td>
-            <td><%= domain.records.spf_name %></td>
-            <td><%= domain.records.spf_value %></td>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
   </div>
 </div>

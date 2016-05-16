@@ -1,0 +1,84 @@
+<h2>Domains <span class="normal"><%= @domain.name %></span></h2>
+
+<div class="verification">
+  <h2 class="subtitle">Verification <%= domain_icon_tag @domain.verification_status %></h2>
+  <table class="domain-records">
+    <tbody>
+      <tr>
+        <td>Record type</td>
+        <td>TXT</td>
+      </tr>
+      <tr>
+        <td>TXT Name</td>
+        <td><%= @domain.records.txt_name %></td>
+      </tr>
+      <tr>
+        <td>TXT Value</td>
+        <td><%= @domain.records.txt_value %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="dkim">
+  <h2 class="subtitle">DKIM <%= domain_icon_tag @domain.dkim_verification_status %></h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @domain.records.cnames.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.value %></td>
+        </tr>
+      <% end %>
+   </tbody>
+  </table>
+</div>
+
+<div class="mail-from">
+  <h2 class="subtitle">MAIL FROM Domain <%= domain_icon_tag @domain.mail_from_domain_status %></h2>
+
+  <table class="domain-records">
+    <caption>MX Record Settings</caption>
+    <tbody>
+      <tr>
+        <td width="425">Record type</td>
+        <td>MX</td>
+      </tr>
+      <tr>
+        <td>MX record name</td>
+        <td><%= @domain.records.mx_name %></td>
+      </tr>
+      <tr>
+        <td>MX record value</td>
+        <td><%= @domain.records.mx_value %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="domain-records">
+    <caption>SPF Record Settings</caption>
+    <tbody>
+      <tr>
+        <td width="425">Record type</td>
+        <td>TXT</td>
+      </tr>
+      <tr>
+        <td>SPF record name</td>
+        <td><%= @domain.records.spf_name %></td>
+      </tr>
+      <tr>
+        <td>SPF record value</td>
+        <td><%= @domain.records.spf_value %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Remove domain', domain_path(@domain), method: :delete, class: 'btn btn-danger' %>

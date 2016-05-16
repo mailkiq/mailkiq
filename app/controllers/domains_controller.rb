@@ -1,6 +1,10 @@
 class DomainsController < ApplicationController
   before_action :authenticate_account!
 
+  def show
+    @domain = current_account.domains.find params[:id]
+  end
+
   def create
     @domain = current_account.domains.new domain_params
     @domain.identity_verify!

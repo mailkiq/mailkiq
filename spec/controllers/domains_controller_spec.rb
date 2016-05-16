@@ -28,7 +28,7 @@ describe DomainsController, type: :controller do
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
-      it { is_expected.to redirect_to domains_settings_path }
+      it { is_expected.to redirect_to settings_path }
       it { is_expected.to set_flash[:notice] }
     end
 
@@ -41,7 +41,7 @@ describe DomainsController, type: :controller do
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :redirect }
-      it { is_expected.to redirect_to domains_settings_path }
+      it { is_expected.to redirect_to edit_settings_path }
       it { is_expected.to set_flash[:notice] }
     end
   end

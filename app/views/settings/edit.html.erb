@@ -3,7 +3,7 @@
 <div class="forms">
   <% unless current_account.tied_to_mailkiq? %>
     <div class="amazon">
-      <%= simple_form_for current_account, url: domains_settings_path, html: { method: :put } do |f| %>
+      <%= simple_form_for current_account, url: settings_path, html: { method: :put } do |f| %>
         <h2 class="subtitle"><%= t '.authentication' %></h2>
 
         <%= f.input :aws_access_key_id %>

@@ -57,7 +57,7 @@ en:
       email: 'Email'
       state: 'State'
   settings:
-    domains:
+    edit:
       authentication: 'Authentication'
       domains: 'Domains'
       domain: 'Domain'

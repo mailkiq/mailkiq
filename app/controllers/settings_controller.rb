@@ -1,13 +1,13 @@
 class SettingsController < ApplicationController
   before_action :authenticate_account!
 
-  def domains
+  def edit
     DomainWorker.perform_async current_account.id
+  end
 
-    if request.put?
-      current_account.update account_params
-      respond_with current_account, flash_now: true
-    end
+  def update
+    current_account.update account_params
+    respond_with current_account, location: edit_settings_path
   end
 
   private

@@ -18,13 +18,9 @@ Rails.application.routes.draw do
     root to: 'dashboard#show', as: :signed_in_root
   end
 
-  scope via: [:get, :put] do
-    match '/settings/account', to: 'settings#account', as: :account_settings
-    match '/settings/domains', to: 'settings#domains', as: :domains_settings
-  end
-
   root to: 'marketing#index'
 
+  resource :settings, only: [:edit, :update]
   resources :leads, only: :create
   resources :tags, except: :show
   resources :imports, only: [:new, :create]

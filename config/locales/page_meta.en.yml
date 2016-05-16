@@ -4,7 +4,7 @@ en:
       marketing:
         index: "Mailkiq"
       settings:
-        domains: "Amazon Simple Email Service"
+        edit: "Amazon Simple Email Service"
       subscribers:
         index: "Subscribers"
         new: "New subscriber"

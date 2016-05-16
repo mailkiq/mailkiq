@@ -59,11 +59,11 @@ class EmailProcessor
     click_url id: token, signature: Signature.hexdigest(url), url: url
   end
 
-  def parse(source)
-    if source =~ /<!DOCTYPE>/i
-      Nokogiri::HTML(source)
+  def parse(html)
+    if html =~ /<body[^<>]+>/i
+      Nokogiri::HTML(html)
     else
-      Nokogiri::XML.fragment(source)
+      Nokogiri::HTML.fragment(html)
     end
   end
 
@@ -76,8 +76,12 @@ class EmailProcessor
       node[:href] = href if href
     end
 
+    remove_doctype = body.raw_source.match(/!doctype/i).nil?
+    html = doc.to_s
+    html.gsub!(/<!doctype[^<>]+>(\n)?/i, '') if remove_doctype
+
     # hacky
-    body.raw_source.sub! body.raw_source, doc.to_html
+    body.raw_source.sub! body.raw_source, html
   end
 
   def track_open

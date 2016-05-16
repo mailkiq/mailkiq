@@ -22,6 +22,8 @@ describe Email, type: :model do
     it 'delivers campaign to subscriber' do
       mail = double 'mail'
 
+      expect(mail).to receive(:mime_version=).with('1.0')
+      expect(mail).to receive(:charset=).with('UTF-8')
       expect(mail).to receive(:to=).with(subscriber.email)
       expect(mail).to receive(:from=).with(campaign.from)
       expect(mail).to receive(:subject=).with(campaign.subject)

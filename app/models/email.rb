@@ -26,6 +26,8 @@ class Email
 
   def set_mail_attributes
     mail.to = @subscriber.email
+    mail.mime_version = '1.0'
+    mail.charset = 'UTF-8'
     mail.from = @campaign.from
     mail.subject = @campaign.subject.render! @subscriber.interpolations
     mail.text_part = @campaign.plain_text if @campaign.plain_text?

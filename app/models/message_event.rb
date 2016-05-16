@@ -2,7 +2,7 @@ class MessageEvent
   def initialize(message, params)
     @message = message
     @params = params
-    @should_increment_opens_count = !@message.opened_at?
+    @should_increment_opens_count = !@message.opened_at? if @message.present?
   end
 
   def open!

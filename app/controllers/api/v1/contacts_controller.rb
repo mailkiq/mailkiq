@@ -7,6 +7,10 @@ module API
 
       private
 
+      def context
+        super.merge tag: params[:tag]
+      end
+
       def clickfunnels_webhook_delivery_id
         request.headers['X-Clickfunnels-Webhook-Delivery-Id']
       end

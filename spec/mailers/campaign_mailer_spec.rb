@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Email, type: :model do
+describe CampaignMailer do
   let(:campaign) { Fabricate.build :campaign_with_account, id: rand(100) }
   let(:subscriber) { Fabricate.build :subscriber, id: rand(100) }
   let(:ses) { subject.instance_variable_get :@ses }
@@ -15,7 +15,7 @@ describe Email, type: :model do
     allow(Subscriber).to receive(:find).with(subscriber.id)
       .and_return(subscriber)
     allow(Message).to receive(:create!)
-    allow_any_instance_of(EmailProcessor).to receive(:transform!)
+    allow_any_instance_of(MailerProcessor).to receive(:transform!)
   end
 
   describe '#subscription_token' do

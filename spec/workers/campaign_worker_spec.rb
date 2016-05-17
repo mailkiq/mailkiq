@@ -7,7 +7,7 @@ describe CampaignWorker, type: :worker do
   describe '#perform' do
     it 'delivers campaign to the subscriber' do
       expect(ActiveRecord::Base).to receive(:transaction).and_yield
-      expect(Email).to receive_message_chain :new, :deliver!
+      expect(CampaignMailer).to receive_message_chain :new, :deliver!
       subject.perform 1, 1
     end
 

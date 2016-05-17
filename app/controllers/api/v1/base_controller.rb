@@ -10,7 +10,7 @@ module API
       end
 
       def context
-        { current_account: current_account, tag: params[:tag] }
+        { current_account: current_account }
       end
 
       def account_signed_in?

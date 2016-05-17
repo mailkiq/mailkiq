@@ -5,7 +5,7 @@ class CampaignWorker
 
   def perform(campaign_id, subscriber_id)
     ActiveRecord::Base.transaction do
-      Email.new(campaign_id, subscriber_id).deliver!
+      CampaignMailer.new(campaign_id, subscriber_id).deliver!
     end
   rescue Aws::SES::Errors::Throttling => exception
     CampaignWorker.perform_async(campaign_id, subscriber_id)

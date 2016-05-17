@@ -1,4 +1,4 @@
-class Email
+class CampaignMailer
   attr_reader :token, :mail
 
   def initialize(campaign_id, subscriber_id)
@@ -11,7 +11,7 @@ class Email
   end
 
   def deliver!
-    EmailProcessor.new(self).transform!
+    MailerProcessor.new(self).transform!
     response = send_raw_email(mail)
     create_message! response.message_id
   end

@@ -1,6 +1,6 @@
 require 'addressable/uri'
 
-class EmailProcessor
+class MailerProcessor
   delegate :mail, :subscription_token, :token, :utm_params, to: :@email
 
   def initialize(email)
@@ -62,7 +62,7 @@ class EmailProcessor
   end
 
   def parse(html)
-    if html =~ /<body[^<>]+>/i
+    if html =~ /<body[^<>]*>/i
       Nokogiri::HTML(html)
     else
       Nokogiri::HTML.fragment(html)
@@ -80,7 +80,7 @@ class EmailProcessor
 
     remove_doctype = body.raw_source.match(/!doctype/i).nil?
     html = doc.to_s
-    html.gsub!(/<!doctype[^<>]+>(\n)?/i, '') if remove_doctype
+    html.gsub!(/<!doctype[^<>]*>(\n)?/i, '') if remove_doctype
 
     # hacky
     body.raw_source.sub! body.raw_source, html

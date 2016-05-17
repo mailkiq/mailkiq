@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe EmailProcessor, type: :model do
+describe MailerProcessor do
   let(:mail) do
     m = Mail.new
     m.html_part = File.read('spec/fixtures/template.html')

@@ -7,6 +7,7 @@
       <ul class="dropdown-menu large-dropdown-menu animated">
         <%= nav_link_to :import, new_import_path %>
         <%= nav_link_to :tags, tags_path %>
+        <%= nav_link_to :subscribe_form, '#', class: 'open-form' %>
       </ul>
     </span>
 
@@ -51,3 +52,19 @@
     </tfoot>
   <% end %>
 </table>
+
+<div class="overlay">
+  <div class="box">
+    <p>This is the subscribe form HTML code.</p>
+
+    <%= highlight_html do %>
+      <form action="<%= api_v1_subscribers_url %>" method="post">
+        <input type="email" name="data[attributes][email]">
+        <input type="hidden" name="data[type]" value="subscribers">
+        <input type="hidden" name="data[attributes][tags]" value="">
+        <input type="hidden" name="api_key" value="<%= current_account.api_key.tr('-', '') %>">
+        <input type="hidden" name="redirect_to" value="">
+      </form>
+    <% end %>
+  </div>
+</div>

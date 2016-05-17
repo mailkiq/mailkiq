@@ -13,6 +13,7 @@ gem 'paypal-recurring'
 gem 'puma'
 gem 'redis-objects', github: 'nateware/redis-objects'
 gem 'redis-rails'
+gem 'rouge', require: false
 gem 'sentry-raven'
 gem 'simple_form'
 gem 'strip_attributes'

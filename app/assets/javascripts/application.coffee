@@ -10,7 +10,7 @@
 
 @App =
   Dashboard: {}
-  Settings: {}
+  Subscribers: {}
 
   initializeHighcharts: ->
     Highcharts?.setOptions

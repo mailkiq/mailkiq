@@ -20,6 +20,7 @@ en:
       domains: 'Domains'
       import: 'Import'
       tags: 'Manage Tags'
+      subscribe_form: 'Subscribe form'
   marketing:
     index:
       login: 'Login'

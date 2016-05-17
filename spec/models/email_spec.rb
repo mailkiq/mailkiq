@@ -18,6 +18,12 @@ describe Email, type: :model do
     allow_any_instance_of(EmailProcessor).to receive(:transform!)
   end
 
+  describe '#subscription_token' do
+    it 'generates an unsubscription token' do
+      expect(subject.subscription_token).to eq Token.encode(subscriber.id)
+    end
+  end
+
   describe '#deliver!' do
     it 'delivers campaign to subscriber' do
       mail = double 'mail'

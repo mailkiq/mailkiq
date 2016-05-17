@@ -10,7 +10,7 @@ describe SubscriptionsController, type: :controller do
         .with(subscriber.id)
         .and_return(subscriber)
 
-      get :unsubscribe, token: subscriber.subscription_token
+      get :unsubscribe, token: Token.encode(subscriber.id)
     end
 
     it { is_expected.to respond_with :success }

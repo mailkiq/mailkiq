@@ -22,6 +22,10 @@ class Email
       utm_campaign: @campaign.name.parameterize }
   end
 
+  def subscription_token
+    Token.encode(@subscriber.id)
+  end
+
   private
 
   def set_mail_attributes

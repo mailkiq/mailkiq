@@ -18,10 +18,6 @@ class Subscriber < ActiveRecord::Base
 
   before_create :set_default_state
 
-  def subscription_token
-    @subscription_token ||= Token.encode(id)
-  end
-
   def interpolations
     {
       first_name: first_name,

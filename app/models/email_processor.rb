@@ -1,7 +1,7 @@
 require 'addressable/uri'
 
 class EmailProcessor
-  delegate :mail, :token, :utm_params, to: :@email
+  delegate :mail, :subscription_token, :token, :utm_params, to: :@email
 
   def initialize(email)
     @email = email
@@ -48,7 +48,9 @@ class EmailProcessor
   end
 
   def unsubscribe_url
-    url_for controller: :subscriptions, action: :unsubscribe, token: token
+    url_for controller: :subscriptions,
+            action: :unsubscribe,
+            token: CGI.escape(subscription_token)
   end
 
   def track(href)

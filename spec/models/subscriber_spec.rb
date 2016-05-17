@@ -36,13 +36,6 @@ describe Subscriber, type: :model do
     expect(described_class.default_per_page).to eq(10)
   end
 
-  describe '#subscription_token' do
-    it 'generates an unsubscription token' do
-      expect(subject).to receive(:id).and_return(1)
-      expect(subject.subscription_token).to eq Token.encode(1)
-    end
-  end
-
   describe '#interpolations' do
     it 'generates a custom attributes hash' do
       interpolations = Fabricate.build(:subscriber).interpolations

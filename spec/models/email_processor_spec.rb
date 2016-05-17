@@ -12,6 +12,7 @@ describe EmailProcessor, type: :model do
     allow(email).to receive(:mail).and_return(mail)
     allow(email).to receive(:utm_params).and_return(utm_source: :email)
     allow(email).to receive(:token).and_return('token')
+    allow(email).to receive(:subscription_token).and_return Token.encode(1)
     described_class.new email
   end
 
@@ -42,9 +43,10 @@ describe EmailProcessor, type: :model do
     it 'expands template variables' do
       node = doc.at('.unsubscribe')
       link = Addressable::URI.parse node.get_attribute(:href)
+      subscription_token = CGI.escape(Token.encode(1))
 
       expect(link.path).to eq('/unsubscribe')
-      expect(link.query_values['token']).to eq('token')
+      expect(link.query_values['token']).to eq(subscription_token)
     end
   end
 end

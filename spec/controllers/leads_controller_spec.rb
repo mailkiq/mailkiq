@@ -4,11 +4,13 @@ describe LeadsController, type: :controller do
   describe '#create' do
     let(:account) { Fabricate.build :account }
     let(:params) do
-      { lead: { email: 'maria@doe.com' } }
+      { lead: { email: 'maria@doe.com', state: 'active' } }
     end
 
     before do
-      allow_any_instance_of(Subscriber).to receive(:save)
+      allow_any_instance_of(Subscriber).to receive(:save) do |model|
+        model.run_callbacks :create
+      end
 
       expect(Account).to receive(:find_by)
         .with(email: 'rainerborene@gmail.com')
@@ -27,7 +29,7 @@ describe LeadsController, type: :controller do
     it 'sets subscriber attributes' do
       subscriber = assigns(:subscriber)
       subscriber.run_callbacks :create
-      expect(subscriber).to be_active
+      expect(subscriber).to be_unconfirmed
       expect(subscriber.name).to be_nil
       expect(subscriber.account).to eq(account)
     end

@@ -51,4 +51,12 @@ describe Subscriber, type: :model do
       expect(subscriber.last_name).to be_nil
     end
   end
+
+  describe '#set_default_state' do
+    it 'sets state to unconfirmed' do
+      expect(subject.state).to be_nil
+      subject.run_callbacks :create
+      expect(subject).to be_unconfirmed
+    end
+  end
 end

@@ -29,6 +29,6 @@ class Subscriber < ActiveRecord::Base
   protected
 
   def set_default_state
-    self.state ||= self.class.states[:active]
+    self.state ||= self.class.states[:unconfirmed]
   end
 end

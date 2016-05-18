@@ -1,10 +1,18 @@
 module API
   module V1
     class SubscriberResource < BaseResource
-      attributes :name, :email, :tags
+      attributes :name, :email, :tags, :state
 
       before_save do
         @model.account_id = current_account.id
+      end
+
+      def self.updatable_fields(context)
+        super - [:state]
+      end
+
+      def self.creatable_fields(context)
+        super - [:state]
       end
 
       # modifying internal ID isn't allowed.

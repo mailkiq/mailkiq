@@ -21,7 +21,10 @@ describe API::V1::ContactsController, type: :controller do
         allow(ActiveRecord::Base).to receive(:transaction).and_yield
         expect_sign_in_as account
         expect_any_instance_of(Subscriber).to receive(:valid?).and_return(true)
-        expect_any_instance_of(Subscriber).to receive(:save) { |model| model }
+        expect_any_instance_of(Subscriber).to receive(:save) do |model|
+          model.run_callbacks :create
+        end
+
         expect_any_instance_of(API::V1::SubscriberResource)
           .to receive(:redefine_model)
 
@@ -33,9 +36,11 @@ describe API::V1::ContactsController, type: :controller do
       it { is_expected.to respond_with :created }
       it { expect(response.content_type).to eq Mime::JSON }
 
-      it 'keeps id attribute unchanged' do
+      it 'sets attributes correctly' do
         json_response = JSON.parse(response.body)
-        expect(json_response['data']['id']).to be_nil
+        expect(json_response.dig('data', 'id')).to be_nil
+        expect(json_response.dig('data', 'attributes', 'state'))
+          .to eq('unconfirmed')
       end
     end
   end

@@ -16,6 +16,7 @@ class Account < ActiveRecord::Base
   has_many :subscribers
   has_many :tags
   has_many :domains, dependent: :destroy
+  has_many :automations
 
   after_commit :create_topic, on: :create
   after_commit :delete_topic, on: :destroy

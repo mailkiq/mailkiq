@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501172858) do
+ActiveRecord::Schema.define(version: 20160518001918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,19 @@ ActiveRecord::Schema.define(version: 20160501172858) do
   add_index "accounts", ["api_key"], name: "index_accounts_on_api_key", unique: true, using: :btree
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
+
+  create_table "automations", force: :cascade do |t|
+    t.citext   "name",                     null: false
+    t.jsonb    "conditions",  default: {}, null: false
+    t.integer  "account_id",               null: false
+    t.integer  "campaign_id",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "automations", ["account_id"], name: "index_automations_on_account_id", using: :btree
+  add_index "automations", ["campaign_id"], name: "index_automations_on_campaign_id", using: :btree
+  add_index "automations", ["name"], name: "index_automations_on_name", unique: true, using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.citext   "name",                            null: false
@@ -157,13 +170,15 @@ ActiveRecord::Schema.define(version: 20160501172858) do
   add_index "tags", ["slug", "account_id"], name: "index_tags_on_slug_and_account_id", unique: true, using: :btree
 
   add_foreign_key "accounts", "plans"
+  add_foreign_key "automations", "accounts"
+  add_foreign_key "automations", "campaigns", on_delete: :cascade
   add_foreign_key "campaigns", "accounts", on_delete: :cascade
   add_foreign_key "domains", "accounts"
   add_foreign_key "messages", "campaigns", on_delete: :cascade
   add_foreign_key "messages", "subscribers", on_delete: :cascade
   add_foreign_key "notifications", "messages", on_delete: :cascade
   add_foreign_key "subscribers", "accounts", on_delete: :cascade
-  add_foreign_key "taggings", "subscribers", on_delete: :cascade
-  add_foreign_key "taggings", "tags", on_delete: :cascade
+  add_foreign_key "taggings", "subscribers"
+  add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "accounts", on_delete: :cascade
 end

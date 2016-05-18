@@ -10,8 +10,9 @@ class Campaign < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :account_id
   validate :validate_from_field, if: :from?
 
-  has_many :messages
   belongs_to :account
+  has_many :messages
+  has_many :automations
 
   scope :sent, -> { where.not sent_at: nil }
   scope :unsent, -> { where sent_at: nil }

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   root to: 'marketing#index'
 
   resource :settings, only: [:edit, :update]
+  resources :automations
   resources :leads, only: :create
   resources :tags, except: :show
   resources :imports, only: [:new, :create]

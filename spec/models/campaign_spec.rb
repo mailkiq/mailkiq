@@ -16,6 +16,7 @@ describe Campaign, type: :model do
   it { is_expected.to have_db_index :account_id }
   it { is_expected.to have_db_index([:name, :account_id]).unique }
   it { is_expected.to have_many :messages }
+  it { is_expected.to have_many :automations }
 
   it { is_expected.not_to have_db_column :messages_count }
   it { is_expected.to have_db_column(:recipients_count).of_type :integer }

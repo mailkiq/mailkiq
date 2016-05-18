@@ -1,0 +1,31 @@
+<h2>
+  <%= page_title %>
+  <%= link_to t('.new_automation'), new_automation_path, class: 'btn' %>
+</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= sortable 'name', t('.name') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @automations.each do |automation| %>
+      <tr>
+        <td><%= automation.name %></td>
+        <td class="actions">
+          <%= icon_link_to :pen, edit_automation_path(automation) %>
+          <%= icon_link_to :trash, automation_path(automation), delete: true %>
+        </td>
+      </tr>
+    <% end %>
+
+    <% unless @automations.any? %>
+      <tr>
+        <td colspan="2"><%= t '.no_automations' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

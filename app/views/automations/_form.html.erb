@@ -1,0 +1,11 @@
+<h2><%= page_title %></h3>
+
+<%= simple_form_for @automation do |f| %>
+  <%= f.input :name, as: :string %>
+  <%= f.association :campaign %>
+
+  <div class="actions">
+    <%= f.button :submit %>
+    <%= link_to t('actions.back'), campaigns_path, class: 'btn btn-danger' %>
+  </div>
+<% end %>

@@ -1,84 +1,90 @@
 ---
 en:
   actions:
-    pen: 'Edit'
-    trash: 'Delete'
-    back: 'Back'
-    confirm: 'Are you sure?'
-    view: 'Preview'
-    send: 'Send'
-    addfile: 'Duplicate'
-    info: 'Show DNS Records'
+    pen: "Edit"
+    trash: "Delete"
+    back: "Back"
+    confirm: "Are you sure?"
+    view: "Preview"
+    send: "Send"
+    addfile: "Duplicate"
+    info: "Show DNS Records"
   nav:
     links:
-      dashboard: 'Dashboard'
-      campaigns: 'Campaigns'
-      settings: 'Settings'
-      sign_out: 'Sign Out'
-      subscribers: 'Subscribers'
-      my_account: 'My Account'
-      domains: 'Domains'
-      import: 'Import'
-      tags: 'Manage Tags'
-      subscribe_form: 'Subscribe form'
+      dashboard: "Dashboard"
+      campaigns: "Campaigns"
+      settings: "Settings"
+      sign_out: "Sign Out"
+      subscribers: "Subscribers"
+      my_account: "My Account"
+      domains: "Domains"
+      import: "Import"
+      tags: "Manage Tags"
+      subscribe_form: "Subscribe form"
+      automations: "Automations"
   marketing:
     index:
-      login: 'Login'
-      sign_up: 'Sign Up'
-      sign_out: 'Sign Out'
+      login: "Login"
+      sign_up: "Sign Up"
+      sign_out: "Sign Out"
   dashboard:
     show:
       sending_limits: "%{count} of %{remaining}"
       send_rate: "%{rate} per second"
-      sandbox: 'Sandbox Mode'
-      your_amazon_ses_metrics: 'Your Amazon SES Metrics'
+      sandbox: "Sandbox Mode"
+      your_amazon_ses_metrics: "Your Amazon SES Metrics"
   campaigns:
     index:
-      new_campaign: 'New campaign'
-      campaign: 'Campaign'
-      recipients: 'Recipients'
-      sent_at: 'Sent at'
-      unique_opens: 'Unique Opens'
-      unique_clicks: 'Unique Clicks'
-      no_campaigns: 'No campaigns found.'
+      new_campaign: "New campaign"
+      campaign: "Campaign"
+      recipients: "Recipients"
+      sent_at: "Sent at"
+      unique_opens: "Unique Opens"
+      unique_clicks: "Unique Clicks"
+      no_campaigns: "No campaigns found."
     show:
-      emails_sent: 'emails sent'
-      delivered: 'delivered'
-      bounces: 'bounces'
-      complaints: 'complaints'
-      unsent: 'unsent'
-      open_rate: 'Open rate'
-      click_rate: 'Click rate'
-      long_sent_at: 'Sent at %{time} • takes %{estimated_time} to send it.'
+      emails_sent: "emails sent"
+      delivered: "delivered"
+      bounces: "bounces"
+      complaints: "complaints"
+      unsent: "unsent"
+      open_rate: "Open rate"
+      click_rate: "Click rate"
+      long_sent_at: "Sent at %{time} • takes %{estimated_time} to send it."
   subscribers:
     index:
-      new_subscriber: 'New subscriber'
-      no_subscribers: 'No subscribers found.'
-      name: 'Name'
-      email: 'Email'
-      state: 'State'
+      new_subscriber: "New subscriber"
+      no_subscribers: "No subscribers found."
+      name: "Name"
+      email: "Email"
+      state: "State"
   settings:
     edit:
-      authentication: 'Authentication'
-      domains: 'Domains'
-      domain: 'Domain'
-      status: 'Status'
+      authentication: "Authentication"
+      domains: "Domains"
+      domain: "Domain"
+      status: "Status"
   tags:
     index:
-      new_tag: 'New tag'
-      name: 'Name'
-      slug: 'Slug'
-      subscribers: 'Subscribers'
-      no_tags: 'No tags found.'
+      new_tag: "New tag"
+      name: "Name"
+      slug: "Slug"
+      subscribers: "Subscribers"
+      no_tags: "No tags found."
   devise:
     sessions:
       new:
-        forgot_password: 'Forgot password?'
+        forgot_password: "Forgot password?"
     passwords:
       new:
         description: To be emailed a link to reset your password, please enter
           your email address.
     registrations:
       edit:
-        your_profile: 'Your Profile'
-        billing: 'Billing'
+        your_profile: "Your Profile"
+        billing: "Billing"
+  automations:
+    index:
+      new_automation: "New Automation"
+      name: "Name"
+      no_automations: "No automations found."

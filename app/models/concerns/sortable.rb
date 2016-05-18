@@ -1,5 +1,5 @@
 module Sortable
-  def decide_direction(column)
+  def sort_direction(column)
     name = column
     direction = :asc
 
@@ -12,7 +12,7 @@ module Sortable
   end
 
   def sort(column)
-    name, direction = decide_direction(column)
+    name, direction = sort_direction(column)
 
     if column_names.include?(name)
       order name => direction

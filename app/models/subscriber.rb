@@ -8,7 +8,9 @@ class Subscriber < ActiveRecord::Base
   has_many :messages
   has_many :taggings
   has_many :tags, through: :taggings
-  enum state: %i(active unconfirmed unsubscribed bounced complained deleted)
+  enum state:
+    %i(active unconfirmed unsubscribed bounced complained deleted wrong_email)
+
   paginates_per 10
 
   scope :actived, -> { where state: states[:active] }
@@ -17,6 +19,10 @@ class Subscriber < ActiveRecord::Base
   strip_attributes only: [:name, :email]
 
   before_create :set_default_state
+
+  def self.mark_as_wrong_email(subscriber_id)
+    where(id: subscriber_id).update_all state: Subscriber.states[:wrong_email]
+  end
 
   def interpolations
     {

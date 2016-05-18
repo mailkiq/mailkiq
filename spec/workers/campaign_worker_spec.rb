@@ -17,7 +17,7 @@ describe CampaignWorker, type: :worker do
       expect(ActiveRecord::Base).to receive(:transaction).and_raise exception
       expect(Raven).to receive(:capture_exception).with kind_of(exception.class)
       expect(Subscriber).to receive_message_chain(:where, :update_all)
-        .with state: Subscriber.states[:unconfirmed]
+        .with state: Subscriber.states[:wrong_email]
       expect { subject.perform 1, 1 }.not_to raise_exception
     end
 

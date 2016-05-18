@@ -10,8 +10,7 @@ class CampaignWorker
   rescue Aws::SES::Errors::Throttling => exception
     CampaignWorker.perform_async(campaign_id, subscriber_id)
   rescue Aws::SES::Errors::InvalidParameterValue => exception
-    Subscriber.where(id: subscriber_id)
-              .update_all(state: Subscriber.states[:unconfirmed])
+    Subscriber.mark_as_wrong_email subscriber_id
   ensure
     Raven.capture_exception(exception) if exception
   end

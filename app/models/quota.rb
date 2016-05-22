@@ -5,7 +5,7 @@ class Quota
   end
 
   def remaining
-    @account.plan_credits - @account.used_credits.value
+    @account.plan_credits - @account.used_credits
   end
 
   def exceed?(value)

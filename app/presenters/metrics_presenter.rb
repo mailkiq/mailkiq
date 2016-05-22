@@ -31,9 +31,7 @@ class MetricsPresenter < BasePresenter
   end
 
   def percentage_for(counter_name)
-    counter = campaign.send(counter_name)
-    counter = counter.value if counter.respond_to?(:value)
-    value = counter / recipients_count * 100
+    value = campaign.send(counter_name) / recipients_count * 100
     number_to_percentage(value, precision: value < 1 && !value.zero? ? 2 : 0)
   end
 end

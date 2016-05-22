@@ -1,5 +1,4 @@
 class Account < ActiveRecord::Base
-  include Redis::Objects
   include Person
 
   LANGUAGES = %w(en pt-BR).freeze
@@ -27,8 +26,6 @@ class Account < ActiveRecord::Base
 
   attr_accessor :force_password_validation
   attr_accessor :paypal_payment_token
-
-  counter :used_credits
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable

@@ -17,10 +17,13 @@ describe NotificationManager do
         .and_return(relation)
 
       expect(relation).to receive(:update_all)
-        .with(state: Subscriber.states.fetch(sns.state))
+        .with(state: Subscriber.states[sns.state])
+
+      expect(message).to receive(:update_column)
+        .with(:state, sns.message_type.downcase)
 
       expect(message).to receive_message_chain(:notifications, :create!)
-        .with(subject.attributes) do |attrs|
+        .with(data: sns.data.as_json) do |attrs|
           notification.assign_attributes(attrs)
           notification
         end
@@ -33,22 +36,6 @@ describe NotificationManager do
       expect(Campaign).to receive(:increment_counter).with('bounces_count', 1)
 
       subject.create!
-    end
-
-    it 'creates a new delivery notification' do
-      expect(Campaign).not_to receive(:increment_counter)
-      expect_any_instance_of(Notification).to receive(:delivery?)
-        .and_return(true)
-
-      subject.create!
-    end
-  end
-
-  describe '#attributes' do
-    it 'slices message type and data object attributes' do
-      attributes = subject.attributes
-      expect(attributes[:type]).to eq(sns.message_type.downcase)
-      expect(attributes[:data]).to eq(sns.data.as_json)
     end
   end
 end

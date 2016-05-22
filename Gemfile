@@ -11,8 +11,6 @@ gem 'jsonapi-resources'
 gem 'page_meta'
 gem 'paypal-recurring'
 gem 'puma'
-gem 'redis-objects', github: 'nateware/redis-objects'
-gem 'redis-rails'
 gem 'rouge', require: false
 gem 'sentry-raven'
 gem 'simple_form'

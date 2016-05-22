@@ -21,7 +21,7 @@ describe Account, type: :model do
   it { is_expected.to have_many :campaigns }
   it { is_expected.to have_many :subscribers }
   it { is_expected.to have_many :tags }
-  it { is_expected.to have_many :automations}
+  it { is_expected.to have_many :automations }
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
   it { is_expected.to delegate_method(:credits).to(:plan).with_prefix }
@@ -30,8 +30,6 @@ describe Account, type: :model do
 
   it { is_expected.to have_attr_accessor :force_password_validation }
   it { is_expected.to have_attr_accessor :paypal_payment_token }
-
-  it { is_expected.to have_counter :used_credits }
 
   describe '#remember_me' do
     it 'always remember the user' do

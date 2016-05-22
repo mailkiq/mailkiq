@@ -24,6 +24,11 @@ class Subscriber < ActiveRecord::Base
     where(id: subscriber_id).update_all state: Subscriber.states[:wrong_email]
   end
 
+  def self.update_state_for(state, email:, account_id:)
+    where(email: email, account_id: account_id)
+      .update_all(state: Subscriber.states[state])
+  end
+
   def interpolations
     {
       first_name: first_name,

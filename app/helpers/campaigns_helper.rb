@@ -15,7 +15,7 @@ module CampaignsHelper
   end
 
   def campaign_meter_tag(campaign, counter_name)
-    width = campaign.send(counter_name).value / campaign.recipients_count.to_f * 100
+    width = campaign.send(counter_name) / campaign.recipients_count.to_f * 100
     width = width.round(1)
     content_tag :div, class: :meter do
       content_tag :span, nil, style: "width: #{width}%"

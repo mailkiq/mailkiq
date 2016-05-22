@@ -25,14 +25,16 @@ class Delivery
   end
 
   def deliver!
-    jobs = chain_queries.pluck(:id).map! { |id| [campaign.id, id] }
+    ActiveRecord::Base.transaction do
+      jobs = chain_queries.pluck(:id).map! { |id| [campaign.id, id] }
 
-    Sidekiq::Client.push_bulk \
-      'queue'    => campaign.queue_name,
-      'class'    => CampaignWorker,
-      'args'     => jobs
+      campaign.update_columns recipients_count: jobs.size, sent_at: Time.now
 
-    campaign.update_columns recipients_count: jobs.size, sent_at: Time.now
+      Sidekiq::Client.push_bulk \
+        'queue' => campaign.queue_name,
+        'class' => CampaignWorker,
+        'args'  => jobs
+    end
   end
 
   def save

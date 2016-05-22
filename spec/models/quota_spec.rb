@@ -7,8 +7,7 @@ describe Quota, type: :model do
   subject { described_class.new account }
 
   before do
-    allow(account).to receive_message_chain(:used_credits, :value).and_return(5)
-    allow(account).to receive(:plan_credits).at_least(:once).and_return(10)
+    allow(account).to receive(:plan_credits).and_return(10)
   end
 
   describe '#remaining' do

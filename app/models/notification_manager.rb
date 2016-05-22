@@ -11,27 +11,26 @@ class NotificationManager
   end
 
   def create!
-    notification = create_notification!
+    notification = track_notification!
 
-    Subscriber.where(email: @message.emails, account_id: @account_id)
-              .update_all(state: Subscriber.states[@message.state])
+    Subscriber.update_state_for @message.state,
+                                email: @message.emails,
+                                account_id: @account_id
 
-    increment_counter(notification) unless notification.delivery?
-  end
-
-  def attributes
-    { type: @message.message_type.downcase, data: @message.data.as_json }
+    unless @message.state == :active
+      Campaign.increment_counter counter_name, notification.message.campaign_id
+    end
   end
 
   private
 
-  def create_notification!
+  def track_notification!
     record = Message.find_by! uuid: @message.mail_id
-    record.notifications.create! attributes
+    record.update_column :state, @message.message_type.downcase
+    record.notifications.create! data: @message.data.as_json
   end
 
-  def increment_counter(notification)
-    counter_name = "#{notification.type.pluralize}_count".freeze
-    Campaign.increment_counter counter_name, notification.message.campaign_id
+  def counter_name
+    "#{@message.message_type.downcase.pluralize}_count".freeze
   end
 end

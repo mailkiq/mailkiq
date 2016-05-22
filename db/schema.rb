@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518001918) do
+ActiveRecord::Schema.define(version: 20160520214010) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "citext"
   enable_extension "uuid-ossp"
+  enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name",                                                          null: false
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160518001918) do
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false
     t.string   "aws_queue_url"
+    t.integer  "used_credits",                   default: 0,                    null: false
   end
 
   add_index "accounts", ["api_key"], name: "index_accounts_on_api_key", unique: true, using: :btree
@@ -100,16 +102,17 @@ ActiveRecord::Schema.define(version: 20160518001918) do
   add_index "domains", ["name"], name: "index_domains_on_name", unique: true, using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.string   "uuid",          limit: 60, null: false
-    t.string   "token",         limit: 32, null: false
+    t.string   "uuid",          limit: 60,             null: false
+    t.string   "token",         limit: 32,             null: false
     t.string   "referer"
     t.string   "user_agent"
     t.inet     "ip_address"
-    t.integer  "subscriber_id",            null: false
-    t.integer  "campaign_id",              null: false
-    t.datetime "sent_at",                  null: false
+    t.integer  "subscriber_id",                        null: false
+    t.integer  "campaign_id",                          null: false
+    t.datetime "sent_at",                              null: false
     t.datetime "opened_at"
     t.datetime "clicked_at"
+    t.integer  "state",                    default: 0, null: false
   end
 
   add_index "messages", ["campaign_id"], name: "index_messages_on_campaign_id", using: :btree
@@ -118,7 +121,6 @@ ActiveRecord::Schema.define(version: 20160518001918) do
   add_index "messages", ["uuid"], name: "index_messages_on_uuid", using: :btree
 
   create_table "notifications", force: :cascade do |t|
-    t.integer "type",       null: false
     t.jsonb   "data",       null: false
     t.integer "message_id", null: false
   end
@@ -178,7 +180,7 @@ ActiveRecord::Schema.define(version: 20160518001918) do
   add_foreign_key "messages", "subscribers", on_delete: :cascade
   add_foreign_key "notifications", "messages", on_delete: :cascade
   add_foreign_key "subscribers", "accounts", on_delete: :cascade
-  add_foreign_key "taggings", "subscribers"
-  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "subscribers", on_delete: :cascade
+  add_foreign_key "taggings", "tags", on_delete: :cascade
   add_foreign_key "tags", "accounts", on_delete: :cascade
 end

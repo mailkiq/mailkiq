@@ -1,5 +1,4 @@
 class Campaign < ActiveRecord::Base
-  include Redis::Objects
   extend Sortable
 
   validates :from_email, presence: true, email: true, domain: true
@@ -19,25 +18,20 @@ class Campaign < ActiveRecord::Base
   scope :recent, -> { order created_at: :desc }
 
   delegate :aws_options, :domain_names, to: :account, prefix: true
+  delegate :count, to: :messages, prefix: true
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
-
-  counter :messages_count # aka delivery
-  counter :unique_opens_count
-  counter :unique_clicks_count
-  counter :bounces_count
-  counter :complaints_count
 
   def queue_name
     "campaign-#{id}"
   end
 
   def deliveries_count
-    [recipients_count, messages_count.value].min
+    [recipients_count, messages_count].min
   end
 
   def unsent_count
-    [0, recipients_count - messages_count.value].max
+    [0, recipients_count - messages_count].max
   end
 
   def from

@@ -16,7 +16,6 @@ class ProgressPresenter < BasePresenter
     total = campaign.recipients_count
     total = 1 if total.zero?
     count = campaign.send("#{counter_name}_count")
-    count = count.value if count.respond_to? :value
     count / total.to_f * 100
   end
 

@@ -27,6 +27,7 @@ describe Campaign, type: :model do
 
   it { is_expected.to delegate_method(:aws_options).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
+  it { is_expected.to delegate_method(:count).to(:messages).with_prefix }
 
   it { is_expected.to strip_attribute :name }
   it { is_expected.to strip_attribute :subject }
@@ -35,12 +36,6 @@ describe Campaign, type: :model do
 
   it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recent).with(0).arguments }
-
-  it { is_expected.to have_counter :messages_count }
-  it { is_expected.to have_counter :unique_opens_count }
-  it { is_expected.to have_counter :unique_clicks_count }
-  it { is_expected.to have_counter :bounces_count }
-  it { is_expected.to have_counter :complaints_count }
 
   describe '#queue_name' do
     it 'generates queue name' do
@@ -52,8 +47,7 @@ describe Campaign, type: :model do
   describe '#deliveries_count' do
     it 'calculates current deliveries count' do
       expect(subject).to receive(:recipients_count).and_return(1_000)
-      expect(subject).to receive_message_chain(:messages_count, :value)
-        .and_return(2_000)
+      expect(subject).to receive(:messages_count).and_return(2_000)
       expect(subject.deliveries_count).to eq(1_000)
     end
   end
@@ -61,8 +55,7 @@ describe Campaign, type: :model do
   describe '#unsent_count' do
     it 'calculates remaining messages to be sent' do
       expect(subject).to receive(:recipients_count).and_return(1_000)
-      expect(subject).to receive_message_chain(:messages_count, :value)
-        .and_return(1_100)
+      expect(subject).to receive(:messages_count).and_return(1_100)
       expect(subject.unsent_count).to be_zero
     end
   end

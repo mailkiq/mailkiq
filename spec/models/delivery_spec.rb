@@ -15,6 +15,7 @@ describe Delivery, type: :model do
 
   before do
     allow(subject).to receive(:validate_enough_credits).and_return(true)
+    subject.campaign.account.id = 10
   end
 
   describe '#initialize' do
@@ -28,7 +29,7 @@ describe Delivery, type: :model do
 
   describe '#save' do
     it 'enqueues delivery job' do
-      expect(DeliveryWorker).to receive(:perform_async)
+      expect(DeliveryJob).to receive(:enqueue)
         .with(subject.campaign.id, subject.tagged_with, subject.not_tagged_with)
 
       subject.save
@@ -37,20 +38,9 @@ describe Delivery, type: :model do
 
   describe '#deliver!' do
     it 'generates arguments for bulk processing' do
-      now = Time.now
-
-      expect(Time).to receive(:now).at_least(:once).and_return(now)
-      expect(subject).to receive_message_chain(:chain_queries, :pluck)
-        .and_return([2, 3, 4])
-
-      expect(Sidekiq::Client).to receive(:push_bulk)
-        .with('queue' => subject.campaign.queue_name,
-              'class' => CampaignWorker,
-              'args'  => [[1, 2], [1, 3], [1, 4]])
-        .and_call_original
-
-      expect(subject.campaign).to receive(:update_columns)
-        .with(recipients_count: 3, sent_at: now)
+      expect(QueJob).to receive(:push_bulk)
+        .with(subject.send(:chain_queries).to_sql, subject.campaign.id)
+        .and_return(true)
 
       subject.deliver!
     end
@@ -81,10 +71,10 @@ describe Delivery, type: :model do
 
   describe '#chain_queries' do
     it 'calls registered query objects' do
-      relation = double
-      subject.campaign.account.id = 10
-      expect(relation).to receive(:actived).and_return(relation)
-      expect(Subscriber).to receive(:where).with(account_id: 10)
+      relation = double('relation')
+
+      expect(Subscriber).to receive_message_chain(:actived, :where)
+        .with(account_id: 10)
         .and_return(relation)
 
       Delivery::QUERIES.each do |klass|

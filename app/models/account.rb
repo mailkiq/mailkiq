@@ -79,11 +79,11 @@ class Account < ActiveRecord::Base
   private
 
   def create_topic
-    ActivationWorker.perform_async id, :activate
+    ActivationJob.enqueue id, :activate
   end
 
   def delete_topic
-    ActivationWorker.perform_async id, :deactivate
+    ActivationJob.enqueue id, :deactivate
   end
 
   def validate_access_keys?

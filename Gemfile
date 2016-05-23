@@ -17,8 +17,9 @@ gem 'simple_form'
 gem 'strip_attributes'
 
 # Job scheduling
-gem 'sidekiq'
-gem 'sinatra', require: false
+gem 'concurrent-ruby'
+gem 'que'
+gem 'que-web'
 
 # DB
 gem 'kaminari'
@@ -45,7 +46,6 @@ end
 group :test do
   gem 'database_rewinder'
   gem 'fabrication'
-  gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
 end
 

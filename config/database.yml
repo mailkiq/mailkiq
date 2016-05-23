@@ -1,8 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: root
-  password: root
+  username: rainerborene
   pool: 5
 
 development:

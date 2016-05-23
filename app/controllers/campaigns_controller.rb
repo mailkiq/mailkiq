@@ -38,8 +38,7 @@ class CampaignsController < ApplicationController
   def destroy
     @campaign = current_account.campaigns.find params[:id]
     @campaign.destroy
-    @queue = Sidekiq::Queue.new(@campaign.queue_name)
-    @queue.clear
+    QueJob.remove_queue @campaign.id
     respond_with @campaign, location: campaigns_path
   end
 

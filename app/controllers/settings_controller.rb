@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
   before_action :authenticate_account!
 
   def edit
-    DomainWorker.perform_async current_account.id
+    DomainJob.enqueue current_account.id
   end
 
   def update

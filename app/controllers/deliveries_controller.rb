@@ -20,6 +20,6 @@ class DeliveriesController < ApplicationController
   end
 
   def set_campaign
-    @campaign = current_account.campaigns.find params[:campaign_id]
+    @campaign = current_account.campaigns.unsent.find params[:campaign_id]
   end
 end

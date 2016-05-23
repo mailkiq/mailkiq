@@ -1,3 +1,0 @@
----
-production:
-  :concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 25 %>

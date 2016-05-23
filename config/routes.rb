@@ -1,4 +1,4 @@
-require 'sidekiq/web'
+require 'que/web'
 
 Rails.application.routes.draw do
   namespace :api, format: false do
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   devise_for :accounts, controllers: { registrations: 'accounts/registrations' }
 
   authenticated :account do
-    mount Sidekiq::Web => '/sidekiq'
+    mount Que::Web => '/que'
 
     root to: 'dashboard#show', as: :signed_in_root
   end

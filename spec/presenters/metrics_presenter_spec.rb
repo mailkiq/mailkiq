@@ -22,8 +22,7 @@ describe MetricsPresenter do
         .and_call_original
 
       expect(campaign).to receive(:recipients_count).and_return(646_100)
-      expect(campaign).to receive_message_chain(:messages_count, :value)
-        .and_return(27_137)
+      expect(campaign).to receive(:messages_count).and_return(27_137)
       expect(subject.delivered).to eq('4%')
     end
   end

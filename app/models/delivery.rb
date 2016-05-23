@@ -25,27 +25,18 @@ class Delivery
   end
 
   def deliver!
-    ActiveRecord::Base.transaction do
-      jobs = chain_queries.pluck(:id).map! { |id| [campaign.id, id] }
-
-      campaign.update_columns recipients_count: jobs.size, sent_at: Time.now
-
-      Sidekiq::Client.push_bulk \
-        'queue' => campaign.queue_name,
-        'class' => CampaignWorker,
-        'args'  => jobs
-    end
+    QueJob.push_bulk(chain_queries.to_sql, campaign.id)
   end
 
   def save
     return false unless valid?
-    DeliveryWorker.perform_async campaign.id, tagged_with, not_tagged_with
+    DeliveryJob.enqueue campaign.id, tagged_with, not_tagged_with
   end
 
   private
 
   def chain_queries
-    relation = Subscriber.where(account_id: account.id).actived
+    relation = Subscriber.actived.where(account_id: account.id)
     QUERIES.each do |klass|
       new_relation = klass.new(relation, tagged_with, not_tagged_with).call
       relation = new_relation if new_relation

@@ -22,10 +22,6 @@ class Campaign < ActiveRecord::Base
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
 
-  def queue_name
-    "campaign-#{id}"
-  end
-
   def deliveries_count
     [recipients_count, messages_count].min
   end

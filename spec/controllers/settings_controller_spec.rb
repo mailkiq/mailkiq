@@ -6,7 +6,7 @@ describe SettingsController, type: :controller do
 
     describe '#edit' do
       before do
-        expect(DomainWorker).to receive(:perform_async).at_least(:once)
+        expect(DomainJob).to receive(:enqueue).with(account.id)
         sign_in account
         get :edit
       end

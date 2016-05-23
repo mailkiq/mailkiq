@@ -7,7 +7,8 @@ describe DeliveriesController, type: :controller do
 
     before do
       allow_any_instance_of(Delivery).to receive(:validate_enough_credits)
-      allow(account).to receive_message_chain(:campaigns, :find)
+      allow_any_instance_of(Delivery).to receive(:save)
+      allow(account).to receive_message_chain(:campaigns, :unsent, :find)
         .and_return(campaign)
 
       sign_in account

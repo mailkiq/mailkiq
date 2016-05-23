@@ -10,4 +10,9 @@ namespace :queries do
   task remove_duplicates: :environment do
     Query.execute :remove_duplicated_notifications
   end
+
+  desc 'Update message status column'
+  task update_messages: :environment do
+    Query.execute :update_message_status
+  end
 end

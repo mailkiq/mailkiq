@@ -37,13 +37,6 @@ describe Campaign, type: :model do
   it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recent).with(0).arguments }
 
-  describe '#queue_name' do
-    it 'generates queue name' do
-      subject.id = 1
-      expect(subject.queue_name).to eq('campaign-1')
-    end
-  end
-
   describe '#deliveries_count' do
     it 'calculates current deliveries count' do
       expect(subject).to receive(:recipients_count).and_return(1_000)

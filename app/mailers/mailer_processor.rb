@@ -50,7 +50,7 @@ class MailerProcessor
   def unsubscribe_url
     url_for controller: :subscriptions,
             action: :unsubscribe,
-            token: CGI.escape(subscription_token)
+            token: subscription_token
   end
 
   def track(href)

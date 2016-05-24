@@ -43,10 +43,9 @@ describe MailerProcessor do
     it 'expands template variables' do
       node = doc.at('.unsubscribe')
       link = Addressable::URI.parse node.get_attribute(:href)
-      subscription_token = CGI.escape(Token.encode(1))
 
       expect(link.path).to eq('/unsubscribe')
-      expect(link.query_values['token']).to eq(subscription_token)
+      expect(link.query_values['token']).to eq(Token.encode(1))
     end
   end
 end

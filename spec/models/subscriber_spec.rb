@@ -7,7 +7,7 @@ describe Subscriber, type: :model do
   it do
     is_expected.to define_enum_for(:state)
       .with(%i(active unconfirmed unsubscribed bounced complained deleted
-               wrong_email))
+               invalid_email))
   end
 
   it { is_expected.to have_db_index :account_id }

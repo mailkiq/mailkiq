@@ -52,6 +52,7 @@ en:
           complained: 'Complained'
           bounced: 'Bounced'
           deleted: 'Deleted'
+          invalid_email: 'Invalid Email'
       account:
         language:
           'en': 'English'

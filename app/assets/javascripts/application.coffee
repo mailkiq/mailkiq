@@ -5,6 +5,7 @@
 #= require chosen.jquery
 #= require clipboard
 #= require dropdown
+#= require tab
 #= require_self
 #= require_tree ./modules
 
@@ -71,7 +72,12 @@
     action_name = action_name.capitalize()
 
     new App.Common().render()
-    new App.Tabs()
+
+    $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
+      if $(e.target).parent().prev().length
+        $('.tab-content').addClass('next')
+      else
+        $('.tab-content').removeClass('next')
 
     if App[controller_name] and App[controller_name][action_name]
       (new App[controller_name][action_name]).render()

@@ -6,18 +6,18 @@
   <%= f.input :from_name, wrapper_html: { class: 'half' } %>
   <%= f.input :from_email, wrapper_html: { class: 'half' } %>
 
-  <div class="tabs-labels">
-    <%= f.label :html_text, class: 'active' %>
-    <%= f.label :plain_text %>
-  </div>
+  <ul class="nav-tabs">
+    <li class="active"><%= link_to 'HTML', '#html', data: { toggle: 'tab' } %></li>
+    <li><%= link_to 'Text', '#text', data: { toggle: 'tab' } %></li>
+  </ul>
 
-  <div class="tabs first">
-    <div class="tab active" data-tab="html_text">
+  <div class="tab-content">
+    <div class="tab-pane active" id="html">
       <%= f.input_field :html_text, rows: 14 %>
       <%= f.error :html_text %>
     </div>
 
-    <div class="tab" data-tab="plain_text">
+    <div class="tab-pane" id="text">
       <%= f.input_field :plain_text, rows: 14 %>
       <%= f.error :plain_text %>
     </div>

@@ -1,32 +1,36 @@
-.tabs-labels {
-  label {
+.nav-tabs {
+  margin-bottom: .375em;
+
+  li {
+    display: inline;
+  }
+
+  a {
+    color: $dark-gray;
     font-weight: normal;
     margin-right: 10px;
   }
 
-  .active {
+  .active a {
     font-weight: bold;
   }
 }
 
-.tabs {
+.tab-content {
   &:before {
     @include transition(margin-left .2s ease-in-out);
     @include triangle(14px 7px, $light-gray, up);
     content: '';
+    margin-left: 13px;
     margin-top: -5px;
     position: absolute;
   }
 
-  &.first:before {
-    margin-left: 13px;
-  }
-
-  &.second:before {
+  &.next:before {
     margin-left: 69px;
   }
 
-  .tab {
+  .tab-pane {
     display: none;
   }
 

@@ -16,16 +16,6 @@
 
 .campaign-form {
   @include clearfix;
-
-  textarea {
-    background: $medium-gray;
-    color: $white;
-    font-family: $monospace;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 0;
-    resize: none;
-  }
 }
 
 .campaign_name,

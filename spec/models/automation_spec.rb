@@ -10,4 +10,6 @@ describe Automation, type: :model do
     is_expected.to have_db_column(:conditions).of_type(:jsonb)
       .with_options(null: false, default: {})
   end
+
+  it { is_expected.to accept_nested_attributes_for :campaign }
 end

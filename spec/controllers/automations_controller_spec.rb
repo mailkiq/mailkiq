@@ -4,7 +4,9 @@ describe AutomationsController, type: :controller do
   context 'when logged in' do
     let(:account) { Fabricate.build :account }
     let(:automation) { Fabricate.build :automation }
-    let(:params) { Fabricate.attributes_for :automation }
+    let(:params) do
+      { name: 'zzz', campaign_attributes: Fabricate.attributes_for(:campaign) }
+    end
 
     before { sign_in account }
 
@@ -26,9 +28,7 @@ describe AutomationsController, type: :controller do
 
     describe '#create' do
       before do
-        allow(account).to receive_message_chain(:automations, :create)
-          .with(params)
-
+        allow_any_instance_of(Automation).to receive(:save)
         post :create, automation: params
       end
 
@@ -37,7 +37,11 @@ describe AutomationsController, type: :controller do
       it { is_expected.to redirect_to automations_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, :campaign_id)
+        is_expected.to permit(:name, campaign_attributes: [:from_name,
+                                                           :from_email,
+                                                           :subject,
+                                                           :html_text,
+                                                           :plain_text])
           .for(:create, params: { automation: params })
           .on(:automation)
       end
@@ -57,7 +61,7 @@ describe AutomationsController, type: :controller do
     describe '#update' do
       before do
         mock!
-        expect(automation).to receive(:update).at_least(:once).with(params)
+        expect(automation).to receive(:update).at_least(:once)
         put :update, id: 1, automation: params
       end
 
@@ -66,7 +70,11 @@ describe AutomationsController, type: :controller do
       it { is_expected.to redirect_to automations_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, :campaign_id)
+        is_expected.to permit(:name, campaign_attributes: [:from_name,
+                                                           :from_email,
+                                                           :subject,
+                                                           :html_text,
+                                                           :plain_text])
           .for(:update, params: { id: 1, automation: params })
           .on(:automation)
       end

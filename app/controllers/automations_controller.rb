@@ -7,10 +7,16 @@ class AutomationsController < ApplicationController
 
   def new
     @automation = current_account.automations.build
+    @automation.build_campaign
   end
 
   def create
-    @automation = current_account.automations.create automation_params
+    @automation = current_account.automations.build automation_params
+    @automation.campaign.tap do |c|
+      c.name = @automation.name
+      c.account = @automation.account
+    end
+    @automation.save
     respond_with @automation, location: automations_path
   end
 
@@ -33,6 +39,10 @@ class AutomationsController < ApplicationController
   private
 
   def automation_params
-    params.require(:automation).permit :name, :campaign_id
+    params.require(:automation).permit :name, campaign_attributes: [:from_name,
+                                                                    :from_email,
+                                                                    :subject,
+                                                                    :html_text,
+                                                                    :plain_text]
   end
 end

@@ -11,9 +11,9 @@ class CampaignsController < ApplicationController
   end
 
   def show
-    @campaign = current_account.campaigns.find params[:id]
-    @metrics = MetricsPresenter.new @campaign, view_context
-    page_meta[:name] = @campaign.name
+    record = current_account.campaigns.find params[:id]
+    @campaign = CampaignPresenter.new record, view_context
+    page_meta[:name] = record.name
   end
 
   def new
@@ -49,8 +49,8 @@ class CampaignsController < ApplicationController
 
   def duplicate
     @campaign = current_account.campaigns.find params[:id]
-    @new_campaign = @campaign.duplicate
-    @new_campaign.save
+    @campaign_copy = @campaign.duplicate
+    @campaign_copy.save
     respond_with @new_campaign, flash_now: false do |format|
       format.html { redirect_to campaigns_path }
     end

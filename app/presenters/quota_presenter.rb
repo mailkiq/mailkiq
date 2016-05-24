@@ -1,6 +1,4 @@
-class QuotaPresenter < BasePresenter
-  alias account record
-
+class QuotaPresenter < Presenter
   delegate :max_24_hour_send, to: :send_quota
   delegate :sent_last_24_hours, to: :send_quota
   delegate :max_send_rate, to: :send_quota
@@ -24,10 +22,10 @@ class QuotaPresenter < BasePresenter
   end
 
   def send_quota
-    account.quota.cached(:send_quota)
+    model.quota.cached(:send_quota)
   end
 
   def send_statistics
-    account.quota.cached(:send_statistics)
+    model.quota.cached(:send_statistics)
   end
 end

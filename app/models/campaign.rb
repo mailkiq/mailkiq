@@ -30,6 +30,12 @@ class Campaign < ActiveRecord::Base
     [0, recipients_count - messages_count].max
   end
 
+  def to_percentage(counter_name)
+    counter = send(counter_name)
+    counter = counter.value if counter.respond_to?(:value)
+    counter.to_f / [1, recipients_count].max * 100
+  end
+
   def from
     "#{from_name} <#{from_email}>"
   end

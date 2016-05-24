@@ -1,6 +1,6 @@
 <h2>
   <%= @campaign.name %>
-  <%= campaign_sent_at @campaign, @metrics.estimated_time if @campaign.sent_at? %>
+  <%= @campaign.long_sent_at %>
 </h2>
 
 <div class="metrics">
@@ -13,43 +13,43 @@
 
   <div class="delivered">
     <div class="box"></div>
-    <h3><%= @metrics.delivered %> <span><%= t '.delivered' %></span></h3>
+    <h3><%= @campaign.delivered %> <span><%= t '.delivered' %></span></h3>
   </div>
 
   <div class="bounces">
     <div class="box"></div>
-    <h3><%= @metrics.bounces %> <span><%= t '.bounces' %></span></h3>
+    <h3><%= @campaign.bounces %> <span><%= t '.bounces' %></span></h3>
   </div>
 
   <div class="complaints">
     <div class="box"></div>
-    <h3><%= @metrics.complaints %> <span><%= t '.complaints' %></span></h3>
+    <h3><%= @campaign.complaints %> <span><%= t '.complaints' %></span></h3>
   </div>
 
   <div class="unsent">
     <div class="box"></div>
-    <h3><%= @metrics.unsent %> <span><%= t '.unsent' %></span></h3>
+    <h3><%= @campaign.unsent %> <span><%= t '.unsent' %></span></h3>
   </div>
 </div>
 
-<%= render_progress @campaign %>
+<%= @campaign.progress %>
 
 <div class="rates">
   <div class="opens">
     <h3>
       <%= t '.open_rate' %>
-      <%= campaign_percentage_tag @campaign, :unique_opens_count, css_class: 'percentage' %>
+      <%= percentage_tag @campaign.to_percentage(:unique_opens_count), css_class: :percentage %>
     </h3>
 
-    <%= campaign_meter_tag @campaign, :unique_opens_count %>
+    <%= @campaign.meter_tag(:unique_opens_count) %>
   </div>
 
   <div class="clicks">
     <h3>
       <%= t '.click_rate' %>
-      <%= campaign_percentage_tag @campaign, :unique_clicks_count, css_class: 'percentage' %>
+      <%= percentage_tag @campaign.to_percentage(:unique_clicks_count), css_class: :percentage %>
     </h3>
 
-    <%= campaign_meter_tag @campaign, :unique_clicks_count %>
+    <%= @campaign.meter_tag(:unique_clicks_count) %>
   </div>
 </div>

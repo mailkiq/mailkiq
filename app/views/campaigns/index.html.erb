@@ -27,11 +27,11 @@
         <td><%= number_with_delimiter campaign.recipients_count %></td>
         <td>
           <%= number_with_delimiter campaign.unique_opens_count %>
-          <%= campaign_percentage_tag campaign, :unique_opens_count %>
+          <%= percentage_tag campaign.to_percentage(:unique_opens_count) %>
         </td>
         <td>
           <%= number_with_delimiter campaign.unique_clicks_count %>
-          <%= campaign_percentage_tag campaign, :unique_clicks_count %>
+          <%= percentage_tag campaign.to_percentage(:unique_clicks_count) %>
         </td>
         <td>
           <% if campaign.sent_at? %>

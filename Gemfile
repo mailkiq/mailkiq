@@ -6,6 +6,7 @@ gem 'rails', '4.2.6'
 gem 'addressable', require: false
 gem 'aws-sdk', '~> 2'
 gem 'devise'
+gem 'email_validator', require: 'email_validator/strict'
 gem 'has_scope'
 gem 'jsonapi-resources'
 gem 'page_meta'
@@ -47,6 +48,7 @@ group :test do
   gem 'database_rewinder'
   gem 'fabrication'
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :development, :test do

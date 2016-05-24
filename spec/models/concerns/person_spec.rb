@@ -1,20 +1,15 @@
 require 'spec_helper'
 
-class Human
-  include Person
-  attr_accessor :name
-
-  def name?
-    name.present?
-  end
-end
-
 describe Person, type: :model do
-  subject do
-    human = Human.new
-    human.name = 'Jesus Christ'
-    human
+  Human = Struct.new(:name) do
+    include Person
+
+    def name?
+      name.present?
+    end
   end
+
+  subject { Human.new 'Jesus Christ' }
 
   describe '#first_name' do
     it { expect(subject.first_name).to eq('Jesus') }

@@ -1,3 +1,11 @@
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start 'rails' do
+    add_group 'Validators', 'app/validators'
+    add_group 'Presenters', 'app/presenters'
+  end
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 

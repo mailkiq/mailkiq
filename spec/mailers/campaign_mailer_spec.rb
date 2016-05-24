@@ -18,15 +18,9 @@ describe CampaignMailer do
     allow_any_instance_of(MailerProcessor).to receive(:transform!)
   end
 
-  describe '#subscription_token' do
-    it 'generates an unsubscription token' do
-      expect(subject.subscription_token).to eq Token.encode(subscriber.id)
-    end
-  end
-
   describe '#deliver!' do
     it 'delivers campaign to subscriber' do
-      mail = double 'mail'
+      mail = double('mail')
 
       expect(mail).to receive(:mime_version=).with('1.0')
       expect(mail).to receive(:charset=).with('UTF-8')
@@ -55,6 +49,20 @@ describe CampaignMailer do
       ses.stub_responses :send_raw_email, message_id: uuid
 
       subject.deliver!
+    end
+  end
+
+  describe '#utm_params' do
+    it 'returns Google Analytics parameters' do
+      expect(subject.utm_params).to eq(utm_campaign: 'the-truth-about-wheat',
+                                       utm_medium: :email,
+                                       utm_source: :mailkiq)
+    end
+  end
+
+  describe '#subscription_token' do
+    it 'generates an unsubscription token' do
+      expect(subject.subscription_token).to eq Token.encode(subscriber.id)
     end
   end
 end

@@ -17,7 +17,7 @@ describe DomainIdentity, type: :model do
     ses.stub_responses(
       :get_identity_verification_attributes,
       verification_attributes: {
-        'example.com' => { verification_status: 'Pending' }
+        'example.com' => { verification_status: 'Success' }
       }
     )
 
@@ -40,7 +40,7 @@ describe DomainIdentity, type: :model do
       dkim_attributes: {
         'example.com' => {
           dkim_enabled: false,
-          dkim_verification_status: 'Pending'
+          dkim_verification_status: 'Success'
         }
       }
     )
@@ -51,7 +51,7 @@ describe DomainIdentity, type: :model do
         'example.com' => {
           behavior_on_mx_failure: 'UseDefaultValue',
           mail_from_domain: 'bounce.example.com',
-          mail_from_domain_status: 'Pending'
+          mail_from_domain_status: 'Success'
         }
       }
     )
@@ -118,11 +118,15 @@ describe DomainIdentity, type: :model do
         .with(identities: [domain.name])
         .and_call_original
 
+      expect(ses).to receive(:set_identity_dkim_enabled)
+        .with(identity: domain.name, dkim_enabled: true)
+        .and_call_original
+
       subject.update!
 
-      expect(domain).to be_pending
-      expect(domain).to be_dkim_pending
-      expect(domain).to be_mail_from_pending
+      expect(domain).to be_success
+      expect(domain).to be_dkim_success
+      expect(domain).to be_mail_from_success
     end
   end
 

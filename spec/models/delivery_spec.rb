@@ -37,9 +37,10 @@ describe Delivery, type: :model do
   end
 
   describe '#deliver!' do
-    it 'generates arguments for bulk processing' do
+    it 'inserts jobs to the queue table' do
+      expect(subject).to receive_message_chain(:chain_queries, :to_sql)
       expect(QueJob).to receive(:push_bulk)
-        .with(subject.send(:chain_queries).to_sql, subject.campaign.id)
+        .with(anything, subject.campaign.id)
         .and_return(true)
 
       subject.deliver!

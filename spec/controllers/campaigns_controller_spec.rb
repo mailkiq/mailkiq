@@ -131,6 +131,20 @@ describe CampaignsController, type: :controller do
       it { is_expected.to render_template :preview }
       it { is_expected.to_not render_with_layout }
     end
+
+    describe '#duplicate' do
+      before do
+        mock!
+        expect(campaign).to receive(:duplicate).and_call_original
+        expect_any_instance_of(Campaign).to receive(:save)
+        post :duplicate, id: campaign.id
+      end
+
+      it { is_expected.to use_before_action :authenticate_account! }
+      it { is_expected.to respond_with :redirect }
+      it { is_expected.to redirect_to campaigns_path }
+      it { is_expected.to set_flash[:notice] }
+    end
   end
 
   def mock!

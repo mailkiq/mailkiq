@@ -5,7 +5,7 @@ describe DomainValidator do
   let(:campaign) { Fabricate.build :campaign, account: account }
 
   describe '#validate_each' do
-    it 'verify domain name record on the database' do
+    it 'verifies domain name record' do
       msg = t('activerecord.errors.models.campaign.unverified_domain')
 
       expect(account).to receive(:domain_names).and_return(['google.com'])

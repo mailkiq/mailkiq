@@ -15,6 +15,5 @@
 # Ignore RSpec state file.
 spec/examples.txt
 
-# Ignore sensitive data
-.env
-.env.test
+# Ignore coverage report
+coverage

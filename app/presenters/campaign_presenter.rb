@@ -43,7 +43,7 @@ class CampaignPresenter < Presenter
   end
 
   def meter_tag(counter_name)
-    width = model.send(counter_name).value / model.recipients_count.to_f * 100
+    width = model.send(counter_name) / model.recipients_count.to_f * 100
     width = width.round(1)
     content_tag :div, class: :meter do
       content_tag :span, nil, style: "width: #{width}%"

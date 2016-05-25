@@ -9,7 +9,7 @@
   <%= f.input :email, as: :string unless @subscriber.persisted? %>
   <%= f.input :name %>
   <%= f.input :state, collection: Subscriber.states.symbolize_keys.keys, include_blank: false %>
-  <%= f.association :tags %>
+  <%= f.association :tags, collection: current_account.tags %>
 
   <div class="actions">
     <%= f.button :submit %>

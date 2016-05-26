@@ -18,7 +18,6 @@ gem 'simple_form'
 gem 'strip_attributes'
 
 # Job scheduling
-gem 'concurrent-ruby'
 gem 'que'
 gem 'que-web'
 

@@ -9,16 +9,21 @@ class Campaign < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :account_id
   validate :validate_from_field, if: :from?
 
+  enum state: [:draft, :queued, :scheduled, :sending, :paused, :sent]
+
   belongs_to :account
   has_many :messages
-  has_many :automations
 
+  before_create :set_default_state
+
+  default_scope -> { where type: '' }
   scope :sent, -> { where.not sent_at: nil }
   scope :unsent, -> { where sent_at: nil }
   scope :recent, -> { order created_at: :desc }
 
-  delegate :aws_options, :domain_names, to: :account, prefix: true
   delegate :count, to: :messages, prefix: true
+  delegate :aws_options, :domain_names, to: :account, prefix: true,
+                                        allow_nil: true
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
 
@@ -45,14 +50,21 @@ class Campaign < ActiveRecord::Base
 
   def duplicate
     dup.tap do |campaign|
-      campaign.assign_attributes name: "#{name} copy",
-                                 sent_at: nil,
-                                 recipients_count: 0,
-                                 unique_opens_count: 0,
-                                 unique_clicks_count: 0,
-                                 bounces_count: 0,
-                                 complaints_count: 0
+      campaign.name = "#{name} copy"
+      campaign.reset_attributes!
     end
+  end
+
+  def reset_attributes!
+    assign_attributes sent_at: nil,
+                      recipients_count: 0,
+                      unique_opens_count: 0,
+                      unique_clicks_count: 0,
+                      bounces_count: 0,
+                      complaints_count: 0,
+                      state: self.class.states[:draft],
+                      send_settings: {},
+                      trigger_settings: {}
   end
 
   private
@@ -61,5 +73,9 @@ class Campaign < ActiveRecord::Base
     Mail::FromField.new(from)
   rescue Mail::Field::ParseError
     errors.add :from_name, :unstructured_from
+  end
+
+  def set_default_state
+    self.state ||= self.class.states[:draft]
   end
 end

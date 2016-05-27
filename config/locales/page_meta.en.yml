@@ -36,4 +36,7 @@ en:
           new: "Reset Password"
           edit: "Change Password"
       automations:
-        index: "Automations"
+        new: "New automation"
+        edit: "Edit automation"
+        index: "Automation"
+        show: "%{name}"

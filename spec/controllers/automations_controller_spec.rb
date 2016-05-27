@@ -11,11 +11,22 @@ describe AutomationsController, type: :controller do
     before { sign_in account }
 
     describe '#index' do
-      before { get :index }
+      before do
+        scope = double('scope')
+        expect(scope).to receive(:recent).with(no_args)
+        expect(scope).to receive(:page).with(1).and_return(scope)
+        expect(account).to receive(:automations).and_return(scope)
+        expect(controller).to receive(:apply_scopes).with(scope)
+          .and_call_original
+
+        get :index
+      end
 
       it { is_expected.to use_before_action :authenticate_account! }
       it { is_expected.to respond_with :success }
       it { is_expected.to render_template :index }
+      it { is_expected.to have_scope :sort }
+      it { is_expected.to have_scope :page }
     end
 
     describe '#new' do
@@ -37,11 +48,8 @@ describe AutomationsController, type: :controller do
       it { is_expected.to redirect_to automations_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, campaign_attributes: [:from_name,
-                                                           :from_email,
-                                                           :subject,
-                                                           :html_text,
-                                                           :plain_text])
+        is_expected.to permit(:name, :subject, :from_name, :from_email,
+                              :html_text, :plain_text, :send_type)
           .for(:create, params: { automation: params })
           .on(:automation)
       end
@@ -70,11 +78,8 @@ describe AutomationsController, type: :controller do
       it { is_expected.to redirect_to automations_path }
       it { is_expected.to set_flash[:notice] }
       it do
-        is_expected.to permit(:name, campaign_attributes: [:from_name,
-                                                           :from_email,
-                                                           :subject,
-                                                           :html_text,
-                                                           :plain_text])
+        is_expected.to permit(:name, :subject, :from_name, :from_email,
+                              :html_text, :plain_text, :send_type)
           .for(:update, params: { id: 1, automation: params })
           .on(:automation)
       end

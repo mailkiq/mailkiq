@@ -1,33 +1,31 @@
 <h2><%= page_title %></h3>
 
-<%= simple_form_for @automation do |f| %>
-  <%= f.input :name, as: :string %>
+<%= simple_form_for @automation, html: { class: 'automation-form' } do |f| %>
+  <%= f.input :send_type, as: :select, collection: Automation::TYPES, include_blank: false %>
+  <%= f.input :name, as: :string, wrapper_html: { class: 'half' } %>
+  <%= f.input :subject, wrapper_html: { class: 'half' } %>
+  <%= f.input :from_name, wrapper_html: { class: 'half' } %>
+  <%= f.input :from_email, wrapper_html: { class: 'half' } %>
 
-  <%= f.simple_fields_for :campaign do |c| %>
-    <%= c.input :from_name, wrapper_html: { class: 'half' } %>
-    <%= c.input :from_email, wrapper_html: { class: 'half' } %>
-    <%= c.input :subject %>
+  <ul class="nav-tabs">
+    <li class="active"><%= link_to 'HTML', '#html', data: { toggle: 'tab' } %></li>
+    <li><%= link_to 'Text', '#text', data: { toggle: 'tab' } %></li>
+  </ul>
 
-    <ul class="nav-tabs">
-      <li class="active"><%= link_to 'HTML', '#html', data: { toggle: 'tab' } %></li>
-      <li><%= link_to 'Text', '#text', data: { toggle: 'tab' } %></li>
-    </ul>
-
-    <div class="tab-content">
-      <div class="tab-pane active" id="html">
-        <%= c.input_field :html_text, rows: 14 %>
-        <%= c.error :html_text %>
-      </div>
-
-      <div class="tab-pane" id="text">
-        <%= c.input_field :plain_text, rows: 14 %>
-        <%= c.error :plain_text %>
-      </div>
+  <div class="tab-content">
+    <div class="tab-pane active" id="html">
+      <%= f.input_field :html_text, rows: 14 %>
+      <%= f.error :html_text %>
     </div>
-  <% end %>
+
+    <div class="tab-pane" id="text">
+      <%= f.input_field :plain_text, rows: 14 %>
+      <%= f.error :plain_text %>
+    </div>
+  </div>
 
   <div class="actions">
     <%= f.button :submit %>
-    <%= link_to t('actions.back'), campaigns_path, class: 'btn btn-danger' %>
+    <%= link_to t('actions.back'), automations_path, class: 'btn btn-danger' %>
   </div>
 <% end %>

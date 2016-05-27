@@ -16,6 +16,9 @@ Fabricator(:sent_campaign, from: :campaign) do
   recipients_count 10
   unique_opens_count 10
   unique_clicks_count 10
+  bounces_count 2
+  complaints_count 2
+  state Campaign.states[:sent]
 end
 
 Fabricator(:campaign_with_account, from: :campaign) do

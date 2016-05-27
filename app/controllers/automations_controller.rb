@@ -1,21 +1,21 @@
 class AutomationsController < ApplicationController
   before_action :authenticate_account!
 
+  has_scope :page, default: 1
+  has_scope :sort, default: nil, allow_blank: true do |_, scope, value|
+    value.blank? ? scope.recent : scope.sort(value)
+  end
+
   def index
-    @automations = current_account.automations
+    @automations = apply_scopes current_account.automations
   end
 
   def new
     @automation = current_account.automations.build
-    @automation.build_campaign
   end
 
   def create
     @automation = current_account.automations.build automation_params
-    @automation.campaign.tap do |c|
-      c.name = @automation.name
-      c.account = @automation.account
-    end
     @automation.save
     respond_with @automation, location: automations_path
   end
@@ -39,10 +39,7 @@ class AutomationsController < ApplicationController
   private
 
   def automation_params
-    params.require(:automation).permit :name, campaign_attributes: [:from_name,
-                                                                    :from_email,
-                                                                    :subject,
-                                                                    :html_text,
-                                                                    :plain_text]
+    params.require(:automation).permit :name, :subject, :from_name, :from_email,
+                                       :html_text, :plain_text, :send_type
   end
 end

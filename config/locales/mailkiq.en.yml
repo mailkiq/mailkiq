@@ -21,7 +21,7 @@ en:
       import: "Import"
       tags: "Manage Tags"
       subscribe_form: "Subscribe form"
-      automations: "Automations"
+      automation: "Automation"
   marketing:
     index:
       login: "Login"
@@ -51,6 +51,14 @@ en:
       open_rate: "Open rate"
       click_rate: "Click rate"
       long_sent_at: "Sent at %{time} • takes %{estimated_time} to send it."
+  automations:
+    index:
+      new_automation: "New Automation"
+      automation: "Automation"
+      no_automation: "No automation found."
+      opens: "Opens"
+      clicks: "Clicks"
+      state: "State"
   subscribers:
     index:
       new_subscriber: "New subscriber"
@@ -83,8 +91,3 @@ en:
       edit:
         your_profile: "Your Profile"
         billing: "Billing"
-  automations:
-    index:
-      new_automation: "New Automation"
-      name: "Name"
-      no_automations: "No automations found."

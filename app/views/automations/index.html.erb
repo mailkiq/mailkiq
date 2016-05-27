@@ -6,7 +6,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th><%= sortable 'name', t('.name') %></th>
+      <th width="500"><%= sortable 'name', t('.automation') %></th>
+      <th><%= sortable 'unique_opens_count', t('.opens') %></th>
+      <th><%= sortable 'unique_clicks_count', t('.clicks') %></th>
+      <th><%= t '.state' %></th>
       <th></th>
     </tr>
   </thead>
@@ -14,6 +17,15 @@
     <% @automations.each do |automation| %>
       <tr>
         <td><%= automation.name %></td>
+        <td>
+          <%= number_with_delimiter automation.unique_opens_count %>
+          <%= percentage_tag automation.to_percentage(:unique_opens_count) %>
+        </td>
+        <td>
+          <%= number_with_delimiter automation.unique_clicks_count %>
+          <%= percentage_tag automation.to_percentage(:unique_clicks_count) %>
+        </td>
+        <td><%= campaign_status_tag automation.state %></td>
         <td class="actions">
           <%= icon_link_to :pen, edit_automation_path(automation) %>
           <%= icon_link_to :trash, automation_path(automation), delete: true %>
@@ -23,9 +35,8 @@
 
     <% unless @automations.any? %>
       <tr>
-        <td colspan="2"><%= t '.no_automations' %></td>
+        <td colspan="5"><%= t '.no_automation' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-

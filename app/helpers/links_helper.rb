@@ -1,7 +1,8 @@
 module LinksHelper
   def nav_link_to(key, path, link_options = {})
     name = t("nav.links.#{key}")
-    css_class = 'active' if request.path == path || controller_name == key.to_s
+    css_class = 'active' if request.path == path ||
+                            controller_name == key.to_s.pluralize
     content_tag :li, link_to(name, path, link_options), class: css_class
   end
 

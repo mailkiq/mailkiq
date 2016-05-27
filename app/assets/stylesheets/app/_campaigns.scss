@@ -16,11 +16,10 @@
 
 .campaign-form {
   @include clearfix;
-}
 
-.campaign_name,
-.campaign_from_name {
-  margin-right: 20px;
+  .half:nth-of-type(odd) {
+    margin-right: 20px;
+  }
 }
 
 .metrics {

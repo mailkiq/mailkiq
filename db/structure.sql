@@ -129,40 +129,6 @@ ALTER SEQUENCE accounts_id_seq OWNED BY accounts.id;
 
 
 --
--- Name: automations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE automations (
-    id integer NOT NULL,
-    name citext NOT NULL,
-    conditions jsonb DEFAULT '{}'::jsonb NOT NULL,
-    account_id integer NOT NULL,
-    campaign_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: automations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE automations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: automations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE automations_id_seq OWNED BY automations.id;
-
-
---
 -- Name: campaigns; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -183,7 +149,11 @@ CREATE TABLE campaigns (
     account_id integer NOT NULL,
     sent_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    type character varying DEFAULT ''::character varying NOT NULL,
+    send_settings jsonb DEFAULT '{}'::jsonb NOT NULL,
+    trigger_settings jsonb DEFAULT '{}'::jsonb NOT NULL,
+    state integer NOT NULL
 );
 
 
@@ -506,13 +476,6 @@ ALTER TABLE ONLY accounts ALTER COLUMN id SET DEFAULT nextval('accounts_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY automations ALTER COLUMN id SET DEFAULT nextval('automations_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY campaigns ALTER COLUMN id SET DEFAULT nextval('campaigns_id_seq'::regclass);
 
 
@@ -578,14 +541,6 @@ ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclas
 
 ALTER TABLE ONLY accounts
     ADD CONSTRAINT accounts_pkey PRIMARY KEY (id);
-
-
---
--- Name: automations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY automations
-    ADD CONSTRAINT automations_pkey PRIMARY KEY (id);
 
 
 --
@@ -679,27 +634,6 @@ CREATE UNIQUE INDEX index_accounts_on_email ON accounts USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_accounts_on_reset_password_token ON accounts USING btree (reset_password_token);
-
-
---
--- Name: index_automations_on_account_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_automations_on_account_id ON automations USING btree (account_id);
-
-
---
--- Name: index_automations_on_campaign_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_automations_on_campaign_id ON automations USING btree (campaign_id);
-
-
---
--- Name: index_automations_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_automations_on_name ON automations USING btree (name);
 
 
 --
@@ -853,27 +787,11 @@ ALTER TABLE ONLY notifications
 
 
 --
--- Name: fk_rails_3450109841; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY automations
-    ADD CONSTRAINT fk_rails_3450109841 FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON DELETE CASCADE;
-
-
---
 -- Name: fk_rails_430c86ced8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY taggings
     ADD CONSTRAINT fk_rails_430c86ced8 FOREIGN KEY (subscriber_id) REFERENCES subscribers(id) ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_64df2733f8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY automations
-    ADD CONSTRAINT fk_rails_64df2733f8 FOREIGN KEY (account_id) REFERENCES accounts(id);
 
 
 --
@@ -963,4 +881,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160520183454');
 INSERT INTO schema_migrations (version) VALUES ('20160520214010');
 
 INSERT INTO schema_migrations (version) VALUES ('20160522235154');
+
+INSERT INTO schema_migrations (version) VALUES ('20160526172302');
 

@@ -24,6 +24,8 @@ en:
         edit:
           password: 'New password'
           email: 'Email Address'
+      automation:
+        send_type: 'Type'
     placeholders:
       domain:
         name: 'example.com'
@@ -53,6 +55,17 @@ en:
           bounced: 'Bounced'
           deleted: 'Deleted'
           invalid_email: 'Invalid Email'
+      campaign:
+        state:
+          draft: 'Draft'
+          queued: 'Queued'
+          scheduled: 'Scheduled'
+          sending: 'Sending'
+          paused: 'Paused'
+          sent: 'Sent'
+      automation:
+        send_type:
+          subscription_confirmation: 'Subscription Confirmation'
       account:
         language:
           'en': 'English'

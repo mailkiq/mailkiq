@@ -1,0 +1,16 @@
+.automation-form {
+  @include clearfix;
+
+  .half:nth-of-type(even) {
+    margin-right: 20px;
+  }
+
+  .automation_send_type {
+    margin-bottom: 35px;
+
+    select {
+      margin-bottom: 0;
+      width: calc(50% - 10px);
+    }
+  }
+}

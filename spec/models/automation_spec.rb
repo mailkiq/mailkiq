@@ -1,15 +1,44 @@
 require 'rails_helper'
 
 describe Automation, type: :model do
-  it { is_expected.to validate_presence_of :name }
-  it { is_expected.to belong_to :account }
-  it { is_expected.to belong_to :campaign }
-  it { is_expected.to have_db_column(:name).of_type :citext }
-  it { is_expected.to have_db_index(:name).unique }
-  it do
-    is_expected.to have_db_column(:conditions).of_type(:jsonb)
-      .with_options(null: false, default: {})
+  it 'removes inherited default scope' do
+    expect(described_class.default_scopes).to be_empty
   end
 
-  it { is_expected.to accept_nested_attributes_for :campaign }
+  describe '#send_type' do
+    it 'returns send type' do
+      subject.send_settings['type'] = 'zzz'
+      expect(subject.send_type).to eq('zzz')
+    end
+  end
+
+  describe '#send_type=' do
+    it 'sets send type attribute' do
+      subject.send_type = 'zzz'
+      expect(subject.send_settings['type']).to eq('zzz')
+    end
+  end
+
+  describe '#subscription_confirmation?' do
+    it 'checks automated campaign type' do
+      subject.send_type = 'subscription_confirmation'
+      expect(subject).to be_subscription_confirmation
+    end
+  end
+
+  describe '#require_subscribe_url' do
+    it 'requires subscribe_url variable on html_text body' do
+      subject.send_type = 'subscription_confirmation'
+      # binding.pry
+      # expect(subject).to_not be_valid
+    end
+  end
+
+  describe '#set_default_state' do
+    it 'sets default state' do
+      expect(subject.state).to be_nil
+      subject.run_callbacks :create
+      expect(subject).to be_sending
+    end
+  end
 end

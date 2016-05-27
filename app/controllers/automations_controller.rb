@@ -1,5 +1,6 @@
 class AutomationsController < ApplicationController
   before_action :authenticate_account!
+  before_action :set_automation, except: [:index, :new, :create]
 
   has_scope :page, default: 1
   has_scope :sort, default: nil, allow_blank: true do |_, scope, value|
@@ -21,22 +22,33 @@ class AutomationsController < ApplicationController
   end
 
   def edit
-    @automation = current_account.automations.find params[:id]
   end
 
   def update
-    @automation = current_account.automations.find params[:id]
     @automation.update automation_params
     respond_with @automation, location: automations_path
   end
 
   def destroy
-    @automation = current_account.automations.find params[:id]
     @automation.destroy
     respond_with @automation, location: automations_path
   end
 
+  def pause
+    @automation.paused!
+    respond_with @automation, location: automations_path
+  end
+
+  def resume
+    @automation.sending!
+    respond_with @automation, location: automations_path
+  end
+
   private
+
+  def set_automation
+    @automation = current_account.automations.find params[:id]
+  end
 
   def automation_params
     params.require(:automation).permit :name, :subject, :from_name, :from_email,

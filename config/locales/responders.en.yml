@@ -14,3 +14,10 @@ en:
       duplicate:
         notice: "%{resource_name} was successfully duplicated."
         alert: "%{resource_name} could not be duplicated."
+    automations:
+      resume:
+        notice: "%{resource_name} was successfully resumed."
+        alert: "%{resource_name} could not be resumed."
+      pause:
+        notice: "%{resource_name} was successfully paused."
+        alert: "%{resource_name} could not be paused."

@@ -9,6 +9,13 @@ pt-BR:
       destroy:
         notice: "%{resource_name} foi removido com sucesso."
         alert: "%{resource_name} não pode ser removido."
+    automations:
+      resume:
+        notice: "%{resource_name} reativada com sucesso."
+        alert: "%{resource_name} não pode ser reativada."
+      pause:
+        notice: "%{resource_name} pausada com sucesso."
+        alert: "%{resource_name} não pode ser pausada."
     leads:
       create:
         notice: "Sua inscrição foi confirmada. Em breve você receberá mais novidades deste incrível lançamento."

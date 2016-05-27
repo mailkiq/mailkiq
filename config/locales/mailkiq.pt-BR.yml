@@ -1,5 +1,7 @@
 pt-BR:
   actions:
+    play: "Resumir"
+    pause: "Pausar"
     pen: "Editar"
     trash: "Excluir"
     back: "Voltar"

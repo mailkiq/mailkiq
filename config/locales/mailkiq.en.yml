@@ -1,5 +1,7 @@
 en:
   actions:
+    play: "Resume"
+    pause: "Pause"
     pen: "Edit"
     trash: "Delete"
     back: "Back"

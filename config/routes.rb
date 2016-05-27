@@ -20,9 +20,9 @@ Rails.application.routes.draw do
 
   root to: 'marketing#index'
 
-  resource :settings, only: [:edit, :update]
-  resources :automations
   resources :leads, only: :create
+
+  resource :settings, only: [:edit, :update]
   resources :tags, except: :show
   resources :imports, only: [:new, :create]
   resources :domains, only: [:show, :create, :destroy]
@@ -33,6 +33,13 @@ Rails.application.routes.draw do
     member do
       get :preview
       post :duplicate
+    end
+  end
+
+  resources :automations do
+    member do
+      post :pause
+      post :resume
     end
   end
 

@@ -9,7 +9,7 @@ class DomainValidator < ActiveModel::EachValidator
 
   def unverified_domain?(record, value)
     mail = Mail::Address.new(value)
-    names = record.send(domains_method_name)
+    names = record.send(domains_method_name) || []
     names.exclude? mail.domain
   end
 

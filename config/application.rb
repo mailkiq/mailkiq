@@ -21,6 +21,7 @@ module Mailkiq
       g.javascripts false
     end
 
+    config.middleware.delete Rack::Sendfile
     config.middleware.delete Rack::Lock
     config.middleware.delete Rack::ETag
 

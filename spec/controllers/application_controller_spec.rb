@@ -9,10 +9,19 @@ describe ApplicationController, type: :controller do
 
   let(:account) { Fabricate.build :account }
 
-  it { is_expected.to use_around_action :set_time_zone }
+  it { is_expected.to use_before_action :set_locale }
   it { is_expected.to use_before_action :set_raven_context }
+  it { is_expected.to use_around_action :set_time_zone }
 
   context 'when logged in' do
+    describe '#set_locale' do
+      it 'sets locale option' do
+        sign_in account
+        expect(I18n).to receive(:locale=).with(account.language)
+        get :index
+      end
+    end
+
     describe '#set_time_zone' do
       it 'uses current user time zone' do
         sign_in account

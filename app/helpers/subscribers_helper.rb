@@ -8,11 +8,12 @@ module SubscribersHelper
     complained: :warning,
     bounced: :danger,
     deleted: :danger
-  }
+  }.freeze
 
   def subscriber_state_tag(state)
     variation = COLORS[state.to_sym]
-    content_tag :span, state.capitalize, class: "label-#{variation}"
+    text = t("simple_form.options.subscriber.state.#{state}")
+    content_tag :span, text, class: "label-#{variation}"
   end
 
   def highlight_html(&block)

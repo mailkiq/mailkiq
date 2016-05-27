@@ -7,15 +7,16 @@
 
       <%= f.input :name %>
       <%= f.input :email, as: :email %>
+      <%= f.input :language, as: :select, collection: Account::LANGUAGES.map(&:to_sym), include_blank: false %>
       <%= f.input :time_zone %>
-      <%= f.button :submit, 'Save changes' %>
+      <%= f.button :submit, t('.save_changes') %>
     <% end %>
 
     <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f| %>
       <%= f.input :current_password %>
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
-      <%= f.button :submit, 'Update Password' %>
+      <%= f.button :submit, t('.update_password') %>
     <% end %>
   </div>
 </div>

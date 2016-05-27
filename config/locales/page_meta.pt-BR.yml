@@ -1,0 +1,42 @@
+pt-BR:
+  page_meta:
+    titles:
+      marketing:
+        index: "Mailkiq"
+      settings:
+        edit: "Amazon Simple Email Service"
+      subscribers:
+        index: "Assinantes"
+        new: "Novo assinante"
+        edit: "Editar assinante"
+      dashboard:
+        show: "Estatísticas"
+      campaigns:
+        new: "Nova campanha"
+        edit: "Editar campanha"
+        index: "Campanhas"
+        show: "%{name}"
+      accounts:
+        new: "Entre no Mailkiq"
+      deliveries:
+        new: "Enviar Campanha"
+      imports:
+        new: "Importar CSV"
+      tags:
+        index: "Etiquetas"
+        new: "Nova tag"
+        edit: "Editar tag"
+      accounts:
+        registrations:
+          edit: "Configurações de conta"
+      devise:
+        sessions:
+          new: "Entrar no Mailkiq"
+        passwords:
+          new: "Resetar senha"
+          edit: "Alterar senha"
+      automations:
+        new: "Nova automação"
+        edit: "Editar automação"
+        index: "Automação"
+        show: "%{name}"

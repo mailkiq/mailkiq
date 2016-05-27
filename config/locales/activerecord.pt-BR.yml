@@ -1,0 +1,22 @@
+pt-BR:
+  activerecord:
+    models:
+      campaign: "Campanha"
+      subscriber: "Assinante"
+      automation: "Automação"
+    errors:
+      models:
+        account:
+          invalid_token: "Access Key ID inválida."
+          incorrect: "é incorreto"
+        campaign:
+          unverified_email_address: "não verificado"
+          unverified_domain: "domínio não verificado"
+          unstructured_from: "contém carácteres inválidos"
+  activemodel:
+    errors:
+      models:
+        delivery:
+          attributes:
+            base:
+              quota_exceeded: "Créditos insuficientes."

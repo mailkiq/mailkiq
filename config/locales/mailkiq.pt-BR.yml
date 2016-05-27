@@ -1,0 +1,94 @@
+pt-BR:
+  actions:
+    pen: "Editar"
+    trash: "Excluir"
+    back: "Voltar"
+    confirm: "Você tem certeza?"
+    view: "Pré-visualizar"
+    send: "Enviar"
+    addfile: "Duplicar"
+    info: "Mostrar registros de DNS"
+  nav:
+    links:
+      dashboard: "Paínel"
+      campaigns: "Campanhas"
+      settings: "Configurações"
+      sign_out: "Sair"
+      subscribers: "Assinantes"
+      my_account: "Minha conta"
+      domains: "Domínios"
+      import: "Importar"
+      tags: "Etiquetas"
+      subscribe_form: "Formulário"
+      automation: "Automação"
+  marketing:
+    index:
+      login: "Entrar"
+      sign_up: "Criar conta"
+      sign_out: "Sair"
+  dashboard:
+    show:
+      sending_limits: "%{count} de %{remaining}"
+      send_rate: "%{rate} por segundo"
+      sandbox: "Sandbox Mode"
+      your_amazon_ses_metrics: "Suas métricas no Amazon SES"
+  campaigns:
+    index:
+      new_campaign: "Nova campanha"
+      campaign: "Campanhas"
+      recipients: "Recipientes"
+      sent_at: "Enviado em"
+      unique_opens: "Aberturas"
+      unique_clicks: "Cliques"
+      no_campaigns: "Não foram encontradas campanhas."
+    show:
+      emails_sent: "emails enviados"
+      delivered: "entregas"
+      bounces: "bounces"
+      complaints: "complaints"
+      unsent: "pendentes"
+      open_rate: "Taxa de Abertura"
+      click_rate: "Taxa de Cliques"
+      long_sent_at: "Enviado em %{time} • demanda %{estimated_time} para terminar."
+  automations:
+    index:
+      new_automation: "Nova Automação"
+      automation: "Automação"
+      no_automation: "Não foram encontrados registros de automação."
+      opens: "Aberturas"
+      clicks: "Cliques"
+      state: "Status"
+  subscribers:
+    index:
+      new_subscriber: "Novo Assinante"
+      no_subscribers: "Não foram encontrados assinantes."
+      name: "Nome"
+      email: "Email"
+      state: "Status"
+  settings:
+    edit:
+      authentication: "Autenticação"
+      domains: "Domínios"
+      domain: "Domínio"
+      status: "Status"
+  tags:
+    index:
+      new_tag: "Nova Tag"
+      name: "Nome"
+      slug: "Chave"
+      subscribers: "Assinantes"
+      no_tags: "Não foram encontrados tags."
+  devise:
+    sessions:
+      new:
+        forgot_password: "Esqueceu a senha?"
+    passwords:
+      new:
+        description: To be emailed a link to reset your password, please enter
+          your email address.
+    registrations:
+      edit:
+        your_profile: "Perfil"
+        billing: "Cobranças"
+        save_changes: 'Salvar Alterações'
+        update_password: 'Atualizar Senha'

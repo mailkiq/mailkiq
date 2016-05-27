@@ -1,4 +1,3 @@
----
 en:
   actions:
     pen: "Edit"
@@ -91,3 +90,5 @@ en:
       edit:
         your_profile: "Your Profile"
         billing: "Billing"
+        save_changes: "Save Changes"
+        update_password: "Update Password"

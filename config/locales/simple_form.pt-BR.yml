@@ -1,0 +1,91 @@
+---
+pt-BR:
+  simple_form:
+    "yes": 'Sim'
+    "no": 'Não'
+    required:
+      text: 'obrigatório'
+      mark: '*'
+    error_notification:
+      default_message: "Por favor, revise os problemas abaixo:"
+    labels:
+      import:
+        file: 'Subir arquivo'
+      campaign:
+        name: 'Nome'
+        subject: 'Assunto'
+        from_name: 'Nome do Remetente'
+        from_email: 'Email do Remetente'
+        html_text: 'HTML'
+        plain_text: 'Texto'
+      subscriber:
+        name: 'Nome'
+        state: 'Status'
+      account:
+        name: 'Nome completo'
+        aws_access_key_id: 'Access Key ID'
+        aws_secret_access_key: 'Secret Access Key'
+        aws_region: 'Região Amazon SES'
+        language: 'Selecione seu idioma'
+        time_zone: 'Selecione o fuso horário'
+        edit:
+          current_password: 'Senha atual'
+          password: 'Nova senha'
+          password_confirmation: 'Confirmação de senha'
+          email: 'Email'
+      automation:
+        send_type: 'Tipo'
+        name: 'Nome'
+        subject: 'Assunto'
+        from_name: 'Nome de Remetente'
+        from_email: 'Email de Remetente'
+        html_text: 'HTML'
+        plain_text: 'Texto'
+    placeholders:
+      domain:
+        name: 'exemplo.com'
+    hints:
+      import:
+        file: 'Formatos aceitos: CSV ou arquivos separados por tabulações.'
+      account:
+        aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."
+        edit:
+          current_password: 'Para definir uma nova senha, entre com a senha atual'
+          password: 'Digite sua nova senha'
+          password_confirmation: 'Confirme sua nova senha'
+    options:
+      domain:
+        status:
+          pending: 'Verificação Pendente'
+          success: 'Verificado'
+          failed: 'Falhou'
+          temporary_failure: 'Falha Temporária'
+          not_started: 'Não iniciou'
+      subscriber:
+        state:
+          active: 'Ativo'
+          unconfirmed: 'Não confirmado'
+          unsubscribed: 'Assinatura Cancelada'
+          complained: 'Complained'
+          bounced: 'Bounced'
+          deleted: 'Deleted'
+          invalid_email: 'Email inválido'
+      campaign:
+        state:
+          draft: 'Rascunho'
+          queued: 'Em fila'
+          scheduled: 'Agendado'
+          sending: 'Enviando'
+          paused: 'Pausado'
+          sent: 'Enviado'
+      automation:
+        send_type:
+          subscription_confirmation: 'Confirmação de Assinatura'
+      account:
+        language:
+          'en': 'English'
+          'pt-BR': 'Português'
+        aws_region:
+          'us-east-1': 'US East (N. Virginia)'
+          'us-west-2': 'US West (Oregon)'
+          'eu-west-1': 'EU (Ireland)'

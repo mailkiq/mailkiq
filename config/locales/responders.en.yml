@@ -14,11 +14,3 @@ en:
       duplicate:
         notice: "%{resource_name} was successfully duplicated."
         alert: "%{resource_name} could not be duplicated."
-    settings:
-      account:
-        notice: "Profile updated successfully"
-      domains:
-        notice: "Access keys updated successfully"
-    leads:
-      create:
-        notice: "Sua inscrição foi confirmada. Em breve você receberá mais novidades deste incrível lançamento."

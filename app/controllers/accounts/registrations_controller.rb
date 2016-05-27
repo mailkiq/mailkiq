@@ -63,8 +63,8 @@ module Accounts
       end
 
       devise_parameter_sanitizer.for(:account_update) do |u|
-        u.permit :name, :email, :time_zone, :current_password, :password,
-                 :password_confirmation
+        u.permit :name, :email, :time_zone, :language, :current_password,
+                 :password, :password_confirmation
       end
     end
 

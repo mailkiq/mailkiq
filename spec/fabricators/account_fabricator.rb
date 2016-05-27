@@ -3,6 +3,7 @@ Fabricator(:account) do
   email { sequence(:email) { |i| "account#{i}@example.com" } }
   password 'testando'
   time_zone 'America/Sao_Paulo'
+  language 'en'
   aws_access_key_id 'anything'
   aws_secret_access_key 'anything'
   aws_region 'us-east-1'

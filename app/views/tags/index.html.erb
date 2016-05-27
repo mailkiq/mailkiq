@@ -1,7 +1,10 @@
-<h2>
-  <%= link_to t('.new_tag'), new_tag_path, class: 'btn' %>
-  <%= page_title %>
-</h2>
+<div class="context">
+  <h2><%= page_title %></h2>
+
+  <div class="actions">
+    <%= link_to t('.new_tag'), new_tag_path, class: 'btn' %>
+  </div>
+</div>
 
 <table class="table">
   <thead>

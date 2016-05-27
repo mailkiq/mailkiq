@@ -1,11 +1,6 @@
 h2 {
   font-size: 34px;
 
-  .btn {
-    float: right;
-    margin-left: 20px;
-  }
-
   + form {
     margin-top: 60px;
   }
@@ -37,12 +32,20 @@ h2 {
 }
 
 .context {
+  @include clearfix;
+
   h2 {
     float: left;
+    line-height: 42px;
+    margin-bottom: 0;
   }
 
   .actions {
     float: right;
+
+    > .btn {
+      margin-left: 15px;
+    }
   }
 }
 

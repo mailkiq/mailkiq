@@ -40,19 +40,23 @@ describe Subscriber, type: :model do
     expect(described_class.default_per_page).to eq(10)
   end
 
-  describe '#interpolations' do
-    it 'generates a custom attributes hash' do
-      interpolations = Fabricate.build(:subscriber).interpolations
-      expect(interpolations).to have_key :first_name
-      expect(interpolations).to have_key :last_name
-      expect(interpolations).to have_key :full_name
-      expect(interpolations.size).to eq(3)
-    end
+  describe '#subscribe!' do
+    it 'changes subscriber state to active' do
+      expect(subject).to receive(:update!)
+        .with(unsubscribed_at: nil, state: :active)
 
-    it 'returns nil given an empty name' do
-      subscriber = Fabricate.build(:subscriber, name: '')
-      expect(subscriber.first_name).to be_nil
-      expect(subscriber.last_name).to be_nil
+      subject.subscribe!
+    end
+  end
+
+  describe '#unsubscribe!' do
+    it 'changes subscriber state to unsubscribed' do
+      travel_to 1.year.ago do
+        expect(subject).to receive(:update!)
+          .with(unsubscribed_at: Time.now, state: :unsubscribed)
+
+        subject.unsubscribe!
+      end
     end
   end
 

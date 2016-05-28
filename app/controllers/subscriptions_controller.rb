@@ -1,9 +1,23 @@
 class SubscriptionsController < ApplicationController
+  before_action :set_subscriber
   layout false
 
+  def show
+  end
+
+  def subscribe
+    @subscriber.subscribe!
+    redirect_to subscription_path(params[:id])
+  end
+
   def unsubscribe
-    subscriber_id = Token.decode(params[:token])
-    subscriber = Subscriber.find subscriber_id
-    subscriber.unsubscribed!
+    @subscriber.unsubscribe!
+    redirect_to subscription_path(params[:id])
+  end
+
+  private
+
+  def set_subscriber
+    @subscriber = Subscriber.find Token.decode(params[:id])
   end
 end

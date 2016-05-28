@@ -26,6 +26,14 @@ class CampaignMailer
     Token.encode(@subscriber.id)
   end
 
+  def interpolations
+    {
+      first_name: @subscriber.first_name,
+      last_name: @subscriber.last_name,
+      full_name: @subscriber.name
+    }
+  end
+
   private
 
   def set_mail_attributes
@@ -33,7 +41,7 @@ class CampaignMailer
     mail.mime_version = '1.0'
     mail.charset = 'UTF-8'
     mail.from = @campaign.from
-    mail.subject = @campaign.subject.render! @subscriber.interpolations
+    mail.subject = @campaign.subject.render! interpolations
     mail.text_part = @campaign.plain_text if @campaign.plain_text?
     mail.html_part = @campaign.html_text if @campaign.html_text?
   end

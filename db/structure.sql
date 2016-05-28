@@ -378,7 +378,8 @@ CREATE TABLE subscribers (
     custom_fields jsonb DEFAULT '{}'::jsonb NOT NULL,
     account_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    unsubscribed_at timestamp without time zone
 );
 
 
@@ -883,4 +884,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160520214010');
 INSERT INTO schema_migrations (version) VALUES ('20160522235154');
 
 INSERT INTO schema_migrations (version) VALUES ('20160526172302');
+
+INSERT INTO schema_migrations (version) VALUES ('20160528115228');
 

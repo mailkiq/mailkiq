@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Subscriptions</title>
+    <style>
+      body {
+        padding: 20px;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      a {
+        color: blue;
+      }
+
+      .container {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <% if @subscriber.unsubscribed? %>
+        <h2>You are unsubscribed.</h2>
+        <p><%= link_to "Resubscribe", subscribe_subscription_path(params[:id]) %></p>
+      <% else %>
+        <h2>You are subscribed.</h2>
+        <p><%= link_to "Unsubscribe", unsubscribe_subscription_path(params[:id]) %></p>
+      <% end %>
+    </div>
+  </body>
+</html>

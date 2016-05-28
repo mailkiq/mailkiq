@@ -65,4 +65,14 @@ describe CampaignMailer do
       expect(subject.subscription_token).to eq Token.encode(subscriber.id)
     end
   end
+
+  describe '#interpolations' do
+    it 'generates a custom attributes hash' do
+      interpolations = subject.interpolations
+      expect(interpolations).to have_key :first_name
+      expect(interpolations).to have_key :last_name
+      expect(interpolations).to have_key :full_name
+      expect(interpolations.size).to eq(3)
+    end
+  end
 end

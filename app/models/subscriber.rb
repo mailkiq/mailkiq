@@ -20,8 +20,8 @@ class Subscriber < ActiveRecord::Base
 
   before_create :set_default_state
 
-  def self.mark_as_invalid_email(subscriber_id)
-    where(id: subscriber_id).update_all state: Subscriber.states[:invalid_email]
+  def self.mark_as_invalid_email(id)
+    where(id: id).update_all state: Subscriber.states[:invalid_email]
   end
 
   def self.update_state_for(state, email:, account_id:)
@@ -29,12 +29,12 @@ class Subscriber < ActiveRecord::Base
       .update_all(state: Subscriber.states[state])
   end
 
-  def interpolations
-    {
-      first_name: first_name,
-      last_name: last_name,
-      full_name: name
-    }
+  def subscribe!
+    update! unsubscribed_at: nil, state: :active
+  end
+
+  def unsubscribe!
+    update! unsubscribed_at: Time.now, state: :unsubscribed
   end
 
   protected

@@ -27,10 +27,16 @@ describe Automation, type: :model do
   end
 
   describe '#require_subscribe_url' do
-    it 'requires subscribe_url variable on html_text body' do
+    it 'requires subscribe_url variable presence' do
+      message = t('activerecord.errors.models.automation.subscribe_not_found')
+
       subject.send_type = 'subscription_confirmation'
-      # binding.pry
-      # expect(subject).to_not be_valid
+      subject.html_text = 'something'
+      subject.plain_text = 'something'
+
+      expect(subject).to_not be_valid
+      expect(subject.errors[:html_text]).to eq([message])
+      expect(subject.errors[:plain_text]).to eq([message])
     end
   end
 

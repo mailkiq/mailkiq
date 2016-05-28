@@ -19,9 +19,17 @@ class Automation < Campaign
 
   private
 
+  def exclude_subscribe_url?(text)
+    text.present? && text.exclude?('%subscribe_url%')
+  end
+
   def require_subscribe_url
-    if html_text.to_s.exclude? '%subscribe_url%'
+    if exclude_subscribe_url? html_text
       errors.add(:html_text, :subscribe_not_found)
+    end
+
+    if exclude_subscribe_url? plain_text
+      errors.add(:plain_text, :subscribe_not_found)
     end
   end
 

@@ -9,6 +9,8 @@ en:
           unverified_email_address: "is not verified"
           unverified_domain: "domain is not verified"
           unstructured_from: "has forbidden characters"
+        automation:
+          subscribe_not_found: "variable not found"
   activemodel:
     errors:
       models:

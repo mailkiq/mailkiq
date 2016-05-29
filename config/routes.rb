@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api, format: false do
     namespace :v1 do
       with_options only: :create do
-        resources :subscribers
+        resources :conversions
         resources :contacts, path: '/clickfunnels/:api_key/contacts(/:tag)'
       end
     end

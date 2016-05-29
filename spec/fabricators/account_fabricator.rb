@@ -21,6 +21,10 @@ Fabricator(:valid_account, from: :account) do
   paypal_recurring_profile_token 'I-27DBWXKB2XGP'
 end
 
+Fabricator(:account_with_plan, from: :valid_account) do
+  plan
+end
+
 Fabricator(:jane_doe, from: :valid_account) do
   name 'Jane Doe'
   email 'jane@doe.com'

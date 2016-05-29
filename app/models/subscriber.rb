@@ -29,6 +29,10 @@ class Subscriber < ActiveRecord::Base
       .update_all(state: Subscriber.states[state])
   end
 
+  def merge_tags!(name)
+    self.tag_ids = tag_ids | tags.where(slug: name).pluck(:id)
+  end
+
   def subscribe!
     update! unsubscribed_at: nil, state: :active
   end

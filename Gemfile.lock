@@ -20,6 +20,10 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.10.0)
+      actionpack (>= 4.0)
+      activemodel (>= 4.0)
+      railties (>= 4.0)
     activejob (4.2.6)
       activesupport (= 4.2.6)
       globalid (>= 0.3.0)
@@ -38,12 +42,12 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
-    aws-sdk (2.3.8)
-      aws-sdk-resources (= 2.3.8)
-    aws-sdk-core (2.3.8)
+    aws-sdk (2.3.9)
+      aws-sdk-resources (= 2.3.9)
+    aws-sdk-core (2.3.9)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.3.8)
-      aws-sdk-core (= 2.3.8)
+    aws-sdk-resources (2.3.9)
+      aws-sdk-core (= 2.3.9)
     bcrypt (3.1.11)
     bourbon (4.2.7)
       sass (~> 3.4)
@@ -108,8 +112,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     json_pure (1.8.3)
-    jsonapi-resources (0.7.0)
-      rails (>= 4.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -267,6 +269,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   addressable
   aws-sdk (~> 2)
   bourbon
@@ -279,7 +282,6 @@ DEPENDENCIES
   guard-rspec
   has_scope
   jquery-rails
-  jsonapi-resources
   kaminari
   page_meta
   paypal-recurring

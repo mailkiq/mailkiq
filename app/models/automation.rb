@@ -5,6 +5,11 @@ class Automation < Campaign
 
   self.default_scopes = []
 
+  def self.confirmation
+    state = states[:sending]
+    where("send_settings->>'type' = ? and state = ?", TYPES.first, state)
+  end
+
   def send_type
     send_settings['type']
   end

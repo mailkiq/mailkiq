@@ -52,10 +52,6 @@ class CampaignPresenter < Presenter
 
   private
 
-  def _recipients_count
-    @recipients_count ||= [1, model.recipients_count.to_f].max
-  end
-
   def number_to_percentage(value)
     precision = value < 1 && !value.zero? ? 2 : 0
     __getobj__.number_to_percentage(value, precision: precision)

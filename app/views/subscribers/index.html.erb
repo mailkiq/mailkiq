@@ -57,11 +57,10 @@
   <div class="box">
     <p>This is the subscribe form HTML code.</p>
 
-    <%= highlight_html do %>
-      <form action="<%= api_v1_subscribers_url %>" method="post">
-        <input type="email" name="data[attributes][email]">
-        <input type="hidden" name="data[type]" value="subscribers">
-        <input type="hidden" name="data[attributes][tags]" value="">
+    <%= html_syntax do %>
+      <form action="<%= api_v1_conversions_url %>" method="post">
+        <input type="email" name="email">
+        <input type="hidden" name="tag" value="">
         <input type="hidden" name="api_key" value="<%= current_account.api_key.tr('-', '') %>">
         <input type="hidden" name="redirect_to" value="">
       </form>

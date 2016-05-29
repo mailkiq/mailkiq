@@ -7,6 +7,7 @@ module API
         subscriber = current_account.subscribers.build contact_params
         subscriber.merge_tags! params[:tag] if params.key? :tag
         subscriber.save
+        ConfirmationJob.enqueue(subscriber)
         render json: subscriber, status: :created
       end
 

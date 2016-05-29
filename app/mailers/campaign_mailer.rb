@@ -2,7 +2,7 @@ class CampaignMailer
   attr_reader :token, :mail
 
   def initialize(campaign_id, subscriber_id)
-    @campaign = Campaign.find campaign_id
+    @campaign = Campaign.unscoped.find campaign_id
     @subscriber = Subscriber.find subscriber_id
     @ses = Aws::SES::Client.new(@campaign.account_aws_options)
     @token = SecureRandom.urlsafe_base64(32).gsub(/[\-_]/, '').first(32)

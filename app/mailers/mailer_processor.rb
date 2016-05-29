@@ -47,6 +47,12 @@ class MailerProcessor
     url_for controller: :tracks, action: :open, id: token, format: :gif
   end
 
+  def subscribe_url
+    url_for controller: :subscriptions,
+            action: :subscribe,
+            id: subscription_token
+  end
+
   def unsubscribe_url
     url_for controller: :subscriptions,
             action: :unsubscribe,
@@ -103,6 +109,7 @@ class MailerProcessor
     parts = mail.parts.any? ? mail.parts : [mail]
     parts.each do |part|
       part.body.raw_source.gsub!(/%unsubscribe_url%/i, unsubscribe_url)
+      part.body.raw_source.gsub!(/%subscribe_url%/i, subscribe_url)
     end
   end
 end

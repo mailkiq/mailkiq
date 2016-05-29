@@ -8,6 +8,8 @@ describe API::V1::ConversionsController, type: :request do
       it 'creates a new subscriber and redirect to the specified URI' do
         data = { email: account.email, redirect_to: 'http://bit.ly' }
 
+        expect(ConfirmationJob).to receive(:enqueue)
+
         expect { post api_v1_conversions_path(api_key: account.api_key), data }
           .to change { account.subscribers.count }.by(1)
 

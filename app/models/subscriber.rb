@@ -8,8 +8,8 @@ class Subscriber < ActiveRecord::Base
   has_many :messages
   has_many :taggings
   has_many :tags, through: :taggings
-  enum state:
-    %i(active unconfirmed unsubscribed bounced complained deleted invalid_email)
+  enum state: %i(active unconfirmed unsubscribed bounced complained deleted
+                 invalid_email)
 
   paginates_per 10
 

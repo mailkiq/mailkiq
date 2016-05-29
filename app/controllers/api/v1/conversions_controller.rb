@@ -7,6 +7,7 @@ module API
         subscriber = current_account.subscribers.build conversion_params
         subscriber.merge_tags! params[:tag] if params.key? :tag
         subscriber.save
+        ConfirmationJob.enqueue(subscriber)
         redirect_to params[:redirect_to] || :back
       end
 

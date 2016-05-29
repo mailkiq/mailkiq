@@ -24,7 +24,7 @@ end
 Fabricator(:campaign_with_account, from: :campaign) do
   id 1
   account
-  sent_at Time.now
+  sent_at Time.at(146_454_198_6)
   recipients_count 600_000
 end
 

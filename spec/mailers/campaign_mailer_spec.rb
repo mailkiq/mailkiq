@@ -11,7 +11,9 @@ describe CampaignMailer do
   it { is_expected.to respond_to :token }
 
   before do
-    allow(Campaign).to receive(:find).with(campaign.id).and_return(campaign)
+    allow(Campaign).to receive_message_chain(:unscoped, :find)
+      .with(campaign.id)
+      .and_return(campaign)
     allow(Subscriber).to receive(:find).with(subscriber.id)
       .and_return(subscriber)
     allow(Message).to receive(:create!)

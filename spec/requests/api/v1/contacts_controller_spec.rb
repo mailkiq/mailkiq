@@ -7,6 +7,8 @@ describe API::V1::ContactsController, type: :request do
       let(:params) { json :clickfunnels }
 
       it 'creates a new subscriber' do
+        expect(ConfirmationJob).to receive(:enqueue)
+
         post api_v1_contacts_path(api_key: account.api_key), params.to_json,
              'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s
 

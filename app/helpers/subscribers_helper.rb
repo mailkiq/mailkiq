@@ -16,7 +16,7 @@ module SubscribersHelper
     content_tag :span, text, class: "label-#{variation}"
   end
 
-  def highlight_html(&block)
+  def html_syntax(&block)
     source = capture(&block)
     formatter = Rouge::Formatters::HTML.new css_class: 'highlight'
     lexer = Rouge::Lexers::HTML.new

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe AutomationsController, type: :controller do
   context 'when logged in' do
     let(:account) { Fabricate.build :account }
-    let(:automation) { Fabricate.build :automation }
+    let(:automation) { Fabricate.build :automation, id: 1 }
     let(:params) do
       { name: 'zzz', campaign_attributes: Fabricate.attributes_for(:campaign) }
     end
@@ -58,7 +58,7 @@ describe AutomationsController, type: :controller do
     describe '#edit' do
       before do
         mock!
-        get :edit, id: 1
+        get :edit, id: automation.id
       end
 
       it { is_expected.to use_before_action :authenticate_account! }
@@ -70,7 +70,7 @@ describe AutomationsController, type: :controller do
       before do
         mock!
         expect(automation).to receive(:update).at_least(:once)
-        put :update, id: 1, automation: params
+        put :update, id: automation.id, automation: params
       end
 
       it { is_expected.to use_before_action :authenticate_account! }
@@ -89,7 +89,33 @@ describe AutomationsController, type: :controller do
       before do
         mock!
         expect(automation).to receive(:destroy)
-        delete :destroy, id: 1
+        delete :destroy, id: automation.id
+      end
+
+      it { is_expected.to use_before_action :authenticate_account! }
+      it { is_expected.to respond_with :redirect }
+      it { is_expected.to redirect_to automations_path }
+      it { is_expected.to set_flash[:notice] }
+    end
+
+    describe '#pause' do
+      before do
+        mock!
+        expect(automation).to receive(:paused!)
+        post :pause, id: automation.id
+      end
+
+      it { is_expected.to use_before_action :authenticate_account! }
+      it { is_expected.to respond_with :redirect }
+      it { is_expected.to redirect_to automations_path }
+      it { is_expected.to set_flash[:notice] }
+    end
+
+    describe '#resume' do
+      before do
+        mock!
+        expect(automation).to receive(:sending!)
+        post :resume, id: automation.id
       end
 
       it { is_expected.to use_before_action :authenticate_account! }

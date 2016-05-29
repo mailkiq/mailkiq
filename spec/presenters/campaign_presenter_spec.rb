@@ -55,8 +55,18 @@ describe CampaignPresenter do
     end
   end
 
+  describe '#long_sent_at' do
+    it 'returns friendly time description' do
+      ses = campaign.account.quota.instance_variable_get :@ses
+      ses.stub_responses :get_send_quota, max_send_rate: 14.0
+
+      expect(subject.long_sent_at)
+        .to eq('<small>Sent at May 29, 2016 14:13 • takes about 12 hours to send it.</small>')
+    end
+  end
+
   describe '#progress' do
-    it 'generates HTML markup for progress bar segments' do
+    it 'generates markup for progress bar segments' do
       expect(campaign).to receive(:recipients_count).at_least(:once)
         .and_return(646_100)
 
@@ -65,12 +75,21 @@ describe CampaignPresenter do
       expect(campaign).to receive(:complaints_count).and_return(5_000)
       expect(campaign).to receive(:unsent_count).and_return(446_100)
 
-      html = Nokogiri::HTML(subject.progress)
+      html = Nokogiri::HTML.fragment subject.progress
 
       expect(html.at_css('.deliveries')[:style]).to end_with '31%'
       expect(html.at_css('.bounces')[:style]).to end_with '0%'
       expect(html.at_css('.complaints')[:style]).to end_with '1%'
       expect(html.at_css('.unsent')[:style]).to end_with '69%'
+    end
+  end
+
+  describe '#meter_tag' do
+    it 'generates markup for a meter component' do
+      html = Nokogiri::HTML.fragment subject.meter_tag(:unique_opens_count)
+
+      expect(html.at_css('.meter').children).to_not be_empty
+      expect(html.at_css('.meter span')[:style]).to eq('width: 0.0%')
     end
   end
 end

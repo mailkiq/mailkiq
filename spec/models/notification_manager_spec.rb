@@ -8,16 +8,11 @@ describe NotificationManager do
 
   describe '#create!' do
     before do
-      relation = double('relation')
       message = Message.new campaign_id: 1
       notification = Notification.new message: message
 
-      expect(Subscriber).to receive(:where)
-        .with(email: sns.emails, account_id: account.id)
-        .and_return(relation)
-
-      expect(relation).to receive(:update_all)
-        .with(state: Subscriber.states[sns.state])
+      expect(Subscriber).to receive(:update_state)
+        .with(state: sns.state, email: sns.emails, account_id: account.id)
 
       expect(message).to receive(:update_column)
         .with(:state, sns.message_type.downcase)

@@ -24,8 +24,9 @@ class Subscriber < ActiveRecord::Base
     where(id: id).update_all state: Subscriber.states[:invalid_email]
   end
 
-  def self.update_state_for(state, email:, account_id:)
+  def self.update_state(state:, email:, account_id:)
     where(email: email, account_id: account_id)
+      .where.not(state: Subscriber.states[:unconfirmed])
       .update_all(state: Subscriber.states[state])
   end
 

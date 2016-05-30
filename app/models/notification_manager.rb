@@ -13,9 +13,9 @@ class NotificationManager
   def create!
     notification = track_notification!
 
-    Subscriber.update_state_for @message.state,
-                                email: @message.emails,
-                                account_id: @account_id
+    Subscriber.update_state state: @message.state,
+                            email: @message.emails,
+                            account_id: @account_id
 
     unless @message.state == :active
       Campaign.increment_counter counter_name, notification.message.campaign_id

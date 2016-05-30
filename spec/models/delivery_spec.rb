@@ -74,7 +74,7 @@ describe Delivery, type: :model do
     it 'calls registered query objects' do
       relation = double('relation')
 
-      expect(Subscriber).to receive_message_chain(:actived, :where)
+      expect(Subscriber).to receive_message_chain(:activated, :where)
         .with(account_id: 10)
         .and_return(relation)
 

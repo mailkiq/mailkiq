@@ -13,25 +13,26 @@ class Subscriber < ActiveRecord::Base
 
   paginates_per 10
 
-  scope :actived, -> { where state: states[:active] }
+  scope :activated, -> { where state: states[:active] }
   scope :recent, -> { order created_at: :desc }
 
   strip_attributes only: [:name, :email]
 
   before_create :set_default_state
 
-  def self.mark_as_invalid_email(id)
-    where(id: id).update_all state: Subscriber.states[:invalid_email]
+  def self.mark_as_invalid_email(subscriber_id)
+    where(id: subscriber_id).update_all state: states[:invalid_email]
   end
 
   def self.update_state(state:, email:, account_id:)
     where(email: email, account_id: account_id)
-      .where.not(state: Subscriber.states[:unconfirmed])
-      .update_all(state: Subscriber.states[state])
+      .where.not(state: states[:unconfirmed])
+      .update_all(state: states[state])
   end
 
   def merge_tags!(name)
-    self.tag_ids = tag_ids | tags.where(slug: name).pluck(:id)
+    new_tag_ids = Tag.where(slug: name, account_id: account_id).pluck(:id)
+    self.tag_ids = tag_ids | new_tag_ids
   end
 
   def subscribe!

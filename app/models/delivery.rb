@@ -36,7 +36,7 @@ class Delivery
   private
 
   def chain_queries
-    relation = Subscriber.actived.where(account_id: account.id)
+    relation = Subscriber.activated.where(account_id: account.id)
     QUERIES.each do |klass|
       new_relation = klass.new(relation, tagged_with, not_tagged_with).call
       relation = new_relation if new_relation

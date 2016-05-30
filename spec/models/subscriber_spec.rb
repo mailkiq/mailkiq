@@ -30,7 +30,7 @@ describe Subscriber, type: :model do
 
   context 'scopes' do
     it { expect(described_class).to respond_to(:recent).with(0).arguments }
-    it { expect(described_class).to respond_to(:actived).with(0).arguments }
+    it { expect(described_class).to respond_to(:activated).with(0).arguments }
     it { expect(described_class).to respond_to(:sort).with(1).argument }
   end
 
@@ -44,10 +44,10 @@ describe Subscriber, type: :model do
     it 'merges tags with given name' do
       relation = double('relation')
 
-      expect(relation).to receive(:where).with(slug: 'blah')
-        .and_return(relation)
       expect(relation).to receive(:pluck).with(:id).and_return([])
-      expect(subject).to receive(:tags).and_return(relation)
+      expect(Tag).to receive(:where)
+        .with(slug: 'blah', account_id: subject.account_id)
+        .and_return(relation)
 
       subject.merge_tags! 'blah'
     end

@@ -1,6 +1,8 @@
 class QueueWorker
   include Concurrent::Concern::Logging
 
+  attr_reader :poller
+
   def initialize(account)
     @account = account
     @client = Aws::SQS::Client.new(@account.aws_options)
@@ -18,17 +20,13 @@ class QueueWorker
     0
   end
 
-  def account_id
-    @account.id
-  end
-
   def poll
     @poller.poll(idle_timeout: 5) do |msg|
       begin
         manager = NotificationManager.new(msg.body, @account.id)
         manager.create! if manager.ses?
       rescue ActiveRecord::RecordNotFound
-        log DEBUG, "Skipping message on queue ##{account_id}"
+        log DEBUG, "Skipping message on queue ##{@account.id}"
         throw :skip_delete if ENV['SQS_SKIP_DELETE']
       end
     end

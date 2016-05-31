@@ -6,18 +6,22 @@ namespace :sqs do
     Concurrent.use_stdlib_logger Logger::DEBUG, $stdout
 
     accounts = Account.active.all
-    workers = accounts.map { |account| QueueWorker.new account }
+    accounts.each(&:readonly!)
+
     pool = Concurrent::ThreadPoolExecutor.new(
       min_threads: ENV['QUE_WORKER_COUNT'] || 25,
       max_threads: ENV['QUE_WORKER_COUNT'] || 25,
       max_queue: ENV['QUE_WORKER_COUNT'] || 25
     )
 
-    accounts.each(&:readonly!)
-
     stop = false
+    curr = Thread.current
+
     %w(INT TERM).each do |signal|
-      trap(signal) { stop = true }
+      trap(signal) do
+        stop = true
+        curr.wakeup
+      end
     end
 
     at_exit do
@@ -27,21 +31,29 @@ namespace :sqs do
     end
 
     loop do
-      workers.each do |worker|
+      accounts.each do |account|
+        break if stop
+
+        worker = QueueWorker.new(account)
         size = worker.size
-        $stdout.puts "Queue ##{worker.account_id} has #{size} pending messages"
+        $stdout.puts "Queue ##{account.id} has #{size} pending messages"
 
         next if size.zero?
         next if pool.remaining_capacity.zero?
 
         $stdout.puts "Remaining capacity: #{pool.remaining_capacity}"
 
-        pool.post { worker.poll }
+        worker.poller.before_request { throw :stop_polling if stop }
+
+        pool.post do
+          worker.poll
+          ::ActiveRecord::Base.clear_active_connections!
+        end
       end
 
-      sleep 20
-
       break if stop
+
+      sleep 20
     end
   end
 end

@@ -21,11 +21,14 @@ class Campaign < ActiveRecord::Base
   scope :unsent, -> { where sent_at: nil }
   scope :recent, -> { order created_at: :desc }
 
-  delegate :count, to: :messages, prefix: true
   delegate :aws_options, :domain_names, to: :account, prefix: true,
                                         allow_nil: true
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
+
+  def messages_count
+    @messages_count ||= messages.count
+  end
 
   def deliveries_count
     [recipients_count, messages_count].min

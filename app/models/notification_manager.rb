@@ -26,7 +26,7 @@ class NotificationManager
 
   def track_notification!
     record = Message.find_by! uuid: @message.mail_id
-    record.update_column :state, @message.message_type.downcase
+    record.update_column :state, Message.states[@message.message_type.downcase]
     record.notifications.create! data: @message.data.as_json
   end
 

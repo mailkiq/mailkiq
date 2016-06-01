@@ -638,6 +638,13 @@ CREATE UNIQUE INDEX index_accounts_on_reset_password_token ON accounts USING btr
 
 
 --
+-- Name: index_bounced_notifications; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bounced_notifications ON notifications USING btree (message_id) WHERE (data ? 'bouncedRecipients'::text);
+
+
+--
 -- Name: index_campaigns_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -649,6 +656,13 @@ CREATE INDEX index_campaigns_on_account_id ON campaigns USING btree (account_id)
 --
 
 CREATE UNIQUE INDEX index_campaigns_on_name_and_account_id ON campaigns USING btree (name, account_id);
+
+
+--
+-- Name: index_complained_notifications; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_complained_notifications ON notifications USING btree (message_id) WHERE (data ? 'complainedRecipients'::text);
 
 
 --
@@ -886,4 +900,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160522235154');
 INSERT INTO schema_migrations (version) VALUES ('20160526172302');
 
 INSERT INTO schema_migrations (version) VALUES ('20160528115228');
+
+INSERT INTO schema_migrations (version) VALUES ('20160531231716');
 

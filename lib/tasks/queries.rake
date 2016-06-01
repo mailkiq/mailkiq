@@ -13,6 +13,11 @@ namespace :queries do
 
   desc 'Update message status column'
   task update_messages: :environment do
+    # In practice, there should be no records with pending states more than
+    # a few minutes after the sending is completed.
+    Message.where(state: :pending).update_all state: Message.states[:delivery]
+
+    # Just remember to execute update_counters after this.
     Query.execute :update_message_status
   end
 end

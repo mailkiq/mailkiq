@@ -10,12 +10,10 @@ class QueueWorker
   end
 
   def size
-    resp = @client.get_queue_attributes(
+    @client.get_queue_attributes(
       queue_url: @account.aws_queue_url,
       attribute_names: ['ApproximateNumberOfMessages']
-    )
-
-    resp.attributes['ApproximateNumberOfMessages'].to_i
+    ).attributes['ApproximateNumberOfMessages'].to_i
   rescue Seahorse::Client::NetworkingError
     0
   end

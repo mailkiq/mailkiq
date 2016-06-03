@@ -4,6 +4,9 @@ describe MailerProcessor do
   let(:mail) do
     m = Mail.new
     m.html_part = File.read('spec/fixtures/template.html')
+    m.text_part = <<-TEXT.strip_heredoc
+      Please confirm your subscription %subscribe_url%
+    TEXT
     m
   end
 
@@ -17,13 +20,18 @@ describe MailerProcessor do
   end
 
   describe '#transform!' do
-    let(:doc) do
+    let(:html) do
       subject.transform!
       subject.send :parse, subject.send(:body).raw_source
     end
 
+    let(:text) do
+      subject.transform!
+      mail.text_part.body.raw_source
+    end
+
     it 'tracks open' do
-      image = doc.at('body > img:last-child')
+      image = html.at('body > img:last-child')
 
       expect(image[:src]).to eq('http://localhost:3000/track/open/token.gif')
       expect(image[:width]).to eq('1')
@@ -32,7 +40,7 @@ describe MailerProcessor do
     end
 
     it 'tracks links' do
-      link = Addressable::URI.parse doc.at('a').get_attribute(:href)
+      link = Addressable::URI.parse html.at('a').get_attribute(:href)
 
       expect(link.path).to eq('/track/click/token')
       expect(link.query_values['signature'].size).to eq(40)
@@ -40,12 +48,16 @@ describe MailerProcessor do
         .to eq('http://saopaulo.votenaweb.com.br?utm_source=email')
     end
 
-    it 'expands template variables' do
-      node = doc.at('.unsubscribe')
+    it 'expands template variables on html format' do
+      node = html.at('.unsubscribe')
       link = Addressable::URI.parse node.get_attribute(:href)
       token = Token.encode(1)
 
       expect(link.path).to eq("/subscriptions/#{token}/unsubscribe")
+    end
+
+    it 'expands template variables on text format' do
+      expect(text).to_not include('%subscribe_url%')
     end
   end
 end

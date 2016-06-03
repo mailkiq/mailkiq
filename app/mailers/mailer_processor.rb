@@ -8,8 +8,9 @@ class MailerProcessor
   end
 
   def transform!
-    return unless html_part?
     expand_variables
+
+    return unless html_part?
     track_links
     track_open
   end

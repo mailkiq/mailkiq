@@ -6,14 +6,14 @@ class CampaignMailer
     @subscriber = Subscriber.find subscriber_id
     @ses = Aws::SES::Client.new(@campaign.account_aws_options)
     @token = SecureRandom.urlsafe_base64(32).gsub(/[\-_]/, '').first(32)
-    @mail = Mail::Message.new
-    set_mail_attributes
+    @mail = build_mail
   end
 
   def deliver!
     MailerProcessor.new(self).transform!
     response = send_raw_email(mail)
     create_message! response.message_id
+    mail
   end
 
   def utm_params
@@ -36,14 +36,25 @@ class CampaignMailer
 
   private
 
-  def set_mail_attributes
-    mail.to = @subscriber.email
-    mail.mime_version = '1.0'
-    mail.charset = 'UTF-8'
-    mail.from = @campaign.from
-    mail.subject = @campaign.subject.render! interpolations
-    mail.text_part = @campaign.plain_text if @campaign.plain_text?
-    mail.html_part = @campaign.html_text if @campaign.html_text?
+  def build_mail
+    m = Mail::Message.new
+    m.mime_version = '1.0'
+    m.charset = 'UTF-8'
+    m.to = @subscriber.email
+    m.from = @campaign.from
+    m.subject = @campaign.subject.render!(interpolations)
+
+    if @campaign.plain_text?
+      m.text_part = @campaign.plain_text
+      m.text_part.charset = 'UTF-8'
+    end
+
+    if @campaign.html_text?
+      m.html_part = @campaign.html_text
+      m.html_part.charset = 'UTF-8'
+    end
+
+    m
   end
 
   def send_raw_email(mail)
@@ -55,12 +66,10 @@ class CampaignMailer
   end
 
   def create_message!(uuid)
-    Message.create!(
-      uuid: uuid,
-      token: token,
-      campaign_id: @campaign.id,
-      subscriber_id: @subscriber.id,
-      sent_at: Time.now
-    )
+    Message.create! uuid: uuid,
+                    token: token,
+                    campaign_id: @campaign.id,
+                    subscriber_id: @subscriber.id,
+                    sent_at: Time.now
   end
 end

@@ -21,44 +21,46 @@ describe CampaignMailer do
   end
 
   describe '#deliver!' do
-    it 'delivers campaign to subscriber' do
-      mail = double('mail')
-
-      expect(mail).to receive(:mime_version=).with('1.0')
-      expect(mail).to receive(:charset=).with('UTF-8')
-      expect(mail).to receive(:to=).with(subscriber.email)
-      expect(mail).to receive(:from=).with(campaign.from)
-      expect(mail).to receive(:subject=).with(campaign.subject)
-      expect(mail).to receive(:destinations).and_return([subscriber.email])
-      expect(mail).to receive(:text_part=).with(campaign.plain_text)
-      expect(mail).to receive(:html_part=).with(campaign.html_text)
-
-      expect(Mail::Message).to receive(:new).and_return(mail)
-      expect(ses).to receive(:send_raw_email).and_call_original
-
+    before do
       ses.stub_responses :send_raw_email, message_id: uuid
+      expect(ses).to receive(:send_raw_email).and_call_original
+    end
 
-      subject.deliver!
+    it 'delivers campaign to subscriber' do
+      mail = subject.deliver!
+
+      expect(mail.subject).to eq(campaign.subject)
+      expect(mail.from).to eq([campaign.from_email])
+      expect(mail.to).to eq([subscriber.email])
+      expect(mail.charset).to eq('UTF-8')
+      expect(mail.text_part.body).to eq(campaign.plain_text)
+      expect(mail.text_part.content_type).to eq('text/plain; charset=UTF-8')
+      expect(mail.html_part.body).to eq(campaign.html_text)
+      expect(mail.html_part.content_type).to eq('text/html; charset=UTF-8')
     end
 
     it 'creates a message record on the database' do
-      expect(Message).to receive(:create!)
-        .with hash_including(uuid: uuid,
-                             token: subject.token,
-                             campaign_id: campaign.id,
-                             subscriber_id: subscriber.id)
+      travel 1.day
 
-      ses.stub_responses :send_raw_email, message_id: uuid
+      expect(Message).to receive(:create!).with(
+        uuid: uuid,
+        token: subject.token,
+        campaign_id: campaign.id,
+        subscriber_id: subscriber.id,
+        sent_at: Time.now)
 
       subject.deliver!
+
+      travel_back
     end
   end
 
   describe '#utm_params' do
     it 'returns Google Analytics parameters' do
-      expect(subject.utm_params).to eq(utm_campaign: 'the-truth-about-wheat',
-                                       utm_medium: :email,
-                                       utm_source: :mailkiq)
+      expect(subject.utm_params).to eq(
+        utm_campaign: 'the-truth-about-wheat',
+        utm_medium: :email,
+        utm_source: :mailkiq)
     end
   end
 

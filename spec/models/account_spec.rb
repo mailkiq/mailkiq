@@ -69,15 +69,4 @@ describe Account, type: :model do
       expect(options.size).to eq(4)
     end
   end
-
-  describe '#mixpanel_properties' do
-    it 'returns MixPanel profile properties' do
-      properties = subject.mixpanel_properties
-      expect(properties.keys.size).to eq(4)
-      expect(properties).to have_key :$first_name
-      expect(properties).to have_key :$last_name
-      expect(properties).to have_key :$created
-      expect(properties).to have_key :$email
-    end
-  end
 end

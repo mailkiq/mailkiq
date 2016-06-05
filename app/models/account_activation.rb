@@ -10,10 +10,7 @@ class AccountActivation
   end
 
   def name
-    parts = []
-    parts << 'mailkiq'
-    parts << @account.id if @account.tied_to_mailkiq?
-    parts.join('-')
+    [:mailkiq, (@account.id if @account.tied_to_mailkiq?)].compact.join('-')
   end
 
   def activate

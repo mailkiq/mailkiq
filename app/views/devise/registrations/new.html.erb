@@ -1,28 +1,48 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'https://js.iugu.com/v2' %>
+<% end %>
+
 <div class="wrapper">
   <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name) do |f| %>
-    <%= f.input :paypal_customer_token, as: :hidden %>
-    <%= f.input :paypal_payment_token, as: :hidden %>
-    <%= f.input :plan_id, as: :hidden %>
+    <%= f.input :name, autofocus: true %>
+    <%= f.input :email, as: :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.input :credit_card_token, as: :hidden %>
+    <%= f.input :plan, as: :hidden, input_html: { value: resource.plan || params[:plan] } %>
 
-    <% if resource.paypal? %>
-      <p>Payment has been provided. Click "Subscribe" to complete the subscription.</p>
-      <%= f.button :submit, "Subscribe" %>
+    <% if resource.credit_card_token.blank? %>
+      <div class="usable-creditcard-form">
+        <div class="creditcard-wrapper">
+          <div class="input-group nmb_a">
+            <div class="icon ccic-brand"></div>
+            <input autocomplete="off" class="credit_card_number" data-iugu="number" placeholder="Número do Cartão" type="text" value="">
+          </div>
+
+          <div class="input-group nmb_b">
+            <div class="icon ccic-cvv"></div>
+            <input autocomplete="off" class="credit_card_cvv" data-iugu="verification_value" placeholder="CVV" type="text" value="">
+          </div>
+
+          <div class="input-group nmb_c">
+            <div class="icon ccic-name"></div>
+            <input class="credit_card_name" data-iugu="full_name" placeholder="Titular do Cartão" type="text" value="">
+          </div>
+
+          <div class="input-group nmb_d">
+            <div class="icon ccic-exp"></div>
+            <input autocomplete="off" class="credit_card_expiration" data-iugu="expiration" placeholder="MM/AA" type="text" value="">
+          </div>
+        </div>
+
+        <div class="footer">
+          <img src="http://storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/cc-icons.e8f4c6b4db3cc0869fa93ad535acbfe7.png" alt="Visa, Master, Diners. Amex" border="0">
+        </div>
+      </div>
     <% else %>
-      <% if resource.plan_id? %>
-        <h1>Signing up for <%= resource.plan.name %> plan</h1>
-        <p>
-          Includes <strong><%= number_to_human resource.plan.credits %> e-mails</strong>
-          for only <strong><%= number_to_currency resource.plan.price %></strong> per month!
-        </p>
-      <% else %>
-        <p><%= link_to 'Go back', root_path %> and select a plan!</p>
-      <% end %>
-
-      <%= f.input :name, autofocus: true %>
-      <%= f.input :email, as: :email %>
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
-      <%= f.button :submit, "Pay with PayPal" %>
+      <p>Os dados do cartão de crédito foram autenticados com sucesso. Clique no botão abaixo para finalizar o processo.</p>
     <% end %>
+
+    <%= f.button :submit %>
   <% end %>
 </div>

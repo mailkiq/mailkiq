@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery.formatter
 #= require chosen/abstract-chosen
 #= require chosen/select-parser
 #= require chosen.jquery
@@ -12,6 +13,7 @@
 @App =
   Dashboard: {}
   Subscribers: {}
+  Registrations: {}
 
   initializeHighcharts: ->
     Highcharts?.setOptions

@@ -22,16 +22,16 @@
   .simple_form {
     background: $white;
     padding: 50px 85px;
+  }
 
-    .input {
-      text-align: left;
-    }
+  .input {
+    text-align: left;
+  }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      margin-bottom: 30px;
-    }
+  .input input[type="text"],
+  .input input[type="email"],
+  .input input[type="password"] {
+    margin-bottom: 30px;
   }
 
   .btn {
@@ -81,4 +81,172 @@
 
 .simple_form.passwords h2 {
   margin-bottom: 50px;
+}
+
+.account_credit_card_token + p {
+  margin-bottom: 30px;
+}
+
+.usable-creditcard-form {
+  margin-bottom: 30px;
+  position: relative;
+
+  &, * {
+    font-size: 13px;
+  }
+
+  .creditcard-wrapper {
+    border-radius: 5px;
+    border-right: 1px solid #aaa;
+    border-top: 1px solid #aaa;
+    border: 1px solid #ccc;
+    height: 74px;
+    position: relative;
+  }
+
+  .input-group {
+    position: absolute;
+    top: 300px;
+  }
+
+  .input-group.nmb_a {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 220px;
+  }
+
+  .input-group.nmb_b {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 95px;
+  }
+
+  .input-group.nmb_c {
+    left: 0;
+    position: absolute;
+    top: 37px;
+    width: 220px;
+  }
+
+  .input-group.nmb_d {
+    position: absolute;
+    right: 0;
+    top: 37px;
+    width: 95px;
+  }
+
+  input {
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    display: block;
+    margin: 0;
+    padding: 10px;
+    padding-left: 35px;
+    width: 100%;
+    line-height: 16px;
+  }
+
+  .input-group .icon {
+    background: #ccc;
+    height: 22px;
+    left: 8px;
+    position: absolute;
+    top: 7px;
+    width: 22px;
+  }
+
+  .input-group.nmb_b input,
+  .input-group.nmb_d input {
+    text-align: center;
+  }
+
+  .input-group.nmb_a input {
+    border-right: 1px solid #ECECEC;
+  }
+
+  .input-group.nmb_c input {
+    border-right: 1px solid #ECECEC;
+    border-top: 1px solid #ECECEC;
+  }
+
+  input::-webkit-input-placeholder {
+    font-size: 12px;
+    text-transform: none;
+  }
+
+  .input-group.nmb_d input {
+    border-top: 1px solid #ececec;
+  }
+
+  .input-group.nmb_c input {
+    text-transform: uppercase;
+  }
+
+  .accept {
+    color: #999;
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+
+  .footer {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 3px;
+    position: relative;
+
+    img {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .iugu-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .input-group .icon.ccic-name {
+    background: url("http://storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-name.1cafa1882fdd56f8425de54a5a5bbd1e.png") no-repeat;
+  }
+
+  .input-group .icon.ccic-exp {
+    background: url("http://storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-exp.05e708b1489d5e00c871f20ba33bbff3.png") no-repeat;
+  }
+
+  .input-group .icon.ccic-brand {
+    background: url("http://storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-brands.48dba03883007f86e118f683dcfc4297.png") no-repeat;
+  }
+
+  .input-group .icon.ccic-cvv {
+    background: url("http://storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-cvv.1fe78dcc390427094bdc14dedea10f34.png") no-repeat;
+  }
+
+  .input-group .icon.ccic-cvv,
+  .input-group .icon.ccic-brand {
+    transition: background-position .2s ease-in;
+  }
+}
+
+.amex .usable-creditcard-form .input-group .icon.ccic-cvv {
+  background-position: 0 -22px;
+}
+
+.amex .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0 -110px;
+}
+
+.visa .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0 -22px;
+}
+
+.diners .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0 -88px;
+}
+
+.mastercard .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0 -66px;
 }

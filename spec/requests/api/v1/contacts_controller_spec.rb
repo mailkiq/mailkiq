@@ -3,7 +3,7 @@ require 'rails_helper'
 describe API::V1::ContactsController, type: :request do
   context 'when logged in' do
     describe 'POST /api/v1/contacts' do
-      let(:account) { Fabricate :account_with_plan }
+      let(:account) { Fabricate :account }
       let(:params) { json :clickfunnels }
 
       it 'creates a new subscriber' do

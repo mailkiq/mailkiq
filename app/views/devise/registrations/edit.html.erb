@@ -19,4 +19,30 @@
       <%= f.button :submit, t('.update_password') %>
     <% end %>
   </div>
+
+  <div class="billing">
+    <h2 class="subtitle"><%= t '.billing' %></h2>
+
+    <strong><%= @subscription.plan_name %></strong> contratado.
+
+    <table>
+      <caption>Histórico de Pagamentos</caption>
+      <thead>
+        <tr>
+          <th>Situação</th>
+          <th>Vencimento</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoices.each do |invoice| %>
+          <tr>
+            <td><%= invoice.status %></td>
+            <td><%= invoice.due_date %></td>
+            <td><%= invoice.total %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -4,7 +4,8 @@ module ApplicationHelper
   end
 
   def dispatcher_route
-    "#{controller_name.titleize}##{action_name}"
+    aliased_action_name = PageMeta::Action.new(action_name)
+    "#{controller_name.titleize}##{aliased_action_name}"
   end
 
   def page_title

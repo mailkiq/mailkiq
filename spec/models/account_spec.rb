@@ -3,7 +3,6 @@ require 'rails_helper'
 describe Account, type: :model do
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of :email }
-  it { is_expected.to validate_presence_of :plan }
   it { is_expected.to allow_value('Asia/Yakutsk').for :time_zone }
   it { is_expected.not_to allow_value('anything').for :time_zone }
   it { is_expected.to allow_value('jonh@doe.com').for :email }
@@ -15,7 +14,6 @@ describe Account, type: :model do
     is_expected.to validate_inclusion_of(:aws_region).in_array Account::REGIONS
   end
 
-  it { is_expected.to belong_to :plan }
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_many(:domains).dependent :destroy }
   it { is_expected.to have_many :campaigns }
@@ -24,12 +22,12 @@ describe Account, type: :model do
   it { is_expected.to have_many :automations }
 
   it { is_expected.to delegate_method(:domain_names).to(:domains) }
-  it { is_expected.to delegate_method(:credits).to(:plan).with_prefix }
   it { is_expected.to delegate_method(:remaining).to(:quota).with_prefix }
   it { is_expected.to delegate_method(:exceed?).to(:quota).with_prefix }
 
   it { is_expected.to have_attr_accessor :force_password_validation }
-  it { is_expected.to have_attr_accessor :paypal_payment_token }
+  it { is_expected.to have_attr_accessor :credit_card_token }
+  it { is_expected.to have_attr_accessor :plan }
 
   describe '#remember_me' do
     it 'always remember the user' do

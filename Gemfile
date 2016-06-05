@@ -3,14 +3,15 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 gem 'rails', '4.2.6'
+gem 'aasm'
 gem 'active_model_serializers'
 gem 'addressable', require: false
 gem 'aws-sdk', '~> 2'
 gem 'devise'
 gem 'email_validator', require: 'email_validator/strict'
 gem 'has_scope'
+gem 'iugu'
 gem 'page_meta'
-gem 'paypal-recurring'
 gem 'puma'
 gem 'rouge', require: false
 gem 'sentry-raven'

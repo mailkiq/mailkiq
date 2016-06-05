@@ -3,7 +3,7 @@ require 'rails_helper'
 describe API::V1::ConversionsController, type: :request do
   context 'when logged in' do
     describe 'POST /api/v1/conversions' do
-      let(:account) { Fabricate(:account_with_plan) }
+      let(:account) { Fabricate :account }
 
       it 'creates a new subscriber and redirect to the specified URI' do
         data = { email: account.email, redirect_to: 'http://bit.ly' }

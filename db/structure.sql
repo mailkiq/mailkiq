@@ -99,13 +99,12 @@ CREATE TABLE accounts (
     aws_secret_access_key character varying,
     aws_region character varying,
     aws_topic_arn character varying,
-    paypal_customer_token character varying,
-    paypal_recurring_profile_token character varying,
-    plan_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     aws_queue_url character varying,
-    used_credits integer DEFAULT 0 NOT NULL
+    used_credits integer DEFAULT 0 NOT NULL,
+    iugu_subscription_id uuid,
+    iugu_customer_id uuid
 );
 
 
@@ -280,39 +279,6 @@ CREATE SEQUENCE notifications_id_seq
 --
 
 ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
-
-
---
--- Name: plans; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE plans (
-    id integer NOT NULL,
-    name citext NOT NULL,
-    price numeric NOT NULL,
-    credits integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: plans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE plans_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: plans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE plans_id_seq OWNED BY plans.id;
 
 
 --
@@ -502,13 +468,6 @@ ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notification
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plans ALTER COLUMN id SET DEFAULT nextval('plans_id_seq'::regclass);
-
-
---
 -- Name: job_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -574,14 +533,6 @@ ALTER TABLE ONLY messages
 
 ALTER TABLE ONLY notifications
     ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
-
-
---
--- Name: plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plans
-    ADD CONSTRAINT plans_pkey PRIMARY KEY (id);
 
 
 --
@@ -715,13 +666,6 @@ CREATE INDEX index_notifications_on_message_id ON notifications USING btree (mes
 
 
 --
--- Name: index_plans_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_plans_on_name ON plans USING btree (name);
-
-
---
 -- Name: index_subscribers_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -842,14 +786,6 @@ ALTER TABLE ONLY messages
 
 
 --
--- Name: fk_rails_ded37ae59a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY accounts
-    ADD CONSTRAINT fk_rails_ded37ae59a FOREIGN KEY (plan_id) REFERENCES plans(id);
-
-
---
 -- Name: fk_rails_ebaf908896; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -902,4 +838,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160526172302');
 INSERT INTO schema_migrations (version) VALUES ('20160528115228');
 
 INSERT INTO schema_migrations (version) VALUES ('20160531231716');
+
+INSERT INTO schema_migrations (version) VALUES ('20160604154720');
+
+INSERT INTO schema_migrations (version) VALUES ('20160604162650');
+
+INSERT INTO schema_migrations (version) VALUES ('20160604163301');
 

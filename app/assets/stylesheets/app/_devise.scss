@@ -83,6 +83,11 @@
   margin-bottom: 50px;
 }
 
+.billing a {
+  color: $dark-gray;
+  text-decoration: underline;
+}
+
 .account_credit_card_token + p {
   margin-bottom: 30px;
 }

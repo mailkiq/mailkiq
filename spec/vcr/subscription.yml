@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/subscriptions/1782D0A12B7844669FF0CEE1FC61F9BC
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - Iugu RubyLibrary
+      Accept-Language:
+      - pt-br;q=0.9,pt-BR
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jun 2016 18:19:27 GMT
+      Etag:
+      - '"95101d5cf05c029cb645c082ccfbb0d7"'
+      Server:
+      - nginx/1.8.1
+      Status:
+      - 200 OK
+      Vary:
+      - Origin
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - d8c844dbf190eda54982661df5cabfc5
+      X-Runtime:
+      - '0.062810'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '1275'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"id":"1782D0A12B7844669FF0CEE1FC61F9BC","suspended":false,"plan_identifier":"essentials_plan","price_cents":19900,"currency":"BRL","features":{"emails":{"name":"N\u00famero
+        de Emails","value":100000}},"expires_at":"2017-06-06","created_at":"2016-06-06T15:09:50-03:00","updated_at":"2016-06-06T15:09:52-03:00","customer_name":"Jonh
+        Doe","customer_email":"account0@example.com","cycled_at":null,"credits_min":0,"credits_cycle":null,"payable_with":"credit_card","customer_id":"4B5B8522371A467A9937ED95442AAEB9","plan_name":"Plano
+        Essentials","customer_ref":"Jonh Doe","plan_ref":"Plano Essentials","active":true,"in_trial":null,"credits":0,"credits_based":false,"recent_invoices":[{"id":"7AF0A79EE857426FA6EBFF6518804172","due_date":"2016-06-06","status":"paid","total":"R$
+        199,00","secure_url":"https://iugu.com/invoices/7af0a79e-e857-426f-a6eb-ff6518804172-264c"}],"subitems":[],"logs":[{"id":"77EFC7FEDC254E3383E274F0E33C7264","description":"Fatura
+        criada","notes":"Fatura criada com os items:  1x Ativa\u00e7\u00e3o de Assinatura:
+        Plano Essentials = R$ 199,00;","created_at":"2016-06-06T15:09:51-03:00"},{"id":"010099C4C7A94B528BEE773C5328BAA6","description":"Assinatura
+        Criada","notes":"Assinatura Criada ","created_at":"2016-06-06T15:09:50-03:00"}],"custom_variables":[]}'
+    http_version: 
+  recorded_at: Mon, 06 Jun 2016 18:19:19 GMT
+recorded_with: VCR 3.0.3

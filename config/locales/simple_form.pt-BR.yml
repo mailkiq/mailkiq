@@ -22,16 +22,17 @@ pt-BR:
         name: 'Nome'
         state: 'Status'
       account:
-        name: 'Nome completo'
+        name: 'Nome'
         aws_access_key_id: 'Access Key ID'
         aws_secret_access_key: 'Secret Access Key'
         aws_region: 'Região Amazon SES'
         language: 'Selecione seu idioma'
         time_zone: 'Selecione o fuso horário'
+        password: 'Senha'
+        password_confirmation: 'Confirmação de senha'
         edit:
           current_password: 'Senha atual'
           password: 'Nova senha'
-          password_confirmation: 'Confirmação de senha'
           email: 'Email'
       automation:
         send_type: 'Tipo'
@@ -89,3 +90,12 @@ pt-BR:
           'us-east-1': 'US East (N. Virginia)'
           'us-west-2': 'US West (Oregon)'
           'eu-west-1': 'EU (Ireland)'
+      invoice:
+        status:
+          draft: 'Pendente'
+          pending: 'Pendente'
+          partially_paid: 'Parcialmente Pago'
+          paid: 'Pago'
+          canceled: 'Cancelado'
+          refunded: 'Reembolsado'
+          expired: 'Expirado'

@@ -7,8 +7,6 @@
 
       <%= f.input :name %>
       <%= f.input :email, as: :email %>
-      <%= f.input :language, as: :select, collection: Account::LANGUAGES.map(&:to_sym), include_blank: false %>
-      <%= f.input :time_zone %>
       <%= f.button :submit, t('.save_changes') %>
     <% end %>
 
@@ -23,7 +21,13 @@
   <div class="billing">
     <h2 class="subtitle"><%= t '.billing' %></h2>
 
-    <strong><%= @subscription.plan_name %></strong> contratado.
+    <strong><%= @billing.subscription.plan_name %></strong> contratado.
+
+    <% if @billing.subscription.suspended %>
+      <%= link_to 'Ativar', activate_account_registration_path %> assinatura.
+    <% else %>
+      <%= link_to 'Suspender', suspend_account_registration_path %> assinatura.
+    <% end %>
 
     <table>
       <caption>Histórico de Pagamentos</caption>
@@ -35,10 +39,10 @@
         </tr>
       </thead>
       <tbody>
-        <% @invoices.each do |invoice| %>
+        <% @billing.invoices.each do |invoice| %>
           <tr>
-            <td><%= invoice.status %></td>
-            <td><%= invoice.due_date %></td>
+            <td><%= invoice_status_tag invoice.status %></td>
+            <td><%= l invoice.due_date.to_date %></td>
             <td><%= invoice.total %></td>
           </tr>
         <% end %>

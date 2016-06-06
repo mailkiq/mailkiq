@@ -4,6 +4,7 @@ pt-BR:
       campaign: "Campanha"
       subscriber: "Assinante"
       automation: "Automação"
+      account: "Conta"
     errors:
       models:
         account:

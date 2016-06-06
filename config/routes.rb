@@ -10,7 +10,17 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :accounts, controllers: { registrations: 'accounts/registrations' }
+  devise_for :accounts, skip: :registrations
+  devise_scope :account do
+    resource :registration, only: [:new, :create, :edit, :update],
+                            path: 'accounts',
+                            path_names: { new: 'sign_up' },
+                            controller: 'accounts/registrations',
+                            as: :account_registration do
+                              get :suspend
+                              get :activate
+                            end
+  end
 
   authenticated :account do
     mount Que::Web => '/que'
@@ -38,8 +48,8 @@ Rails.application.routes.draw do
 
   resources :automations do
     member do
-      post :pause
-      post :resume
+      patch :pause
+      patch :resume
     end
   end
 
@@ -52,7 +62,5 @@ Rails.application.routes.draw do
 
   post '/funnel_webhooks/test', to: proc { [200, {}, ['']] }
   get '/track/click/:id', to: 'tracks#click'
-  get '/track/clicks/:id', to: 'tracks#click'
   get '/track/open/:id', to: 'tracks#open'
-  get '/track/opens/:id', to: 'tracks#open'
 end

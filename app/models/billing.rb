@@ -11,12 +11,12 @@ class Billing
     create_subscription if @account.iugu_subscription_id.blank?
   end
 
-  def customer
-    Iugu::Customer.fetch @account.iugu_customer_id
+  def subscription
+    @subscription ||= Iugu::Subscription.fetch @account.iugu_subscription_id
   end
 
-  def subscription
-    Iugu::Subscription.fetch @account.iugu_subscription_id
+  def customer
+    Iugu::Customer.fetch @account.iugu_customer_id
   end
 
   def payment_methods
@@ -51,7 +51,7 @@ class Billing
   def create_payment_method
     Iugu::PaymentMethod.create(
       customer_id: @account.iugu_customer_id,
-      description: "Cartão de Crédito",
+      description: 'Cartão de Crédito',
       token: @account.credit_card_token,
       set_as_default: true
     )

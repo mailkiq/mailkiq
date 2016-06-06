@@ -1,11 +1,16 @@
 class Quota
   def initialize(account)
     @account = account
+    @billing = Billing.new(@account)
     @ses = Aws::SES::Client.new(@account.aws_options)
   end
 
+  def plan_credits
+    @billing.subscription.attributes.dig('features', 'emails', 'value')
+  end
+
   def remaining
-    @account.plan_credits - @account.used_credits
+    plan_credits - @account.used_credits
   end
 
   def exceed?(value)

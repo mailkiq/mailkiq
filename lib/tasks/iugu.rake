@@ -1,6 +1,6 @@
 namespace :iugu do
   desc 'Create plans'
-  task plans: :environment do
+  task init: :environment do
     create name: 'Plano Essentials',
            identifier: 'essentials_plan',
            price: 199,

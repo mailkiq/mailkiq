@@ -49,6 +49,8 @@ group :test do
   gem 'fabrication'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development, :test do

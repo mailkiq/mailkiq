@@ -29,6 +29,19 @@ describe Account, type: :model do
   it { is_expected.to have_attr_accessor :credit_card_token }
   it { is_expected.to have_attr_accessor :plan }
 
+  describe '.new_with_session' do
+    it 'sets default values for new accounts' do
+      account = described_class.new_with_session({}, {})
+      secrets = Rails.application.secrets
+
+      expect(account.language).to eq('pt-BR')
+      expect(account.time_zone).to eq('Brasilia')
+      expect(account.aws_access_key_id).to eq(secrets[:aws_access_key_id])
+      expect(account.aws_secret_access_key)
+        .to eq(secrets[:aws_secret_access_key])
+    end
+  end
+
   describe '#remember_me' do
     it 'always remember the user' do
       expect(subject.remember_me).to be_truthy
@@ -62,10 +75,10 @@ describe Account, type: :model do
     it 'returns options to initialize Aws services' do
       options = subject.aws_options
       expect(options).to be_instance_of HashWithIndifferentAccess
-      expect(options).to have_key :access_key_id
-      expect(options).to have_key :secret_access_key
-      expect(options).to have_key :region
-      expect(options).to have_key :stub_responses
+      expect(options[:access_key_id]).to eq(subject.aws_access_key_id)
+      expect(options[:secret_access_key]).to eq(subject.aws_secret_access_key)
+      expect(options[:region]).to eq(subject.aws_region || 'us-east-1')
+      expect(options[:stub_responses]).to be_truthy
       expect(options.size).to eq(4)
     end
   end

@@ -3,11 +3,20 @@ require 'rails_helper'
 describe Quota, type: :model do
   let(:account) { Fabricate.build :account }
   let(:ses) { subject.instance_variable_get :@ses }
+  let(:billing) { subject.instance_variable_get :@billing }
 
   subject { described_class.new account }
 
   before do
-    allow(account).to receive(:plan_credits).and_return(10)
+    allow(billing).to receive_message_chain(:subscription, :attributes, :dig)
+      .with('features', 'emails', 'value')
+      .and_return(10)
+  end
+
+  describe '#plan_credits' do
+    it 'returns plan credits from subscription features' do
+      expect(subject.plan_credits).to eq(10)
+    end
   end
 
   describe '#remaining' do

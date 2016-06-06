@@ -30,8 +30,10 @@ class Account < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |account|
       secrets = Rails.application.secrets
-      account.aws_access_key_id ||= secrets[:aws_access_key_id]
-      account.aws_secret_access_key ||= secrets[:aws_secret_access_key]
+      account.language = 'pt-BR'
+      account.time_zone = 'Brasilia'
+      account.aws_access_key_id = secrets[:aws_access_key_id]
+      account.aws_secret_access_key = secrets[:aws_secret_access_key]
     end
   end
 
@@ -47,10 +49,6 @@ class Account < ActiveRecord::Base
     @quota ||= Quota.new(self)
   end
 
-  def plan_credits
-    1_000_000
-  end
-
   def tied_to_mailkiq?
     secrets = Rails.application.secrets
     aws_access_key_id == secrets[:aws_access_key_id] &&
@@ -58,7 +56,7 @@ class Account < ActiveRecord::Base
   end
 
   def aws_options
-    options = ActiveSupport::HashWithIndifferentAccess.new
+    options = HashWithIndifferentAccess.new
     options[:region] = aws_region || 'us-east-1'
     options[:access_key_id] = aws_access_key_id
     options[:secret_access_key] = aws_secret_access_key

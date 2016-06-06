@@ -1,6 +1,6 @@
 Fabricator(:account) do
   name 'Jonh Doe'
-  email { sequence(:email) { |i| "account#{i}@example.com" } }
+  email 'account0@example.com'
   password 'testando'
   time_zone 'America/Sao_Paulo'
   language 'en'
@@ -13,9 +13,11 @@ end
 
 Fabricator(:valid_account, from: :account) do
   aws_access_key_id ENV['AWS_ACCESS_KEY_ID'] || 'dasdas'
+  aws_queue_url 'https://sqs.us-east-1.amazonaws.com/495707395447/mailkiq'
   aws_secret_access_key ENV['AWS_SECRET_ACCESS_KEY'] || 'dasdas'
   aws_topic_arn 'arn:aws:sns:us-east-1:495707395447:mailkiq-2'
-  aws_queue_url 'https://sqs.us-east-1.amazonaws.com/495707395447/mailkiq'
+  credit_card_token '924D217C-301D-48BA-B986-080096F1E489'
+  plan 'essentials_plan'
 end
 
 Fabricator(:jane_doe, from: :valid_account) do

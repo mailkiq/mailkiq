@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.i18n.default_locale = :en
   config.cache_store = :null_store
   config.cache_classes = true
   config.eager_load = false

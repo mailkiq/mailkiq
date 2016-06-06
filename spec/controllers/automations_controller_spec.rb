@@ -102,7 +102,7 @@ describe AutomationsController, type: :controller do
       before do
         mock!
         expect(automation).to receive(:paused!)
-        post :pause, id: automation.id
+        patch :pause, id: automation.id
       end
 
       it { is_expected.to use_before_action :authenticate_account! }
@@ -115,7 +115,7 @@ describe AutomationsController, type: :controller do
       before do
         mock!
         expect(automation).to receive(:sending!)
-        post :resume, id: automation.id
+        patch :resume, id: automation.id
       end
 
       it { is_expected.to use_before_action :authenticate_account! }

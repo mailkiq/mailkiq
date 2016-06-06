@@ -1,24 +1,34 @@
 module Accounts
   class RegistrationsController < Devise::RegistrationsController
+    before_action :authenticate_scope!, only: [:edit, :update, :destroy,
+                                               :activate, :suspend]
     before_action :configure_permitted_parameters
-    before_action :set_billing, only: [:edit, :update]
+    before_action :set_billing, only: [:edit, :update, :activate, :suspend]
     layout :pick_layout
 
     def create
       super do |resource|
-        ActivationJob.enqueue resource.id, :activate
-
         billing = Billing.new(resource)
         billing.process
+
+        ActivationJob.enqueue resource.id, :activate if resource.persisted?
       end
+    end
+
+    def activate
+      @billing.subscription.activate
+      redirect_to edit_account_registration_path
+    end
+
+    def suspend
+      @billing.subscription.suspend
+      redirect_to edit_account_registration_path
     end
 
     protected
 
     def set_billing
-      billing = Billing.new(resource)
-      @subscription = billing.subscription
-      @invoices = billing.invoices
+      @billing = Billing.new(resource)
     end
 
     def after_update_path_for(_resource)
@@ -32,8 +42,7 @@ module Accounts
       end
 
       devise_parameter_sanitizer.permit(:account_update) do |account_params|
-        account_params.permit :name, :email, :time_zone, :language,
-                              :current_password, :password,
+        account_params.permit :name, :email, :current_password, :password,
                               :password_confirmation
       end
     end

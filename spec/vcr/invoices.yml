@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/invoices
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"4B5B8522371A467A9937ED95442AAEB9"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - Iugu RubyLibrary
+      Accept-Language:
+      - pt-br;q=0.9,pt-BR
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '50'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jun 2016 18:36:30 GMT
+      Etag:
+      - '"dee6fc0581bdc80a3d259190622dc273"'
+      Server:
+      - nginx/1.8.1
+      Status:
+      - 200 OK
+      Vary:
+      - Origin
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - b97b9a6485992ff43d1b82684f99c3b7
+      X-Runtime:
+      - '0.137635'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '3525'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"facets":{"status":{"_type":"terms","missing":0,"total":1,"other":0,"terms":[{"term":"paid","count":1}]},"late":{"_type":"filter","count":0}},"totalItems":1,"items":[{"id":"7AF0A79EE857426FA6EBFF6518804172","due_date":"2016-06-06","currency":"BRL","discount_cents":0,"email":"account0@example.com","notification_url":null,"return_url":null,"status":"paid","tax_cents":null,"updated_at":"2016-06-06T15:09:51-03:00","total_cents":19900,"total_paid_cents":19900,"paid_at":"2016-06-06T15:09:51-03:00","taxes_paid_cents":925,"paid_cents":19900,"cc_emails":null,"payable_with":"credit_card","overpaid_cents":null,"ignore_due_email":true,"ignore_canceled_email":true,"advance_fee_cents":null,"secure_id":"7af0a79e-e857-426f-a6eb-ff6518804172-264c","secure_url":"https://iugu.com/invoices/7af0a79e-e857-426f-a6eb-ff6518804172-264c","customer_id":"4B5B8522371A467A9937ED95442AAEB9","customer_ref":"Jonh
+        Doe","customer_name":"Jonh Doe","user_id":null,"total":"R$ 199,00","taxes_paid":"R$
+        9,25","total_paid":"R$ 199,00","total_overpaid":"R$ 0,00","fines_on_occurrence_day":"R$
+        0,00","total_on_occurrence_day":"R$ 199,00","fines_on_occurrence_day_cents":0,"total_on_occurrence_day_cents":19900,"financial_return_date":null,"advance_fee":null,"paid":"R$
+        199,00","interest":null,"discount":null,"created_at":"06/06, 15:09 h","refundable":null,"installments":"1","transaction_number":1111,"payment_method":"iugu_credit_card_test","created_at_iso":"2016-06-06T15:09:50-03:00","updated_at_iso":"2016-06-06T15:09:51-03:00","financial_return_dates":null,"bank_slip":null,"items":[{"id":"2E01ED9438564C4E809B0BD57E0DD205","description":"Ativa\u00e7\u00e3o
+        de Assinatura: Plano Essentials","price_cents":19900,"quantity":1,"created_at":"2016-06-06T15:09:50-03:00","updated_at":"2016-06-06T15:09:50-03:00","price":"R$
+        199,00"}],"variables":[{"id":"1E69EE837D10481CB61F5DE2D2D9D2F7","variable":"customer_payment_method_id","value":"8E1D00274D034AF380AE7F474B134596"},{"id":"F20B9C53F5DB42ED824D21504E7C0351","variable":"dunning_day","value":"0"},{"id":"265CB1D94BE24A90BEFAC57AAC564466","variable":"payment_data.arp","value":"00000"},{"id":"9C4BDEFD84364262A0EE92EC58FF0BA4","variable":"payment_data.installments","value":"1"},{"id":"AEB91B3E7B26415CBA288E2DFE4D1CFF","variable":"payment_data.nsu","value":"00000"},{"id":"2EDCCAEB7B3D40CB8C1FD106989EA1C9","variable":"payment_data.transaction_id","value":"00000000000000000001"},{"id":"50FEC1EB0AD84E73A123A86807C67271","variable":"payment_data.transaction_number","value":"1111"},{"id":"A3501DD1C6B142A3893A8DA8815C4729","variable":"payment_method","value":"iugu_credit_card_test"},{"id":"869E8250DF25454C997AD5D27092B2AD","variable":"subscription_id","value":"1782d0a1-2b78-4466-9ff0-cee1fc61f9bc"},{"id":"31A64E5EFEAA49479508F11172F9CA39","variable":"update_subscription.expires_at","value":"1496707200"},{"id":"45B2329B4DFB4F7199835A9996458510","variable":"update_subscription.last_paid_amount_cents","value":"19900"},{"id":"18A11EDEEE224E6E9358EE5146E402DD","variable":"update_subscription.started_at","value":"1465171200"},{"id":"32F4F16565D44CC69C4FD30E2ABE566C","variable":"update_subscription.suspended","value":"0"}],"custom_variables":[],"logs":[{"id":"55B3216134BA40FDB0822C9B575767BC","description":"Receipt
+        email sent!","notes":"Successfully sent receipt to: account0@example.com","created_at":"06/06,
+        15:09 h"},{"id":"DC4AFACC416346219737B20066DB8127","description":"Invoice
+        successfully paid!","notes":"Invoice paid using credit card by:  LR: 00","created_at":"06/06,
+        15:09 h"}]}]}'
+    http_version: 
+  recorded_at: Mon, 06 Jun 2016 18:36:22 GMT
+recorded_with: VCR 3.0.3

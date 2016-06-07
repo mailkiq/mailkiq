@@ -3,7 +3,9 @@
     <div class="flash flash-<%= key %>">
       <div class="container">
         <%= h flash[key] %>
-        <a href="#" class="flash-close ss-delete"></a>
+        <% unless local_assigns.key? :hide_close %>
+          <a href="#" class="flash-close ss-delete"></a>
+        <% end %>
       </div>
     </div>
   <% end -%>

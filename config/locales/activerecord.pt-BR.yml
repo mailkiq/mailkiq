@@ -8,7 +8,8 @@ pt-BR:
     errors:
       models:
         account:
-          invalid_token: "Access Key ID inválida."
+          invalid_plan: "Selecione um plano para finalizar seu cadastro"
+          invalid_token: "Access Key ID inválida"
           incorrect: "é incorreto"
         campaign:
           unverified_email_address: "não verificado"
@@ -20,4 +21,4 @@ pt-BR:
         delivery:
           attributes:
             base:
-              quota_exceeded: "Créditos insuficientes."
+              quota_exceeded: "Créditos insuficientes"

@@ -1,8 +1,4 @@
-<% if alert %>
-  <div class="flash flash-alert">
-    <%= h alert %>
-  </div>
-<% end %>
+<%= render 'shared/flashes', hide_close: true %>
 
 <div class="wrapper">
   <%= simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'login' } do |f| %>

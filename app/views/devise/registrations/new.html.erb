@@ -2,6 +2,8 @@
   <%= javascript_include_tag 'https://js.iugu.com/v2' %>
 <% end %>
 
+<%= render 'shared/flashes', hide_close: true %>
+
 <div class="wrapper">
   <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name) do |f| %>
     <%= f.input :name, autofocus: true %>

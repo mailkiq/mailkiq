@@ -12,6 +12,10 @@ module Accounts
         billing.process
 
         ActivationJob.enqueue resource.id, :activate if resource.persisted?
+
+        if resource.errors.include? :base
+          flash[:alert] = resource.errors.full_messages_for(:base).join
+        end
       end
     end
 

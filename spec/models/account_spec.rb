@@ -26,6 +26,7 @@ describe Account, type: :model do
   it { is_expected.to delegate_method(:exceed?).to(:quota).with_prefix }
 
   it { is_expected.to have_attr_accessor :force_password_validation }
+  it { is_expected.to have_attr_accessor :force_plan_validation }
   it { is_expected.to have_attr_accessor :credit_card_token }
   it { is_expected.to have_attr_accessor :plan }
 
@@ -80,6 +81,19 @@ describe Account, type: :model do
       expect(options[:region]).to eq(subject.aws_region || 'us-east-1')
       expect(options[:stub_responses]).to be_truthy
       expect(options.size).to eq(4)
+    end
+  end
+
+  describe '#validate_plan' do
+    it 'validates plan with Iugu API' do
+      subject.force_plan_validation = true
+      subject.plan = 'basic'
+
+      expect(Iugu::Plan).to receive(:fetch_by_identifier).with(subject.plan)
+        .and_raise(Iugu::ObjectNotFound)
+
+      expect(subject).not_to be_valid
+      expect(subject.errors[:base].join).to include('invalid_plan')
     end
   end
 end

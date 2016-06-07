@@ -10,6 +10,7 @@ class Account < ActiveRecord::Base
   validates_inclusion_of :aws_region, in: REGIONS, allow_blank: true
   validates :time_zone, time_zone: true, if: :time_zone?
   validates_with AccessKeysValidator, if: :validate_access_keys?
+  validate :validate_plan, if: :force_plan_validation
 
   has_many :campaigns
   has_many :subscribers
@@ -20,7 +21,8 @@ class Account < ActiveRecord::Base
   delegate :domain_names, to: :domains
   delegate :remaining, :exceed?, to: :quota, prefix: true
 
-  attr_accessor :force_password_validation, :credit_card_token, :plan
+  attr_accessor :force_password_validation, :force_plan_validation,
+                :credit_card_token, :plan
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable
@@ -30,6 +32,7 @@ class Account < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |account|
       secrets = Rails.application.secrets
+      account.force_plan_validation = true
       account.language = 'pt-BR'
       account.time_zone = 'Brasilia'
       account.aws_access_key_id = secrets[:aws_access_key_id]
@@ -65,6 +68,12 @@ class Account < ActiveRecord::Base
   end
 
   private
+
+  def validate_plan
+    Iugu::Plan.fetch_by_identifier(plan)
+  rescue Iugu::ObjectNotFound
+    errors.add :base, :invalid_plan
+  end
 
   def validate_access_keys?
     if tied_to_mailkiq?

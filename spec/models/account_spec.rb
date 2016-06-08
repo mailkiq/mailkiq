@@ -43,6 +43,19 @@ describe Account, type: :model do
     end
   end
 
+  describe '#expired?' do
+    it 'verifies expiration time' do
+      subject.expires_at = 1.day.ago
+      expect(subject).to be_expired
+
+      subject.expires_at = Time.now
+      expect(subject).to be_expired
+
+      subject.expires_at = Time.now + 1.day
+      expect(subject).not_to be_expired
+    end
+  end
+
   describe '#remember_me' do
     it 'always remember the user' do
       expect(subject.remember_me).to be_truthy
@@ -81,6 +94,18 @@ describe Account, type: :model do
       expect(options[:region]).to eq(subject.aws_region || 'us-east-1')
       expect(options[:stub_responses]).to be_truthy
       expect(options.size).to eq(4)
+    end
+  end
+
+  describe '#iugu?' do
+    it 'checks presence of Iugu attributes' do
+      expect(subject.iugu_customer_id).to be_nil
+      expect(subject.iugu_subscription_id).to be_nil
+      expect(subject).to_not be_iugu
+
+      subject.iugu_customer_id = SecureRandom.uuid
+      subject.iugu_subscription_id = SecureRandom.uuid
+      expect(subject).to be_iugu
     end
   end
 

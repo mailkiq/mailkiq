@@ -42,12 +42,11 @@
           <% end %>
         </tbody>
       </table>
-    <% else %>
-      <p>You must create a new domain to start sending e-mails, and we will give you the instructions to configure the DNS records.</p>
     <% end %>
 
-    <%= simple_form_for :domain, url: domains_path do |f| %>
-      <%= f.input :name, label: false %>
+    <%= simple_form_for Domain.new, url: domains_path do |f| %>
+      <%= f.input :name, as: :string %>
+      <%= f.button :submit %>
     <% end %>
   </div>
 </div>

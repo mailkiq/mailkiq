@@ -9,7 +9,7 @@ class DomainsController < ApplicationController
     @domain = current_account.domains.new domain_params
     @domain.identity_verify!
     respond_with @domain, flash_now: false do |format|
-      format.html { redirect_to settings_path }
+      format.html { redirect_to edit_settings_path }
     end
   end
 

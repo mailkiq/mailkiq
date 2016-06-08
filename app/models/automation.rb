@@ -1,9 +1,9 @@
 class Automation < Campaign
-  validate :require_subscribe_url, if: :subscription_confirmation?
+  self.default_scopes = []
 
   TYPES = [:subscription_confirmation].freeze
 
-  self.default_scopes = []
+  validate :require_subscribe_url, if: :subscription_confirmation?
 
   def self.confirmation
     state = states[:sending]

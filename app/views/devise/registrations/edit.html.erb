@@ -18,35 +18,37 @@
     <% end %>
   </div>
 
-  <div class="billing">
-    <h2 class="subtitle"><%= t '.billing' %></h2>
+  <% if current_account.iugu? %>
+    <div class="billing">
+      <h2 class="subtitle"><%= t '.billing' %></h2>
 
-    <strong><%= @billing.subscription.plan_name %></strong> contratado.
+      <strong><%= @billing.subscription.plan_name %></strong> contratado.
 
-    <% if @billing.subscription.suspended %>
-      <%= link_to 'Ativar', activate_account_registration_path %> assinatura.
-    <% else %>
-      <%= link_to 'Suspender', suspend_account_registration_path %> assinatura.
-    <% end %>
+      <% if @billing.subscription.suspended %>
+        <%= link_to 'Ativar', activate_account_registration_path %> assinatura.
+      <% else %>
+        <%= link_to 'Suspender', suspend_account_registration_path %> assinatura.
+      <% end %>
 
-    <table>
-      <caption>Histórico de Pagamentos</caption>
-      <thead>
-        <tr>
-          <th>Situação</th>
-          <th>Vencimento</th>
-          <th>Valor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @billing.invoices.each do |invoice| %>
+      <table>
+        <caption>Histórico de Pagamentos</caption>
+        <thead>
           <tr>
-            <td><%= invoice_status_tag invoice.status %></td>
-            <td><%= l invoice.due_date.to_date %></td>
-            <td><%= invoice.total %></td>
+            <th>Situação</th>
+            <th>Vencimento</th>
+            <th>Valor</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          <% @billing.subscription.recent_invoices.each do |invoice| %>
+            <tr>
+              <td><%= invoice_status_tag invoice['status'] %></td>
+              <td><%= l invoice['due_date'].to_date %></td>
+              <td><%= invoice['total'] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>

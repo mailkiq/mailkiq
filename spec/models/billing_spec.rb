@@ -18,6 +18,18 @@ describe Billing, type: :model do
       subscription = subject.subscription
       expect(subscription.plan_identifier).to eq('essentials_plan')
       expect(subscription.id).to eq(account.iugu_subscription_id)
+      expect(subscription.expires_at.to_time).to eq(account.expires_at)
+    end
+  end
+
+  describe '#plan_credits' do
+    it 'gets number of available credits of associated plan' do
+      expect(subject)
+        .to receive_message_chain(:subscription, :attributes, :dig)
+        .with('features', 'emails', 'value')
+        .and_return(10)
+
+      expect(subject.plan_credits).to eq(10)
     end
   end
 

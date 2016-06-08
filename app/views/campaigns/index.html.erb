@@ -38,7 +38,7 @@
         </td>
         <td>
           <% if campaign.sent_at? %>
-            <%= time_tag campaign.sent_at, format: :short %>
+            <%= time_tag campaign.sent_at.to_date, format: :short %>
           <% else %>
             -
           <% end %>

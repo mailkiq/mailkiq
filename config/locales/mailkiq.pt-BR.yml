@@ -83,6 +83,8 @@ pt-BR:
   devise:
     sessions:
       new:
+        sign_up: "Crie sua conta"
+        sign_up_hint: "Não tem uma conta?"
         forgot_password: "Esqueceu a senha?"
     passwords:
       new:
@@ -92,5 +94,5 @@ pt-BR:
       edit:
         your_profile: "Perfil"
         billing: "Cobranças"
-        save_changes: 'Salvar Alterações'
-        update_password: 'Atualizar Senha'
+        save_changes: "Salvar Alterações"
+        update_password: "Atualizar Senha"

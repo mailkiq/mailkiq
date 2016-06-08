@@ -30,7 +30,7 @@
 
     <% unless @tags.any? %>
       <tr>
-        <td colspan="3"><%= t '.no_tags' %></td>
+        <td colspan="4"><%= t '.no_tags' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,7 +38,7 @@
   <% if @tags.any? %>
     <tfoot>
       <tr>
-        <td colspan="3"><%= paginate @tags %></td>
+        <td colspan="4"><%= paginate @tags %></td>
       </tr>
     </tfoot>
   <% end %>

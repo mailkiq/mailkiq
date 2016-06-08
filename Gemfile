@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 gem 'rails', '4.2.6'
-gem 'aasm'
+gem 'aasm', require: false
 gem 'active_model_serializers'
 gem 'addressable', require: false
 gem 'aws-sdk', '~> 2'

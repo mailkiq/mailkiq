@@ -15,6 +15,10 @@ class Billing
     @subscription ||= Iugu::Subscription.fetch @account.iugu_subscription_id
   end
 
+  def plan_credits
+    subscription.attributes.dig('features', 'emails', 'value')
+  end
+
   def customer
     Iugu::Customer.fetch @account.iugu_customer_id
   end
@@ -30,8 +34,10 @@ class Billing
   private
 
   def create_customer
-    new_customer = Iugu::Customer.create \
-      name: @account.name, email: @account.email
+    new_customer = Iugu::Customer.create(
+      name: @account.name,
+      email: @account.email
+    )
 
     @account.update! iugu_customer_id: new_customer.id
   end
@@ -43,9 +49,11 @@ class Billing
       only_on_charge_success: true
     )
 
-    unless new_subscription.errors
-      @account.update! iugu_subscription_id: new_subscription.id
-    end
+    return if new_subscription.errors
+
+    @account.iugu_subscription_id = new_subscription.id
+    @account.expires_at = new_subscription.expires_at
+    @account.save
   end
 
   def create_payment_method

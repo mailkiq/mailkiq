@@ -1,7 +1,6 @@
 class App.Registrations.New
   constructor: ->
     Iugu.setAccountID 'a63f657b-a787-4ac0-8e39-1b06e869dea5'
-    Iugu.setTestMode true
 
   initializeEvents: ->
     $('.credit_card_number').keyup(@onKeyUp)
@@ -19,6 +18,8 @@ class App.Registrations.New
 
   onSubmit: (ev) ->
     form = $(this).get(0)
+    submitButton = $(this).find(':submit')
+    submitButton.prop('disabled', true)
 
     if not $('.usable-creditcard-form').length
       return form.submit()
@@ -26,7 +27,8 @@ class App.Registrations.New
     Iugu.createPaymentToken this, (response) ->
       console.log(response) if console
       if response.errors
-        alert("Erro na Cobrança. Verifique os dados do cartão de crédito.")
+        alert('Erro na Cobrança. Verifique os dados do cartão de crédito.')
+        submitButton.prop('disabled', false)
       else
         $('#account_credit_card_token').val(response.id)
         form.submit()
@@ -37,13 +39,13 @@ class App.Registrations.New
     number = $(this).val()
     number = number.replace(/\ /g, '')
     number = number.replace(/\-/g, '')
-
-    $('.new_account').removeClass('visa')
-    $('.new_account').removeClass('mastercard')
-    $('.new_account').removeClass('amex')
-    $('.new_account').removeClass('diners')
-
     brand = Iugu.utils.getBrandByCreditCardNumber(number)
+
+    $('.new_account')
+      .removeClass('visa')
+      .removeClass('mastercard')
+      .removeClass('amex')
+      .removeClass('diners')
 
     if brand
       $('.new_account').addClass(brand)

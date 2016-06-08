@@ -104,7 +104,8 @@ CREATE TABLE accounts (
     aws_queue_url character varying,
     used_credits integer DEFAULT 0 NOT NULL,
     iugu_subscription_id uuid,
-    iugu_customer_id uuid
+    iugu_customer_id uuid,
+    expires_at timestamp without time zone
 );
 
 
@@ -844,4 +845,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160604154720');
 INSERT INTO schema_migrations (version) VALUES ('20160604162650');
 
 INSERT INTO schema_migrations (version) VALUES ('20160604163301');
+
+INSERT INTO schema_migrations (version) VALUES ('20160607201224');
 

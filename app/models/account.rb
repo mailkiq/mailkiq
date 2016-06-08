@@ -1,5 +1,4 @@
 class Account < ActiveRecord::Base
-  include AASM
   include Person
 
   LANGUAGES = %w(en pt-BR).freeze
@@ -40,6 +39,10 @@ class Account < ActiveRecord::Base
     end
   end
 
+  def expired?
+    expires_at < Time.now
+  end
+
   def remember_me
     true
   end
@@ -65,6 +68,10 @@ class Account < ActiveRecord::Base
     options[:secret_access_key] = aws_secret_access_key
     options[:stub_responses] = true if Rails.env.test?
     options
+  end
+
+  def iugu?
+    iugu_customer_id? && iugu_subscription_id?
   end
 
   private

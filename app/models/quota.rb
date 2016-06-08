@@ -5,16 +5,16 @@ class Quota
     @ses = Aws::SES::Client.new(@account.aws_options)
   end
 
-  def plan_credits
-    @billing.subscription.attributes.dig('features', 'emails', 'value')
-  end
-
   def remaining
-    plan_credits - @account.used_credits
+    @billing.plan_credits - @account.used_credits
   end
 
   def exceed?(value)
-    remaining < value
+    if @account.iugu?
+      remaining < value
+    else
+      false
+    end
   end
 
   def send_quota

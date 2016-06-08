@@ -1,5 +1,10 @@
 <% content_for :javascripts do %>
   <%= javascript_include_tag 'https://js.iugu.com/v2' %>
+  <%= javascript_tag do %>
+    $(function(){
+      Iugu.setTestMode(true);
+    });
+  <% end unless Rails.env.production? %>
 <% end %>
 
 <%= render 'shared/flashes', hide_close: true %>
@@ -10,8 +15,8 @@
     <%= f.input :email, as: :email %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
-    <%= f.input :credit_card_token, as: :hidden %>
     <%= f.input :plan, as: :hidden, input_html: { value: resource.plan || params[:plan] } %>
+    <%= f.input :credit_card_token, as: :hidden %>
 
     <% if resource.credit_card_token.blank? %>
       <div class="usable-creditcard-form">

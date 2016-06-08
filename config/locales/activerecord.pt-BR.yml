@@ -5,6 +5,7 @@ pt-BR:
       subscriber: "Assinante"
       automation: "Automação"
       account: "Conta"
+      domain:  "Domínio"
     errors:
       models:
         account:
@@ -15,10 +16,4 @@ pt-BR:
           unverified_email_address: "não verificado"
           unverified_domain: "domínio não verificado"
           unstructured_from: "contém carácteres inválidos"
-  activemodel:
-    errors:
-      models:
-        delivery:
-          attributes:
-            base:
-              quota_exceeded: "Créditos insuficientes"
+          quota_exceeded: "Créditos insuficientes"

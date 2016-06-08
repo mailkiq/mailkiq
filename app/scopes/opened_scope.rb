@@ -1,7 +1,12 @@
-class OpenedScope < Scope
+class OpenedScope
+  def initialize(relation, campaign)
+    @relation = relation
+    @campaign = campaign
+  end
+
   def call
-    tagged_campaigns = pluck_campaign_ids @tagged_with
-    untagged_campaigns = pluck_campaign_ids @not_tagged_with
+    tagged_campaigns = pluck_campaign_ids @campaign.tagged_with
+    untagged_campaigns = pluck_campaign_ids @campaign.not_tagged_with
 
     return if tagged_campaigns.blank? && untagged_campaigns.blank?
 
@@ -29,6 +34,7 @@ class OpenedScope < Scope
   end
 
   def pluck_campaign_ids(tags)
+    return nil unless tags.is_a? Array
     names = tags.map { |tag_name| tag_name.match(/Opened (.*)/).try :[], 1 }
     names.compact!
     Campaign.where(name: names).pluck(:id) if names.any?

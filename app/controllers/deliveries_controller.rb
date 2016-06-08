@@ -3,20 +3,19 @@ class DeliveriesController < ApplicationController
   before_action :set_campaign
 
   def new
-    @delivery = Delivery.new campaign: @campaign
+    @delivery = Delivery.new @campaign
   end
 
   def create
-    @delivery = Delivery.new deliver_params
-    @delivery.campaign = @campaign
-    @delivery.save
+    @delivery = Delivery.new @campaign
+    @delivery.call campaign_params
     respond_with @delivery, location: campaign_path(@campaign)
   end
 
   private
 
-  def deliver_params
-    params.require(:delivery).permit tagged_with: [], not_tagged_with: []
+  def campaign_params
+    params.require(:campaign).permit tagged_with: [], not_tagged_with: []
   end
 
   def set_campaign

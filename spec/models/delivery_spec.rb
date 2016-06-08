@@ -1,38 +1,23 @@
 require 'rails_helper'
 
 describe Delivery, type: :model do
-  it { is_expected.to have_attr_accessor :campaign }
-  it { is_expected.to have_attr_accessor :tagged_with }
-  it { is_expected.to have_attr_accessor :not_tagged_with }
+  let(:campaign) { Fabricate.build :campaign_with_account, id: 10 }
 
-  it { is_expected.to delegate_method(:account).to(:campaign) }
-  it { is_expected.to delegate_method(:quota_exceed?).to(:account) }
-
-  it { expect(described_class.ancestors).to include ActiveModel::Model }
-  it { expect(Delivery::QUERIES).to eq([OpenedScope, TagScope]) }
-
-  subject { Fabricate.build :delivery }
+  subject { described_class.new campaign }
 
   before do
-    allow(subject).to receive(:validate_enough_credits).and_return(true)
-    subject.campaign.account.id = 10
+    allow(campaign.account).to receive(:quota_exceed?).and_return(false)
+    allow_any_instance_of(DomainValidator).to receive(:validate_each)
+      .and_return(true)
   end
 
-  describe '#initialize' do
-    it 'coerses string to array' do
-      subject.tagged_with = 'blah'
-      subject.not_tagged_with = 'blah b'
-      expect(subject.tagged_with).to eq(['blah'])
-      expect(subject.not_tagged_with).to eq(['blah b'])
-    end
-  end
+  it { expect(Delivery::SCOPES).to eq([OpenedScope, TagScope]) }
 
-  describe '#save' do
+  describe '#call' do
     it 'enqueues delivery job' do
-      expect(DeliveryJob).to receive(:enqueue)
-        .with(subject.campaign.id, subject.tagged_with, subject.not_tagged_with)
-
-      subject.save
+      expect(campaign).to receive(:update).and_return(true)
+      expect(DeliveryJob).to receive(:enqueue).with(campaign.id)
+      subject.call
     end
   end
 
@@ -40,7 +25,7 @@ describe Delivery, type: :model do
     it 'inserts jobs to the queue table' do
       expect(subject).to receive_message_chain(:chain_queries, :to_sql)
       expect(QueJob).to receive(:push_bulk)
-        .with(anything, subject.campaign.id)
+        .with(anything, campaign.id)
         .and_return(true)
 
       subject.deliver!
@@ -49,11 +34,11 @@ describe Delivery, type: :model do
 
   describe '#opened_campaign_names' do
     it 'returns opened campaign names' do
-      expect(subject.account)
+      expect(campaign.account)
         .to receive_message_chain(:campaigns, :sent, :pluck)
         .and_return(['Blah'])
 
-      expect(subject.opened_campaign_names).to eq(['Opened Blah'])
+      expect(subject.send(:opened_campaign_names)).to eq(['Opened Blah'])
     end
   end
 
@@ -61,7 +46,7 @@ describe Delivery, type: :model do
     it 'returns segmentation tags' do
       tag = Fabricate.build(:tag)
 
-      expect(subject.account).to receive(:tags).and_return([tag])
+      expect(campaign.account).to receive(:tags).and_return([tag])
       expect(subject).to receive(:opened_campaign_names)
         .and_return(['Opened The Truth About Wheat'])
 
@@ -75,13 +60,12 @@ describe Delivery, type: :model do
       relation = double('relation')
 
       expect(Subscriber).to receive_message_chain(:activated, :where)
-        .with(account_id: 10)
+        .with(account_id: campaign.account_id)
         .and_return(relation)
 
-      Delivery::QUERIES.each do |klass|
+      Delivery::SCOPES.each do |klass|
         expect_any_instance_of(klass).to receive(:call)
-        expect(klass).to receive(:new)
-          .with(relation, subject.tagged_with, subject.not_tagged_with)
+        expect(klass).to receive(:new).with(relation, campaign)
           .and_call_original
       end
 

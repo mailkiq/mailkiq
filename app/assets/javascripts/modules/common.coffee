@@ -1,8 +1,8 @@
 class App.Common
   chosenSelector: [
     '#subscriber_tag_ids',
-    '#delivery_tagged_with',
-    '#delivery_not_tagged_with'
+    '#campaign_tagged_with',
+    '#campaign_not_tagged_with'
   ].join(', ')
 
   closeClick: (ev) ->

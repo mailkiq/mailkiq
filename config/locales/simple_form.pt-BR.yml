@@ -11,6 +11,8 @@ pt-BR:
     labels:
       import:
         file: 'Subir arquivo'
+      tag:
+        name: 'Nome'
       campaign:
         name: 'Nome'
         subject: 'Assunto'
@@ -18,6 +20,10 @@ pt-BR:
         from_email: 'Email do Remetente'
         html_text: 'HTML'
         plain_text: 'Texto'
+        tagged_with: 'Marcado com'
+        not_tagged_with: 'Não marcado com'
+      domain:
+        name: 'Nome do domínio'
       subscriber:
         name: 'Nome'
         state: 'Status'

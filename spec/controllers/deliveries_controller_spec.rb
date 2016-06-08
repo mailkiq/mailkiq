@@ -6,8 +6,7 @@ describe DeliveriesController, type: :controller do
     let(:campaign) { Fabricate.build :campaign, account: account, id: 10 }
 
     before do
-      allow_any_instance_of(Delivery).to receive(:validate_enough_credits)
-      allow_any_instance_of(Delivery).to receive(:save)
+      allow_any_instance_of(Delivery).to receive(:chain_queries).and_return([])
       allow(account).to receive_message_chain(:campaigns, :unsent, :find)
         .and_return(campaign)
 
@@ -27,7 +26,7 @@ describe DeliveriesController, type: :controller do
       let(:params) do
         {
           campaign_id: campaign.id,
-          delivery: {
+          campaign: {
             tagged_with: ['das'],
             not_tagged_with: ['dsa']
           }
@@ -44,7 +43,7 @@ describe DeliveriesController, type: :controller do
       it do
         is_expected.to permit(tagged_with: [], not_tagged_with: [])
           .for(:create, params: params)
-          .on(:delivery)
+          .on(:campaign)
       end
     end
   end

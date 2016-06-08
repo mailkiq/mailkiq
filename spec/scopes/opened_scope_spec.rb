@@ -3,9 +3,10 @@ require 'rails_helper'
 describe OpenedScope do
   describe '#call' do
     it 'fetches subscribers that opened a given campaign' do
-      scope = described_class.new Subscriber.where(nil), nil, nil
+      campaign = Fabricate.build :campaign
+      scope = described_class.new Subscriber.where(nil), campaign
 
-      expect(scope).to receive(:pluck_campaign_ids).with([])
+      expect(scope).to receive(:pluck_campaign_ids).with(nil)
         .at_least(:once)
         .and_return([1, 2])
 

@@ -8,15 +8,7 @@ describe Quota, type: :model do
   subject { described_class.new account }
 
   before do
-    allow(billing).to receive_message_chain(:subscription, :attributes, :dig)
-      .with('features', 'emails', 'value')
-      .and_return(10)
-  end
-
-  describe '#plan_credits' do
-    it 'returns plan credits from subscription features' do
-      expect(subject.plan_credits).to eq(10)
-    end
+    allow(billing).to receive(:plan_credits).and_return(10)
   end
 
   describe '#remaining' do
@@ -27,6 +19,8 @@ describe Quota, type: :model do
 
   describe '#exceed?' do
     it 'checks if account has enough credits with the given value' do
+      account.iugu_customer_id = SecureRandom.uuid
+      account.iugu_subscription_id = SecureRandom.uuid
       expect(subject).to be_exceed(6)
       expect(subject).not_to be_exceed(5)
     end

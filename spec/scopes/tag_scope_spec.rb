@@ -3,9 +3,10 @@ require 'rails_helper'
 describe TagScope do
   describe '#call' do
     it 'fetches subscribers that has specified tags' do
-      scope = described_class.new Subscriber.where(nil), nil, nil
+      campaign = Fabricate.build :campaign
+      scope = described_class.new Subscriber.where(nil), campaign
 
-      expect(scope).to receive(:pluck_tag_ids).with([])
+      expect(scope).to receive(:pluck_tag_ids).with(nil)
         .at_least(:once)
         .and_return([1, 2])
 

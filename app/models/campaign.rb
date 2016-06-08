@@ -24,6 +24,8 @@ class Campaign < ActiveRecord::Base
   delegate :aws_options, :domain_names, to: :account, prefix: true,
                                         allow_nil: true
 
+  store_accessor :send_settings, :tagged_with, :not_tagged_with
+
   strip_attributes only: [:name, :subject, :from_name, :from_email]
 
   def messages_count

@@ -10,7 +10,7 @@ describe CampaignPresenter do
 
   describe '#estimated_time' do
     it 'calculates the estimated time to send all recipients' do
-      ses = campaign.account.quota.instance_variable_get :@ses
+      ses = subject.quota.instance_variable_get :@ses
       ses.stub_responses :get_send_quota, max_send_rate: 14.0
       expect(subject.estimated_time).to eq('about 12 hours')
     end
@@ -57,7 +57,7 @@ describe CampaignPresenter do
 
   describe '#long_sent_at' do
     it 'returns friendly time description' do
-      ses = campaign.account.quota.instance_variable_get :@ses
+      ses = subject.quota.instance_variable_get :@ses
       ses.stub_responses :get_send_quota, max_send_rate: 14.0
 
       expect(subject.long_sent_at)

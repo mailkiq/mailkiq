@@ -3,21 +3,28 @@ class Delivery
 
   def initialize(campaign)
     @campaign = campaign
+    @quota = Quota.new @campaign.account
   end
 
   def tags
     @campaign.account.tags.map(&:name) + opened_campaign_names
   end
 
-  def call(params = {})
-    return false unless @campaign.valid?
+  def valid?
+    !@campaign.account_expired? && @campaign.valid? &&
+      !@quota.exceed?(chain_queries.count)
+  end
 
-    if @campaign.account.quota_exceed? chain_queries.count
-      @campaign.errors.add :base, :quota_exceeded
-      return false
+  def call(params = {})
+    @campaign.assign_attributes(params)
+
+    if valid?
+      @campaign.save!
+      DeliveryJob.enqueue @campaign.id
+      return true
     end
 
-    DeliveryJob.enqueue @campaign.id if @campaign.update params
+    false
   end
 
   def deliver!

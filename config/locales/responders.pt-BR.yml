@@ -6,6 +6,7 @@ pt-BR:
         alert: "Preencha todos os campos corretamente."
       update:
         notice: "%{resource_name} foi atualizado com sucesso."
+        alert: "%{resource_name} não pode ser atualizado."
       destroy:
         notice: "%{resource_name} foi removido com sucesso."
         alert: "%{resource_name} não pode ser removido."
@@ -19,3 +20,7 @@ pt-BR:
     leads:
       create:
         notice: "Sua inscrição foi confirmada. Em breve você receberá mais novidades deste incrível lançamento."
+    deliveries:
+      create:
+        notice: "Envio de campanha processado com succeso."
+        alert: "Sua conta expirou ou seus créditos são insuficientes."

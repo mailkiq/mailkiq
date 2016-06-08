@@ -5,7 +5,7 @@ namespace :sqs do
 
     Concurrent.use_stdlib_logger Logger::DEBUG, $stdout
 
-    accounts = Account.active.all
+    accounts = Account.activated.all
     accounts.each(&:readonly!)
 
     pool = Concurrent::ThreadPoolExecutor.new(

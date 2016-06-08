@@ -6,16 +6,37 @@ describe Delivery, type: :model do
   subject { described_class.new campaign }
 
   before do
-    allow(campaign.account).to receive(:quota_exceed?).and_return(false)
+    allow_any_instance_of(Quota).to receive(:exceed?).and_return(false)
     allow_any_instance_of(DomainValidator).to receive(:validate_each)
       .and_return(true)
   end
 
   it { expect(Delivery::SCOPES).to eq([OpenedScope, TagScope]) }
 
+  describe '#tags' do
+    it 'returns segmentation tags' do
+      tag = Fabricate.build(:tag)
+
+      expect(campaign.account).to receive(:tags).and_return([tag])
+      expect(subject).to receive(:opened_campaign_names)
+        .and_return(['Opened The Truth About Wheat'])
+
+      expect(subject.tags)
+        .to eq(['Mulherada A', 'Opened The Truth About Wheat'])
+    end
+  end
+
+  describe '#valid?' do
+    it 'checks account expiration date and credit limits' do
+      expect(campaign).to receive(:account_expired?).and_call_original
+      expect(campaign).to receive(:valid?).and_call_original
+      expect(subject).to be_valid
+    end
+  end
+
   describe '#call' do
     it 'enqueues delivery job' do
-      expect(campaign).to receive(:update).and_return(true)
+      expect(campaign).to receive(:save!)
       expect(DeliveryJob).to receive(:enqueue).with(campaign.id)
       subject.call
     end
@@ -29,29 +50,6 @@ describe Delivery, type: :model do
         .and_return(true)
 
       subject.deliver!
-    end
-  end
-
-  describe '#opened_campaign_names' do
-    it 'returns opened campaign names' do
-      expect(campaign.account)
-        .to receive_message_chain(:campaigns, :sent, :pluck)
-        .and_return(['Blah'])
-
-      expect(subject.send(:opened_campaign_names)).to eq(['Opened Blah'])
-    end
-  end
-
-  describe '#tags' do
-    it 'returns segmentation tags' do
-      tag = Fabricate.build(:tag)
-
-      expect(campaign.account).to receive(:tags).and_return([tag])
-      expect(subject).to receive(:opened_campaign_names)
-        .and_return(['Opened The Truth About Wheat'])
-
-      expect(subject.tags)
-        .to eq(['Mulherada A', 'Opened The Truth About Wheat'])
     end
   end
 

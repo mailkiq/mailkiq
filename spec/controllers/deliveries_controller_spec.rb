@@ -9,12 +9,13 @@ describe DeliveriesController, type: :controller do
       allow_any_instance_of(Delivery).to receive(:chain_queries).and_return([])
       allow(account).to receive_message_chain(:campaigns, :unsent, :find)
         .and_return(campaign)
-
-      sign_in account
     end
 
     describe '#new' do
-      before { get :new, campaign_id: campaign.id }
+      before do
+        sign_in account
+        get :new, campaign_id: campaign.id
+      end
 
       it { is_expected.to respond_with :success }
       it { is_expected.to use_before_action :authenticate_account! }
@@ -33,17 +34,37 @@ describe DeliveriesController, type: :controller do
         }
       end
 
-      before { post :create, params }
+      context 'with valid params' do
+        before do
+          allow_any_instance_of(Delivery).to receive(:call).and_return(true)
+          sign_in account
+          post :create, params
+        end
 
-      it { is_expected.to use_before_action :authenticate_account! }
-      it { is_expected.to use_before_action :set_campaign }
-      it { is_expected.to respond_with :redirect }
-      it { is_expected.to redirect_to campaign_path(campaign) }
-      it { is_expected.to set_flash[:notice] }
-      it do
-        is_expected.to permit(tagged_with: [], not_tagged_with: [])
-          .for(:create, params: params)
-          .on(:campaign)
+        it { is_expected.to use_before_action :authenticate_account! }
+        it { is_expected.to use_before_action :set_campaign }
+        it { is_expected.to respond_with :redirect }
+        it { is_expected.to redirect_to campaign_path(campaign) }
+        it { is_expected.to set_flash[:notice] }
+        it do
+          is_expected.to permit(tagged_with: [], not_tagged_with: [])
+            .for(:create, params: params)
+            .on(:campaign)
+        end
+      end
+
+      context 'with expired account' do
+        before do
+          account.expires_at = 1.day.ago
+          sign_in account
+          post :create, params
+        end
+
+        it { is_expected.to use_before_action :authenticate_account! }
+        it { is_expected.to use_before_action :set_campaign }
+        it { is_expected.to respond_with :success }
+        it { is_expected.to render_template :new }
+        it { is_expected.to set_flash[:alert] }
       end
     end
   end

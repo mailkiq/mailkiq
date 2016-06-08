@@ -21,20 +21,19 @@ describe Account, type: :model do
   it { is_expected.to have_many :tags }
   it { is_expected.to have_many :automations }
 
-  it { is_expected.to delegate_method(:domain_names).to(:domains) }
-  it { is_expected.to delegate_method(:remaining).to(:quota).with_prefix }
-  it { is_expected.to delegate_method(:exceed?).to(:quota).with_prefix }
-
   it { is_expected.to have_attr_accessor :force_password_validation }
   it { is_expected.to have_attr_accessor :force_plan_validation }
   it { is_expected.to have_attr_accessor :credit_card_token }
   it { is_expected.to have_attr_accessor :plan }
+
+  it { is_expected.to delegate_method(:domain_names).to(:domains) }
 
   describe '.new_with_session' do
     it 'sets default values for new accounts' do
       account = described_class.new_with_session({}, {})
       secrets = Rails.application.secrets
 
+      expect(account.force_plan_validation).to be_truthy
       expect(account.language).to eq('pt-BR')
       expect(account.time_zone).to eq('Brasilia')
       expect(account.aws_access_key_id).to eq(secrets[:aws_access_key_id])
@@ -52,6 +51,9 @@ describe Account, type: :model do
       expect(subject).to be_expired
 
       subject.expires_at = Time.now + 1.day
+      expect(subject).not_to be_expired
+
+      subject.expires_at = nil
       expect(subject).not_to be_expired
     end
   end

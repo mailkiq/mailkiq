@@ -8,8 +8,14 @@ class DeliveriesController < ApplicationController
 
   def create
     @delivery = Delivery.new @campaign
-    @delivery.call campaign_params
-    respond_with @delivery, location: campaign_path(@campaign)
+
+    if @delivery.call campaign_params
+      flash[:notice] = t('flash.deliveries.create.notice')
+      redirect_to campaign_path(@campaign)
+    else
+      flash[:alert] = t('flash.deliveries.create.alert')
+      render :new
+    end
   end
 
   private

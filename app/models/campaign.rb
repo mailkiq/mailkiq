@@ -21,8 +21,8 @@ class Campaign < ActiveRecord::Base
   scope :unsent, -> { where sent_at: nil }
   scope :recent, -> { order created_at: :desc }
 
-  delegate :aws_options, :domain_names, to: :account, prefix: true,
-                                        allow_nil: true
+  delegate :aws_options, :domain_names, :expired?,
+           to: :account, prefix: true, allow_nil: true
 
   store_accessor :send_settings, :tagged_with, :not_tagged_with
 

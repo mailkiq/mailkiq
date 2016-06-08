@@ -18,7 +18,6 @@ class Account < ActiveRecord::Base
   has_many :automations
 
   delegate :domain_names, to: :domains
-  delegate :remaining, :exceed?, to: :quota, prefix: true
 
   attr_accessor :force_password_validation, :force_plan_validation,
                 :credit_card_token, :plan
@@ -26,7 +25,7 @@ class Account < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable
 
-  scope :active, -> { where.not aws_queue_url: nil, aws_topic_arn: nil }
+  scope :activated, -> { where.not aws_queue_url: nil, aws_topic_arn: nil }
 
   def self.new_with_session(params, session)
     super.tap do |account|
@@ -40,7 +39,7 @@ class Account < ActiveRecord::Base
   end
 
   def expired?
-    expires_at < Time.now
+    expires_at? ? expires_at < Time.now : false
   end
 
   def remember_me
@@ -49,10 +48,6 @@ class Account < ActiveRecord::Base
 
   def password_required?
     @force_password_validation || super
-  end
-
-  def quota
-    @quota ||= Quota.new(self)
   end
 
   def tied_to_mailkiq?

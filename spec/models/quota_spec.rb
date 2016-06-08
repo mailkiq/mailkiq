@@ -42,7 +42,9 @@ describe Quota, type: :model do
 
       ses.stub_responses :get_send_statistics, send_statistics
 
-      expect(subject.send_statistics.sample[:timestamp]).to be_instance_of Date
+      timestamp = subject.send_statistics.sample[:timestamp]
+
+      expect(timestamp).to be_instance_of Date
     end
   end
 end

@@ -8,7 +8,7 @@ describe QuotaPresenter do
   end
 
   before do
-    ses = subject.model.quota.instance_variable_get :@ses
+    ses = subject.quota.instance_variable_get :@ses
     ses.stub_responses :get_send_quota,
                        max_24_hour_send: 50_000.0,
                        max_send_rate: 14.0,
@@ -59,7 +59,7 @@ describe QuotaPresenter do
 
   describe '#send_quota' do
     it 'caches send quota numbers from SES' do
-      expect(subject.model.quota).to receive(:cached).with(:send_quota)
+      expect(subject.quota).to receive(:cached).with(:send_quota)
         .and_call_original
       expect(subject.send_quota).to be_instance_of OpenStruct
     end
@@ -67,7 +67,7 @@ describe QuotaPresenter do
 
   describe '#send_statistics' do
     it 'caches send statistics metrics' do
-      expect(subject.model.quota).to receive(:cached).with(:send_statistics)
+      expect(subject.quota).to receive(:cached).with(:send_statistics)
         .and_call_original
       expect(subject.send_statistics).to be_instance_of Array
     end

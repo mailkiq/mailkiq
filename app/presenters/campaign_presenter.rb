@@ -1,8 +1,12 @@
 class CampaignPresenter < Presenter
   delegate :name, :recipients_count, :to_percentage, to: :model
 
+  def quota
+    @quota ||= Quota.new(model.account)
+  end
+
   def estimated_time
-    send_quota = model.account.quota.cached(:send_quota)
+    send_quota = quota.cached(:send_quota)
     time = model.recipients_count / send_quota.max_send_rate
     distance_of_time_in_words(model.sent_at, model.sent_at + time)
   end

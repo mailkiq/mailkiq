@@ -33,6 +33,7 @@ describe Campaign, type: :model do
 
   it { is_expected.to delegate_method(:aws_options).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
+  it { is_expected.to delegate_method(:expired?).to(:account).with_prefix }
   it { is_expected.to delegate_method(:count).to(:messages).with_prefix }
 
   it { is_expected.to strip_attribute :name }

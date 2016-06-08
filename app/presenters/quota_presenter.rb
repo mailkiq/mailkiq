@@ -3,6 +3,10 @@ class QuotaPresenter < Presenter
   delegate :sent_last_24_hours, to: :send_quota
   delegate :max_send_rate, to: :send_quota
 
+  def quota
+    @quota ||= Quota.new(model)
+  end
+
   def sandbox?
     max_24_hour_send == 200
   end
@@ -22,10 +26,10 @@ class QuotaPresenter < Presenter
   end
 
   def send_quota
-    model.quota.cached(:send_quota)
+    quota.cached(:send_quota)
   end
 
   def send_statistics
-    model.quota.cached(:send_statistics)
+    quota.cached(:send_statistics)
   end
 end

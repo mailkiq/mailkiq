@@ -16,7 +16,15 @@ module API
       include ActionController::Rescue
       include ActionController::Instrumentation
 
+      rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
+
       protected
+
+      def record_not_unique(exception)
+        Raven.capture_exception(exception)
+        message = 'Email address already exists'
+        render json: { message: message }, status: :unprocessable_entity
+      end
 
       def current_account
         @current_account ||= Account.find_by api_key: params[:api_key]

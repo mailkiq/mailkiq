@@ -31,9 +31,9 @@
         <td><%= campaign_status_tag automation.state %></td>
         <td class="actions">
           <% if automation.paused? %>
-            <%= icon_link_to :play, resume_automation_path(automation), method: :post %>
+            <%= icon_link_to :play, resume_automation_path(automation), method: :patch %>
           <% else %>
-            <%= icon_link_to :pause, pause_automation_path(automation), method: :post %>
+            <%= icon_link_to :pause, pause_automation_path(automation), method: :patch %>
           <% end %>
 
           <%= icon_link_to :pen, edit_automation_path(automation) %>

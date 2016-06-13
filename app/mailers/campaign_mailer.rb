@@ -13,6 +13,7 @@ class CampaignMailer
     MailerProcessor.new(self).transform!
     response = send_raw_email(mail)
     create_message! response.message_id
+    @campaign.increment! :recipients_count if @campaign.is_a? Automation
     mail
   end
 

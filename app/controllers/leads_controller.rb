@@ -2,8 +2,7 @@ class LeadsController < ApplicationController
   before_action :set_account
 
   def create
-    @subscriber = @account.subscribers.build lead_params
-    @subscriber.save
+    @subscriber = @account.subscribers.find_or_create_by lead_params
     respond_with @subscriber, flash_now: false do |format|
       format.html { redirect_to root_path }
     end

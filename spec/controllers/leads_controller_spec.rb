@@ -8,9 +8,8 @@ describe LeadsController, type: :controller do
     end
 
     before do
-      allow_any_instance_of(Subscriber).to receive(:save) do |model|
-        model.run_callbacks :create
-      end
+      expect(account.subscribers).to receive(:find_or_create_by)
+        .at_least(:once) { |params| account.subscribers.build params }
 
       expect(Account).to receive(:find_by)
         .with(email: 'rainerborene@gmail.com')

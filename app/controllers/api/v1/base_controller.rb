@@ -21,7 +21,7 @@ module API
       protected
 
       def record_not_unique(exception)
-        Raven.capture_exception(exception)
+        Appsignal.add_exception(exception)
         message = 'Email address already exists'
         render json: { message: message }, status: :unprocessable_entity
       end
@@ -36,7 +36,7 @@ module API
 
       def authenticate!
         if account_signed_in?
-          Raven.user_context current_account.slice(:id, :name, :email)
+          Appsignal.tag_request current_account.slice(:id, :name, :email)
         else
           render json: { message: 'Bad credentials' }, status: :unauthorized
         end

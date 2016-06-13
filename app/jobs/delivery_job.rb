@@ -1,4 +1,4 @@
-class DeliveryJob < Que::Job
+class DeliveryJob < ApplicationJob
   @retry_interval = proc { 1.year.to_i }
   @priority = 1
 

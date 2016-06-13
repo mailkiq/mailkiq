@@ -14,7 +14,8 @@ describe CampaignJob do
       exception = Aws::SES::Errors::InvalidParameterValue.new nil, nil
 
       expect(ActiveRecord::Base).to receive(:transaction).and_raise exception
-      expect(Raven).to receive(:capture_exception).with kind_of(exception.class)
+      expect(Appsignal).to receive(:send_exception)
+        .with kind_of(exception.class)
       expect(Subscriber).to receive_message_chain(:where, :update_all)
         .with state: Subscriber.states[:invalid_email]
       expect { subject._run }.not_to raise_exception
@@ -25,7 +26,7 @@ describe CampaignJob do
 
       expect(ActiveRecord::Base).to receive(:transaction).and_raise exception
       expect(CampaignJob).to receive(:enqueue).with 1, 1
-      expect(Raven).to receive(:capture_exception)
+      expect(Appsignal).to receive(:send_exception)
         .with kind_of(exception.class)
       expect { subject._run }.not_to raise_exception
     end

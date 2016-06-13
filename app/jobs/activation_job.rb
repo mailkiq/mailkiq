@@ -1,4 +1,4 @@
-class ActivationJob < Que::Job
+class ActivationJob < ApplicationJob
   @priority = 1
 
   def run(account_id, method_name)

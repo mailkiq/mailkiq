@@ -27,7 +27,7 @@ describe API::V1::ContactsController, type: :request do
 
       context 'email already exists' do
         it 'raises ActiveRecord::RecordNotUnique exception' do
-          expect(Raven).to receive(:capture_exception)
+          expect(Appsignal).to receive(:add_exception)
 
           expect_any_instance_of(Subscriber).to receive(:save!)
             .and_raise(ActiveRecord::RecordNotUnique, 'duplicate key value')

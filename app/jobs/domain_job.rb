@@ -1,4 +1,4 @@
-class DomainJob < Que::Job
+class DomainJob < ApplicationJob
   @priority = 1
 
   def run(account_id)

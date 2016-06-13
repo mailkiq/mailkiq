@@ -1,4 +1,4 @@
-class CampaignJob < Que::Job
+class CampaignJob < ApplicationJob
   @retry_interval = proc { 1.year.to_i }
 
   def run(campaign_id, subscriber_id)
@@ -10,6 +10,6 @@ class CampaignJob < Que::Job
   rescue Aws::SES::Errors::InvalidParameterValue => exception
     Subscriber.mark_as_invalid_email subscriber_id
   ensure
-    Raven.capture_exception(exception) if exception
+    Appsignal.send_exception(exception) if exception
   end
 end

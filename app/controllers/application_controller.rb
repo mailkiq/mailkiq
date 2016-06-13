@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_raven_context
-    Raven.user_context current_account.slice(:id, :name, :email)
+    Appsignal.tag_request current_account.slice(:id, :name, :email)
   end
 end

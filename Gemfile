@@ -6,6 +6,7 @@ gem 'rails', '4.2.6'
 gem 'aasm', require: false
 gem 'active_model_serializers'
 gem 'addressable', require: false
+gem 'appsignal'
 gem 'aws-sdk', '~> 2'
 gem 'devise'
 gem 'email_validator', require: 'email_validator/strict'
@@ -14,7 +15,6 @@ gem 'iugu'
 gem 'page_meta'
 gem 'puma'
 gem 'rouge', require: false
-gem 'sentry-raven'
 gem 'simple_form'
 gem 'strip_attributes'
 

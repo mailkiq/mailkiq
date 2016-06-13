@@ -31,10 +31,10 @@ describe ApplicationController, type: :controller do
     end
 
     describe '#set_raven_context' do
-      it 'provides additional context to Raven' do
+      it 'provides additional context to Appsignal' do
         sign_in account
 
-        expect(Raven).to receive(:user_context)
+        expect(Appsignal).to receive(:tag_request)
           .with account.slice(:id, :name, :email)
 
         get :index

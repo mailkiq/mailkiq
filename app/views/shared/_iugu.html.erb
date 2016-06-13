@@ -1,0 +1,8 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'https://js.iugu.com/v2' %>
+  <%= javascript_tag do %>
+    $(function(){
+      Iugu.setTestMode(true);
+    });
+  <% end unless Rails.env.production? %>
+<% end %>

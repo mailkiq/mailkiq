@@ -4,10 +4,10 @@ class Billing
   end
 
   def process
-    return false if @account.invalid?
+    return false if invalid?
 
     create_customer if @account.iugu_customer_id.blank?
-    create_payment_method if payment_methods.empty?
+    create_payment_method unless @account.iugu?
     create_subscription if @account.iugu_subscription_id.blank?
   end
 
@@ -31,7 +31,19 @@ class Billing
     Iugu::Invoice.search(customer_id: @account.iugu_customer_id).results
   end
 
+  def plans
+    Iugu::Plan.fetch.results
+  end
+
+  def plan_options
+    plans.map { |plan| [plan.identifier, plan.name] }
+  end
+
   private
+
+  def invalid?
+    @account.invalid? || !@account.credit_card_token || !@account.plan
+  end
 
   def create_customer
     new_customer = Iugu::Customer.create(

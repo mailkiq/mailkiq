@@ -21,6 +21,7 @@ describe Accounts::RegistrationsController, type: :controller do
       post :create, account: params
     end
 
+    it { is_expected.to use_before_action :set_billing }
     it { is_expected.to use_before_action :configure_permitted_parameters }
     it { is_expected.to respond_with :redirect }
     it { is_expected.to redirect_to root_path }

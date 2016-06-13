@@ -3,19 +3,24 @@ module Accounts
     before_action :authenticate_scope!, only: [:edit, :update, :destroy,
                                                :activate, :suspend]
     before_action :configure_permitted_parameters
-    before_action :set_billing, only: [:edit, :update, :activate, :suspend]
+    before_action :set_billing
     layout :pick_layout
 
     def create
       super do |resource|
-        billing = Billing.new(resource)
-        billing.process
+        @billing.process
 
         ActivationJob.enqueue resource.id, :activate if resource.persisted?
 
         if resource.errors.include? :base
           flash[:alert] = resource.errors.full_messages_for(:base).join
         end
+      end
+    end
+
+    def update
+      super do
+        @billing.process
       end
     end
 
@@ -47,7 +52,7 @@ module Accounts
 
       devise_parameter_sanitizer.permit(:account_update) do |account_params|
         account_params.permit :name, :email, :current_password, :password,
-                              :password_confirmation
+                              :password_confirmation, :credit_card_token, :plan
       end
     end
 

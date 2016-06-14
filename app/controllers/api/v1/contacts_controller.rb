@@ -4,18 +4,18 @@ module API
       before_action :authenticate!
 
       def create
-        subscriber = current_account.subscribers.build contact_params
-        subscriber.merge_tags! params[:tag] if params.key? :tag
-        subscriber.save!
-        ConfirmationJob.enqueue(subscriber)
-        render json: subscriber, status: :created
+        prospect = Prospect.new contact_params
+        prospect.save!
+        render json: prospect.model, status: :created
       end
 
       private
 
       def contact_params
-        ActiveModelSerializers::Deserialization.jsonapi_parse \
+        data = ActiveModelSerializers::Deserialization.jsonapi_parse \
           params, only: [:name, :email]
+
+        data.merge! tag: params[:tag], account_id: current_account.id
       end
     end
   end

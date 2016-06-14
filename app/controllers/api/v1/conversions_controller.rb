@@ -4,17 +4,19 @@ module API
       before_action :authenticate!
 
       def create
-        subscriber = current_account.subscribers.build conversion_params
-        subscriber.merge_tags! params[:tag] if params.key? :tag
-        subscriber.save
-        ConfirmationJob.enqueue(subscriber)
+        prospect = Prospect.new conversion_params
+        prospect.save!
         redirect_to params[:redirect_to] || :back
       end
 
       private
 
       def conversion_params
-        { email: params.require(:email) }
+        {
+          tag: params[:tag],
+          email: params.require(:email),
+          account_id: current_account.id
+        }
       end
     end
   end

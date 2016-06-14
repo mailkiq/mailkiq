@@ -8,10 +8,10 @@ describe API::V1::ContactsController, type: :request do
 
       context 'with valid params' do
         it 'inserts a new subscriber on the database' do
-          expect(ConfirmationJob).to receive(:enqueue)
-
-          post api_v1_contacts_path(api_key: account.api_key), params.to_json,
-               'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s
+          expect do
+            post api_v1_contacts_path(api_key: account.api_key), params.to_json,
+                 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s
+          end.to change { account.subscribers.count }.by(1)
 
           json_response = JSON.parse(response.body, symbolize_names: true)
 

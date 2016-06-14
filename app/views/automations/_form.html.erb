@@ -1,3 +1,5 @@
+<%= render 'shared/ckeditor' %>
+
 <h2><%= page_title %></h3>
 
 <%= simple_form_for @automation, html: { class: 'automation-form' } do |f| %>
@@ -14,12 +16,12 @@
 
   <div class="tab-content">
     <div class="tab-pane active" id="html">
-      <%= f.input_field :html_text, rows: 14 %>
+      <%= f.input_field :html_text %>
       <%= f.error :html_text %>
     </div>
 
     <div class="tab-pane" id="text">
-      <%= f.input_field :plain_text, rows: 14 %>
+      <%= f.input_field :plain_text %>
       <%= f.error :plain_text %>
     </div>
   </div>

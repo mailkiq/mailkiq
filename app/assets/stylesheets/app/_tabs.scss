@@ -22,12 +22,13 @@
     @include triangle(14px 7px, $light-gray, up);
     content: '';
     margin-left: 13px;
-    margin-top: -5px;
+    margin-top: -6px;
     position: absolute;
   }
 
   &.next:before {
     margin-left: 69px;
+    margin-top: -5px;
   }
 
   .tab-pane {

@@ -14,14 +14,6 @@
   width: 45px;
 }
 
-.campaign-form {
-  @include clearfix;
-
-  .half:nth-of-type(odd) {
-    margin-right: 20px;
-  }
-}
-
 .metrics {
   @include display(flex);
   margin-bottom: 10px;
@@ -136,5 +128,27 @@
 
   .clicks {
     margin-left: 190px;
+  }
+}
+
+.campaign-form {
+  @include clearfix;
+
+  .half:nth-of-type(odd) {
+    margin-right: 20px;
+  }
+}
+
+#html {
+  min-height: 424px;
+
+  .text {
+    height: 418px;
+  }
+}
+
+#text {
+  &, .text {
+    height: 424px;
   }
 }

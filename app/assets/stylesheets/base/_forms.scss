@@ -88,10 +88,3 @@ select {
   max-width: 100%;
   width: auto;
 }
-
-select:not([multiple]) {
-  @include appearance(none);
-  background: image-url('dropdown-arrow.png') no-repeat;
-  background-position: calc(100% - 16px) 17px;
-  padding: $form-select-padding;
-}

@@ -67,8 +67,22 @@
           style:
             color: '#b3b3b3'
 
+  initializeCkeditor: ->
+    options =
+      allowedContent: true
+      fullPage: true
+      language: 'pt-BR'
+      height: 320
+
+    if $('#campaign_html_text').length
+      CKEDITOR.replace 'campaign_html_text', options
+
+    if $('#automation_html_text').length
+      CKEDITOR.replace 'automation_html_text', options
+
   launch: ->
     @initializeHighcharts()
+    @initializeCkeditor()
 
     [controller_name, action_name] = $('body').data('route').split('#')
     action_name = action_name.capitalize()

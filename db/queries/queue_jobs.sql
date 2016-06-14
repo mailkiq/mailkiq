@@ -3,7 +3,7 @@ WITH seg AS (:with_clause),
     UPDATE campaigns
     SET recipients_count = (SELECT count(*) FROM seg), sent_at = now()
     WHERE id = :campaign_id
-    RETURN *
+    RETURNING *
   ),
   updated_credits AS (
     UPDATE accounts SET used_credits = COALESCE(used_credits, 0) + (SELECT count(*) FROM seg)

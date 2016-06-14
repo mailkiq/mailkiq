@@ -8,11 +8,11 @@ class MailerProcessor
   end
 
   def transform!
-    expand_variables
+    instrument(:expand_variables) { expand_variables }
 
     return unless html_part?
-    track_links
-    track_open
+    instrument(:track_links) { track_links }
+    instrument(:track_open) { track_open }
   end
 
   private
@@ -112,5 +112,9 @@ class MailerProcessor
       part.body.raw_source.gsub!(/%unsubscribe_url%/i, unsubscribe_url)
       part.body.raw_source.gsub!(/%subscribe_url%/i, subscribe_url)
     end
+  end
+
+  def instrument(name, &block)
+    ActiveSupport::Notifications.instrument("#{name}.mailer_processor", &block)
   end
 end

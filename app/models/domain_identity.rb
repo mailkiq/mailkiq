@@ -26,7 +26,8 @@ class DomainIdentity
       @domain.save
     end
 
-    enable_identity_dkim if @domain.dkim_success?
+    enable_identity_dkim if @domain.dkim_success? || @domain.dkim_failed?
+    set_identity_mail_from_domain if @domain.mail_from_failed?
   end
 
   def delete!

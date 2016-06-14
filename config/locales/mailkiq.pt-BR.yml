@@ -37,7 +37,7 @@ pt-BR:
   campaigns:
     index:
       new_campaign: "Nova campanha"
-      campaign: "Campanhas"
+      campaign: "Campanha"
       recipients: "Recipientes"
       sent_at: "Enviado em"
       unique_opens: "Aberturas"

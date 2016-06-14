@@ -2,15 +2,17 @@
 http_interactions:
 - request:
     method: get
-    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/customers/4B5B8522371A467A9937ED95442AAEB9/payment_methods
+    uri: https://api.iugu.com/v1/customers/E89854FBE69A475798D57AF0B8427CB8/payment_methods
     body:
       encoding: UTF-8
-      string: '{"customer_id":"4B5B8522371A467A9937ED95442AAEB9"}'
+      string: '{"customer_id":"E89854FBE69A475798D57AF0B8427CB8"}'
     headers:
       Accept:
       - application/json
       Accept-Encoding:
       - gzip, deflate
+      Authorization:
+      - Basic ZjQxNjljY2JiNjE2NjBjZDhkMDhmMzcwMzcyYzk5OTk6
       Accept-Charset:
       - utf-8
       User-Agent:
@@ -31,9 +33,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jun 2016 18:33:52 GMT
+      - Tue, 14 Jun 2016 20:44:32 GMT
       Etag:
-      - '"bbb353a084559843508c06de46da165c"'
+      - '"8e04816835672ff72c7914399f5c8df8"'
       Server:
       - nginx/1.8.1
       Status:
@@ -43,9 +45,9 @@ http_interactions:
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - f4505b9098634213ce8366a6084bc59f
+      - 58ce35b6ef93d9e9540759563cd5d30f
       X-Runtime:
-      - '0.055438'
+      - '0.032408'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -54,9 +56,9 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '[{"id":"8E1D00274D034AF380AE7F474B134596","description":"Cart\u00e3o
-        de Cr\u00e9dito","item_type":"credit_card","customer_id":"4B5B8522371A467A9937ED95442AAEB9","data":{"brand":"VISA","holder_name":"RAINER
+      string: '[{"id":"D5B57FE76C224B27B0B0B72092E826B5","description":"Cart\u00e3o
+        de Cr\u00e9dito","item_type":"credit_card","customer_id":"E89854FBE69A475798D57AF0B8427CB8","data":{"brand":"VISA","holder_name":"RAINER
         B A MATOS","display_number":"XXXX-XXXX-XXXX-1111"}}]'
     http_version: 
-  recorded_at: Mon, 06 Jun 2016 18:33:44 GMT
+  recorded_at: Tue, 14 Jun 2016 20:44:23 GMT
 recorded_with: VCR 3.0.3

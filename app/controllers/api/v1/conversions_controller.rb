@@ -5,7 +5,7 @@ module API
 
       def create
         prospect = Prospect.new conversion_params
-        prospect.save!
+        prospect.save
         redirect_to params[:redirect_to] || :back
       end
 

@@ -128,6 +128,17 @@ describe DomainIdentity, type: :model do
       expect(domain).to be_dkim_success
       expect(domain).to be_mail_from_success
     end
+
+    it 'retries DKIM and MAIL FROM identification' do
+      expect(domain).to receive(:dkim_success?).and_return(false)
+      expect(domain).to receive(:dkim_failed?).and_return(true)
+      expect(domain).to receive(:mail_from_failed?).and_return(true)
+
+      expect(subject).to receive(:enable_identity_dkim)
+      expect(subject).to receive(:set_identity_mail_from_domain)
+
+      subject.update!
+    end
   end
 
   describe '#delete!' do

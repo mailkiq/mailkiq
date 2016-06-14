@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/customers
+    uri: https://api.iugu.com/v1/customers
     body:
       encoding: UTF-8
       string: '{"name":"Jonh Doe","email":"account0@example.com"}'
@@ -11,6 +11,8 @@ http_interactions:
       - application/json
       Accept-Encoding:
       - gzip, deflate
+      Authorization:
+      - Basic ZjQxNjljY2JiNjE2NjBjZDhkMDhmMzcwMzcyYzk5OTk6
       Accept-Charset:
       - utf-8
       User-Agent:
@@ -31,9 +33,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jun 2016 18:09:49 GMT
+      - Tue, 14 Jun 2016 20:44:24 GMT
       Etag:
-      - '"3295239a00da41358a97872d7da00215"'
+      - '"b3e19e49505af9aac778980d739c35f8"'
       Server:
       - nginx/1.8.1
       Status:
@@ -43,9 +45,9 @@ http_interactions:
       X-Rack-Cache:
       - invalidate, pass
       X-Request-Id:
-      - 8742364594cd17b4404b372f58c072ce
+      - 1aef17560a61ade7fcbd2d3c9a3c6f5e
       X-Runtime:
-      - '0.084590'
+      - '0.082467'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -54,79 +56,24 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"id":"4B5B8522371A467A9937ED95442AAEB9","email":"account0@example.com","name":"Jonh
-        Doe","notes":null,"created_at":"2016-06-06T15:09:49-03:00","updated_at":"2016-06-06T15:09:49-03:00","cc_emails":null,"cpf_cnpj":null,"default_payment_method_id":null,"proxy_payments_from_customer_id":null,"custom_variables":[]}'
+      string: '{"id":"E89854FBE69A475798D57AF0B8427CB8","email":"account0@example.com","name":"Jonh
+        Doe","notes":null,"created_at":"2016-06-14T17:44:24-03:00","updated_at":"2016-06-14T17:44:24-03:00","cc_emails":null,"cpf_cnpj":null,"default_payment_method_id":null,"proxy_payments_from_customer_id":null,"custom_variables":[]}'
     http_version: 
-  recorded_at: Mon, 06 Jun 2016 18:09:46 GMT
-- request:
-    method: get
-    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/customers/4B5B8522371A467A9937ED95442AAEB9/payment_methods
-    body:
-      encoding: UTF-8
-      string: '{"customer_id":"4B5B8522371A467A9937ED95442AAEB9"}'
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Accept-Charset:
-      - utf-8
-      User-Agent:
-      - Iugu RubyLibrary
-      Accept-Language:
-      - pt-br;q=0.9,pt-BR
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '50'
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - must-revalidate, private, max-age=0
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Mon, 06 Jun 2016 18:09:54 GMT
-      Etag:
-      - '"d751713988987e9331980363e24189ce"'
-      Server:
-      - nginx/1.8.1
-      Status:
-      - 200 OK
-      Vary:
-      - Origin
-      X-Rack-Cache:
-      - miss
-      X-Request-Id:
-      - 64211f4d36bd37a77fe2ef87b826c9b7
-      X-Runtime:
-      - '0.036965'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '2'
-      Connection:
-      - keep-alive
-    body:
-      encoding: UTF-8
-      string: "[]"
-    http_version: 
-  recorded_at: Mon, 06 Jun 2016 18:09:47 GMT
+  recorded_at: Tue, 14 Jun 2016 20:44:20 GMT
 - request:
     method: post
-    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/customers/4B5B8522371A467A9937ED95442AAEB9/payment_methods
+    uri: https://api.iugu.com/v1/customers/E89854FBE69A475798D57AF0B8427CB8/payment_methods
     body:
       encoding: UTF-8
-      string: '{"customer_id":"4B5B8522371A467A9937ED95442AAEB9","description":"Cartão
-        de Crédito","token":"924D217C-301D-48BA-B986-080096F1E489","set_as_default":true}'
+      string: '{"customer_id":"E89854FBE69A475798D57AF0B8427CB8","description":"Cartão
+        de Crédito","token":"5E5C5CC5-2412-476E-A8E5-5A50B3B79397","set_as_default":true}'
     headers:
       Accept:
       - application/json
       Accept-Encoding:
       - gzip, deflate
+      Authorization:
+      - Basic ZjQxNjljY2JiNjE2NjBjZDhkMDhmMzcwMzcyYzk5OTk6
       Accept-Charset:
       - utf-8
       User-Agent:
@@ -147,9 +94,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jun 2016 18:09:53 GMT
+      - Tue, 14 Jun 2016 20:44:29 GMT
       Etag:
-      - '"d39964ae4eeb7e59dfb771ea9a4f4e53"'
+      - '"a929ceea1294c876299a3c17a1c6209b"'
       Server:
       - nginx/1.8.1
       Status:
@@ -159,9 +106,9 @@ http_interactions:
       X-Rack-Cache:
       - invalidate, pass
       X-Request-Id:
-      - 8c538d4e0895346852363770122c8d2b
+      - 7e807d5d624b9b32570172baa1479a46
       X-Runtime:
-      - '0.088328'
+      - '0.144357'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -170,22 +117,24 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"id":"8E1D00274D034AF380AE7F474B134596","description":"Cart\u00e3o
-        de Cr\u00e9dito","item_type":"credit_card","customer_id":"4B5B8522371A467A9937ED95442AAEB9","data":{"brand":"VISA","holder_name":"RAINER
+      string: '{"id":"D5B57FE76C224B27B0B0B72092E826B5","description":"Cart\u00e3o
+        de Cr\u00e9dito","item_type":"credit_card","customer_id":"E89854FBE69A475798D57AF0B8427CB8","data":{"brand":"VISA","holder_name":"RAINER
         B A MATOS","display_number":"XXXX-XXXX-XXXX-1111"}}'
     http_version: 
-  recorded_at: Mon, 06 Jun 2016 18:09:47 GMT
+  recorded_at: Tue, 14 Jun 2016 20:44:20 GMT
 - request:
     method: post
-    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/subscriptions
+    uri: https://api.iugu.com/v1/subscriptions
     body:
       encoding: UTF-8
-      string: '{"plan_identifier":"essentials_plan","customer_id":"4B5B8522371A467A9937ED95442AAEB9","only_on_charge_success":true}'
+      string: '{"plan_identifier":"essentials_plan","customer_id":"E89854FBE69A475798D57AF0B8427CB8","only_on_charge_success":true}'
     headers:
       Accept:
       - application/json
       Accept-Encoding:
       - gzip, deflate
+      Authorization:
+      - Basic ZjQxNjljY2JiNjE2NjBjZDhkMDhmMzcwMzcyYzk5OTk6
       Accept-Charset:
       - utf-8
       User-Agent:
@@ -206,9 +155,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jun 2016 18:09:52 GMT
+      - Tue, 14 Jun 2016 20:44:28 GMT
       Etag:
-      - '"95101d5cf05c029cb645c082ccfbb0d7"'
+      - '"83c8e6038b58757ee189be01aec6d7c3"'
       Server:
       - nginx/1.8.1
       Status:
@@ -218,9 +167,9 @@ http_interactions:
       X-Rack-Cache:
       - invalidate, pass
       X-Request-Id:
-      - fd918f70ca5f2fa492f4560f36ff57d4
+      - d0e7e612e6a058e416b949dac8adafff
       X-Runtime:
-      - '1.776766'
+      - '1.118273'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -229,14 +178,14 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"id":"1782D0A12B7844669FF0CEE1FC61F9BC","suspended":false,"plan_identifier":"essentials_plan","price_cents":19900,"currency":"BRL","features":{"emails":{"name":"N\u00famero
-        de Emails","value":100000}},"expires_at":"2017-06-06","created_at":"2016-06-06T15:09:50-03:00","updated_at":"2016-06-06T15:09:52-03:00","customer_name":"Jonh
-        Doe","customer_email":"account0@example.com","cycled_at":null,"credits_min":0,"credits_cycle":null,"payable_with":"credit_card","customer_id":"4B5B8522371A467A9937ED95442AAEB9","plan_name":"Plano
-        Essentials","customer_ref":"Jonh Doe","plan_ref":"Plano Essentials","active":true,"in_trial":null,"credits":0,"credits_based":false,"recent_invoices":[{"id":"7AF0A79EE857426FA6EBFF6518804172","due_date":"2016-06-06","status":"paid","total":"R$
-        199,00","secure_url":"https://iugu.com/invoices/7af0a79e-e857-426f-a6eb-ff6518804172-264c"}],"subitems":[],"logs":[{"id":"77EFC7FEDC254E3383E274F0E33C7264","description":"Fatura
+      string: '{"id":"ABC1C0EA9F4341568AA23EC5B5043743","suspended":false,"plan_identifier":"essentials_plan","price_cents":19900,"currency":"BRL","features":{"emails":{"name":"N\u00famero
+        de Emails","value":100000}},"expires_at":"2016-07-14","created_at":"2016-06-14T17:44:27-03:00","updated_at":"2016-06-14T17:44:28-03:00","customer_name":"Jonh
+        Doe","customer_email":"account0@example.com","cycled_at":null,"credits_min":0,"credits_cycle":null,"payable_with":"credit_card","customer_id":"E89854FBE69A475798D57AF0B8427CB8","plan_name":"Plano
+        Essentials","customer_ref":"Jonh Doe","plan_ref":"Plano Essentials","active":true,"in_trial":null,"credits":0,"credits_based":false,"recent_invoices":[{"id":"6598BA37E4124FDFBDEDFEF829228BD9","due_date":"2016-06-14","status":"paid","total":"R$
+        199,00","secure_url":"https://iugu.com/invoices/6598ba37-e412-4fdf-bded-fef829228bd9-73e2"}],"subitems":[],"logs":[{"id":"203921FB49C44BF686401F312CB99F8E","description":"Fatura
         criada","notes":"Fatura criada com os items:  1x Ativa\u00e7\u00e3o de Assinatura:
-        Plano Essentials = R$ 199,00;","created_at":"2016-06-06T15:09:51-03:00"},{"id":"010099C4C7A94B528BEE773C5328BAA6","description":"Assinatura
-        Criada","notes":"Assinatura Criada ","created_at":"2016-06-06T15:09:50-03:00"}],"custom_variables":[]}'
+        Plano Essentials = R$ 199,00;","created_at":"2016-06-14T17:44:27-03:00"},{"id":"98690247A6DE4792B6D7212A9E011BED","description":"Assinatura
+        Criada","notes":"Assinatura Criada ","created_at":"2016-06-14T17:44:27-03:00"}],"custom_variables":[]}'
     http_version: 
-  recorded_at: Mon, 06 Jun 2016 18:09:49 GMT
+  recorded_at: Tue, 14 Jun 2016 20:44:22 GMT
 recorded_with: VCR 3.0.3

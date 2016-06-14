@@ -16,7 +16,7 @@ Fabricator(:valid_account, from: :account) do
   aws_queue_url 'https://sqs.us-east-1.amazonaws.com/495707395447/mailkiq'
   aws_secret_access_key ENV['AWS_SECRET_ACCESS_KEY'] || 'dasdas'
   aws_topic_arn 'arn:aws:sns:us-east-1:495707395447:mailkiq-2'
-  credit_card_token '924D217C-301D-48BA-B986-080096F1E489'
+  credit_card_token '5E5C5CC5-2412-476E-A8E5-5A50B3B79397'
   plan 'essentials_plan'
 end
 

@@ -3,11 +3,12 @@ module Accounts
     before_action :authenticate_scope!, only: [:edit, :update, :destroy,
                                                :activate, :suspend]
     before_action :configure_permitted_parameters
-    before_action :set_billing
+    before_action :set_billing, except: [:create]
     layout :pick_layout
 
     def create
       super do |resource|
+        @billing = Billing.new(resource)
         @billing.process
 
         ActivationJob.enqueue resource.id, :activate if resource.persisted?

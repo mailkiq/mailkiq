@@ -6,14 +6,22 @@ class Prospect
     @model = Subscriber.new params
   end
 
+  def save
+    around { model.save }
+  end
+
   def save!
-    merge_tags if tag.present?
-    model.save!
-    send_confirmation_instructions
-    model
+    around { model.save! }
   end
 
   private
+
+  def around
+    merge_tags if tag.present?
+    yield
+    send_confirmation_instructions
+    model
+  end
 
   def automated_confirmation
     Automation.confirmation.where(account_id: model.account_id).first

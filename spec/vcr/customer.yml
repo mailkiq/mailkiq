@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://f4169ccbb61660cd8d08f370372c9999:@api.iugu.com/v1/customers/4B5B8522371A467A9937ED95442AAEB9
+    uri: https://api.iugu.com/v1/customers/E89854FBE69A475798D57AF0B8427CB8
     body:
       encoding: UTF-8
       string: "{}"
@@ -11,6 +11,8 @@ http_interactions:
       - application/json
       Accept-Encoding:
       - gzip, deflate
+      Authorization:
+      - Basic ZjQxNjljY2JiNjE2NjBjZDhkMDhmMzcwMzcyYzk5OTk6
       Accept-Charset:
       - utf-8
       User-Agent:
@@ -31,9 +33,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jun 2016 18:31:24 GMT
+      - Tue, 14 Jun 2016 20:44:29 GMT
       Etag:
-      - '"19c25263fb71ec853508876e44258a5f"'
+      - '"17557773e95dc51317682ef628fd7e70"'
       Server:
       - nginx/1.8.1
       Status:
@@ -43,9 +45,9 @@ http_interactions:
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - f51e4050a92f39fa46ad7030fb05c777
+      - a8c32efd9289f58065a3e03f35eafb79
       X-Runtime:
-      - '0.032456'
+      - '0.018553'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -54,8 +56,8 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"id":"4B5B8522371A467A9937ED95442AAEB9","email":"account0@example.com","name":"Jonh
-        Doe","notes":null,"created_at":"2016-06-06T15:09:49-03:00","updated_at":"2016-06-06T15:09:53-03:00","cc_emails":null,"cpf_cnpj":null,"default_payment_method_id":"8E1D00274D034AF380AE7F474B134596","proxy_payments_from_customer_id":null,"custom_variables":[]}'
+      string: '{"id":"E89854FBE69A475798D57AF0B8427CB8","email":"account0@example.com","name":"Jonh
+        Doe","notes":null,"created_at":"2016-06-14T17:44:24-03:00","updated_at":"2016-06-14T17:44:29-03:00","cc_emails":null,"cpf_cnpj":null,"default_payment_method_id":"D5B57FE76C224B27B0B0B72092E826B5","proxy_payments_from_customer_id":null,"custom_variables":[]}'
     http_version: 
-  recorded_at: Mon, 06 Jun 2016 18:31:21 GMT
+  recorded_at: Tue, 14 Jun 2016 20:44:23 GMT
 recorded_with: VCR 3.0.3

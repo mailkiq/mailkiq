@@ -6,8 +6,7 @@ class Automation < Campaign
   validate :require_subscribe_url, if: :subscription_confirmation?
 
   def self.confirmation
-    state = states[:sending]
-    where("send_settings->>'type' = ? and state = ?", TYPES.first, state)
+    sending.where("send_settings->>'type' = ?", TYPES.first)
   end
 
   def send_type
@@ -36,9 +35,5 @@ class Automation < Campaign
     if exclude_subscribe_url? plain_text
       errors.add(:plain_text, :subscribe_not_found)
     end
-  end
-
-  def set_default_state
-    self.state ||= self.class.states[:sending]
   end
 end

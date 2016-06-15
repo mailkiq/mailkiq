@@ -1,8 +1,9 @@
 class Delivery
   SCOPES = [OpenedScope, TagScope].freeze
 
-  def initialize(campaign)
+  def initialize(campaign, params = {})
     @campaign = campaign
+    @params = params
     @quota = Quota.new @campaign.account
   end
 
@@ -15,19 +16,19 @@ class Delivery
       !@quota.exceed?(chain_queries.count)
   end
 
-  def call(params = {})
-    @campaign.assign_attributes(params)
-
-    if valid?
-      @campaign.save!
-      DeliveryJob.enqueue @campaign.id
-      return true
-    end
-
-    false
+  def processing?
+    @campaign.queued? || @campaign.sending?
   end
 
-  def deliver!
+  def enqueue
+    @campaign.assign_attributes(@params)
+    @campaign.enqueue valid: valid? do
+      @campaign.save!
+      DeliveryJob.enqueue @campaign.id
+    end
+  end
+
+  def push_bulk
     QueJob.push_bulk(chain_queries.to_sql, @campaign.id)
   end
 

@@ -26,11 +26,11 @@ class CampaignsController < ApplicationController
   end
 
   def edit
-    @campaign = current_account.campaigns.unsent.find params[:id]
+    @campaign = current_account.campaigns.draft.find params[:id]
   end
 
   def update
-    @campaign = current_account.campaigns.unsent.find params[:id]
+    @campaign = current_account.campaigns.draft.find params[:id]
     @campaign.update campaign_params
     respond_with @campaign, location: campaigns_path
   end

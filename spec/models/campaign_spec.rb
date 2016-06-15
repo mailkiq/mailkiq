@@ -41,13 +41,15 @@ describe Campaign, type: :model do
   it { is_expected.to strip_attribute :from_name }
   it { is_expected.to strip_attribute :from_email }
 
-  it do
-    is_expected.to define_enum_for(:state)
-      .with([:draft, :queued, :scheduled, :sending, :paused, :sent])
-  end
-
   it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recent).with(0).arguments }
+
+  it do
+    is_expected.to define_enum_for(:state)
+      .with([:draft, :queued, :sending, :paused, :sent])
+  end
+
+  it { is_expected.to have_state :draft }
 
   describe '#deliveries_count' do
     it 'calculates current deliveries count' do
@@ -117,14 +119,6 @@ describe Campaign, type: :model do
       expect(subject.errors).to have_key(:from_name)
       expect(subject.errors.get(:from_name))
         .to include t('activerecord.errors.models.campaign.unstructured_from')
-    end
-  end
-
-  describe '#set_default_state' do
-    it 'sets default state' do
-      expect(subject.state).to be_nil
-      subject.run_callbacks :create
-      expect(subject).to be_draft
     end
   end
 end

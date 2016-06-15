@@ -7,9 +7,10 @@ class DeliveriesController < ApplicationController
   end
 
   def create
-    @delivery = Delivery.new @campaign
+    @delivery = Delivery.new @campaign, campaign_params
+    @delivery.enqueue
 
-    if @delivery.call campaign_params
+    if @delivery.processing?
       flash[:notice] = t('flash.deliveries.create.notice')
       redirect_to campaign_path(@campaign)
     else
@@ -25,6 +26,6 @@ class DeliveriesController < ApplicationController
   end
 
   def set_campaign
-    @campaign = current_account.campaigns.unsent.find params[:campaign_id]
+    @campaign = current_account.campaigns.draft.find params[:campaign_id]
   end
 end

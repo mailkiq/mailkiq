@@ -39,12 +39,4 @@ describe Automation, type: :model do
       expect(subject.errors[:plain_text]).to eq([message])
     end
   end
-
-  describe '#set_default_state' do
-    it 'sets default state' do
-      expect(subject.state).to be_nil
-      subject.run_callbacks :create
-      expect(subject).to be_sending
-    end
-  end
 end

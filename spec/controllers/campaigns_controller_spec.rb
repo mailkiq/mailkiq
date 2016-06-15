@@ -153,7 +153,7 @@ describe CampaignsController, type: :controller do
     allow(relation).to receive(:find).with(campaign.id.to_s)
       .and_return(campaign)
 
-    allow(relation).to receive_message_chain(:unsent, :find)
+    allow(relation).to receive_message_chain(:draft, :find)
       .with(campaign.id.to_s)
       .and_return(campaign)
 

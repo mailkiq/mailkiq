@@ -34,22 +34,23 @@ describe Delivery, type: :model do
     end
   end
 
-  describe '#call' do
+  describe '#enqueue' do
     it 'enqueues delivery job' do
       expect(campaign).to receive(:save!)
       expect(DeliveryJob).to receive(:enqueue).with(campaign.id)
-      subject.call
+      expect(subject).to receive(:valid?).and_return(true)
+      subject.enqueue
     end
   end
 
-  describe '#deliver!' do
+  describe '#push_bulk' do
     it 'inserts jobs to the queue table' do
       expect(subject).to receive_message_chain(:chain_queries, :to_sql)
       expect(QueJob).to receive(:push_bulk)
         .with(anything, campaign.id)
         .and_return(true)
 
-      subject.deliver!
+      subject.push_bulk
     end
   end
 

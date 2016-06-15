@@ -1,4 +1,5 @@
 class Campaign < ActiveRecord::Base
+  include AASM
   extend Sortable
 
   validates :from_email, presence: true, email: true, domain: true
@@ -9,16 +10,12 @@ class Campaign < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :account_id
   validate :validate_from_field, if: :from?
 
-  enum state: [:draft, :queued, :scheduled, :sending, :paused, :sent]
+  enum state: [:draft, :queued, :sending, :paused, :sent]
 
   belongs_to :account
   has_many :messages
 
-  before_create :set_default_state
-
   default_scope -> { where type: '' }
-  scope :sent, -> { where.not sent_at: nil }
-  scope :unsent, -> { where sent_at: nil }
   scope :recent, -> { order created_at: :desc }
 
   delegate :aws_options, :domain_names, :expired?,
@@ -27,6 +24,30 @@ class Campaign < ActiveRecord::Base
   store_accessor :send_settings, :tagged_with, :not_tagged_with
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
+
+  aasm column: :state, enum: true, requires_lock: 'FOR UPDATE NOWAIT' do
+    state :draft, initial: true
+    state :queued
+    state :sending
+    state :paused
+    state :sent
+
+    event :enqueue do
+      transitions from: :draft, to: :queued, if: ->(options) { options[:valid] }
+    end
+
+    event :deliver do
+      transitions from: :queued, to: :sending
+    end
+
+    event :pause do
+      transitions from: :sending, to: :paused
+    end
+
+    event :resume do
+      transitions from: :paused, to: :sending
+    end
+  end
 
   def messages_count
     @messages_count ||= messages.count
@@ -78,9 +99,5 @@ class Campaign < ActiveRecord::Base
     Mail::FromField.new(from)
   rescue Mail::Field::ParseError
     errors.add :from_name, :unstructured_from
-  end
-
-  def set_default_state
-    self.state ||= self.class.states[:draft]
   end
 end

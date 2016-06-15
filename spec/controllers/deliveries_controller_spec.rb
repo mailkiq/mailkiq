@@ -6,8 +6,9 @@ describe DeliveriesController, type: :controller do
     let(:campaign) { Fabricate.build :campaign, account: account, id: 10 }
 
     before do
+        allow_any_instance_of(Delivery).to receive(:enqueue)
       allow_any_instance_of(Delivery).to receive(:chain_queries).and_return([])
-      allow(account).to receive_message_chain(:campaigns, :unsent, :find)
+      allow(account).to receive_message_chain(:campaigns, :draft, :find)
         .and_return(campaign)
     end
 
@@ -36,7 +37,8 @@ describe DeliveriesController, type: :controller do
 
       context 'with valid params' do
         before do
-          allow_any_instance_of(Delivery).to receive(:call).and_return(true)
+          allow_any_instance_of(Delivery).to receive(:processing?)
+            .and_return(true)
           sign_in account
           post :create, params
         end
@@ -55,7 +57,8 @@ describe DeliveriesController, type: :controller do
 
       context 'with expired account' do
         before do
-          account.expires_at = 1.day.ago
+          allow_any_instance_of(Delivery).to receive(:processing?)
+            .and_return(false)
           sign_in account
           post :create, params
         end

@@ -3,10 +3,10 @@ class DeliveryJob < ApplicationJob
   @priority = 1
 
   def run(campaign_id)
-    campaign = Campaign.unsent.find campaign_id
-    campaign.with_lock do
+    campaign = Campaign.queued.find campaign_id
+    campaign.deliver! do
       delivery = Delivery.new campaign
-      delivery.deliver!
+      delivery.push_bulk
     end
   end
 end

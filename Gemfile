@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '4.2.6'
-gem 'aasm', require: false
+gem 'aasm'
 gem 'active_model_serializers'
 gem 'addressable', require: false
 gem 'appsignal'

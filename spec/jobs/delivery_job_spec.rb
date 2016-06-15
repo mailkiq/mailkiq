@@ -7,12 +7,12 @@ describe DeliveryJob do
 
   describe '#run' do
     it 'pushes jobs to que_jobs table' do
-      expect(Campaign).to receive_message_chain(:unsent, :find)
+      expect(Campaign).to receive_message_chain(:queued, :find)
         .with(campaign.id)
         .and_return(campaign)
 
-      expect(campaign).to receive(:with_lock).and_yield
-      expect_any_instance_of(Delivery).to receive(:deliver!)
+      expect(campaign).to receive(:deliver!).and_yield
+      expect_any_instance_of(Delivery).to receive(:push_bulk)
 
       subject._run
     end

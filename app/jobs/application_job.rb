@@ -1,6 +1,6 @@
 class ApplicationJob < Que::Job
   def _run
-    Appsignal.monitor_single_transaction(
+    Appsignal.monitor_transaction(
       'perform_job.que',
       class: attrs[:job_class],
       method: 'run',

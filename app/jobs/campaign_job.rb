@@ -4,6 +4,7 @@ class CampaignJob < ApplicationJob
   def run(campaign_id, subscriber_id)
     ActiveRecord::Base.transaction do
       CampaignMailer.new(campaign_id, subscriber_id).deliver!
+      destroy
     end
   rescue Aws::SES::Errors::Throttling => exception
     CampaignJob.enqueue(campaign_id, subscriber_id)

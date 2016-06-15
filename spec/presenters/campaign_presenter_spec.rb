@@ -8,13 +8,13 @@ describe CampaignPresenter do
     described_class.new campaign, view
   end
 
-  describe '#estimated_time' do
-    it 'calculates the estimated time to send all recipients' do
-      ses = subject.quota.instance_variable_get :@ses
-      ses.stub_responses :get_send_quota, max_send_rate: 14.0
-      expect(subject.estimated_time).to eq('about 12 hours')
-    end
-  end
+  it { is_expected.to delegate_method(:name).to(:model) }
+  it { is_expected.to delegate_method(:recipients_count).to(:model) }
+  it { is_expected.to delegate_method(:to_percentage).to(:model) }
+  it { is_expected.to delegate_method(:bounces_count).to(:model) }
+  it { is_expected.to delegate_method(:unsent_count).to(:model) }
+  it { is_expected.to delegate_method(:messages_count).to(:model) }
+  it { is_expected.to delegate_method(:complaints_count).to(:model) }
 
   describe '#delivered' do
     it 'calculates percentage of emails delivered until now' do
@@ -57,18 +57,14 @@ describe CampaignPresenter do
 
   describe '#long_sent_at' do
     it 'returns friendly time description' do
-      ses = subject.quota.instance_variable_get :@ses
-      ses.stub_responses :get_send_quota, max_send_rate: 14.0
-
       expect(subject.long_sent_at)
-        .to eq('<small>Sent at May 29, 2016 14:13 • takes about 12 hours to send it.</small>')
+        .to eq('<small>Sent on May 29, 2016 14:13 to 600,000 subscribers.</small>')
     end
   end
 
   describe '#progress' do
     it 'generates markup for progress bar segments' do
-      expect(campaign).to receive(:recipients_count).at_least(:once)
-        .and_return(646_100)
+      allow(campaign).to receive(:recipients_count).and_return(646_100)
 
       expect(campaign).to receive(:deliveries_count).and_return(200_000)
       expect(campaign).to receive(:bounces_count).and_return(10)

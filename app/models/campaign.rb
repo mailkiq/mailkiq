@@ -21,11 +21,11 @@ class Campaign < ActiveRecord::Base
   delegate :aws_options, :domain_names, :expired?,
            to: :account, prefix: true, allow_nil: true
 
-  store_accessor :send_settings, :tagged_with, :not_tagged_with
+  store_accessor :send_settings, :tagged_with, :not_tagged_with, :finished_at
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
 
-  aasm column: :state, enum: true, requires_lock: 'FOR UPDATE NOWAIT' do
+  aasm column: :state, enum: true, skip_validation_on_save: true, requires_lock: 'FOR UPDATE NOWAIT' do
     state :draft, initial: true
     state :queued
     state :sending
@@ -33,10 +33,14 @@ class Campaign < ActiveRecord::Base
     state :sent
 
     event :enqueue do
-      transitions from: :draft, to: :queued, if: ->(options) { options[:valid] }
+      transitions from: :draft, to: :queued
     end
 
     event :deliver do
+      before do
+        self.sent_at = Time.now
+      end
+
       transitions from: :queued, to: :sending
     end
 
@@ -47,6 +51,26 @@ class Campaign < ActiveRecord::Base
     event :resume do
       transitions from: :paused, to: :sending
     end
+
+    event :finish do
+      before do
+        self.finished_at = Time.now
+      end
+
+      transitions from: :sending, to: :sent
+    end
+  end
+
+  def viewable?
+    !draft?
+  end
+
+  def editable?
+    draft? || paused?
+  end
+
+  def processing?
+    queued? || sending?
   end
 
   def messages_count

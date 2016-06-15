@@ -7,7 +7,7 @@ describe DeliveriesController, type: :controller do
 
     before do
         allow_any_instance_of(Delivery).to receive(:enqueue)
-      allow_any_instance_of(Delivery).to receive(:chain_queries).and_return([])
+      allow_any_instance_of(Delivery).to receive(:chain_scopes).and_return([])
       allow(account).to receive_message_chain(:campaigns, :draft, :find)
         .and_return(campaign)
     end

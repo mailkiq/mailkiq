@@ -20,4 +20,9 @@ namespace :queries do
     # Just remember to execute update_counters after this.
     Query.execute :update_message_status
   end
+
+  desc 'Update campaign state'
+  task update_state: :environment do
+    Campaign.where.not(sent_at: nil).update_all state: Campaign.states[:sent]
+  end
 end

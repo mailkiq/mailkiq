@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe DeliveryJob do
-  let(:campaign) { Fabricate.build :campaign_with_account }
+  let(:campaign) { Fabricate.build :campaign_with_account, state: :queued }
 
   subject { described_class.new args: [campaign.id] }
 
@@ -13,6 +13,7 @@ describe DeliveryJob do
 
       expect(campaign).to receive(:deliver!).and_yield
       expect_any_instance_of(Delivery).to receive(:push_bulk)
+      expect(subject).to receive(:destroy).twice
 
       subject._run
     end

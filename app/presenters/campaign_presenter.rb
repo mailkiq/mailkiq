@@ -1,15 +1,6 @@
 class CampaignPresenter < Presenter
-  delegate :name, :recipients_count, :to_percentage, to: :model
-
-  def quota
-    @quota ||= Quota.new(model.account)
-  end
-
-  def estimated_time
-    send_quota = quota.cached(:send_quota)
-    time = model.recipients_count / send_quota.max_send_rate
-    distance_of_time_in_words(model.sent_at, model.sent_at + time)
-  end
+  delegate :name, :recipients_count, :to_percentage, :bounces_count,
+           :unsent_count, :messages_count, :complaints_count, to: :model
 
   def delivered
     number_to_percentage to_percentage(:messages_count)
@@ -30,9 +21,10 @@ class CampaignPresenter < Presenter
   def long_sent_at
     return nil unless model.sent_at?
 
+    recipients = number_with_delimiter(model.recipients_count)
     time = l(model.sent_at, format: :long)
-    text = t 'campaigns.show.long_sent_at', time: time,
-                                            estimated_time: estimated_time
+    text = t('campaigns.show.long_sent_at',
+             time: time, recipients_count: recipients)
 
     content_tag :small, text
   end

@@ -18,8 +18,9 @@ describe Delivery, type: :model do
       tag = Fabricate.build(:tag)
 
       expect(campaign.account).to receive(:tags).and_return([tag])
-      expect(subject).to receive(:opened_campaign_names)
-        .and_return(['Opened The Truth About Wheat'])
+      expect(campaign.account)
+        .to receive_message_chain(:campaigns, :sent, :pluck).with(:name)
+        .and_return(['The Truth About Wheat'])
 
       expect(subject.tags)
         .to eq(['Mulherada A', 'Opened The Truth About Wheat'])
@@ -36,16 +37,21 @@ describe Delivery, type: :model do
 
   describe '#enqueue' do
     it 'enqueues delivery job' do
-      expect(campaign).to receive(:save!)
       expect(DeliveryJob).to receive(:enqueue).with(campaign.id)
       expect(subject).to receive(:valid?).and_return(true)
+      expect(campaign).to receive(:enqueue!).and_yield
+      expect(campaign.account).to receive(:increment!)
+        .with(:used_credits, subject.count)
+      expect(campaign).to receive(:recipients_count=).with(subject.count)
+      expect(campaign).to receive(:save!)
+
       subject.enqueue
     end
   end
 
   describe '#push_bulk' do
     it 'inserts jobs to the queue table' do
-      expect(subject).to receive_message_chain(:chain_queries, :to_sql)
+      expect(subject).to receive_message_chain(:chain_scopes, :to_sql)
       expect(QueJob).to receive(:push_bulk)
         .with(anything, campaign.id)
         .and_return(true)
@@ -54,7 +60,7 @@ describe Delivery, type: :model do
     end
   end
 
-  describe '#chain_queries' do
+  describe '#chain_scopes' do
     it 'calls registered query objects' do
       relation = double('relation')
 
@@ -68,7 +74,7 @@ describe Delivery, type: :model do
           .and_call_original
       end
 
-      expect(subject.send(:chain_queries)).to eq(relation)
+      expect(subject.send(:chain_scopes)).to eq(relation)
     end
   end
 end

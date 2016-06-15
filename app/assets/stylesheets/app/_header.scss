@@ -47,6 +47,7 @@
 
 .nav {
   a {
+    -webkit-font-smoothing: auto;
     box-shadow: none;
     color: $white;
     display: inline-block;

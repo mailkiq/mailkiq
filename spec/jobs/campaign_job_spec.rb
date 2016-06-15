@@ -7,6 +7,7 @@ describe CampaignJob do
     it 'delivers campaign to the subscriber' do
       expect(ActiveRecord::Base).to receive(:transaction).and_yield
       expect(CampaignMailer).to receive_message_chain :new, :deliver!
+      expect(subject).to receive(:destroy).twice
       subject._run
     end
 
@@ -18,6 +19,7 @@ describe CampaignJob do
         .with kind_of(exception.class)
       expect(Subscriber).to receive_message_chain(:where, :update_all)
         .with state: Subscriber.states[:invalid_email]
+      expect(subject).to receive(:destroy).once
       expect { subject._run }.not_to raise_exception
     end
 
@@ -28,6 +30,7 @@ describe CampaignJob do
       expect(CampaignJob).to receive(:enqueue).with 1, 1
       expect(Appsignal).to receive(:send_exception)
         .with kind_of(exception.class)
+      expect(subject).to receive(:destroy).once
       expect { subject._run }.not_to raise_exception
     end
   end

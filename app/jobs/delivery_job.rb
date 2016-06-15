@@ -7,6 +7,8 @@ class DeliveryJob < ApplicationJob
     campaign.deliver! do
       delivery = Delivery.new campaign
       delivery.push_bulk
+      FinishJob.enqueue campaign_id
+      destroy
     end
   end
 end

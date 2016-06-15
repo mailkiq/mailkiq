@@ -1,10 +1,12 @@
 class Delivery
   SCOPES = [OpenedScope, TagScope].freeze
 
+  delegate :processing?, to: :@campaign
+
   def initialize(campaign, params = {})
+    @quota = Quota.new campaign.account
     @campaign = campaign
     @params = params
-    @quota = Quota.new @campaign.account
   end
 
   def tags
@@ -12,24 +14,28 @@ class Delivery
   end
 
   def valid?
-    !@campaign.account_expired? && @campaign.valid? &&
-      !@quota.exceed?(chain_queries.count)
-  end
-
-  def processing?
-    @campaign.queued? || @campaign.sending?
+    @campaign.valid? && !@campaign.account_expired? && !@quota.exceed?(count)
   end
 
   def enqueue
     @campaign.assign_attributes(@params)
-    @campaign.enqueue valid: valid? do
+    @campaign.enqueue! do
+      raise ActiveRecord::RecordInvalid, 'invalid' unless valid?
+
+      @campaign.account.increment! :used_credits, count
+      @campaign.recipients_count = count
       @campaign.save!
+
       DeliveryJob.enqueue @campaign.id
     end
   end
 
   def push_bulk
-    QueJob.push_bulk(chain_queries.to_sql, @campaign.id)
+    QueJob.push_bulk(chain_scopes.to_sql, @campaign.id)
+  end
+
+  def count
+    @count ||= chain_scopes.count
   end
 
   private
@@ -39,7 +45,7 @@ class Delivery
     names.map! { |name| "Opened #{name}" }
   end
 
-  def chain_queries
+  def chain_scopes
     relation = Subscriber.activated.where(account_id: @campaign.account_id)
     SCOPES.each do |klass|
       new_relation = klass.new(relation, @campaign).call

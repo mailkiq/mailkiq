@@ -51,7 +51,7 @@ en:
       unsent: "unsent"
       open_rate: "Open rate"
       click_rate: "Click rate"
-      long_sent_at: "Sent at %{time} • takes %{estimated_time} to send it."
+      long_sent_at: "Sent on %{time} to %{recipients_count} subscribers."
   automations:
     index:
       new_automation: "New Automation"

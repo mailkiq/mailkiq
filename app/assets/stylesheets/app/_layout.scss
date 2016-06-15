@@ -1,3 +1,7 @@
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
 h2 {
   font-size: 34px;
 
@@ -23,7 +27,7 @@ h2 {
 
 .container {
   margin: 0 auto;
-  width: 980px;
+  width: 1000px;
 }
 
 .main {

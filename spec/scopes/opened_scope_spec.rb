@@ -6,8 +6,7 @@ describe OpenedScope do
       campaign = Fabricate.build :campaign
       scope = described_class.new Subscriber.where(nil), campaign
 
-      expect(scope).to receive(:pluck_campaign_ids).with(nil)
-        .at_least(:once)
+      expect(scope).to receive(:pluck_campaign_ids).with(nil).twice
         .and_return([1, 2])
 
       expect(scope.call.to_sql).to include <<-SQL.squish!

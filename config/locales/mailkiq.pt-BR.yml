@@ -52,7 +52,7 @@ pt-BR:
       unsent: "pendentes"
       open_rate: "Taxa de Abertura"
       click_rate: "Taxa de Cliques"
-      long_sent_at: "Enviado em %{time} • demanda %{estimated_time} para terminar."
+      long_sent_at: "Disparado no dia %{time} para %{recipients_count} assinantes"
   automations:
     index:
       new_automation: "Nova Automação"

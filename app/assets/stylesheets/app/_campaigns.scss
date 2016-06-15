@@ -16,7 +16,7 @@
 
 .metrics {
   @include display(flex);
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   margin-top: 70px;
 
   > div {
@@ -27,20 +27,13 @@
     float: left;
     font-size: 34px;
     font-weight: normal;
+    margin-bottom: 0;
   }
 
   span {
     display: block;
     font-size: 15px;
     font-weight: normal;
-  }
-
-  .totals {
-    @include flex(1 1 50px);
-
-    h3 {
-      font-weight: bold;
-    }
   }
 
   .box {

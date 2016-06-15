@@ -41,15 +41,15 @@ describe Campaign, type: :model do
   it { is_expected.to strip_attribute :from_name }
   it { is_expected.to strip_attribute :from_email }
 
-  it { expect(described_class).to respond_to(:sort).with(1).argument }
-  it { expect(described_class).to respond_to(:recent).with(0).arguments }
-
   it do
     is_expected.to define_enum_for(:state)
       .with([:draft, :queued, :sending, :paused, :sent])
   end
 
   it { is_expected.to have_state :draft }
+
+  it { expect(described_class).to respond_to(:sort).with(1).argument }
+  it { expect(described_class).to respond_to(:recent).with(0).arguments }
 
   describe '#deliveries_count' do
     it 'calculates current deliveries count' do

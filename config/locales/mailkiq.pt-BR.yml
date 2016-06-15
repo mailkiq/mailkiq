@@ -10,6 +10,7 @@ pt-BR:
     send: "Enviar"
     addfile: "Duplicar"
     info: "Mostrar registros de DNS"
+    importfile: "Copiar para área de trasferência"
   nav:
     links:
       dashboard: "Paínel"
@@ -73,6 +74,11 @@ pt-BR:
       domains: "Domínios"
       domain: "Domínio"
       status: "Status"
+      update: "Atualizar"
+  domains:
+    show:
+      remove_domain: "Excluir domínio"
+      domains: "Domínios"
   tags:
     index:
       new_tag: "Nova Tag"

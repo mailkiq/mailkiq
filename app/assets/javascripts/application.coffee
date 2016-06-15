@@ -14,6 +14,7 @@
   Dashboard: {}
   Subscribers: {}
   Registrations: {}
+  Domains: {}
 
   initializeHighcharts: ->
     Highcharts?.setOptions

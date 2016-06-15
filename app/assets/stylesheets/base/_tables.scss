@@ -73,7 +73,7 @@ caption {
   font-weight: bold;
 }
 
-.table td:first-child a {
+.table tbody td:first-child a {
   color: $dark-gray;
   text-decoration: underline;
 }

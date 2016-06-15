@@ -21,6 +21,30 @@
   margin-top: 100px;
 }
 
+.dkim {
+  .icon span:before {
+    top: 0px;
+  }
+
+  td > span {
+    @include ellipsis;
+    max-width: 90%;
+    vertical-align: top;
+  }
+
+  a {
+    color: $light-gray;
+    font-size: 18px;
+    margin-right: 5px;
+    vertical-align: top;
+
+    &:hover,
+    &:focus {
+      color: $dark-gray;
+    }
+  }
+}
+
 .domain-records {
   caption {
     border-bottom: 1px solid #969696;

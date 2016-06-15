@@ -1,4 +1,4 @@
-<h2>Domains <span class="normal"><%= @domain.name %></span></h2>
+<h2><%= t '.domains' %> <span class="normal"><%= @domain.name %></span></h2>
 
 <div class="verification">
   <h2 class="subtitle">Verification <%= domain_icon_tag @domain.verification_status %></h2>
@@ -24,6 +24,7 @@
   <h2 class="subtitle">DKIM <%= domain_icon_tag @domain.dkim_verification_status %></h2>
 
   <table>
+    <caption>CNAME Records</caption>
     <thead>
       <tr>
         <th>Name</th>
@@ -33,8 +34,14 @@
     <tbody>
       <% @domain.records.cnames.each do |item| %>
         <tr>
-          <td><%= item.name %></td>
-          <td><%= item.value %></td>
+          <td>
+            <%= icon_link_to :importfile, '#' %>
+            <span><%= item.name %></span>
+          </td>
+          <td>
+            <%= icon_link_to :importfile, '#' %>
+            <span><%= item.value %></span>
+          </td>
         </tr>
       <% end %>
    </tbody>
@@ -48,7 +55,7 @@
     <caption>MX Record Settings</caption>
     <tbody>
       <tr>
-        <td width="425">Record Type</td>
+        <td>Record Type</td>
         <td>MX</td>
       </tr>
       <tr>
@@ -66,7 +73,7 @@
     <caption>SPF Record Settings</caption>
     <tbody>
       <tr>
-        <td width="425">Record Type</td>
+        <td>Record Type</td>
         <td>TXT</td>
       </tr>
       <tr>
@@ -81,4 +88,4 @@
   </table>
 </div>
 
-<%= link_to 'Remove domain', domain_path(@domain), method: :delete, class: 'btn btn-danger' %>
+<%= link_to t('.remove_domain'), domain_path(@domain), method: :delete, class: 'btn btn-danger' %>

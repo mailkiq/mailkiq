@@ -21,11 +21,11 @@
   .field-with-hint input {
     margin-bottom: 0;
   }
+}
 
-  .field-with-hint .hint {
-    margin-bottom: 30px;
-    margin-top: 6px;
-  }
+.registrations-controller .field-with-hint .hint {
+  margin-bottom: 30px;
+  margin-top: 6px;
 }
 
 .profile > form:last-child {
@@ -48,19 +48,17 @@
 }
 
 .amazon {
-  .hint {
-    float: left;
-    line-height: 14px;
-    width: 360px;
-  }
-
   .actions {
     @include clearfix;
     margin-top: 50px;
   }
 
+  select {
+    margin-bottom: 3px;
+  }
+
   .btn {
-    float: right;
+    float: left;
   }
 }
 

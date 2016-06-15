@@ -55,7 +55,7 @@ pt-BR:
       import:
         file: 'Formatos aceitos: CSV ou arquivos separados por tabulações.'
       account:
-        aws_region: "Please select the same region as what's set in your Amazon SES console in the region selection drop down menu at the top right."
+        aws_region: 'Selecione a mesma região que está definida no seu console Amazon SES.'
         edit:
           current_password: 'Para definir uma nova senha, entre com a senha atual'
           password: 'Digite sua nova senha'

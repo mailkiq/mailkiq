@@ -8,11 +8,10 @@
 
         <%= f.input :aws_access_key_id %>
         <%= f.input :aws_secret_access_key %>
-        <%= f.input :aws_region, include_blank: false, collection: Account::REGIONS.map(&:to_sym), hint: false %>
+        <%= f.input :aws_region, include_blank: false, collection: Account::REGIONS.map(&:to_sym) %>
 
         <div class="actions">
-          <%= f.hint :aws_region %>
-          <%= f.button :submit, 'Update' %>
+          <%= f.button :submit, t('.update') %>
         </div>
       <% end %>
     </div>

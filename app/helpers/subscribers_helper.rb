@@ -18,7 +18,7 @@ module SubscribersHelper
 
   def html_syntax(&block)
     source = capture(&block)
-    formatter = Rouge::Formatters::HTML.new css_class: 'highlight'
+    formatter = Rouge::Formatters::HTMLLegacy.new css_class: 'highlight'
     lexer = Rouge::Lexers::HTML.new
     formatter.format(lexer.lex(source)).html_safe
   end

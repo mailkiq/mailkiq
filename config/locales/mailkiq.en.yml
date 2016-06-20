@@ -1,4 +1,7 @@
 en:
+  scopes:
+    sent: "Smart Tags > Sent > %{name}"
+    opened: "Smart Tags > Opened > %{name}"
   actions:
     play: "Resume"
     pause: "Pause"

@@ -6,8 +6,7 @@ describe DeliveriesController, type: :controller do
     let(:campaign) { Fabricate.build :campaign, account: account, id: 10 }
 
     before do
-        allow_any_instance_of(Delivery).to receive(:enqueue)
-      allow_any_instance_of(Delivery).to receive(:chain_scopes).and_return([])
+      allow_any_instance_of(Delivery).to receive(:enqueue)
       allow(account).to receive_message_chain(:campaigns, :draft, :find)
         .and_return(campaign)
     end

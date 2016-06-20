@@ -29,8 +29,8 @@ class TagScope
 
   def pluck_tag_ids(tags)
     return nil unless tags.is_a? Array
-    account_id = @relation.where_values_hash['account_id']
-    names = tags.reject { |tag_name| tag_name.start_with? 'Opened' }
-    Tag.where(account_id: account_id, name: names).pluck(:id) if names.any?
+    ids = tags.map { |tag_name| tag_name.match(/tag:(.*)/).try :[], 1 }
+    ids.compact!
+    ids
   end
 end

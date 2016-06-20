@@ -1,4 +1,4 @@
-class OpenedScope
+class SentScope
   def initialize(relation, campaign)
     @relation = relation
     @campaign = campaign
@@ -26,16 +26,16 @@ class OpenedScope
   end
 
   def tagged_node(campaigns)
-    Message[:campaign_id].in(campaigns).and(Message[:opened_at].not_eq(nil))
+    Message[:campaign_id].in(campaigns).and(Message[:sent_at].not_eq(nil))
   end
 
   def untagged_node(campaigns)
-    Message[:campaign_id].in(campaigns).and(Message[:opened_at].eq(nil))
+    Message[:campaign_id].in(campaigns).and(Message[:sent_at].eq(nil))
   end
 
   def pluck_campaign_ids(tags)
     return nil unless tags.is_a? Array
-    ids = tags.map { |tag_name| tag_name.match(/opened:(.*)/).try :[], 1 }
+    ids = tags.map { |tag_name| tag_name.match(/sent:(.*)/).try :[], 1 }
     ids.compact!
     ids
   end

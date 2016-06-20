@@ -1,4 +1,7 @@
 pt-BR:
+  scopes:
+    sent: "Tags Inteligentes > Enviou > %{name}"
+    opened: "Tags Inteligentes > Abriu > %{name}"
   actions:
     play: "Resumir"
     pause: "Pausar"

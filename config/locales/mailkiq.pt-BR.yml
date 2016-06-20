@@ -13,7 +13,7 @@ pt-BR:
     send: "Enviar"
     addfile: "Duplicar"
     info: "Mostrar registros de DNS"
-    importfile: "Copiar para área de trasferência"
+    importfile: "Copiar para área de transferência"
   nav:
     links:
       dashboard: "Paínel"

@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <%= stylesheet_link_tag :marketing, media: :all %>
-    <%= render 'shared/mixpanel' %>
   </head>
   <body>
+    <%= render 'shared/google_analytics' %>
+
     <div class="item">
       <h1 class="logo">Maikiq</h1>
     </div>
@@ -40,11 +41,5 @@
         <strong>Transparência é nosso mantra.</strong>
       </div>
     </div>
-
-    <footer class="footer">
-      <a href="https://mixpanel.com/f/partner" rel="nofollow" target="_blank">
-        <img src="//cdn.mxpnl.com/site_media/images/partner/badge_blue.png" alt="Mobile Analytics" />
-      </a>
-    </footer>
   </body>
 </html>

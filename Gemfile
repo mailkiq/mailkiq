@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '4.2.6'
-gem 'aasm'
 gem 'active_model_serializers'
 gem 'addressable', require: false
 gem 'appsignal'
@@ -23,6 +22,7 @@ gem 'que'
 gem 'que-web'
 
 # DB
+gem 'aasm'
 gem 'kaminari'
 gem 'pg'
 

@@ -2,9 +2,10 @@
 <html class="devise">
   <head>
     <%= render 'shared/head' %>
-    <%= render 'shared/mixpanel' %>
   </head>
   <body data-route="<%= dispatcher_route %>">
+    <%= render 'shared/google_analytics' %>
+
     <%= yield %>
   </body>
 </html>

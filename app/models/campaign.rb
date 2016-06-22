@@ -10,6 +10,8 @@ class Campaign < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :account_id
   validate :validate_from_field, if: :from?
 
+  before_validation :clean_attributes
+
   enum state: [:draft, :queued, :sending, :paused, :sent]
 
   belongs_to :account
@@ -24,7 +26,7 @@ class Campaign < ActiveRecord::Base
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
 
-  before_validation :clean_attributes
+  paginates_per 10
 
   aasm column: :state, enum: true, skip_validation_on_save: true, requires_lock: 'FOR UPDATE NOWAIT' do
     state :draft, initial: true

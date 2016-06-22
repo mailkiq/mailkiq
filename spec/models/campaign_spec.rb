@@ -49,6 +49,10 @@ describe Campaign, type: :model do
   it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recent).with(0).arguments }
 
+  it 'paginates 10 records per page' do
+    expect(described_class.default_per_page).to eq(10)
+  end
+
   describe '#deliver!' do
     it 'updates sent at timestamp' do
       travel_to Time.now do

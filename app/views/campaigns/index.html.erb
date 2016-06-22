@@ -69,4 +69,12 @@
       </tr>
     <% end %>
   </tbody>
+
+  <% if @campaigns.any? %>
+    <tfoot>
+      <tr>
+        <td colspan="6"><%= paginate @campaigns %></td>
+      </tr>
+    </tfoot>
+  <% end %>
 </table>

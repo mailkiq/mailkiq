@@ -11,6 +11,11 @@ Fabricator(:account) do
   used_credits 5
 end
 
+Fabricator(:paid_account, from: :account) do
+  iugu_customer_id SecureRandom.uuid
+  iugu_subscription_id SecureRandom.uuid
+end
+
 Fabricator(:valid_account, from: :account) do
   aws_access_key_id ENV['AWS_ACCESS_KEY_ID'] || 'dasdas'
   aws_queue_url 'https://sqs.us-east-1.amazonaws.com/495707395447/mailkiq'

@@ -11,8 +11,7 @@ describe DeliveryJob do
         .with(campaign.id)
         .and_return(campaign)
 
-      expect(campaign).to receive(:deliver!).and_yield
-      expect_any_instance_of(Delivery).to receive(:push_bulk)
+      expect_any_instance_of(Delivery).to receive(:deliver!).and_yield
       expect(subject).to receive(:destroy).twice
 
       subject._run

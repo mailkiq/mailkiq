@@ -22,12 +22,11 @@ describe Query do
 
   describe '.prepare' do
     it 'reads query file and normalize string' do
-      statement = described_class.prepare(:queue_jobs, with_clause: 'z',
-                                                       campaign_id: 1)
+      sql = described_class.prepare(:queue_jobs, with: 'z', campaign_id: 1)
 
-      expect(statement).to_not include "\n"
-      expect(statement).to_not include ':with_clause'
-      expect(statement).to_not include ':campaign_id'
+      expect(sql).to_not include "\n"
+      expect(sql).to_not include ':with'
+      expect(sql).to_not include ':campaign_id'
     end
   end
 end

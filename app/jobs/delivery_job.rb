@@ -4,11 +4,7 @@ class DeliveryJob < ApplicationJob
 
   def run(campaign_id)
     campaign = Campaign.queued.find campaign_id
-    campaign.deliver! do
-      delivery = Delivery.new campaign
-      delivery.push_bulk
-      FinishJob.enqueue campaign_id
-      destroy
-    end
+    delivery = Delivery.new campaign
+    delivery.deliver! { destroy }
   end
 end

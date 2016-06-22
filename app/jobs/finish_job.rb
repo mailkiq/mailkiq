@@ -3,8 +3,6 @@ class FinishJob < ApplicationJob
 
   def run(campaign_id)
     campaign = Campaign.sending.find campaign_id
-    campaign.finish! do
-      destroy
-    end
+    campaign.finish! { destroy }
   end
 end

@@ -4,7 +4,7 @@ class CampaignMailer
   def initialize(campaign_id, subscriber_id)
     @campaign = Campaign.unscoped.find campaign_id
     @subscriber = Subscriber.find subscriber_id
-    @ses = Aws::SES::Client.new(@campaign.account_aws_options)
+    @ses = Aws::SES::Client.new(@campaign.account.aws_options)
     @token = SecureRandom.urlsafe_base64(32).gsub(/[\-_]/, '').first(32)
     @mail = build_mail
   end

@@ -32,13 +32,17 @@ class CampaignsController < ApplicationController
   def update
     @campaign = current_account.campaigns.draft.find params[:id]
     @campaign.update campaign_params
+
     respond_with @campaign, location: campaigns_path
   end
 
   def destroy
     @campaign = current_account.campaigns.find params[:id]
     @campaign.destroy
-    QueJob.remove_queue @campaign.id
+
+    @delivery = Delivery.new(@campaign)
+    @delivery.delete
+
     respond_with @campaign, location: campaigns_path
   end
 

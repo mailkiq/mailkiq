@@ -1,4 +1,4 @@
-WITH seg AS (:with_clause)
+WITH seg AS (:with)
 INSERT INTO que_jobs (job_class, args)
 SELECT
   'CampaignJob' AS job_class,

@@ -18,12 +18,13 @@ class Campaign < ActiveRecord::Base
   default_scope -> { where type: '' }
   scope :recent, -> { order created_at: :desc }
 
-  delegate :aws_options, :domain_names, :expired?,
-           to: :account, prefix: true, allow_nil: true
+  delegate :domain_names, to: :account, prefix: true, allow_nil: true
 
   store_accessor :send_settings, :tagged_with, :not_tagged_with, :finished_at
 
   strip_attributes only: [:name, :subject, :from_name, :from_email]
+
+  before_validation :clean_attributes
 
   aasm column: :state, enum: true, skip_validation_on_save: true, requires_lock: 'FOR UPDATE NOWAIT' do
     state :draft, initial: true
@@ -38,7 +39,7 @@ class Campaign < ActiveRecord::Base
 
     event :deliver do
       before do
-        self.sent_at = Time.now
+        update_column :sent_at, Time.now
       end
 
       transitions from: :queued, to: :sending
@@ -55,6 +56,7 @@ class Campaign < ActiveRecord::Base
     event :finish do
       before do
         self.finished_at = Time.now
+        save! validate: false
       end
 
       transitions from: :sending, to: :sent
@@ -118,6 +120,11 @@ class Campaign < ActiveRecord::Base
   end
 
   private
+
+  def clean_attributes
+    tagged_with.reject!(&:blank?) if tagged_with.is_a? Array
+    not_tagged_with.reject!(&:blank?) if not_tagged_with.is_a? Array
+  end
 
   def validate_from_field
     Mail::FromField.new(from)

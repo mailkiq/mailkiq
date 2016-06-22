@@ -11,10 +11,14 @@ class Quota
 
   def exceed?(value)
     if @account.iugu?
-      remaining < value
+      @account.expired? || remaining < value
     else
       false
     end
+  end
+
+  def use!(count)
+    @account.increment! :used_credits, count
   end
 
   def send_quota

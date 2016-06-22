@@ -3,7 +3,7 @@ require 'rails_helper'
 describe CampaignsController, type: :controller do
   context 'when logged in' do
     let(:account) { Fabricate.build :account }
-    let(:campaign) { Fabricate.build :campaign, id: 1 }
+    let(:campaign) { Fabricate.build :campaign, account: account, id: 1 }
 
     before { sign_in account }
 
@@ -110,7 +110,7 @@ describe CampaignsController, type: :controller do
       before do
         mock!
         expect(campaign).to receive(:destroy)
-        expect(QueJob).to receive(:remove_queue).with(campaign.id)
+        expect_any_instance_of(Delivery).to receive(:delete)
         delete :destroy, id: campaign.id
       end
 

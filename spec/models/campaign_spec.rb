@@ -31,9 +31,7 @@ describe Campaign, type: :model do
       .with_options(default: '', null: false)
   end
 
-  it { is_expected.to delegate_method(:aws_options).to(:account).with_prefix }
   it { is_expected.to delegate_method(:domain_names).to(:account).with_prefix }
-  it { is_expected.to delegate_method(:expired?).to(:account).with_prefix }
   it { is_expected.to delegate_method(:count).to(:messages).with_prefix }
 
   it { is_expected.to strip_attribute :name }
@@ -50,6 +48,29 @@ describe Campaign, type: :model do
 
   it { expect(described_class).to respond_to(:sort).with(1).argument }
   it { expect(described_class).to respond_to(:recent).with(0).arguments }
+
+  describe '#deliver!' do
+    it 'updates sent at timestamp' do
+      travel_to Time.now do
+        expect(subject).to receive(:update_column).with(:sent_at, Time.now)
+
+        subject.state = :queued
+        subject.deliver!
+      end
+    end
+  end
+
+  describe '#finish!' do
+    it 'updates finished at timestamp' do
+      travel_to Time.now do
+        expect(subject).to receive(:finished_at=).with(Time.now)
+        expect(subject).to receive(:save!).with(validate: false)
+
+        subject.state = :sending
+        subject.finish!
+      end
+    end
+  end
 
   describe '#deliveries_count' do
     it 'calculates current deliveries count' do
@@ -107,6 +128,17 @@ describe Campaign, type: :model do
 
       expect(campaign_copy.name).to end_with 'copy'
       expect(campaign_copy).not_to be_persisted
+    end
+  end
+
+  describe '#clean_attributes' do
+    it 'removes blank values' do
+      subject.tagged_with = ['', 'tag:1']
+      subject.not_tagged_with = ['', 'tag:2']
+      subject.valid?
+
+      expect(subject.tagged_with).to eq(['tag:1'])
+      expect(subject.not_tagged_with).to eq(['tag:2'])
     end
   end
 

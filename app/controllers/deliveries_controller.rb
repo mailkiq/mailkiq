@@ -7,8 +7,8 @@ class DeliveriesController < ApplicationController
   end
 
   def create
-    @delivery = Delivery.new @campaign, campaign_params
-    @delivery.enqueue
+    @delivery = Delivery.new @campaign
+    @delivery.enqueue! campaign_params
 
     if @delivery.processing?
       flash[:notice] = t('flash.deliveries.create.notice')

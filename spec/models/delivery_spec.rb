@@ -1,46 +1,68 @@
 require 'rails_helper'
 
 describe Delivery, type: :model do
-  let(:campaign) { Fabricate.build :campaign_with_account, id: 10 }
-
   subject { described_class.new campaign }
 
+  let(:campaign) { Fabricate.build :campaign_with_account, id: 10 }
+  let(:params) do
+    { tagged_with: ['tag:1'] }
+  end
+
   before do
-    allow_any_instance_of(Quota).to receive(:exceed?).and_return(false)
     allow_any_instance_of(DomainValidator).to receive(:validate_each)
-      .and_return(true)
   end
 
-  describe '#valid?' do
-    it 'checks account expiration date and credit limits' do
-      expect(campaign).to receive(:account_expired?).and_call_original
-      expect(campaign).to receive(:valid?).and_call_original
-      expect(subject).to be_valid
-    end
-  end
-
-  describe '#enqueue' do
+  describe '#enqueue!' do
     it 'enqueues delivery job' do
-      expect(DeliveryJob).to receive(:enqueue).with(campaign.id)
-      expect(subject).to receive(:valid?).and_return(true)
+      expect_any_instance_of(Quota).to receive(:exceed?).and_return(false)
+      expect_any_instance_of(Quota).to receive(:use!).with(subject.count)
+
+      expect(campaign).to receive(:assign_attributes).with(params)
+        .and_call_original
       expect(campaign).to receive(:enqueue!).and_yield
-      expect(campaign.account).to receive(:increment!)
-        .with(:used_credits, subject.count)
       expect(campaign).to receive(:recipients_count=).with(subject.count)
+        .and_call_original
       expect(campaign).to receive(:save!)
 
-      subject.enqueue
+      expect(DeliveryJob).to receive(:enqueue).with(campaign.id)
+
+      subject.enqueue!(params)
+    end
+
+    it 'raises exception when invalid' do
+      expect_any_instance_of(Quota).to receive(:exceed?).and_return(true)
+      expect(campaign).to receive(:enqueue!).and_yield
+      expect { subject.enqueue! }
+        .to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 
-  describe '#push_bulk' do
+  describe '#deliver!' do
     it 'inserts jobs to the queue table' do
+      expect(campaign).to receive(:deliver!).and_yield
+
       expect_any_instance_of(ScopeChain).to receive(:to_sql)
-      expect(QueJob).to receive(:push_bulk)
-        .with(anything, campaign.id)
+      expect(Query).to receive(:execute)
+        .with(:queue_jobs, with: anything, campaign_id: campaign.id)
         .and_return(true)
 
-      subject.push_bulk
+      expect(FinishJob).to receive(:enqueue).with(campaign.id)
+
+      subject.deliver!
+    end
+  end
+
+  describe '#delete' do
+    it 'deletes pending jobs' do
+      statement = <<-SQL.squish!
+        DELETE FROM que_jobs WHERE job_class = 'CampaignJob'
+        AND args::text ILIKE '[10,%'
+      SQL
+
+      expect(ActiveRecord::Base.connection).to receive(:execute)
+        .with(statement, 'Delete Campaign Jobs')
+
+      subject.delete
     end
   end
 end

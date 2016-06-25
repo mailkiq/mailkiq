@@ -52,7 +52,7 @@
             <a href="#" data-toggle="dropdown">•••</a>
 
             <ul class="dropdown-menu simple-dropdown-menu animated">
-              <%= action_link_to :view, preview_campaign_path(campaign) %>
+              <%= action_link_to :view, campaign_preview_path(campaign) %>
               <%= action_link_to :send, new_campaign_delivery_path(campaign) if campaign.editable? %>
               <%= action_link_to :addfile, duplicate_campaign_path(campaign), method: :post %>
               <%= action_link_to :pen, edit_campaign_path(campaign) if campaign.editable? %>

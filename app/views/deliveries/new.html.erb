@@ -1,11 +1,15 @@
-<h2><%= page_title %></h2>
+<h2><%= @campaign.name %></h2>
 
+<h2 class="subtitle">Teste sua campanha</h2>
+<%= simple_form_for :preview, url: campaign_preview_path(@campaign) do |f| %>
+  <%= f.input :email %>
+  <%= f.button :submit, "Enviar email de teste" %>
+<% end %>
+
+<h2 class="subtitle">Segmentação</h2>
 <%= simple_form_for @campaign, url: campaign_delivery_path(@campaign), method: :post do |f| %>
   <%= f.error :base %>
   <%= f.input :tagged_with, as: :select, collection: @delivery.tags, input_html: { multiple: true } %>
   <%= f.input :not_tagged_with, as: :select, collection: @delivery.tags, input_html: { multiple: true } %>
-
-  <div class="actions">
-    <%= f.button :submit, "Enviar" %>
-  </div>
+  <%= f.button :submit, "Enviar" %>
 <% end %>

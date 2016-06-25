@@ -46,11 +46,6 @@ class CampaignsController < ApplicationController
     respond_with @campaign, location: campaigns_path
   end
 
-  def preview
-    @campaign = current_account.campaigns.find params[:id]
-    render layout: false
-  end
-
   def duplicate
     @campaign = current_account.campaigns.find params[:id]
     @campaign_copy = @campaign.duplicate

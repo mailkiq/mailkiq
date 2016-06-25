@@ -39,11 +39,9 @@ Rails.application.routes.draw do
   resources :subscribers
   resources :campaigns do
     resource :delivery, only: [:new, :create]
+    resource :preview, only: [:show, :create]
 
-    member do
-      get :preview
-      post :duplicate
-    end
+    post :duplicate, on: :member
   end
 
   resources :automations do

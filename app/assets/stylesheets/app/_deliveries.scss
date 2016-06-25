@@ -1,5 +1,20 @@
+.deliveries-controller {
+  .main h2:first-child {
+    margin-bottom: 50px;
+  }
+
+  .subtitle + form {
+    margin-bottom: 50px;
+    margin-top: 10px;
+  }
+}
+
 .campaign_tagged_with {
   margin-bottom: 35px;
+}
+
+.campaign_not_tagged_with {
+  margin-bottom: 12px;
 }
 
 .edit_campaign select {

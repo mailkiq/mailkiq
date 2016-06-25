@@ -51,6 +51,8 @@ pt-BR:
     placeholders:
       domain:
         name: 'exemplo.com'
+      preview:
+        email: 'Endereços de email, separados por vírgulas'
     hints:
       import:
         file: 'Formatos aceitos: CSV ou arquivos separados por tabulações.'
@@ -60,6 +62,8 @@ pt-BR:
           current_password: 'Para definir uma nova senha, entre com a senha atual'
           password: 'Digite sua nova senha'
           password_confirmation: 'Confirme sua nova senha'
+      preview:
+        email: 'Apenas emails inscritos são considerados válidos.'
     options:
       domain:
         status:

@@ -4,9 +4,6 @@ describe Delivery, type: :model do
   subject { described_class.new campaign }
 
   let(:campaign) { Fabricate.build :campaign_with_account, id: 10 }
-  let(:params) do
-    { tagged_with: ['tag:1'] }
-  end
 
   before do
     allow_any_instance_of(DomainValidator).to receive(:validate_each)
@@ -14,6 +11,8 @@ describe Delivery, type: :model do
 
   describe '#enqueue!' do
     it 'enqueues delivery job' do
+      params = { tagged_with: %w(tag:1) }
+
       expect_any_instance_of(Quota).to receive(:exceed?).and_return(false)
       expect_any_instance_of(Quota).to receive(:use!).with(subject.count)
 
@@ -23,7 +22,6 @@ describe Delivery, type: :model do
       expect(campaign).to receive(:recipients_count=).with(subject.count)
         .and_call_original
       expect(campaign).to receive(:save!)
-
       expect(DeliveryJob).to receive(:enqueue).with(campaign.id)
 
       subject.enqueue!(params)
@@ -45,7 +43,6 @@ describe Delivery, type: :model do
       expect(Query).to receive(:execute)
         .with(:queue_jobs, with: anything, campaign_id: campaign.id)
         .and_return(true)
-
       expect(FinishJob).to receive(:enqueue).with(campaign.id)
 
       subject.deliver!

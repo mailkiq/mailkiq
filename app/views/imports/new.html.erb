@@ -1,5 +1,9 @@
 <h2><%= page_title %></h2>
 
 <%= simple_form_for :import, url: imports_path do |f| %>
-  <%= f.input :file, as: :file %>
+  <%= f.input :csv, as: :text, input_html: { rows: 15 } %>
+
+  <div class="actions">
+    <%= f.button :submit, 'Adicionar' %>
+  </div>
 <% end %>

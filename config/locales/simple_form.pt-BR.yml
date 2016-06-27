@@ -10,7 +10,7 @@ pt-BR:
       default_message: "Por favor, revise os problemas abaixo:"
     labels:
       import:
-        file: 'Subir arquivo'
+        csv: 'Email e Nome (separado por vírgula)'
       tag:
         name: 'Nome'
       campaign:
@@ -55,7 +55,7 @@ pt-BR:
         email: 'Endereços de email, separados por vírgulas'
     hints:
       import:
-        file: 'Formatos aceitos: CSV ou arquivos separados por tabulações.'
+        csv: 'Cada assinante deve estar em uma nova linha.'
       account:
         aws_region: 'Selecione a mesma região que está definida no seu console Amazon SES.'
         edit:

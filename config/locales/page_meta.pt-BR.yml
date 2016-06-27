@@ -21,7 +21,7 @@ pt-BR:
       deliveries:
         new: "Enviar Campanha"
       imports:
-        new: "Importar CSV"
+        new: "Adicionar novos assinantes"
       tags:
         index: "Etiquetas"
         new: "Nova tag"

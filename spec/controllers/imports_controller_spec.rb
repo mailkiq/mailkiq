@@ -13,5 +13,16 @@ describe ImportsController, type: :controller do
       it { is_expected.to render_template :new }
       it { is_expected.to respond_with :success }
     end
+
+    describe '#create' do
+      before do
+        expect_any_instance_of(Importer).to receive(:process!)
+        post :create, import: { csv: 'teste@teste.com,Teste' }
+      end
+
+      it { is_expected.to use_before_action :authenticate_account! }
+      it { is_expected.to respond_with :redirect }
+      it { is_expected.to redirect_to new_import_path }
+    end
   end
 end

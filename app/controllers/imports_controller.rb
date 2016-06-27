@@ -3,4 +3,16 @@ class ImportsController < ApplicationController
 
   def new
   end
+
+  def create
+    importer = Importer.new current_account
+    importer.process! import_params[:csv]
+    redirect_to new_import_path
+  end
+
+  private
+
+  def import_params
+    params.require(:import).permit(:csv)
+  end
 end

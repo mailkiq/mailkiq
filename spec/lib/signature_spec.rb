@@ -1,6 +1,7 @@
-require 'rails_helper'
+require 'spec_helper'
+require 'signature'
 
-describe Signature, type: :model do
+describe Signature do
   describe '.secret_key_base' do
     it 'alias to secret_key_base option' do
       expect(described_class.secret_key_base)

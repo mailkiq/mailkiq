@@ -60,6 +60,22 @@ describe Subscriber, type: :model do
     end
   end
 
+  describe '#subscription_token' do
+    it 'generates an unsubscription token' do
+      expect(subject.subscription_token).to eq Token.encode(subject.id)
+    end
+  end
+
+  describe '#interpolations' do
+    it 'generates a custom attributes hash' do
+      interpolations = subject.interpolations
+      expect(interpolations).to have_key :first_name
+      expect(interpolations).to have_key :last_name
+      expect(interpolations).to have_key :full_name
+      expect(interpolations.size).to eq(3)
+    end
+  end
+
   describe '#set_default_state' do
     it 'sets state to unconfirmed' do
       expect(subject.state).to be_nil

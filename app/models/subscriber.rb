@@ -1,3 +1,5 @@
+require_dependency 'token'
+
 class Subscriber < ActiveRecord::Base
   extend Sortable
   include Person
@@ -20,6 +22,10 @@ class Subscriber < ActiveRecord::Base
 
   before_create :set_default_state
 
+  def self.find_by_token(token)
+    find Token.decode(token)
+  end
+
   def self.mark_as_invalid_email(subscriber_id)
     where(id: subscriber_id).update_all state: states[:invalid_email]
   end
@@ -36,6 +42,18 @@ class Subscriber < ActiveRecord::Base
 
   def unsubscribe!
     update! unsubscribed_at: Time.now, state: :unsubscribed
+  end
+
+  def subscription_token
+    Token.encode id
+  end
+
+  def interpolations
+    {
+      first_name: first_name,
+      last_name: last_name,
+      full_name: name
+    }
   end
 
   protected

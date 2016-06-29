@@ -18,6 +18,6 @@ class SubscriptionsController < ApplicationController
   private
 
   def set_subscriber
-    @subscriber = Subscriber.find Token.decode(params[:id])
+    @subscriber = Subscriber.find_by_token params[:id]
   end
 end

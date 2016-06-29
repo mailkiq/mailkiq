@@ -1,3 +1,5 @@
+require_dependency 'signature'
+
 class MessageEvent
   def initialize(message, params)
     @message = message

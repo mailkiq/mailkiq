@@ -1,6 +1,7 @@
-require 'rails_helper'
+require 'spec_helper'
+require 'token'
 
-describe Token, type: :model do
+describe Token do
   let(:encoded_token) do
     'BAh7BjoMdXNlcl9pZGkG--11a84292bed52f308c004e62e9567928075fe56c'
   end

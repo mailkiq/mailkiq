@@ -1,17 +1,17 @@
 Fabricator(:automation) do
   name 'Confirmation'
-  subject 'Obrigado'
+  subject '%first_name%, Obrigado'
   from_name 'Rainer'
   from_email 'rainer@mailkiq.com'
   html_text <<-EOF
     Obrigado
 
-    %confirm_url%
+    %subscribe_url%
   EOF
   plain_text <<-EOF
     Obrigado
 
-    %confirm_url%
+    %subscribe_url%
   EOF
 end
 

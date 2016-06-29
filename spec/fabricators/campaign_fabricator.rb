@@ -11,6 +11,13 @@ Fabricator(:campaign) do
   EOF
 end
 
+Fabricator(:renderable_campaign, from: :campaign) do
+  html_text File.read('spec/fixtures/template.html')
+  plain_text <<-EOF.strip_heredoc
+    Please confirm your subscription %subscribe_url%
+  EOF
+end
+
 Fabricator(:sent_campaign, from: :campaign) do
   sent_at Time.now
   recipients_count 10

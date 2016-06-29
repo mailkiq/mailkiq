@@ -7,16 +7,16 @@ class Prospect
   end
 
   def save
-    around { model.save }
+    _run { model.save }
   end
 
   def save!
-    around { model.save! }
+    _run { model.save! }
   end
 
   private
 
-  def around
+  def _run
     merge_tags if tag.present?
     yield
     send_confirmation_instructions

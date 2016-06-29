@@ -1,6 +1,6 @@
 require 'csv'
 
-class Importer
+class SubscriberImporter
   def initialize(account)
     @account = account
   end

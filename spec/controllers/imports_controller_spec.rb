@@ -16,7 +16,7 @@ describe ImportsController, type: :controller do
 
     describe '#create' do
       before do
-        expect_any_instance_of(Importer).to receive(:process!)
+        expect_any_instance_of(SubscriberImporter).to receive(:process!)
         post :create, import: { csv: 'teste@teste.com,Teste' }
       end
 

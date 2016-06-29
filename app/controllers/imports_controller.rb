@@ -5,7 +5,7 @@ class ImportsController < ApplicationController
   end
 
   def create
-    importer = Importer.new current_account
+    importer = SubscriberImporter.new current_account
     importer.process! import_params[:csv]
     redirect_to new_import_path
   end

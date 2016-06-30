@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe MarketingController, type: :controller do
   describe '#index' do
-    before { get :index }
+    before do
+      get :index
+    end
 
     it { is_expected.to respond_with :success }
     it { is_expected.to render_template :index }

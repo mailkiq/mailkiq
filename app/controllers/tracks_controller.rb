@@ -15,6 +15,10 @@ class TracksController < ApplicationController
 
   private
 
+  def ssl_configured?
+    false
+  end
+
   def track_params
     {
       referer: request.referer,

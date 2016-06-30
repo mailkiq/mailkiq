@@ -5,8 +5,13 @@ class ApplicationController < ActionController::Base
   before_action :set_locale, if: :account_signed_in?
   before_action :set_raven_context, if: :account_signed_in?
   around_action :set_time_zone, if: :account_signed_in?
+  force_ssl if: :ssl_configured?
 
   private
+
+  def ssl_configured?
+    !Rails.env.development?
+  end
 
   def set_time_zone(&block)
     Time.use_zone(current_account.time_zone, &block)

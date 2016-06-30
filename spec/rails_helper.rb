@@ -23,4 +23,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.include AbstractController::Translation
   config.include ActiveSupport::Testing::TimeHelpers
+  config.before :each, type: :controller do
+    request.env['HTTPS'] = 'on'
+  end
 end

@@ -4,7 +4,7 @@ describe Accounts::RegistrationsController, type: :controller do
   let(:account) { Fabricate.build :account }
 
   before do
-    @request.env['devise.mapping'] = Devise.mappings[:account]
+    request.env['devise.mapping'] = Devise.mappings[:account]
   end
 
   describe '#create' do

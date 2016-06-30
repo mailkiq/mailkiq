@@ -10,7 +10,9 @@ describe API::V1::ContactsController, type: :request do
         it 'inserts a new subscriber on the database' do
           expect do
             post api_v1_contacts_path(api_key: account.api_key), params.to_json,
-                 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s
+                 'Content-Type' => Mime::JSON.to_s,
+                 'Accept' => Mime::JSON,
+                 'HTTPS' => 'on'
           end.to change { account.subscribers.count }.by(1)
 
           json_response = JSON.parse(response.body, symbolize_names: true)
@@ -33,7 +35,9 @@ describe API::V1::ContactsController, type: :request do
             .and_raise(ActiveRecord::RecordNotUnique, 'duplicate key value')
 
           post api_v1_contacts_path(api_key: account.api_key), params.to_json,
-               'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s
+               'Content-Type' => Mime::JSON.to_s,
+               'Accept' => Mime::JSON,
+               'HTTPS' => 'on'
 
           json_response = JSON.parse(response.body, symbolize_names: true)
 

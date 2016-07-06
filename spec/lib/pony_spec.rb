@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'pony'
 
-describe Pony do
+RSpec.describe Pony do
   describe 'builds a Mail object with field:' do
     it 'to' do
       expect(Pony.build_mail(to: 'joe@example.com').to)

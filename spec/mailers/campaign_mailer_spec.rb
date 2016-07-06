@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CampaignMailer do
+RSpec.describe CampaignMailer do
   let(:automation) { Fabricate.create :automation_with_account }
   let(:subscriber) { Fabricate.create :subscriber, account: automation.account }
   let(:ses) { subject.instance_variable_get :@ses }

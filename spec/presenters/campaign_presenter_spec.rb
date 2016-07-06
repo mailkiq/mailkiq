@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CampaignPresenter do
+RSpec.describe CampaignPresenter do
   let(:campaign) { Fabricate.build :campaign_with_account }
 
   subject do

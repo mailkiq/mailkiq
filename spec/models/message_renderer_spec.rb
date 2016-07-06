@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe MessageRenderer, type: :model do
+RSpec.describe MessageRenderer, type: :model do
   let(:message) { Fabricate.build :message_with_associations }
 
   subject { described_class.new message }
@@ -15,7 +15,7 @@ describe MessageRenderer, type: :model do
     it 'tracks open' do
       image = html.at('body > img:last-child')
 
-      expect(image[:src]).to eq('http://localhost:3000/track/open/tokenz.gif')
+      expect(image[:src]).to eq('http://localhost:5000/track/open/tokenz.gif')
       expect(image[:width]).to eq('1')
       expect(image[:height]).to eq('1')
       expect(image[:alt]).to be_empty

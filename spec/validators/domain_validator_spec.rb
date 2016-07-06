@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DomainValidator do
+RSpec.describe DomainValidator do
   let(:account) { Fabricate.build :valid_account }
   let(:campaign) { Fabricate.build :campaign, account: account }
 

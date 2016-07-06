@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0'
 gem 'active_model_serializers'
 gem 'addressable', require: false
 gem 'appsignal'
@@ -15,6 +15,7 @@ gem 'page_meta'
 gem 'puma'
 gem 'rouge', require: false
 gem 'simple_form'
+gem 'sinatra', github: 'sinatra/sinatra'
 gem 'strip_attributes'
 
 # Job scheduling
@@ -45,7 +46,8 @@ group :development do
 end
 
 group :test do
-  gem 'database_rewinder'
+  gem 'capybara'
+  gem 'database_rewinder', '0.6.0'
   gem 'fabrication'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false

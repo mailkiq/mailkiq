@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DomainRecords, type: :model do
+RSpec.describe DomainRecords, type: :model do
   let(:domain) { Fabricate.build :domain }
 
   subject { described_class.new domain }

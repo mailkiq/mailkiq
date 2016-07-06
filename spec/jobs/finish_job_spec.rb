@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe FinishJob do
+RSpec.describe FinishJob do
   subject { described_class.new args: [1] }
 
   describe '#run' do

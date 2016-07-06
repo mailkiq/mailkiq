@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Automation, type: :model do
+RSpec.describe Automation, type: :model do
   it 'removes inherited default scope' do
     expect(described_class.default_scopes).to be_empty
   end

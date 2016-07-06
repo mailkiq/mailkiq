@@ -37,4 +37,9 @@ end
 
 Fabricator(:freeletics_campaign, from: :campaign) do
   name 'Coma direito e duplique o resultado dos treinos'
+  subject 'Coma direito e duplique o resultado dos treinos'
+  from_name 'Freeletics'
+  from_email 'contact@freeletics.com'
+  html_text 'It works'
+  plain_text 'It works'
 end

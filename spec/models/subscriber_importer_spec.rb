@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubscriberImporter, type: :model do
+RSpec.describe SubscriberImporter, type: :model do
   let(:account) { Fabricate.build :account }
 
   subject { described_class.new account }

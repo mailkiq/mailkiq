@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe AccessKeysValidator do
+RSpec.describe AccessKeysValidator do
   describe '#validate' do
     it 'appends error message to AWS Access Key ID attribute' do
       account = Fabricate.build(:valid_account)

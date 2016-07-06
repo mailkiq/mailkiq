@@ -14,7 +14,6 @@ module Mailkiq
     config.time_zone = 'Brasilia'
     config.i18n.default_locale = :'pt-BR'
     config.i18n.available_locales = %i(en pt-BR)
-    config.active_record.raise_in_transactional_callbacks = true
     config.filter_parameters += [:password, :api_key]
     config.generators do |g|
       g.helper false
@@ -23,7 +22,6 @@ module Mailkiq
     end
 
     config.middleware.delete Rack::Sendfile
-    config.middleware.delete Rack::Lock
     config.middleware.delete Rack::ETag
 
     # Use the responders controller from the responders gem

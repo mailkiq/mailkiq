@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CampaignJob do
+RSpec.describe CampaignJob do
   subject { described_class.new args: [1, 1] }
 
   describe '#run' do

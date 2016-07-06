@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DomainIdentity, type: :model do
+RSpec.describe DomainIdentity, type: :model do
   let(:domain) { Fabricate.build :domain }
 
   subject { described_class.new domain }
@@ -11,50 +11,6 @@ describe DomainIdentity, type: :model do
     allow(domain).to receive(:save)
     allow(domain).to receive(:destroy)
     allow(domain).to receive(:transaction).and_yield
-  end
-
-  before do
-    ses.stub_responses(
-      :get_identity_verification_attributes,
-      verification_attributes: {
-        'example.com' => { verification_status: 'Success' }
-      }
-    )
-
-    ses.stub_responses(
-      :verify_domain_identity,
-      verification_token: 'G8qYlxUb5fkAus3eY/tp83XPKI0RvChrEfjYl4aEn7s='
-    )
-
-    ses.stub_responses(
-      :verify_domain_dkim,
-      dkim_tokens: %w(
-        todq4lvd66ptvcfkpgtxo26nx53fkuce
-        g3jkkqxckrfukxvmyvz43annasly3ccq
-        vfk7s2mxgg27m7vu5npsh7opco6x66rw
-      )
-    )
-
-    ses.stub_responses(
-      :get_identity_dkim_attributes,
-      dkim_attributes: {
-        'example.com' => {
-          dkim_enabled: false,
-          dkim_verification_status: 'Success'
-        }
-      }
-    )
-
-    ses.stub_responses(
-      :get_identity_mail_from_domain_attributes,
-      mail_from_domain_attributes: {
-        'example.com' => {
-          behavior_on_mx_failure: 'UseDefaultValue',
-          mail_from_domain: 'bounce.example.com',
-          mail_from_domain_status: 'Success'
-        }
-      }
-    )
   end
 
   describe '#verify!' do
@@ -78,17 +34,9 @@ describe DomainIdentity, type: :model do
     end
 
     it 'sets identity notification topics' do
-      expect(ses).to receive(:set_identity_notification_topic)
-        .with(notification_topic_options_for(:Bounce))
-        .and_call_original
-
-      expect(ses).to receive(:set_identity_notification_topic)
-        .with(notification_topic_options_for(:Complaint))
-        .and_call_original
-
-      expect(ses).to receive(:set_identity_notification_topic)
-        .with(notification_topic_options_for(:Delivery))
-        .and_call_original
+      expect(ses).to receive_set_identity_notification_topic :Bounce
+      expect(ses).to receive_set_identity_notification_topic :Complaint
+      expect(ses).to receive_set_identity_notification_topic :Delivery
 
       expect(ses).to receive(:set_identity_feedback_forwarding_enabled)
         .with(identity: domain.name, forwarding_enabled: false)
@@ -151,11 +99,11 @@ describe DomainIdentity, type: :model do
     end
   end
 
-  def notification_topic_options_for(type)
-    {
-      identity: domain.name,
-      sns_topic: domain.account_aws_topic_arn,
-      notification_type: type
-    }
+  def receive_set_identity_notification_topic(type)
+    receive(:set_identity_notification_topic)
+      .with(identity: domain.name,
+            sns_topic: domain.account_aws_topic_arn,
+            notification_type: type)
+      .and_call_original
   end
 end

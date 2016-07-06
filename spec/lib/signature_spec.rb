@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'signature'
 
-describe Signature do
+RSpec.describe Signature do
   describe '.secret_key_base' do
     it 'alias to secret_key_base option' do
       expect(described_class.secret_key_base)

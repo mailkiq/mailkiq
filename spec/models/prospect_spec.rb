@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Prospect, type: :model do
+RSpec.describe Prospect, type: :model do
   subject do
     described_class.new email: 'teste@teste.com', account_id: 10, tag: 'slug'
   end
@@ -18,6 +18,7 @@ describe Prospect, type: :model do
         .with(slug: 'slug', account_id: subject.model.account_id)
         .and_return(relation)
       expect(subject).to receive(:send_confirmation_instructions)
+      expect(subject.model).to receive(:tag_ids=).and_return(nil)
 
       subject.save!
     end

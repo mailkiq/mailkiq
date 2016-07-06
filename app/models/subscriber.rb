@@ -1,6 +1,6 @@
 require_dependency 'token'
 
-class Subscriber < ActiveRecord::Base
+class Subscriber < ApplicationRecord
   extend Sortable
   include Person
 
@@ -16,7 +16,6 @@ class Subscriber < ActiveRecord::Base
   paginates_per 10
 
   scope :activated, -> { where state: states[:active] }
-  scope :recent, -> { order created_at: :desc }
 
   strip_attributes only: [:name, :email]
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe AccountActivation, type: :model do
+RSpec.describe AccountActivation, type: :model do
   let(:account) { Fabricate.build :valid_account, id: 1 }
 
   subject { described_class.new account }
@@ -20,28 +20,26 @@ describe AccountActivation, type: :model do
 
   describe '#activate' do
     it 'creates a topic and queue to receive SES notifications' do
-      queue = { 'QueueArn' => 'arn:aws:sqs:us-east-1:495707395447:mailkiq' }
-      topic_arn = 'arn:aws:sns:us-east-1:495707395447:mailkiq'
-      queue_url = 'https://sqs.us-east-1.amazonaws.com/495707395447/mailkiq'
+      queue = Aws.config.dig \
+        :sqs, :stub_responses, :get_queue_attributes, :attributes
+      topic_arn = Aws.config.dig \
+        :sns, :stub_responses, :create_topic, :topic_arn
+      queue_url = Aws.config.dig \
+        :sqs, :stub_responses, :create_queue, :queue_url
+
       queue_arn = queue['QueueArn']
       policy = ERB.new(IO.read('lib/aws/sqs/policy.json.erb')).result(binding)
-
-      sns.stub_responses(:create_topic, topic_arn: topic_arn)
-      sqs.stub_responses(:create_queue, queue_url: queue_url)
-      sqs.stub_responses(:get_queue_attributes, attributes: queue)
 
       expect(sns).to receive(:create_topic).with(name: subject.name)
         .and_call_original
 
       expect(sqs).to receive(:create_queue)
-        .with(
-          queue_name: subject.name,
-          attributes: {
-            'MessageRetentionPeriod' => '1209600',
-            'ReceiveMessageWaitTimeSeconds' => '20',
-            'VisibilityTimeout' => '10'
-          })
-        .and_call_original
+        .with(queue_name: subject.name,
+              attributes: {
+                'MessageRetentionPeriod' => '1209600',
+                'ReceiveMessageWaitTimeSeconds' => '20',
+                'VisibilityTimeout' => '10'
+              }).and_call_original
 
       expect(sqs).to receive(:get_queue_attributes)
         .with(queue_url: queue_url, attribute_names: ['QueueArn'])

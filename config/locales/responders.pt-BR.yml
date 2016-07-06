@@ -20,6 +20,10 @@ pt-BR:
     leads:
       create:
         notice: "Sua inscrição foi confirmada. Em breve você receberá mais novidades deste incrível lançamento."
+    campaigns:
+      duplicate:
+        notice: "Campanha duplicada com sucesso."
+        alert: "Campanha não pode ser duplicada."
     deliveries:
       create:
         notice: "Envio de campanha processado com succeso."

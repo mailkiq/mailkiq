@@ -1,4 +1,4 @@
-class Account < ActiveRecord::Base
+class Account < ApplicationRecord
   include Person
 
   LANGUAGES = %w(en pt-BR).freeze
@@ -61,7 +61,6 @@ class Account < ActiveRecord::Base
     options[:region] = aws_region || 'us-east-1'
     options[:access_key_id] = aws_access_key_id
     options[:secret_access_key] = aws_secret_access_key
-    options[:stub_responses] = true if Rails.env.test?
     options
   end
 

@@ -55,7 +55,7 @@ class DomainIdentity
     resp = @ses.get_identity_dkim_attributes identities: [@domain.name]
     attributes = resp.dkim_attributes[@domain.name]
     status = attributes.dkim_verification_status.underscore
-    Domain.dkim_verification_statuses["dkim_#{status}"]
+    Domain.dkim_verification_statuses[status]
   end
 
   def mail_from_domain_status
@@ -63,7 +63,7 @@ class DomainIdentity
     resp = @ses.get_identity_mail_from_domain_attributes identities: identities
     attributes = resp.mail_from_domain_attributes[@domain.name]
     status = attributes.mail_from_domain_status.underscore
-    Domain.mail_from_domain_statuses["mail_from_#{status}"]
+    Domain.mail_from_domain_statuses[status]
   end
 
   def verification_status

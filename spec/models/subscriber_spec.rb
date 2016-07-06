@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe Subscriber, type: :model do
+RSpec.describe Subscriber, type: :model do
   it { is_expected.to validate_presence_of :email }
-  it { is_expected.to allow_value('jonh@doe.com').for :email }
+  it { is_expected.to allow_value('john@doe.com').for :email }
   it { is_expected.not_to allow_value('asdf.com').for :email }
   it do
     is_expected.not_to allow_value('franrodrigues1962@.gmail..com').for :email

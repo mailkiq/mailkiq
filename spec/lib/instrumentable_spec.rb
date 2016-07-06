@@ -41,7 +41,7 @@ class FatherCat
   class_instrument_method self, :who?, 'fathercat.who', payload: 'who?'
 end
 
-describe Instrumentable do
+RSpec.describe Instrumentable do
   describe '.instrument_method' do
     it 'must instrument fathercat.greet' do
       cat = FatherCat.new

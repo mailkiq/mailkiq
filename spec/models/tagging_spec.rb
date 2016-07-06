@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Tagging, type: :model do
+RSpec.describe Tagging, type: :model do
   it { is_expected.to belong_to :tag }
   it { is_expected.to belong_to :subscriber }
   it { is_expected.to have_db_index :tag_id }

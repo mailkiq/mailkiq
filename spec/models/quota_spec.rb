@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Quota, type: :model do
+RSpec.describe Quota, type: :model do
   subject { described_class.new account }
 
   let(:account) { Fabricate.build :paid_account }

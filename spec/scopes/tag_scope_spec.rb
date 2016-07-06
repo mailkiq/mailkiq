@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe TagScope do
+RSpec.describe TagScope do
   describe '#call' do
     it 'fetches subscribers that has specified tags' do
       campaign = Fabricate.build :campaign

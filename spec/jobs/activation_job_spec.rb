@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ActivationJob do
+RSpec.describe ActivationJob do
   describe '#run' do
     it 'associates a new SNS topic on Amazon SES with specified account' do
       account = Fabricate.build :account

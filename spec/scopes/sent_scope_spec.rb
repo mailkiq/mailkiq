@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SentScope do
+RSpec.describe SentScope do
   describe '#call' do
     it 'fetches subscribers that opened a given campaign' do
       campaign = Fabricate.build :campaign

@@ -13,6 +13,7 @@ en:
     send: "Send"
     addfile: "Duplicate"
     info: "Show DNS Records"
+    importfile: "Copy to clipboard"
   nav:
     links:
       dashboard: "Dashboard"
@@ -76,6 +77,11 @@ en:
       domains: "Domains"
       domain: "Domain"
       status: "Status"
+      update: "Change"
+  domains:
+    show:
+      remove_domain: "Delete Domain"
+      domains: "Domains"
   tags:
     index:
       new_tag: "New tag"
@@ -86,7 +92,9 @@ en:
   devise:
     sessions:
       new:
-        forgot_password: "Forgot password?"
+        sign_up: "Create my account"
+        sign_up_hint: "Don't have an account?"
+        forgot_password: "Forgot your password?"
     passwords:
       new:
         description: To be emailed a link to reset your password, please enter

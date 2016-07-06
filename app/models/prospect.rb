@@ -34,7 +34,7 @@ class Prospect
   end
 
   def merge_tags
-    new_tag_ids = Tag.where(slug: tag, account_id: model.account_id)
-    model.tag_ids = model.tag_ids | new_tag_ids.pluck(:id)
+    new_tag_ids = Tag.where(slug: tag, account_id: model.account_id).pluck(:id)
+    model.tag_ids = model.tag_ids | new_tag_ids
   end
 end

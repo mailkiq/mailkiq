@@ -1,12 +1,13 @@
 require 'rails_helper'
 
-describe Delivery, type: :model do
-  subject { described_class.new campaign }
-
+RSpec.describe Delivery, type: :model do
   let(:campaign) { Fabricate.build :campaign_with_account, id: 10 }
+
+  subject { described_class.new campaign }
 
   before do
     allow_any_instance_of(DomainValidator).to receive(:validate_each)
+    allow_any_instance_of(ScopeChain).to receive(:count).and_return(0)
   end
 
   describe '#enqueue!' do

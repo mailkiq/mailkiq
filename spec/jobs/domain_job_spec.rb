@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DomainJob do
+RSpec.describe DomainJob do
   describe '#run' do
     it 'updates statuses attributes' do
       account = Fabricate.build :account

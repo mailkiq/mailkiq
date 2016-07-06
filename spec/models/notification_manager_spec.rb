@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe NotificationManager do
+RSpec.describe NotificationManager do
   let(:account) { Fabricate.build :valid_account }
   let(:sns) { subject.instance_variable_get :@message }
   let(:message) { Message.new campaign_id: 1 }

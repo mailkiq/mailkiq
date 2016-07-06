@@ -1,4 +1,4 @@
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
   belongs_to :subscriber
   belongs_to :campaign
   belongs_to :automation, foreign_key: :campaign_id, counter_cache: :recipients_count

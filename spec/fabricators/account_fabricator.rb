@@ -1,5 +1,5 @@
 Fabricator(:account) do
-  name 'Jonh Doe'
+  name 'John Doe'
   email 'account0@example.com'
   password 'testando'
   time_zone 'America/Sao_Paulo'
@@ -7,8 +7,12 @@ Fabricator(:account) do
   aws_access_key_id 'anything'
   aws_secret_access_key 'anything'
   aws_region 'us-east-1'
-  api_key SecureRandom.uuid
+  api_key { SecureRandom.uuid }
   used_credits 5
+end
+
+Fabricator(:official_account, from: :account) do
+  email 'rainerborene@gmail.com'
 end
 
 Fabricator(:paid_account, from: :account) do
@@ -28,7 +32,7 @@ end
 Fabricator(:jane_doe, from: :valid_account) do
   name 'Jane Doe'
   email 'jane@doe.com'
-  password 'jane'
+  password 'janedoe123'
   language 'pt-BR'
   time_zone 'Buenos Aires'
   aws_region 'us-west-2'

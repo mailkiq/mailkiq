@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DeliveryJob do
+RSpec.describe DeliveryJob do
   let(:campaign) { Fabricate.build :campaign_with_account, state: :queued }
 
   subject { described_class.new args: [campaign.id] }

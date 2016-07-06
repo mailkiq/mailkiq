@@ -1,4 +1,4 @@
-class Campaign < ActiveRecord::Base
+class Campaign < ApplicationRecord
   include AASM
   extend Sortable
 
@@ -18,7 +18,6 @@ class Campaign < ActiveRecord::Base
   has_many :messages
 
   default_scope -> { where type: '' }
-  scope :recent, -> { order created_at: :desc }
 
   delegate :domain_names, to: :account, prefix: true, allow_nil: true
 

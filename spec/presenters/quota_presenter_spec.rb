@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe QuotaPresenter do
+RSpec.describe QuotaPresenter do
   subject do
     view = ActionController::Base.new.view_context
     account = Fabricate.build :valid_account

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'query'
 
-describe Query do
+RSpec.describe Query do
   describe '.select_all' do
     it 'returns an array of rows containing the results' do
       expect(described_class).to receive(:prepare).with(:queue_jobs, {})

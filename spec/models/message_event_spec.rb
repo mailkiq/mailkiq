@@ -1,20 +1,10 @@
 require 'rails_helper'
 
-describe MessageEvent, type: :model do
+RSpec.describe MessageEvent, type: :model do
   let(:message) { Message.new campaign_id: 10 }
-  let(:params) do
-    request = ActionController::TestRequest.new
+  let(:event) { Fabricate.build :message_event }
 
-    {
-      referer: request.referer,
-      remote_ip: request.remote_ip,
-      user_agent: request.user_agent,
-      signature: request.params[:signature].to_s,
-      url: request.params[:url].to_s
-    }
-  end
-
-  subject { described_class.new message, params }
+  subject { described_class.new message, event.to_h }
 
   before do
     expect(Campaign).to receive(:increment_counter)
@@ -27,9 +17,9 @@ describe MessageEvent, type: :model do
       subject.open!
 
       expect(message.opened_at).not_to be_nil
-      expect(message.referer).to eq(params[:referer])
-      expect(message.ip_address).to eq(params[:ip_address])
-      expect(message.user_agent).to eq(params[:user_agent])
+      expect(message.referer).to eq(event.referer)
+      expect(message.ip_address).to eq(event.remote_ip)
+      expect(message.user_agent).to eq(event.user_agent)
     end
   end
 
@@ -42,9 +32,9 @@ describe MessageEvent, type: :model do
 
       expect(message.opened_at).not_to be_nil
       expect(message.clicked_at).to eq(message.opened_at)
-      expect(message.referer).to eq(params[:referer])
-      expect(message.ip_address).to eq(params[:remote_ip])
-      expect(message.user_agent).to eq(params[:user_agent])
+      expect(message.referer).to eq(event.referer)
+      expect(message.ip_address).to eq(event.remote_ip)
+      expect(message.user_agent).to eq(event.user_agent)
     end
   end
 end

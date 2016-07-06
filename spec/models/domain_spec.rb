@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Domain, type: :model do
+RSpec.describe Domain, type: :model do
   it { is_expected.to validate_presence_of :name }
   it do
     is_expected.to define_enum_for(:verification_status)
@@ -9,14 +9,12 @@ describe Domain, type: :model do
 
   it do
     is_expected.to define_enum_for(:dkim_verification_status)
-      .with([:dkim_pending, :dkim_success, :dkim_failed,
-             :dkim_temporary_failure, :dkim_not_started])
+      .with([:pending, :success, :failed, :temporary_failure, :not_started])
   end
 
   it do
     is_expected.to define_enum_for(:mail_from_domain_status)
-      .with([:mail_from_pending, :mail_from_success, :mail_from_failed,
-             :mail_from_temporary_failure])
+      .with([:pending, :success, :failed, :temporary_failure, :not_started])
   end
 
   it { is_expected.to have_db_index(:name).unique }
@@ -46,13 +44,16 @@ describe Domain, type: :model do
   end
 
   describe '#all_pending!' do
-    it 'makes all statuses pending' do
-      expect(subject).to receive(:verification_status=).with(:pending)
-      expect(subject).to receive(:dkim_verification_status=).with(:dkim_pending)
-      expect(subject).to receive(:mail_from_domain_status=)
-        .with(:mail_from_pending)
+    it 'changes statuses to pending' do
+      expect(subject.verification_status).to be_nil
+      expect(subject.dkim_verification_status).to be_nil
+      expect(subject.mail_from_domain_status).to be_nil
 
       subject.all_pending!
+
+      expect(subject).to be_pending
+      expect(subject).to be_dkim_pending
+      expect(subject).to be_mail_from_pending
     end
   end
 end

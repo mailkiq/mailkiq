@@ -1,20 +1,11 @@
-class Domain < ActiveRecord::Base
+class Domain < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   belongs_to :account
 
-  enum verification_status: [
-    :pending, :success, :failed, :temporary_failure, :not_started
-  ]
-
-  enum dkim_verification_status: [
-    :dkim_pending, :dkim_success, :dkim_failed, :dkim_temporary_failure,
-    :dkim_not_started
-  ]
-
-  enum mail_from_domain_status: [
-    :mail_from_pending, :mail_from_success, :mail_from_failed,
-    :mail_from_temporary_failure
-  ]
+  states = [:pending, :success, :failed, :temporary_failure, :not_started]
+  enum verification_status: states
+  enum dkim_verification_status: states, _prefix: :dkim
+  enum mail_from_domain_status: states, _prefix: :mail_from
 
   delegate :verify!, :update!, :delete!, to: :identity, prefix: true
   delegate :aws_options, :aws_topic_arn, to: :account, prefix: true
@@ -37,7 +28,7 @@ class Domain < ActiveRecord::Base
 
   def all_pending!
     self.verification_status = :pending
-    self.dkim_verification_status = :dkim_pending
-    self.mail_from_domain_status = :mail_from_pending
+    self.dkim_verification_status = :pending
+    self.mail_from_domain_status = :pending
   end
 end

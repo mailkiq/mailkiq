@@ -59,6 +59,6 @@ Rails.application.routes.draw do
   end
 
   post '/funnel_webhooks/test', to: proc { [200, {}, ['']] }
-  get '/track/click/:id', to: 'tracks#click'
-  get '/track/open/:id', to: 'tracks#open'
+  get '/track/click/:id', to: 'tracks#click', as: :click
+  get '/track/open/:id', to: 'tracks#open', as: :open
 end

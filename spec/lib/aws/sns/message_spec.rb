@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'aws/sns/message'
 
-describe Aws::SNS::Message do
+RSpec.describe Aws::SNS::Message do
   let(:bounce) { described_class.load fixture_file('bounce.json') }
   let(:complaint) { described_class.load fixture_file('complaint.json') }
   let(:delivery) { described_class.load fixture_file('delivery.json') }

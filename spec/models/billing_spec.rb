@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Billing, type: :model do
+RSpec.describe Billing, type: :model do
   let(:account) { Fabricate.build :valid_account }
 
   subject { described_class.new account }

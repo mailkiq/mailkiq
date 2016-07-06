@@ -1,4 +1,4 @@
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :slug, scope: :account_id
   before_validation :set_slug, if: :name?

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ScopeChain do
+RSpec.describe ScopeChain do
   let(:campaign) { Fabricate.build :campaign_with_account, id: 10 }
 
   subject { described_class.new campaign }

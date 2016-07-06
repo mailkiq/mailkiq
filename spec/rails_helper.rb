@@ -13,6 +13,10 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'aasm/rspec'
+require 'capybara/rails'
+require 'capybara/rspec'
+
+Capybara.app_host = 'https://mailkiq-test.com'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -23,7 +27,4 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.include AbstractController::Translation
   config.include ActiveSupport::Testing::TimeHelpers
-  config.before :each, type: :controller do
-    request.env['HTTPS'] = 'on'
-  end
 end

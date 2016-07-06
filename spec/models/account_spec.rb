@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe Account, type: :model do
+RSpec.describe Account, type: :model do
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to allow_value('Asia/Yakutsk').for :time_zone }
   it { is_expected.not_to allow_value('anything').for :time_zone }
-  it { is_expected.to allow_value('jonh@doe.com').for :email }
+  it { is_expected.to allow_value('john@doe.com').for :email }
   it { is_expected.not_to allow_value('asdf.com').for :email }
   it do
     is_expected.to validate_inclusion_of(:language).in_array Account::LANGUAGES
@@ -94,8 +94,7 @@ describe Account, type: :model do
       expect(options[:access_key_id]).to eq(subject.aws_access_key_id)
       expect(options[:secret_access_key]).to eq(subject.aws_secret_access_key)
       expect(options[:region]).to eq(subject.aws_region || 'us-east-1')
-      expect(options[:stub_responses]).to be_truthy
-      expect(options.size).to eq(4)
+      expect(options.size).to eq(3)
     end
   end
 

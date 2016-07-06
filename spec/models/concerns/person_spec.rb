@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Person, type: :model do
+RSpec.describe Person, type: :model do
   Human = Struct.new(:name) do
     include Person
 

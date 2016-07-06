@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Tag, type: :model do
+RSpec.describe Tag, type: :model do
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to belong_to :account }
   it { is_expected.to have_many(:taggings).dependent :restrict_with_error }

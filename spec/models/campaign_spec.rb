@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Campaign, type: :model do
+RSpec.describe Campaign, type: :model do
   before do
     allow_any_instance_of(DomainValidator).to receive(:validate_each)
   end
@@ -9,7 +9,7 @@ describe Campaign, type: :model do
   it { is_expected.to validate_presence_of :subject }
   it { is_expected.to validate_presence_of :from_name }
   it { is_expected.to validate_presence_of :from_email }
-  it { is_expected.to allow_value('jonh@doe.com').for :from_email }
+  it { is_expected.to allow_value('john@doe.com').for :from_email }
   it { is_expected.not_to allow_value('asdf.com').for :from_email }
 
   it { is_expected.to belong_to :account }
@@ -57,6 +57,7 @@ describe Campaign, type: :model do
     it 'updates sent at timestamp' do
       travel_to Time.now do
         expect(subject).to receive(:update_column).with(:sent_at, Time.now)
+        expect(subject).to receive(:aasm_update_column)
 
         subject.state = :queued
         subject.deliver!
@@ -69,6 +70,7 @@ describe Campaign, type: :model do
       travel_to Time.now do
         expect(subject).to receive(:finished_at=).with(Time.now)
         expect(subject).to receive(:save!).with(validate: false)
+        expect(subject).to receive(:aasm_update_column)
 
         subject.state = :sending
         subject.finish!
@@ -148,12 +150,12 @@ describe Campaign, type: :model do
 
   describe '#validate_from_field' do
     it 'validates format of from virtual attribute' do
-      subject.from_name = 'Jonh <x.'
-      subject.from_email = 'jonh@doe.com'
+      subject.from_name = 'John <x.'
+      subject.from_email = 'john@doe.com'
 
       expect(subject).to_not be_valid
       expect(subject.errors).to have_key(:from_name)
-      expect(subject.errors.get(:from_name))
+      expect(subject.errors[:from_name])
         .to include t('activerecord.errors.models.campaign.unstructured_from')
     end
   end

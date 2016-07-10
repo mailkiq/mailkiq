@@ -78,6 +78,9 @@ en:
       domain: "Domain"
       status: "Status"
       update: "Change"
+  imports:
+    new:
+      import: 'Import'
   domains:
     show:
       remove_domain: "Delete Domain"

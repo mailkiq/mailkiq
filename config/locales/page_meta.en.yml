@@ -21,7 +21,7 @@ en:
       deliveries:
         new: "Send campaign"
       imports:
-        new: "Import from CSV file"
+        new: "Add new subscribers"
       tags:
         index: "Tags"
         new: "New tag"

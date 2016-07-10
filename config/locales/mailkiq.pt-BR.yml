@@ -78,6 +78,9 @@ pt-BR:
       domain: "Domínio"
       status: "Status"
       update: "Atualizar"
+  imports:
+    new:
+      import: 'Importar'
   domains:
     show:
       remove_domain: "Excluir domínio"

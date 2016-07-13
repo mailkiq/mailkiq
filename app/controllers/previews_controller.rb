@@ -8,9 +8,11 @@ class PreviewsController < ApplicationController
 
   def create
     @subscribers = current_account.subscribers.where(email: email_param)
-    @subscribers.pluck(:id).each do |subscriber_id|
+    @subscribers = @subscribers.pluck(:id).each do |subscriber_id|
       CampaignJob.enqueue @campaign.id, subscriber_id
     end
+    flash[:notice] = t('flash.previews.create.notice') if @subscribers.any?
+    flash[:alert] = t('flash.previews.create.alert') if @subscribers.empty?
     redirect_to new_campaign_delivery_path
   end
 

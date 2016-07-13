@@ -24,3 +24,11 @@ en:
       duplicate:
         notice: "Campaign was successfully duplicated."
         alert: "Campaign could not be duplicated."
+    deliveries:
+      create:
+        notice: "Campaign started to send."
+        alert: "Account expired or not enough credits."
+    previews:
+      create:
+        notice: "Email sent successfully."
+        alert: "Subscriber not found."

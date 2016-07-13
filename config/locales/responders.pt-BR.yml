@@ -28,3 +28,7 @@ pt-BR:
       create:
         notice: "Envio de campanha processado com succeso."
         alert: "Sua conta expirou ou seus créditos são insuficientes."
+    previews:
+      create:
+        notice: "Email enviado com sucesso."
+        alert: "Email não encontrado na base de assinantes."

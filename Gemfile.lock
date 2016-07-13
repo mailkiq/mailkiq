@@ -104,7 +104,7 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     fabrication (2.15.2)
-    ffi (1.9.13)
+    ffi (1.9.14)
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -177,7 +177,7 @@ GEM
       rails
     pg (0.18.4)
     pkg-config (1.1.7)
-    pry (0.10.3)
+    pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)

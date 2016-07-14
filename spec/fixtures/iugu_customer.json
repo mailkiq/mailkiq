@@ -1,0 +1,13 @@
+{
+  "id": "E89854FBE69A475798D57AF0B8427CB8",
+  "email": "account0@example.com",
+  "name": "John Doe",
+  "notes": null,
+  "created_at": "2016-06-14T17:44:24-03:00",
+  "updated_at": "2016-06-14T17:44:24-03:00",
+  "cc_emails": null,
+  "cpf_cnpj": null,
+  "default_payment_method_id": null,
+  "proxy_payments_from_customer_id": null,
+  "custom_variables": []
+}

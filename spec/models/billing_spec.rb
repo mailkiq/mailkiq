@@ -10,10 +10,12 @@ RSpec.describe Billing, type: :model do
       account.assign_attributes(attributes)
     end
 
-    VCR.use_cassette(:billing) { subject.process }
+    FakeBilling.stub!
+
+    subject.process
   end
 
-  describe '#subscription', vcr: { cassette_name: :subscription } do
+  describe '#subscription' do
     it 'retrieves the subscription for the current customer' do
       subscription = subject.subscription
       expect(subscription.plan_identifier).to eq('essentials_plan')
@@ -33,10 +35,8 @@ RSpec.describe Billing, type: :model do
     end
   end
 
-  describe '#customer', vcr: { cassette_name: :customer } do
+  describe '#customer' do
     it 'retrieves the details of an existing customer' do
-      VCR.use_cassette(:billing) { subject.process }
-
       customer = subject.customer
 
       expect(customer.id).to eq(account.iugu_customer_id)
@@ -45,7 +45,7 @@ RSpec.describe Billing, type: :model do
     end
   end
 
-  describe '#payment_methods', vcr: { cassette_name: :payment_methods } do
+  describe '#payment_methods' do
     it 'lists the payment methods for the current customer' do
       payment_methods = subject.payment_methods
       credit_card = payment_methods.sample
@@ -56,7 +56,7 @@ RSpec.describe Billing, type: :model do
     end
   end
 
-  describe '#invoices', vcr: { cassette_name: :invoices } do
+  describe '#invoices' do
     it 'lists the invoices for current customer' do
       invoices = subject.invoices
       invoice = invoices.sample

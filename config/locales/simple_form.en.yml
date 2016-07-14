@@ -74,3 +74,12 @@ en:
           'us-east-1': 'US East (N. Virginia)'
           'us-west-2': 'US West (Oregon)'
           'eu-west-1': 'EU (Ireland)'
+      invoice:
+        status:
+          draft: 'Pending'
+          pending: 'Pending'
+          partially_paid: 'Parcially Paid'
+          paid: 'Paid'
+          canceled: 'Canceled'
+          refunded: 'Refunded'
+          expired: 'Expired'

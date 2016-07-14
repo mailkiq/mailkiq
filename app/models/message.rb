@@ -17,6 +17,7 @@ class Message < ApplicationRecord
   end
 
   def generate_token
-    self.token ||= SecureRandom.urlsafe_base64(32).gsub(/[\-_]/, '').first(32)
+    self.token ||= SecureRandom.uuid
+    self.token.remove! '-'
   end
 end

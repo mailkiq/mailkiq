@@ -41,8 +41,7 @@ RSpec.feature 'Domains' do
 
     sign_in account
 
-    expect do
-      visit domain_path(domain)
-    end.to raise_exception ActiveRecord::RecordNotFound
+    expect { visit domain_path(domain) }
+      .to raise_exception ActiveRecord::RecordNotFound
   end
 end

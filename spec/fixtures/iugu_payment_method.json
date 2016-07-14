@@ -1,0 +1,13 @@
+[
+  {
+    "id": "D5B57FE76C224B27B0B0B72092E826B5",
+    "description": "Cartão de Crédito",
+    "item_type": "credit_card",
+    "customer_id": "E89854FBE69A475798D57AF0B8427CB8",
+    "data": {
+      "brand": "VISA",
+      "holder_name": "RAINER B A MATOS",
+      "display_number": "XXXX-XXXX-XXXX-1111"
+    }
+  }
+]

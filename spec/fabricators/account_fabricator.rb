@@ -16,8 +16,8 @@ Fabricator(:official_account, from: :account) do
 end
 
 Fabricator(:paid_account, from: :account) do
-  iugu_customer_id SecureRandom.uuid
-  iugu_subscription_id SecureRandom.uuid
+  iugu_customer_id 'E89854FBE69A475798D57AF0B8427CB8'
+  iugu_subscription_id 'ABC1C0EA9F4341568AA23EC5B5043743'
 end
 
 Fabricator(:valid_account, from: :account) do

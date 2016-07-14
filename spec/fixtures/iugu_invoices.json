@@ -1,0 +1,167 @@
+{
+  "facets": {
+    "status": {
+      "_type": "terms",
+      "missing": 0,
+      "total": 1,
+      "other": 0,
+      "terms": [
+        {
+          "term": "paid",
+          "count": 1
+        }
+      ]
+    },
+    "late": {
+      "_type": "filter",
+      "count": 0
+    }
+  },
+  "totalItems": 1,
+  "items": [
+    {
+      "id": "6598BA37E4124FDFBDEDFEF829228BD9",
+      "due_date": "2016-06-14",
+      "currency": "BRL",
+      "discount_cents": 0,
+      "email": "account0@example.com",
+      "notification_url": null,
+      "return_url": null,
+      "status": "paid",
+      "tax_cents": null,
+      "updated_at": "2016-06-14T17:44:27-03:00",
+      "total_cents": 19900,
+      "total_paid_cents": 19900,
+      "paid_at": "2016-06-14T17:44:27-03:00",
+      "taxes_paid_cents": 925,
+      "paid_cents": 19900,
+      "cc_emails": null,
+      "payable_with": "credit_card",
+      "overpaid_cents": null,
+      "ignore_due_email": true,
+      "ignore_canceled_email": true,
+      "advance_fee_cents": null,
+      "secure_id": "6598ba37-e412-4fdf-bded-fef829228bd9-73e2",
+      "secure_url": "https://iugu.com/invoices/6598ba37-e412-4fdf-bded-fef829228bd9-73e2",
+      "customer_id": "E89854FBE69A475798D57AF0B8427CB8",
+      "customer_ref": "John Doe",
+      "customer_name": "John Doe",
+      "user_id": null,
+      "total": "R$ 199,00",
+      "taxes_paid": "R$ 9,25",
+      "total_paid": "R$ 199,00",
+      "total_overpaid": "R$ 0,00",
+      "fines_on_occurrence_day": "R$ 0,00",
+      "total_on_occurrence_day": "R$ 199,00",
+      "fines_on_occurrence_day_cents": 0,
+      "total_on_occurrence_day_cents": 19900,
+      "financial_return_date": null,
+      "advance_fee": null,
+      "paid": "R$ 199,00",
+      "interest": null,
+      "discount": null,
+      "created_at": "14/06, 17:44 h",
+      "refundable": null,
+      "installments": "1",
+      "transaction_number": 1111,
+      "payment_method": "iugu_credit_card_test",
+      "created_at_iso": "2016-06-14T17:44:27-03:00",
+      "updated_at_iso": "2016-06-14T17:44:27-03:00",
+      "financial_return_dates": null,
+      "bank_slip": null,
+      "items": [
+        {
+          "id": "A2D8880FC69E4CE4922782A7C80EBE55",
+          "description": "Ativação de Assinatura: Plano Essentials",
+          "price_cents": 19900,
+          "quantity": 1,
+          "created_at": "2016-06-14T17:44:27-03:00",
+          "updated_at": "2016-06-14T17:44:27-03:00",
+          "price": "R$ 199,00"
+        }
+      ],
+      "variables": [
+        {
+          "id": "F47BB081FDEF4A88879C99CAE56B55D2",
+          "variable": "customer_payment_method_id",
+          "value": "D5B57FE76C224B27B0B0B72092E826B5"
+        },
+        {
+          "id": "900CB25432BD436E93F15BD24EC825E4",
+          "variable": "dunning_day",
+          "value": "0"
+        },
+        {
+          "id": "6991FE7F9FBB40E8AA045DC5ABA30058",
+          "variable": "payment_data.arp",
+          "value": "00000"
+        },
+        {
+          "id": "C906AAE014ED4470AD613885DEB8176D",
+          "variable": "payment_data.installments",
+          "value": "1"
+        },
+        {
+          "id": "034BD0DF2D6A4A909C2A41B558C5D94F",
+          "variable": "payment_data.nsu",
+          "value": "00000"
+        },
+        {
+          "id": "CB54BDE8482F49C294F1BF452E1032D5",
+          "variable": "payment_data.transaction_id",
+          "value": "00000000000000000001"
+        },
+        {
+          "id": "64017768B2C64C6AB3A7B066F6EDFD8A",
+          "variable": "payment_data.transaction_number",
+          "value": "1111"
+        },
+        {
+          "id": "574FB3F39C474603878A7C7D875A5B90",
+          "variable": "payment_method",
+          "value": "iugu_credit_card_test"
+        },
+        {
+          "id": "E6AB550F31024A8E9CD433D59423C040",
+          "variable": "subscription_id",
+          "value": "abc1c0ea-9f43-4156-8aa2-3ec5b5043743"
+        },
+        {
+          "id": "827337D9DA2548DBB581410046A33A58",
+          "variable": "update_subscription.expires_at",
+          "value": "1468454400"
+        },
+        {
+          "id": "06D783CB0EBF4C82A54E1931336F8C4D",
+          "variable": "update_subscription.last_paid_amount_cents",
+          "value": "19900"
+        },
+        {
+          "id": "0B0F9765F3A249159BEC7FCA580C127E",
+          "variable": "update_subscription.started_at",
+          "value": "1465862400"
+        },
+        {
+          "id": "A72656B6FF994DE5BC516000DF897A5F",
+          "variable": "update_subscription.suspended",
+          "value": "0"
+        }
+      ],
+      "custom_variables": [],
+      "logs": [
+        {
+          "id": "56A3F9C0316F446095544287C816FCA5",
+          "description": "Invoice successfully paid!",
+          "notes": "Invoice paid using credit card by:  LR: 00",
+          "created_at": "14/06, 17:44 h"
+        },
+        {
+          "id": "80DF80343B6C47169248366EEF2F5194",
+          "description": "Receipt email sent!",
+          "notes": "Successfully sent receipt to: account0@example.com",
+          "created_at": "14/06, 17:44 h"
+        }
+      ]
+    }
+  ]
+}

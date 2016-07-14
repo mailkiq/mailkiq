@@ -10,7 +10,6 @@ pt-BR:
       destroy:
         notice: "%{resource_name} foi removido com sucesso."
         alert: "%{resource_name} não pode ser removido."
-    automations:
       resume:
         notice: "%{resource_name} reativada com sucesso."
         alert: "%{resource_name} não pode ser reativada."

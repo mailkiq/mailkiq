@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.0'
 
 gem 'rails', '5.0.0'
 gem 'active_model_serializers'
@@ -51,7 +51,6 @@ group :test do
   gem 'fabrication'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
-  gem 'vcr'
   gem 'webmock'
 end
 

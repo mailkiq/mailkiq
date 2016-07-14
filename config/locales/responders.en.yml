@@ -10,7 +10,6 @@ en:
       destroy:
         notice: "%{resource_name} was successfully destroyed."
         alert: "%{resource_name} could not be destroyed."
-    automations:
       resume:
         notice: "%{resource_name} was successfully resumed."
         alert: "%{resource_name} could not be resumed."

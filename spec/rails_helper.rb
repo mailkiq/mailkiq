@@ -15,6 +15,7 @@ require 'rspec/rails'
 require 'aasm/rspec'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'webmock/rspec'
 
 Capybara.app_host = 'https://mailkiq-test.com'
 

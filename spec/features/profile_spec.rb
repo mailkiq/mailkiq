@@ -1,10 +1,13 @@
 require 'rails_helper'
 
-RSpec.feature 'User updating account', vcr: { cassette_name: :plans } do
+RSpec.feature 'User updating account' do
   let(:account) { Fabricate.create :account }
 
   before do
     allow_any_instance_of(AccessKeysValidator).to receive(:validate)
+
+    stub_request(:get, 'https://api.iugu.com/v1/plans')
+      .to_return(body: fixture_file('iugu_plans.json'))
   end
 
   scenario 'changes name and email fields' do

@@ -33,7 +33,9 @@ RSpec.describe Message, type: :model do
 
   describe '#generate_token' do
     it 'generates token on after initialize callback' do
+      expect(SecureRandom).to receive(:uuid).and_call_original
       expect(subject.token.size).to eq(32)
+      expect(subject.token).not_to include('-')
     end
   end
 end

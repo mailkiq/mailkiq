@@ -58,7 +58,7 @@ RSpec.describe CampaignPresenter do
   describe '#long_sent_at' do
     it 'returns friendly time description' do
       expect(subject.long_sent_at)
-        .to eq('<small>Sent on May 29, 2016 14:13 to 600,000 subscribers.</small>')
+        .to eq('<small>Sent on May 29, 2016 12:13 to 600,000 subscribers.</small>')
     end
   end
 

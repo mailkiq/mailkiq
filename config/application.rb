@@ -11,8 +11,8 @@ Bundler.require(*Rails.groups)
 
 module Mailkiq
   class Application < Rails::Application
-    config.time_zone = 'Brasilia'
-    config.i18n.default_locale = :'pt-BR'
+    config.time_zone = 'Central Time (US & Canada)'
+    config.i18n.default_locale = :en
     config.i18n.available_locales = %i(en pt-BR)
     config.filter_parameters += [:password, :api_key]
     config.generators do |g|

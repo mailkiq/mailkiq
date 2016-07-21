@@ -10,7 +10,7 @@ class AccountActivation
   end
 
   def name
-    [:mailkiq, (@account.id if @account.tied_to_mailkiq?)].compact.join('-')
+    :mailkiq
   end
 
   def activate

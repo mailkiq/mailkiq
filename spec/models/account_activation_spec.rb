@@ -10,11 +10,7 @@ RSpec.describe AccountActivation, type: :model do
 
   describe '#name' do
     it 'generantes unique name for queue and topic' do
-      expect(account).to_not be_tied_to_mailkiq
-      expect(subject.name).to eq('mailkiq')
-
-      expect(account).to receive(:tied_to_mailkiq?).and_return(true)
-      expect(subject.name).to eq('mailkiq-1')
+      expect(subject.name).to eq(:mailkiq)
     end
   end
 

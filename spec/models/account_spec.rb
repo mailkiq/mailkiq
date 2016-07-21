@@ -31,14 +31,9 @@ RSpec.describe Account, type: :model do
   describe '.new_with_session' do
     it 'sets default values for new accounts' do
       account = described_class.new_with_session({}, {})
-      secrets = Rails.application.secrets
-
       expect(account.force_plan_validation).to be_truthy
-      expect(account.language).to eq('pt-BR')
-      expect(account.time_zone).to eq('Brasilia')
-      expect(account.aws_access_key_id).to eq(secrets[:aws_access_key_id])
-      expect(account.aws_secret_access_key)
-        .to eq(secrets[:aws_secret_access_key])
+      expect(account.language).to eq('en')
+      expect(account.time_zone).to eq('UTC')
     end
   end
 
@@ -72,18 +67,6 @@ RSpec.describe Account, type: :model do
       subject.force_password_validation = false
       expect(subject).to receive(:persisted?).and_return(true)
       expect(subject).not_to be_password_required
-    end
-  end
-
-  describe '#tied_to_mailkiq?' do
-    it 'verifies if account is tied to the official SES account' do
-      secrets = Rails.application.secrets
-      subject.aws_access_key_id = secrets[:aws_access_key_id]
-      subject.aws_secret_access_key = secrets[:aws_secret_access_key]
-      expect(subject).to be_tied_to_mailkiq
-
-      subject.aws_access_key_id = 'blah'
-      expect(subject).not_to be_tied_to_mailkiq
     end
   end
 

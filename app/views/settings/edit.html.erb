@@ -1,21 +1,19 @@
 <h2 class="page-title"><%= page_title %></h2>
 
 <div class="forms">
-  <% unless current_account.tied_to_mailkiq? %>
-    <div class="amazon">
-      <%= simple_form_for current_account, url: settings_path, html: { method: :put } do |f| %>
-        <h2 class="subtitle"><%= t '.authentication' %></h2>
+  <div class="amazon">
+    <%= simple_form_for current_account, url: settings_path, html: { method: :put } do |f| %>
+      <h2 class="subtitle"><%= t '.authentication' %></h2>
 
-        <%= f.input :aws_access_key_id %>
-        <%= f.input :aws_secret_access_key %>
-        <%= f.input :aws_region, include_blank: false, collection: Account::REGIONS.map(&:to_sym) %>
+      <%= f.input :aws_access_key_id %>
+      <%= f.input :aws_secret_access_key %>
+      <%= f.input :aws_region, include_blank: false, collection: Account::REGIONS.map(&:to_sym) %>
 
-        <div class="actions">
-          <%= f.button :submit, t('.update') %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+      <div class="actions">
+        <%= f.button :submit, t('.update') %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="domains">
     <h2 class="subtitle"><%= t '.domains' %></h2>

@@ -29,12 +29,9 @@ class Account < ApplicationRecord
 
   def self.new_with_session(params, session)
     super.tap do |account|
-      secrets = Rails.application.secrets
       account.force_plan_validation = true
-      account.language = 'pt-BR'
-      account.time_zone = 'Brasilia'
-      account.aws_access_key_id = secrets[:aws_access_key_id]
-      account.aws_secret_access_key = secrets[:aws_secret_access_key]
+      account.language = 'en'
+      account.time_zone = 'UTC'
     end
   end
 
@@ -48,12 +45,6 @@ class Account < ApplicationRecord
 
   def password_required?
     @force_password_validation || super
-  end
-
-  def tied_to_mailkiq?
-    secrets = Rails.application.secrets
-    aws_access_key_id == secrets[:aws_access_key_id] &&
-      aws_secret_access_key == secrets[:aws_secret_access_key]
   end
 
   def aws_options
@@ -77,9 +68,7 @@ class Account < ApplicationRecord
   end
 
   def validate_access_keys?
-    if tied_to_mailkiq?
-      false
-    elsif new_record?
+    if new_record?
       aws_access_key_id? && aws_secret_access_key?
     else
       aws_access_key_id_changed? || aws_secret_access_key_changed?

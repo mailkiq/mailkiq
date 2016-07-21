@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resource :registration, only: [:new, :create, :edit, :update],
                             path: 'accounts',
                             path_names: { new: 'sign_up' },
-                            controller: 'accounts/registrations',
+                            controller: 'registrations',
                             as: :account_registration do
                               get :suspend
                               get :activate

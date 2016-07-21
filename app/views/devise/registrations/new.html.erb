@@ -7,6 +7,8 @@
     <%= f.input :email, as: :email %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
+    <%= f.input :aws_access_key_id %>
+    <%= f.input :aws_secret_access_key %>
     <%= f.input :plan, as: :hidden, input_html: { value: resource.plan || params[:plan] } %>
     <%= f.input :credit_card_token, as: :hidden %>
 

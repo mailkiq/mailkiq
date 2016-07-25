@@ -15,7 +15,7 @@ gem 'page_meta'
 gem 'puma'
 gem 'rouge', require: false
 gem 'simple_form'
-gem 'sinatra', github: 'sinatra/sinatra'
+gem 'sinatra', github: 'sinatra/sinatra', ref: '4e0048d'
 gem 'strip_attributes'
 
 # Job scheduling
@@ -47,7 +47,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_rewinder', '0.6.0'
+  gem 'database_rewinder'
   gem 'fabrication'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
